@@ -1,4 +1,4 @@
-# 📘 Smart Energy Meter with Control (English)
+# 📘 Smart Energy Meter with Control
 
 ## ✅ Objective
 
