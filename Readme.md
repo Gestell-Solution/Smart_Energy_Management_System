@@ -76,44 +76,6 @@ Develop a smart energy monitoring and control system that measures household ele
 
 ---
 
-## 💻 Code Skeleton (C for ATmega32)
-
-```c
-#define VREF 5.0
-#define ADC_RES 1023.0
-#define V_MID 2.5
-#define SENSITIVITY 0.185   // for ACS712 5A
-
-float Irms = 0, Vrms = 230.0, Power = 0, Energy = 0;
-
-void initADC() {
-    ADMUX = (1<<REFS0); // AVcc ref
-    ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0); // enable, prescaler 128
-}
-
-uint16_t readADC(uint8_t ch) {
-    ADMUX = (ADMUX & 0xF0) | (ch & 0x0F);
-    ADCSRA |= (1<<ADSC);
-    while(ADCSRA & (1<<ADSC));
-    return ADC;
-}
-
-void calculateRMS() {
-    long sumSq = 0;
-    int N = 200;
-    for(int i=0; i<N; i++) {
-        float Vout = (readADC(0) * VREF / ADC_RES);
-        float Iinst = (Vout - V_MID) / SENSITIVITY;
-        sumSq += (Iinst * Iinst);
-    }
-    Irms = sqrt(sumSq / N);
-    Power = Vrms * Irms;
-    Energy += Power / 3600000.0; // Wh to kWh (per sec)
-}
-```
-
----
-
 ### 📱 Mobile App Mockup
 
 * **Bluetooth Tab**:
