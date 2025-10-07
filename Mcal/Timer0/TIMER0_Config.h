@@ -11,6 +11,15 @@
  */
 #ifndef _TIMER0_CONFIG_H_
 #define _TIMER0_CONFIG_H_
+#include "../../Common/Macros.h"
+#include "../Atmega32RegistersAddress.h"
+#include "TIMER0_Private.h"
+
+/**
+ * @def   CompareMatch_InterruptEnable
+ * @brief Enble Interrupts on Compare Match
+ */
+#define CompareMatch_InterruptEnable SetBit(TIMSK_Reg,OCIE0_Bit)
 
 
 #endif

@@ -9,4 +9,22 @@
  * @date       2025-10-07 
  * @copyright  Copyright (c) 2025 , Gestell Company 
  */
+#include "TIMER0_Interface.h"
 
+
+void mTIMER0_Init(void)
+{
+
+}
+void mTIMER0_Delay_ms(uint32_t delay_ms)
+{
+
+}                           //→ blocking delay.
+void mTIMER0_StartDelay(uint32_t delay_ms, void (*callback)(void))
+{
+
+} // → non-blocking delay with callback.
+void mTIMER0_TickHandler(void)
+{
+
+}                                     //→ called inside ISR to update active delays.
