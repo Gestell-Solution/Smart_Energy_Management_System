@@ -5,8 +5,8 @@
  * @version    0.2
  * @author     Developer: Mohamed Diaa (mohammeddiaato@gmail.com)
  * @author     Reviewer:  Basma        ()
- * @date       2025-10-07 
- * @copyright  Copyright (c) 2025 , Gestell Company 
+ * @date       2025-10-07
+ * @copyright  Copyright (c) 2025 , Gestell Company
  */
 #ifndef _TIMER0_PRIVATE_H_
 #define _TIMER0_PRIVATE_H_
@@ -30,22 +30,22 @@ typedef enum
     T0_ClkPrescalling_1,
     /**
      * @var   T0_ClkPrescalling_8
-     * @brief Defined for clk source of the Timer to have clk /8 speed 
+     * @brief Defined for clk source of the Timer to have clk /8 speed
      */
     T0_ClkPrescalling_8,
     /**
      * @var   T0_ClkPrescalling_64
-     * @brief Defined for clk source of the Timer to have clk /64 speed 
+     * @brief Defined for clk source of the Timer to have clk /64 speed
      */
     T0_ClkPrescalling_64,
     /**
      * @var   T0_ClkPrescalling_256
-     * @brief Defined for clk source of the Timer to have clk /256 speed 
+     * @brief Defined for clk source of the Timer to have clk /256 speed
      */
     T0_ClkPrescalling_256,
     /**
      * @var   T0_ClkPrescalling_1024
-     * @brief Defined for clk source of the Timer to have clk /1024 speed 
+     * @brief Defined for clk source of the Timer to have clk /1024 speed
      */
     T0_ClkPrescalling_1024,
     /**
@@ -61,7 +61,7 @@ typedef enum
      */
     T0_EXT_ClkOnRisingEdge,
 
-}Timer0_Prescallers;
+} Timer0_Prescallers;
 /**
  * @enum    Timer0_Bits
  * @brief   defining Bits Of TCCR0 to control the Timer0 Options.
@@ -91,7 +91,7 @@ typedef enum
     T0_WGM01_Bit,
     /**
      * @var   TT0_COM00_Bit
-     * @brief Defined To control the Compare match behaviour for the PWM modes and Non PWM modes 
+     * @brief Defined To control the Compare match behaviour for the PWM modes and Non PWM modes
      */
     T0_COM00_Bit,
     /**
@@ -135,18 +135,63 @@ typedef enum
      */
     T0_FastPWM = 3,
 } WaveGenModes;
+/**
+ * @enum    CompareOutputModes
+ * @brief   Defines the waveform generation modes for Timer0.
+ * @details This enumeration specifies the available waveform generation modes for Timer0 operation.
+ */
+typedef enum
+{
+    /**
+     * @var   T0_NormalPort
+     * @brief Normal port operation, OC0 disconnected.
+     */
+    T0_NormalPort = 0,
+    /**
+     * @var   T0_OC0_Toggle
+     * @brief Toggle OC0 on compare match
+     */
+    T0_OC0_Toggle = 1,
+    /**
+     * @var   T0_OC0_Clear
+     * @brief  Clear OC0 on compare match
+     */
+    T0_OC0_Clear = 2,
+    /**
+     * @var    T0_OC0_Set
+     * @brief  Set OC0 on compare match
+     */
+    T0_OC0_Set = 3,
+} CompareOutputModes_NonPWM;
 
 /**
  * @def   OCIE0_Bit
  * @brief This Bit is responisble for the Enabling the Interrupt on the Case of the Output Compare match Enabling
  */
-#define  OCIE0_Bit  1
+#define OCIE0_Bit 1
 /**
- * @def   OCFO0_Bit
+ * @def   OCF0_Bit
  * @brief This Bit is just about the Flag risen by hard ware on Compare Output Match
  */
-#define  OCFO0_Bit  1
+#define OCF0_Bit 1
+/**
+ * @def Second
+ * @brief Represents one second as a base time unit.
+ */
+#define T0_Second          1
 
+/**
+ * @def MilliSecond
+ * @brief Represents one millisecond as a fraction of a second.
+ *        Calculated as 0.0001 times the value of Second.
+ */
+#define T0_MilliSecond .0001*T0_Second
+/**
+ * @def NUMBER_OF_CTC
+ * @brief Defines the number of CTC (Clear Timer on Compare Match) channels or instances used in Timer0.
+ * @note Adjust this value based on the required number of CTC channels for your application.
+ */
+#define T0_NUMBER_OF_CTC      1
+   
 
 #endif
-
