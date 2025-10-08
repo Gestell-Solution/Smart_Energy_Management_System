@@ -11,7 +11,6 @@
 #ifndef _TIMER0_PRIVATE_H_
 #define _TIMER0_PRIVATE_H_
 #include "../Atmega32RegistersAddress.h"
-
 /**
  * @enum    Timer0_Prescallers
  * @brief   defining Prescaller options for Timer0 to control the speed of the clk
@@ -192,6 +191,38 @@ typedef enum
  * @note Adjust this value based on the required number of CTC channels for your application.
  */
 #define T0_NUMBER_OF_CTC      1
-   
+
+/**
+ * @struct Timer0_ScheduledTasks
+ * @brief Represents a scheduled task managed by Timer0.
+ * @details This structure holds the necessary information for a non-blocking delay task,
+ *          including its callback function, remaining time in ticks, and active status.
+ *          It is packed with 1-byte alignment to optimize memory usage in embedded systems.
+ * @note Used internally by the Timer0 scheduler to manage multiple concurrent tasks.
+ */
+#pragma pack(push, 1) // Set alignment to 1 byte
+typedef struct
+{
+    /**
+     * @brief Pointer to the callback function to be executed when the delay expires.
+     */
+    void (*Callback)(void);
+
+    // /**
+    //  * @brief Optional Task ID for identifying or managing specific tasks.
+    //  */
+    // uint8_t TaskID;
+
+    /**
+     * @brief Remaining time in ticks before the task is triggered.
+     */
+    uint32_t Remaining_Ticks;
+
+    /**
+     * @brief Indicates whether the task is currently active (1) or inactive (0).
+     */
+    uint8_t Active;
+} Timer0_ScheduledTasks;
+#pragma pack(pop)
 
 #endif
