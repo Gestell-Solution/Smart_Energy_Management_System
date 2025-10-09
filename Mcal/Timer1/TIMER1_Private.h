@@ -1,116 +1,160 @@
-
 /**
- * @file       TIMER0_Private.h
- * @brief      This file contains Private Data that is constant settings for Timer0 registers and other concepts.
- * @details    This header file defines several macros that allow for defining D based Timer0/Atmega32 data sheet specifications.
+ * @file       TIMER1_Private.h
+ * @brief      This file contains Private Data that is constant settings for Timer1 registers and other concepts.
+ * @details    This header file defines several macros that allow for defining Driver based on Timer1/Atmega32 data sheet specifications.
  * @version    0.2
  * @author     Developer: Mohamed Diaa (mohammeddiaato@gmail.com)
  * @author     Reviewer:  Basma        ()
  * @date       2025-10-07
  * @copyright  Copyright (c) 2025 , Gestell Company
  */
-#ifndef _TIMER0_PRIVATE_H_
-#define _TIMER0_PRIVATE_H_
+
+
+#ifndef _TIMER1_PRIVATE_H_
+#define _TIMER1_PRIVATE_H_
 #include "../Atmega32RegistersAddress.h"
+
+
 /**
- * @enum    Timer0_Prescallers
- * @brief   defining Prescaller options for Timer0 to control the speed of the clk
+ * @enum    Timer1_Prescallers
+ * @brief   Defining Prescaler options for Timer1 to control the speed of the clock.
  */
 typedef enum
 {
     /**
-     * @var   T0_NoClkSource
-     * @brief Defined for no clk source of the Timer so Timer/counter0 is stopped
+     * @var   T1_NoClkSource
+     * @brief Defined for no clk source of the Timer so Timer/counter1 is stopped
      */
-    T0_NoClkSource,
+    T1_NoClkSource,
     /**
-     * @var   T0_ClkPrescalling_1
+     * @var   T1_ClkPrescalling_1
      * @brief Defined for clk source of the Timer to have same clk (no prescalling)
      */
-    T0_ClkPrescalling_1,
+    T1_ClkPrescalling_1,
     /**
-     * @var   T0_ClkPrescalling_8
+     * @var   T1_ClkPrescalling_8
      * @brief Defined for clk source of the Timer to have clk /8 speed
      */
-    T0_ClkPrescalling_8,
+    T1_ClkPrescalling_8,
     /**
-     * @var   T0_ClkPrescalling_64
+     * @var   T1_ClkPrescalling_64
      * @brief Defined for clk source of the Timer to have clk /64 speed
      */
-    T0_ClkPrescalling_64,
+    T1_ClkPrescalling_64,
     /**
-     * @var   T0_ClkPrescalling_256
+     * @var   T1_ClkPrescalling_256
      * @brief Defined for clk source of the Timer to have clk /256 speed
      */
-    T0_ClkPrescalling_256,
+    T1_ClkPrescalling_256,
     /**
-     * @var   T0_ClkPrescalling_1024
+     * @var   T1_ClkPrescalling_1024
      * @brief Defined for clk source of the Timer to have clk /1024 speed
      */
-    T0_ClkPrescalling_1024,
+    T1_ClkPrescalling_1024,
     /**
-     * @var   T0_EXT_ClkOnFallingEdge,
+     * @var   T1_EXT_ClkOnFallingEdge,
      * @brief Defined for clk source of the Timer to External Clock .
      * @note  Clock is counted on Falling edge
      */
-    T0_EXT_ClkOnFallingEdge,
+    T1_EXT_ClkOnFallingEdge,
     /**
-     * @var   T0_EXT_ClkOnRisingEdge,
+     * @var   T1_EXT_ClkOnRisingEdge,
      * @brief Defined for clk source of the Timer to External Clock .
      * @note  Clock is counted on rising edge
      */
-    T0_EXT_ClkOnRisingEdge,
+    T1_EXT_ClkOnRisingEdge,
 
-} Timer0_Prescallers;
+} Timer1_Prescallers;
 /**
- * @enum    Timer0_Bits
- * @brief   defining Bits Of TCCR0 to control the Timer0 Options.
+ * @enum    Timer1_Bits
+ * @brief   defining Bits Of TCCR1A to control the Timer1 Options.
  */
 typedef enum
 {
 
-    /**
-     * @var   T0_CS00_Bit
-     * @brief Defined for Chossing Prescaller Options
+       /**
+     * @var   T1_WGM10_Bit
+     * @brief Defined for Chossing Wave Generation Options
      */
-    T0_CS00_Bit,
+    T1_WGM10_Bit,
     /**
-     * @var   T0_CS01_Bit
-     * @brief Defined for Chossing Prescaller Options
+     * @var   T1_WGM11_Bit
+     * @brief Defined for Chossing Wave Generation Options
      */
-    T0_CS01_Bit,
+    T1_WGM11_Bit,
     /**
-     * @var   T0_CS02_Bit
-     * @brief Defined for Chossing Prescaller Options
+     * @var   T1_FOC1B_Bit
+     * @brief Defined to Force Output Compare at any state for the OC1B channel -> non pwm
      */
-    T0_CS02_Bit,
+    T1_FOC1B_Bit,
     /**
-     * @var   TT0_WGM01_Bit
-     * @brief Defined To control Which Mode the Timer Operate at.
+     * @var   T1_FOC1A_Bit
+     * @brief Defined to Force Output Compare at any state for the OC1A channel -> non pwm
      */
-    T0_WGM01_Bit,
+    T1_FOC1A_Bit,
     /**
-     * @var   TT0_COM00_Bit
-     * @brief Defined To control the Compare match behaviour for the PWM modes and Non PWM modes
+     * @var   T1_COM1B0_Bit
+     * @brief Defined To control the Compare match behaviour for the PWM modes and Non PWM modes for the OC1B channel
      */
-    T0_COM00_Bit,
+    T1_COM1B0_Bit,
     /**
-     * @var   TT0_COM01_Bit
-     * @brief Defined To control the Compare match behaviour for the PWM modes and Non PWM modes
+     * @var   T1_COM1B1_Bit
+     * @brief Defined To control the Compare match behaviour for the PWM modes and Non PWM modes for the OC1B channel
      */
-    T0_COM01_Bit,
+    T1_COM1B1_Bit,
     /**
-     * @var   TT0_WGM00_Bit
-     * @brief Defined To control Which Mode the Timer Operate at.
+     * @var   T1_COM1A0_Bit
+     * @brief Defined To control the Compare match behaviour for the PWM modes and Non PWM modes for the OC1A channel
      */
-    T0_WGM00_Bit,
+    T1_COM1A0_Bit,
     /**
-     * @var   T0_FOC0_Bit
-     * @brief It forces an immediate compare match between the TCNT0 and OCR0 regardless of their actual values. and Do the Options of the COM bits
+     * @var   T1_COM1A1_Bit
+     * @brief Defined To control the Compare match behaviour for the PWM modes and Non PWM modes for the OC1A channel
      */
-    T0_FOC0_Bit,
+    T1_COM1A1_Bit,
 
-} TCCR0_Bits;
+    
+} TCCR1A_Bits;
+typedef enum
+{
+    
+    /**
+     * @var   T1_CS10_Bit
+     * @brief Defined for Chossing Prescaller Options
+     */
+    T1_CS10_Bit=0,
+    /**
+     * @var   T1_CS11_Bit
+     * @brief Defined for Chossing Prescaller Options
+     */
+    T1_CS11_Bit=1,
+    /**
+     * @var   T1_CS12_Bit
+     * @brief Defined for Chossing Prescaller Options
+     */
+    T1_CS12_Bit=2,
+    /**
+     * @var   T1_WGM12_Bit
+     * @brief Defined for Chossing Wave Generation Options
+     */
+    T1_WGM12_Bit=3,
+    /**
+     * @var   T1_WGM13_Bit
+     * @brief Defined for Chossing Wave Generation Options
+     */
+    T1_WGM13_Bit=4,
+    /**
+     * @var   T1_ICES1_Bit
+     * @brief This bit chooses where to capture the input weather at falling edge (write 0)or at the rising edge(write 1)
+     */
+    T1_ICES1_Bit=6,
+    /**
+     * @var   T1_ICNC1_Bit
+     * @brief Setting this bit (to one) activates the Input Capture Noise Canceler.
+     */
+    T1_ICNC1_Bit=7,
+    
+} TCCR1B_Bits;
 
 /**
  * @enum    WaveGenModes
@@ -120,20 +164,21 @@ typedef enum
 typedef enum
 {
     /**
-     * @var   T0_Normal
+     * @var   T1_Normal
      * @brief Normal mode (Timer counts up to 0xFF, then overflows).
      */
-    T0_Normal = 0,
+    T1_Normal = 0,
     /**
-     * @var   T0_CTC
-     * @brief Clear Timer on Compare Match (CTC) mode.
+     * @var    T1_CTC_OCR1A_is_TOP
+     * @brief Clear Timer on Compare Match (CTC) mode. Having the Top Value at OCR1A.
      */
-    T0_CTC = 2,
+    T1_CTC_OCR1A_is_TOP = 4,
     /**
-     * @var   T0_FastPWM
-     * @brief Fast PWM mode.
+     * @var   T1_CTC_ICR1_is_TOP
+     * @brief Clear Timer on Compare Match (CTC) mode. Having the Top Value at ICR1.
      */
-    T0_FastPWM = 3,
+    T1_CTC_ICR1_is_TOP = 12,
+
 } WaveGenModes;
 /**
  * @enum    CompareOutputModes
@@ -143,87 +188,47 @@ typedef enum
 typedef enum
 {
     /**
-     * @var   T0_NormalPort
+     * @var   T1_NormalPort
      * @brief Normal port operation, OC0 disconnected.
      */
-    T0_NormalPort = 0,
+    T1_NormalPort = 0,
     /**
-     * @var   T0_OC0_Toggle
+     * @var   T1_OC0_Toggle
      * @brief Toggle OC0 on compare match
      */
-    T0_OC0_Toggle = 1,
+    T1_OC0_Toggle = 1,
     /**
-     * @var   T0_OC0_Clear
+     * @var   T1_OC0_Clear
      * @brief  Clear OC0 on compare match
      */
-    T0_OC0_Clear = 2,
+    T1_OC0_Clear = 2,
     /**
-     * @var    T0_OC0_Set
+     * @var    T1_OC0_Set
      * @brief  Set OC0 on compare match
      */
-    T0_OC0_Set = 3,
+    T1_OC0_Set = 3,
 } CompareOutputModes_NonPWM;
 
-/**
- * @def   OCIE0_Bit
- * @brief This Bit is responisble for the Enabling the Interrupt on the Case of the Output Compare match Enabling
- */
-#define OCIE0_Bit 1
-/**
- * @def   OCF0_Bit
- * @brief This Bit is just about the Flag risen by hard ware on Compare Output Match
- */
-#define OCF0_Bit 1
+
 /**
  * @def Second
  * @brief Represents one second as a base time unit.
  */
-#define T0_Second          1
+#define T1_Second          1
 
 /**
  * @def MilliSecond
  * @brief Represents one millisecond as a fraction of a second.
- *        Calculated as 0.0001 times the value of Second.
+ *        Calculated as 0.001 times the value of Second.
  */
-#define T0_MilliSecond .0001*T0_Second
+#define T1_MilliSecond .001*T1_Second
 /**
  * @def NUMBER_OF_CTC
  * @brief Defines the number of CTC (Clear Timer on Compare Match) channels or instances used in Timer0.
  * @note Adjust this value based on the required number of CTC channels for your application.
  */
-#define T0_NUMBER_OF_CTC      1
+#define T1_NUMBER_OF_CTC      1
 
-/**
- * @struct Timer0_ScheduledTasks
- * @brief Represents a scheduled task managed by Timer0.
- * @details This structure holds the necessary information for a non-blocking delay task,
- *          including its callback function, remaining time in ticks, and active status.
- *          It is packed with 1-byte alignment to optimize memory usage in embedded systems.
- * @note Used internally by the Timer0 scheduler to manage multiple concurrent tasks.
- */
-#pragma pack(push, 1) // Set alignment to 1 byte
-typedef struct
-{
-    /**
-     * @brief Pointer to the callback function to be executed when the delay expires.
-     */
-    void (*Callback)(void);
 
-    // /**
-    //  * @brief Optional Task ID for identifying or managing specific tasks.
-    //  */
-    // uint8_t TaskID;
-
-    /**
-     * @brief Remaining time in ticks before the task is triggered.
-     */
-    uint32_t Remaining_Ticks;
-
-    /**
-     * @brief Indicates whether the task is currently active (1) or inactive (0).
-     */
-    uint8_t Active;
-} Timer0_ScheduledTasks;
-#pragma pack(pop)
 
 #endif
