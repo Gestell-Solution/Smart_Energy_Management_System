@@ -9,11 +9,9 @@
  * @copyright  Copyright (c) 2025 , Gestell Company
  */
 
-
 #ifndef _TIMER1_PRIVATE_H_
 #define _TIMER1_PRIVATE_H_
 #include "../Atmega32RegistersAddress.h"
-
 
 /**
  * @enum    Timer1_Prescallers
@@ -72,7 +70,7 @@ typedef enum
 typedef enum
 {
 
-       /**
+    /**
      * @var   T1_WGM10_Bit
      * @brief Defined for Chossing Wave Generation Options
      */
@@ -113,47 +111,46 @@ typedef enum
      */
     T1_COM1A1_Bit,
 
-    
 } TCCR1A_Bits;
 typedef enum
 {
-    
+
     /**
      * @var   T1_CS10_Bit
      * @brief Defined for Chossing Prescaller Options
      */
-    T1_CS10_Bit=0,
+    T1_CS10_Bit = 0,
     /**
      * @var   T1_CS11_Bit
      * @brief Defined for Chossing Prescaller Options
      */
-    T1_CS11_Bit=1,
+    T1_CS11_Bit = 1,
     /**
      * @var   T1_CS12_Bit
      * @brief Defined for Chossing Prescaller Options
      */
-    T1_CS12_Bit=2,
+    T1_CS12_Bit = 2,
     /**
      * @var   T1_WGM12_Bit
      * @brief Defined for Chossing Wave Generation Options
      */
-    T1_WGM12_Bit=3,
+    T1_WGM12_Bit = 3,
     /**
      * @var   T1_WGM13_Bit
      * @brief Defined for Chossing Wave Generation Options
      */
-    T1_WGM13_Bit=4,
+    T1_WGM13_Bit = 4,
     /**
      * @var   T1_ICES1_Bit
      * @brief This bit chooses where to capture the input weather at falling edge (write 0)or at the rising edge(write 1)
      */
-    T1_ICES1_Bit=6,
+    T1_ICES1_Bit = 6,
     /**
      * @var   T1_ICNC1_Bit
      * @brief Setting this bit (to one) activates the Input Capture Noise Canceler.
      */
-    T1_ICNC1_Bit=7,
-    
+    T1_ICNC1_Bit = 7,
+
 } TCCR1B_Bits;
 
 /**
@@ -209,26 +206,41 @@ typedef enum
     T1_OC0_Set = 3,
 } CompareOutputModes_NonPWM;
 
-
 /**
  * @def Second
  * @brief Represents one second as a base time unit.
  */
-#define T1_Second          1
+#define T1_Second 1
 
 /**
  * @def MilliSecond
  * @brief Represents one millisecond as a fraction of a second.
  *        Calculated as 0.001 times the value of Second.
  */
-#define T1_MilliSecond .001*T1_Second
+#define T1_MilliSecond .001 * T1_Second
+
 /**
- * @def NUMBER_OF_CTC
- * @brief Defines the number of CTC (Clear Timer on Compare Match) channels or instances used in Timer0.
- * @note Adjust this value based on the required number of CTC channels for your application.
+ * @def OCIE1A_Bit
+ * @brief Output Compare A Match Interrupt Enable bit position in TIMSK register.
  */
-#define T1_NUMBER_OF_CTC      1
+#define OCIE1A_Bit 4
 
+/**
+ * @def OCIE1B_Bit
+ * @brief Output Compare B Match Interrupt Enable bit position in TIMSK register.
+ */
+#define OCIE1B_Bit 3
 
+/**
+ * @def OCF1A_Bit
+ * @brief Output Compare A Match Flag bit position in TIFR register.
+ */
+#define OCF1A_Bit 4
+
+/**
+ * @def OCF1B_Bit
+ * @brief Output Compare B Match Flag bit position in TIFR register.
+ */
+#define OCF1B_Bit 3
 
 #endif
