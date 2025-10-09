@@ -1,14 +1,9 @@
 /**
  * @file       EXTI_Interface.h
- * @brief      This file contains External interrupt Interface .
- * @details    File Contains Implementations of APIs:
- *                 - mEXTI_Init(uint8_t source, uint8_t senseControl);
- *                 - mEXTI_Enable(uint8_t source);
- *                 - mEXTI_Disable(uint8_t source);
- *                 - mEXTI_setCallback(uint8_t source, void (*PF)(void));
- *                  
+ * @brief      This file contains The Interface for External Interrupt Module.    
  * @version    2.0
- * @author     Moahmed Abdelgaber (mohamedabdelgaber247@gmail.com)
+ * @author     Developer : Mohamed Abdelgaber (mohamedabdelgaber247@gmail.com)
+ * @author     Reviewer : Eng - Ahmed Ashraf   (ahmedashraf2022222@gmail.com  )
  * @date       2025-10-09
  * @copyright  Copyright (c) 2025 , Gestell Company 
  * 
@@ -24,26 +19,62 @@
  #ifndef   _EXTI_INTERFACE_H_
  #define   _EXTI_INTERFACE_H_
 
+
+
 /**
-*@defgroup          Implement APIs
-*@brief             Function -->void mEXTI_Init(uint8_t source, uint8_t senseControl)
-*                   ---needs two parameters-->(Source if it EXT0,EXT1,EXT2 , Sense Control if it LOW,Falling,Rising,AnyCHANGE)
-*                   --- it determines The region will interrupt Works on
-*                   Function -->void mEXTI_setCallback(uint8_t source, void (*PF)(void))
-*                   ---needs two parameters-->(Source if it EXT0,EXT1,EXT2 , Function That will be Done in ISR)
-*                   --- Determine The ISR (Interrupt Action)
-*                   Function -->void mEXTI_Enable(uint8_t source)
-*                    ---needs One parameters-->(Source if it EXT0,EXT1,EXT2)
-*                    --- Enable The GICR -->Prephiral(EXT) Interrupt Enable 
-*                   Function -->void mEXTI_Disable(uint8_t source)
-*                    ---needs One parameters-->(Source if it EXT0,EXT1,EXT2)
-*                    --- Disable The GICR -->Prephiral(EXT) Interrupt Disable
-*/
+ * @fn          void mEXTI_Init(uint8_t source, uint8_t senseControl)
+ * @brief       Initialize the external interrupt configuration.
+ * @details     This function configures the selected external interrupt (EXTI0, EXTI1, or EXTI2)
+ *              with the desired sense control (LOW LEVEL, ANY CHANGE, FALLING EDGE, RISING EDGE).
+ *              It sets the corresponding bits in MCUCR or MCUCSR registers.
+ *
+ * @param[in]   source        Specifies which EXTI line to configure (EXTI0, EXTI1, EXTI2).
+ * @param[in]   senseControl  Specifies the interrupt triggering condition.
+ *                            Possible values: EXT_LOW_LEVEL, EXT_AnyCHANGE, EXT_FALLING_EDGE, EXT_RISING_EDGE.
+ */
 
 void mEXTI_Init(uint8_t source, uint8_t senseControl);
+
+/**
+ * @fn          void mEXTI_setCallback(uint8_t source, void (*PF)(void))
+ * @brief       Set the callback function for a specific external interrupt source.
+ * @details     This function links a user-defined function (callback) to a specific EXTI line.
+ *              When the interrupt occurs, the linked callback function will be executed automatically.
+ *
+ * @param       source  Specifies which EXTI line to attach the callback (EXTI0, EXTI1, EXTI2).
+ * @param       PF  Pointer to the function to be executed when the interrupt occurs.
+ *
+ * @warning     The callback pointer must not be NULL.
+ */
+
 void mEXTI_setCallback(uint8_t source, void (*PF)(void));
+
+/**
+ * @fn          void mEXTI_Enable(uint8_t source)
+ * @brief       Enable the selected external interrupt.
+ * @details     This function sets the corresponding enable bit (INT0, INT1, or INT2) 
+ *              in the GICR register to allow the interrupt request.
+ *
+ * @param   source  Specifies which EXTI line to enable (EXTI0, EXTI1, EXTI2).
+ *
+ * @note        The interrupt must be initialized first using mEXTI_Init().
+ */
+
 void mEXTI_Enable(uint8_t source);
+
+/**
+ * @fn          void mEXTI_Disable(uint8_t source)
+ * @brief       Disable the selected external interrupt.
+ * @details     This function clears the corresponding enable bit (INT0, INT1, or INT2)
+ *              in the GICR register to prevent the interrupt request from occurring.
+ *
+ * @param       source  Specifies which EXTI line to disable (EXTI0, EXTI1, EXTI2).
+ *
+ * @note        Use this function when you need to temporarily stop interrupt handling.
+ */
+
 void mEXTI_Disable(uint8_t source);
+
 
 
 

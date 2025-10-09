@@ -1,13 +1,9 @@
 /**
  * @file       EXTI_Private.h
- * @brief      This file contains External interrupt Interface .
- * @details    File Contains 
- * 
- *                 - Each MCUCR , MCUCSR , GICR , GIFR Registers and Each Bitname of Each Register
- *                 - Implementations of ISR Prototyping
- *                 - SenseControl Definition       
+ * @brief      This file contains The Private for External Interrupt Module.    
  * @version    2.0
- * @author     Moahmed Abdelgaber (mohamedabdelgaber247@gmail.com)
+ * @author     Developer : Mohamed Abdelgaber (mohamedabdelgaber247@gmail.com)
+ * @author     Reviewer : Eng - Ahmed Ashraf   (ahmedashraf2022222@gmail.com  )
  * @date       2025-10-09
  * @copyright  Copyright (c) 2025 , Gestell Company 
  * 

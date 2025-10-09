@@ -1,9 +1,9 @@
 /**
  * @file       EXTI_Config.h
  * @brief      This file contains External interrupt configuration .
- * @details    File Contains Nothing untill now
  * @version    2.0
- * @author     Moahmed Abdelgaber (mohamedabdelgaber247@gmail.com)
+ * @author     Developer : Mohamed Abdelgaber (mohamedabdelgaber247@gmail.com)
+ * @author     Reviewer : Eng - Ahmed Ashraf   (ahmedashraf2022222@gmail.com  )
  * @date       2025-10-09
  * @copyright  Copyright (c) 2025 , Gestell Company 
  * 
