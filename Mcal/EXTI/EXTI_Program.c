@@ -20,8 +20,7 @@
 #include "EXTI_Config.h"
 
 
-#ifndef _EXTI_PROGRAM_C
-#define _EXTI_PROGRAM_C
+
 
 static void(*EXTI0_CallbackFunction_and_ISR_Handler)(void)=Null;
 static void(*EXTI1_CallbackFunction_and_ISR_Handler)(void)=Null;
@@ -249,5 +248,5 @@ void __vector_3(void)
     }
 }
 
-#endif/*_EXTI_PROGRAM_C*/
+
 #endif/*EXTI_Module == Enable */
