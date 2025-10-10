@@ -243,6 +243,10 @@ typedef enum
  */
 #define OCF1B_Bit 3
 
+/**
+ * @def     T1_Stop
+ * @brief   Defining the 8bits to stop the Timer
+ */
 #define T1_Stop 0xF8 //0xF8==0b(11111000) //stop the precaller bits so the timer stops
 
 
