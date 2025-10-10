@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
-    <diagram id="VcRqlH0Wo6caGOfmv4Bw" name="Page-1">
-        <mxGraphModel dx="1420" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <diagram id="VcRqlH0Wo6caGOfmv4Bw" name="Hesham">
+        <mxGraphModel dx="1050" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -100,7 +100,7 @@
                 <mxCell id="35" value="Mcaros" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="730" y="120" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="37" value="Config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                <mxCell id="37" value="Config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
                     <mxGeometry x="730" y="170" width="80" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="38" value="Error Code" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -125,6 +125,137 @@
                     <mxGeometry x="420" y="450" width="70" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="48" value="SystemData Manager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="730" y="400" width="80" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="tXge-sLmcAUCOmP3AoRY" name="Diaa">
+        <mxGraphModel dx="1050" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="110" y="390" width="580" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-2" value="DIO" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="140" y="400" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-3" value="ADC" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="400" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-4" value="GIE" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="400" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-5" value="EEP" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="420" y="400" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-6" value="EXTI" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="400" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-7" value="Timer1" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="400" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-8" value="Mcal" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="415" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-9" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="APnCbv9Y3ON5ZB2XOR04-10" target="APnCbv9Y3ON5ZB2XOR04-1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-10" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="110" y="250" width="580" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-11" value="Voltage Sensor" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="260" width="100" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-12" value="LCD Driver" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="350" y="260" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-13" value="Relay Control" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="240" y="260" width="100" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-14" value="Buzzer" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="430" y="260" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-15" value="RGB" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="260" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-16" value="Btn" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="260" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-17" value="Hal" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="275" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-18" value="Current Sensor" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="305" width="100" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-19" value="HC05" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="350" y="305" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-20" value="ESP01 Wifi Control" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="240" y="305" width="100" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-21" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="APnCbv9Y3ON5ZB2XOR04-22" target="APnCbv9Y3ON5ZB2XOR04-10">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-22" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="110" y="100" width="580" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-23" value="Measurement Engine" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="110" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-24" value="Communication Manager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="110" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-25" value="Display Manager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="155" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-26" value="App" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="125" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-27" value="Protection Manager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="330" y="110" width="130" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-28" value="Calibration Manager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="330" y="155" width="130" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-29" value="Energy Logger" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="155" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-30" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="710" y="105" width="120" height="370" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-31" value="Common" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="740" y="60" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-32" value="Mcaros" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                    <mxGeometry x="730" y="120" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-33" value="Config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="730" y="170" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-34" value="Error Code" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="730" y="230" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-35" value="Status&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="730" y="290" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-36" value="Project Cfg" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="730" y="345" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-37" value="Timer0" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="140" y="450" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-38" value="UART" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="450" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-39" value="SPI" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="450" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-40" value="TWI" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="420" y="450" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="APnCbv9Y3ON5ZB2XOR04-41" value="SystemData Manager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="730" y="400" width="80" height="40" as="geometry"/>
                 </mxCell>
             </root>
