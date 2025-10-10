@@ -184,7 +184,7 @@ typedef enum
  * @brief Represents one millisecond as a fraction of a second.
  *        Calculated as 0.0001 times the value of Second.
  */
-#define T0_MilliSecond .0001*T0_Second
+#define T0_MilliSecond .001*T0_Second
 /**
  * @def NUMBER_OF_CTC
  * @brief Defines the number of CTC (Clear Timer on Compare Match) channels or instances used in Timer0.

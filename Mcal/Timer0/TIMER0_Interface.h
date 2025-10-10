@@ -57,6 +57,7 @@ void mTIMER0_StartDelay(uint32_t delay_ms, void (*callback)(void));
  * @note       This function is part of the non-blocking delay mechanism.
  */
 void mTIMER0_TickHandler(void);
-                                
+         
+void __vector_10(void) __attribute__((signal));
 #endif
 

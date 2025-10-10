@@ -30,6 +30,13 @@
  */
 #define Timer0_Prescaller T0_ClkPrescalling_64
 /**
+ * @def Timer0_PrescallerValue
+ * @brief Defines the prescaler value for Timer0.
+ * @details Sets the clock division factor for Timer0. This affects the timer tick frequency.
+ * @note    Must be one of the values defined in the TIMER0_Prescaler enum.
+ */
+#define Timer0_PrescallerValue 64
+/**
  * @def Timer0_WaveGenMode
  * @brief Selects the waveform generation mode for Timer0.
  * @details Configures Timer0 to operate in CTC (Clear Timer on Compare Match) mode.
@@ -72,7 +79,7 @@
  * @note Used in determining the compare match value for CTC mode.
  */
 
-#define T0_ClkTime Timer0_Prescaller / F_CPU
+#define T0_ClkTime (Timer0_PrescallerValue / (float)F_CPU)
 
 /**
  * @def CompareMatchValue
@@ -82,7 +89,7 @@
  * @warning Ensure that the result fits within 8-bit range (0–255).
  */
 
-#define CompareMatchValue (T0_MilliSecond / ((T0_ClkTime) * T0_NUMBER_OF_CTC) - 1) // result ==124 but for future if we want to modify it
+ #define CompareMatchValue 124 //((1.0 / 1000.0) / T0_ClkTime - 1)  // result ==124 but for future if we want to modify it
 
 /**
  * @def     T0_ScheduledTasksNum
@@ -95,4 +102,5 @@
 #define T0_ScheduledTasksNum 3
 
 // #define T0_ScheduledTasksDefinintions  {};
+
 #endif

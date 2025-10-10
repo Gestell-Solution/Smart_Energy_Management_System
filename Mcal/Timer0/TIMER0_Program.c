@@ -51,7 +51,8 @@ for (int i = 0; i < T0_ScheduledTasksNum; i++)
                 Timer0_TasksList[i].Callback=callback;
                 Timer0_TasksList[i].Remaining_Ticks=delay_ms;
                 // Timer0_TasksList[i].TaskID=i;
-                Timer0_TasksList[i].Active=1;           
+                Timer0_TasksList[i].Active=1;  
+                break; // Stop after assigning one task         
         }
         
 }
@@ -82,5 +83,6 @@ void mTIMER0_TickHandler(void)
 
 void __vector_10(void) __attribute__((signal));
 void __vector_10(void) {
-        mTIMER0_TickHandler();
+        // mTIMER0_TickHandler();
+        PORTB_Reg ^= (1 << 0);
 }
