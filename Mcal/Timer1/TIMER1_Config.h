@@ -20,18 +20,18 @@
 #include "../../Common/ProjectCfg.h"
 
 /**
- * @def CompareMatch_InterruptEnableA
+ * @def CompareMatch_InterruptEnable
  * @brief Enables Timer1 Compare Match A interrupt.
  * @details Sets the OCIE1A bit in the TIMSK register.
  */
-#define CompareMatch_InterruptEnableA SetBit(TIMSK_Reg, OCIE1A)
+#define CompareMatch1A_InterruptEnable SetBit(TIMSK_Reg, OCIE1A_Bit)
 
 /**
- * @def CompareMatch_InterruptEnableB
+ * @def CompareMatch1B_InterruptEnable
  * @brief Enables Timer1 Compare Match B interrupt.
  * @details Sets the OCIE1B bit in the TIMSK register.
  */
-#define CompareMatch_InterruptEnableB SetBit(TIMSK_Reg, OCIE1B)
+#define CompareMatch1B_InterruptEnable SetBit(TIMSK_Reg, OCF1A_Bit)
 
 /**
  * @def Timer1_Prescaler
@@ -76,7 +76,7 @@
  * @details Reads the OCF1A bit from the TIFR register to determine if a compare match occurred.
  * @return Boolean value: 1 if set, 0 if not.
  */
-#define IsCOMA_FlagSet GetBit(TIFR_Reg, OCF1A)
+#define IsCOMA_FlagSet GetBit(TIFR_Reg, OCF1A_Bit)
 
 /**
  * @def IsCOMB_FlagSet
@@ -84,7 +84,7 @@
  * @details Reads the OCF1B bit from the TIFR register to determine if a compare match occurred.
  * @return Boolean value: 1 if set, 0 if not.
  */
-#define IsCOMB_FlagSet GetBit(TIFR_Reg, OCF1B)
+#define IsCOMB_FlagSet GetBit(TIFR_Reg, OCF1B_Bit)
 
 /**
  * @def T1_ClkTime

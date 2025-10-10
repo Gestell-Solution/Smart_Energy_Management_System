@@ -18,22 +18,55 @@
  * @note       Ensure TIMER1_Config.h is properly configured before using this driver.
  * @warning    Global interrupts must be enabled for callback functionality to work.
  */
-
+#include "TIMER1_Interface.h"
 
 void mTIMER1_Init(void)
 {
+        uint8_t TCCR1A_Temp=0;
+        uint8_t TCCR1B_Temp=0;
+        /**TCCR1A Reg setting the bits */
+        //clear the Compare output mode to be zero so the pin to be on normal operation 
+        ClearBit(TCCR1A_Temp,T1_COM1A0_Bit);
+        ClearBit(TCCR1A_Temp,T1_COM1A1_Bit);
         
+        //clear the Compare output mode to be zero so the pin to be on normal operation 
+        ClearBit(TCCR1A_Temp,T1_COM1B0_Bit);
+        ClearBit(TCCR1A_Temp,T1_COM1B1_Bit);
+        
+        //clear the wave gen mode to be zero so the timer will be on CTC having the top on ICR1 
+        ClearBit(TCCR1A_Temp,T1_WGM10_Bit);
+        ClearBit(TCCR1A_Temp,T1_WGM11_Bit);
+        
+        /**TCCR1B Register */
+        ClearBit(TCCR1B_Temp,T1_ICNC1_Bit);
+        ClearBit(TCCR1B_Temp,T1_ICES1_Bit);
+        //wave generation mode 
+        SetBit(TCCR1B_Temp,T1_WGM12_Bit);
+        SetBit(TCCR1B_Temp,T1_WGM13_Bit);
+        //
+        TCCR1B_Temp|=Timer1_Prescaler;
+
+        TCCR1A_Reg=TCCR1A_Temp;
+        TCCR1B_Reg=TCCR1B_Temp;
+
+
+
 }
 
 
 void mTIMER1_Start(void)
 {
+        uint8_t TCCR1B_Temp=Timer1_Prescaler;
+        
+        TCCR1B_Reg|=TCCR1B_Temp;
 
 }
 
 
 void mTIMER1_Stop(void)
 {
+        uint8_t TCCR1B_Temp=T1_Stop;
+        TCCR1B_Reg=TCCR1B_Temp;
 
 }
 
