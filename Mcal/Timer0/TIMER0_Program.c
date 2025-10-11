@@ -82,11 +82,7 @@ void mTIMER0_TickHandler(void)
                 
 }                                     
 
-void __vector_10(void) __attribute__((signal));
+
 void __vector_10(void) {
         mTIMER0_TickHandler();
-}
-void __vector_11(void) __attribute__((signal));
-void __vector_11(void) {
-         mTIMER0_TickHandler();
 }
