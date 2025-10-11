@@ -12,7 +12,7 @@
 #include "TIMER0_Interface.h"
 
 
-Timer0_ScheduledTasks Timer0_TasksList[T0_ScheduledTasksNum]={};
+Timer0_ScheduledTasks Timer0_TasksList[T0_ScheduledTasksNum];
 
 void mTIMER0_Init(void)//CTC MODE
 {
@@ -50,9 +50,10 @@ for (int i = 0; i < T0_ScheduledTasksNum; i++)
         {
                 Timer0_TasksList[i].Callback=callback;
                 Timer0_TasksList[i].Remaining_Ticks=delay_ms;
+                Timer0_TasksList[i].Delaying=delay_ms;
                 // Timer0_TasksList[i].TaskID=i;
                 Timer0_TasksList[i].Active=1;  
-                break; // Stop after assigning one task         
+                break;      
         }
         
 }
@@ -73,7 +74,7 @@ void mTIMER0_TickHandler(void)
                                 {
                                         Timer0_TasksList[i].Callback();
                                 }
-                                Timer0_TasksList[i].Active=0;
+                        Timer0_TasksList[i].Remaining_Ticks=Timer0_TasksList[i].Delaying;
                 }
                 
                         
@@ -83,6 +84,9 @@ void mTIMER0_TickHandler(void)
 
 void __vector_10(void) __attribute__((signal));
 void __vector_10(void) {
-        // mTIMER0_TickHandler();
-        PORTB_Reg ^= (1 << 0);
+        mTIMER0_TickHandler();
+}
+void __vector_11(void) __attribute__((signal));
+void __vector_11(void) {
+         mTIMER0_TickHandler();
 }

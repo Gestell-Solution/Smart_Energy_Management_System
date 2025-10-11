@@ -200,7 +200,7 @@ typedef enum
  *          It is packed with 1-byte alignment to optimize memory usage in embedded systems.
  * @note Used internally by the Timer0 scheduler to manage multiple concurrent tasks.
  */
-#pragma pack(push, 1) // Set alignment to 1 byte
+
 typedef struct
 {
     /**
@@ -217,12 +217,16 @@ typedef struct
      * @brief Remaining time in ticks before the task is triggered.
      */
     uint32_t Remaining_Ticks;
+    /**
+     * @brief Remaining time in ticks before the task is triggered.
+     */
+    uint32_t  Delaying;
 
     /**
      * @brief Indicates whether the task is currently active (1) or inactive (0).
      */
     uint8_t Active;
 } Timer0_ScheduledTasks;
-#pragma pack(pop)
+
 
 #endif

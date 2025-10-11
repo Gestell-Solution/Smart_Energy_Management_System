@@ -79,7 +79,7 @@
  * @note Used in determining the compare match value for CTC mode.
  */
 
-#define T0_ClkTime (Timer0_PrescallerValue / (float)F_CPU)
+#define T0_ClkTime ((float)Timer0_PrescallerValue / F_CPU)
 
 /**
  * @def CompareMatchValue
@@ -89,7 +89,7 @@
  * @warning Ensure that the result fits within 8-bit range (0–255).
  */
 
- #define CompareMatchValue 124 //((1.0 / 1000.0) / T0_ClkTime - 1)  // result ==124 but for future if we want to modify it
+#define CompareMatchValue ((T0_MilliSecond / ((T0_ClkTime) * T0_NUMBER_OF_CTC)) ) -1
 
 /**
  * @def     T0_ScheduledTasksNum
