@@ -1,6 +1,5 @@
 /**
  * @file       Atmega32RegistersAddress.h
- * @author     Hesham Ahmed (Hisham4Ahmed@gmail.com)
  * @brief      
  * @details    
  * @version    0.1
