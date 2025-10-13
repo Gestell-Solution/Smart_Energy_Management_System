@@ -13,7 +13,7 @@
 #define _GIE_INTERFACE_H_
 
 #include <stdint.h>
-#include "Atmega32RegistersAddress.h"
+#include "../Atmega32RegistersAddress.h"
 #include "../../Common/Macros.h"
 
 #define I_Bit  7
