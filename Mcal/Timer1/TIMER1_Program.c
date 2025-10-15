@@ -18,8 +18,10 @@
  * @note       Ensure TIMER1_Config.h is properly configured before using this driver.
  * @warning    Global interrupts must be enabled for callback functionality to work.
  */
+#include "TIMER1_Config.h"
 #include "TIMER1_Interface.h"
 
+static void (*Timer1_Global_Callback)(void)=Null;
 void mTIMER1_Init(void)
 {
         uint8_t TCCR1A_Temp=0;
@@ -45,7 +47,14 @@ void mTIMER1_Init(void)
         SetBit(TCCR1B_Temp,T1_WGM13_Bit);
         //
         TCCR1B_Temp|=Timer1_Prescaler;
-
+        
+        // enabling the interrupt
+        CompareMatch1B_InterruptEnable;
+        CompareMatch1A_InterruptEnable;
+        //setting the registers
+        OCR1A_Reg=CompareMatchValueA;
+        OCR1B_Reg=CompareMatchValueB;
+        ICR1_Reg=Timer1_TOPvalue;
         TCCR1A_Reg=TCCR1A_Temp;
         TCCR1B_Reg=TCCR1B_Temp;
 
@@ -73,11 +82,23 @@ void mTIMER1_Stop(void)
 
 void mTIMER1_RegisterCallback(void (*callback)(void))
 {
+        if(callback!=Null)
+        {
+                Timer1_Global_Callback=callback;
+        }
+        else {
+                
+        }
 
 } 
 
-void __vector_11()__attribute__((signal));
-void __vector_11()
+void __vector_7()
 {
-
+        if(Timer1_Global_Callback!=Null)
+        {
+                Timer1_Global_Callback();
+        }
+        else {
+                
+        }
 }
