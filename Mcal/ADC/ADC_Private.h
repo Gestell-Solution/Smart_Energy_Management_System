@@ -19,12 +19,12 @@
  */
 typedef struct 
 {
-    uint8_t prescaler;        // ADC prescaler setting                        //yes
-    uint8_t voltageRef;      // Voltage reference selection                   //yes
-    uint8_t autoTrigger;     // Auto trigger enable/disable                   //yes
-    uint8_t interrupt;       // Interrupt enable/disable                      //yes
-    uint8_t triggerSource;   // Auto trigger source selection                 //yes
-    uint8_t enable;          // ADC enable/disable                            //yes
+    uint8_t prescaler;        // ADC prescaler setting                        
+    uint8_t voltageRef;      // Voltage reference selection                   
+    uint8_t autoTrigger;     // Auto trigger enable/disable                   
+    uint8_t interrupt;       // Interrupt enable/disable                      
+    uint8_t triggerSource;   // Auto trigger source selection                 
+    uint8_t enable;          // ADC enable/disable                            
   
 }ADC_ConfigType;
 
@@ -33,25 +33,25 @@ typedef struct
  * @brief This section defines the prescaler values for the ADC module.
  * @details The prescaler values determine the division factor for the ADC clock.
  */
-#define ADC_Prescaler_DIV2       1    /**< Prescaler Values for ADC */  //yes
-#define ADC_Prescaler_DIV4       2    /**< Prescaler Values for ADC */  //yes
-#define ADC_Prescaler_DIV8       3    /**< Prescaler Values for ADC */  //yes
-#define ADC_Prescaler_DIV16      4    /**< Prescaler Values for ADC */  //yes
-#define ADC_Prescaler_DIV32      5    /**< Prescaler Values for ADC */  //yes
-#define ADC_Prescaler_DIV64      6    /**< Prescaler Values for ADC */  //yes
-#define ADC_Prescaler_DIV128     7    /**< Prescaler Values for ADC */  //yes
+#define ADC_Prescaler_DIV2       1   /**< Prescaler Values for ADC */  
+#define ADC_Prescaler_DIV4       2    /**< Prescaler Values for ADC */  
+#define ADC_Prescaler_DIV8       3    /**< Prescaler Values for ADC */  
+#define ADC_Prescaler_DIV16      4    /**< Prescaler Values for ADC */  
+#define ADC_Prescaler_DIV32      5    /**< Prescaler Values for ADC */  
+#define ADC_Prescaler_DIV64      6    /**< Prescaler Values for ADC */  
+#define ADC_Prescaler_DIV128     7    /**< Prescaler Values for ADC */  
 /**
  * @defgroup ADC Channel Selection
  * @brief This section defines the channel selection options for the ADC module.
  */
-#define ADC0_Channel        0         /**< ADC Channels */  // yes
-#define ADC1_Channel        1         /**< ADC Channels */  // yes
-#define ADC2_Channel        2         /**< ADC Channels , not used now but expected to be used in future */ // yes
-#define ADC3_Channel        3         /**< ADC Channels , not used now but expected to be used in future */ // yes
-#define ADC4_Channel        4         /**< ADC Channels , not used now but expected to be used in future */ // yes
-#define ADC5_Channel        5         /**< ADC Channels , not used now but expected to be used in future */ // yes
-#define ADC6_Channel        6         /**< ADC Channels , not used now but expected to be used in future */ // yes
-#define ADC7_Channel        7         /**< ADC Channels , not used now but expected to be used in future */ // yes
+#define ADC0_Channel        0         /**< ADC Channels */  
+#define ADC1_Channel        1         /**< ADC Channels */  
+#define ADC2_Channel        2         /**< ADC Channels , not used now but expected to be used in future */ 
+#define ADC3_Channel        3         /**< ADC Channels , not used now but expected to be used in future */ 
+#define ADC4_Channel        4         /**< ADC Channels , not used now but expected to be used in future */ 
+#define ADC5_Channel        5         /**< ADC Channels , not used now but expected to be used in future */ 
+#define ADC6_Channel        6         /**< ADC Channels , not used now but expected to be used in future */ 
+#define ADC7_Channel        7         /**< ADC Channels , not used now but expected to be used in future */ 
 /**
  * @defgroup ADC Voltage Options
  * @brief This section defines the voltage reference options for the ADC module.
@@ -62,8 +62,8 @@ typedef struct
  * @def  ADC_INTERNAL_2_56V
  * @brief This option selects the internal 2.56V voltage reference with an external capacitor at the AREF pin.
  */
-#define ADC_AREF               0    /**< Connect VCC with both AREF & AVCC Pins */  //yes
-#define ADC_AVCC               1    /**< VCC With AVCC & Capacitor with AREF */  //yes
+#define ADC_AREF               0    /**< Connect VCC with both AREF & AVCC Pins */  
+#define ADC_AVCC               1    /**< VCC With AVCC & Capacitor with AREF */  
 #define ADC_INTERNAL_2_56V     3   /**<  AVCC WITH VCC &  */  //yes
 
 /**
@@ -71,26 +71,26 @@ typedef struct
  * @brief This section defines the bit names for the ADMUX register.
  * @details The ADMUX register is used to configure the ADC settings such as channel selection and voltage reference.
  */
-#define MUX0_bit  0        /**< These Bits for selecting ADC Channel */ //yes        
-#define MUX1_bit  1        /**< These Bits for selecting ADC Channel */ //yes
-#define MUX2_bit  2        /**< These Bits for selecting ADC Channel */ //yes
-#define MUX3_bit  3        /**< These Bits for selecting ADC Channel */ //yes
-#define MUX4_bit  4        /**< These Bits for selecting ADC Channel */ //yes
-#define ADLAR_bit 5        /* must be zero*/                            //yes
-#define REFS0_bit 6        /**< Bits for Voltage Reference Selection */ //yes
-#define REFS1_bit 7        /**< Bits for Voltage Reference Selection */ //yes
+#define MUX0_bit  0        /**< These Bits for selecting ADC Channel */  
+#define MUX1_bit  1        /**< These Bits for selecting ADC Channel */
+#define MUX2_bit  2        /**< These Bits for selecting ADC Channel */
+#define MUX3_bit  3        /**< These Bits for selecting ADC Channel */
+#define MUX4_bit  4        /**< These Bits for selecting ADC Channel */
+#define ADLAR_bit 5        /* must be zero*/                            
+#define REFS0_bit 6        /**< Bits for Voltage Reference Selection */ 
+#define REFS1_bit 7        /**< Bits for Voltage Reference Selection */ 
 /**
  * @defgroup ADCSRA_Reg Bits Names
  * @brief This section defines the bit names for the ADCSRA register.
  */
-#define ADPS0_bit 0       /**< Bits for ADC Prescaler Selection */                //yes
-#define ADPS1_bit 1       /**< Bits for ADC Prescaler Selection */                //yes
-#define ADPS2_bit 2       /**< Bits for ADC Prescaler Selection */                //yes
-#define ADIE_bit  3       /**< ADC Interrupt Enable Bit */                        //yes
-#define ADIF_bit  4       /**< ADC Interrupt Flag Bit */                          //yes
-#define ADATE_bit 5       /**< ADC Auto Trigger Enable Bit */                    //yes
-#define ADSC_bit  6       /**< ADC Start Conversion Bit */                       //yes
-#define ADEN_bit  7       /**< ADC Enable Bit */                                 //yes
+#define ADPS0_bit 0       /**< Bits for ADC Prescaler Selection */                
+#define ADPS1_bit 1       /**< Bits for ADC Prescaler Selection */                
+#define ADPS2_bit 2       /**< Bits for ADC Prescaler Selection */                
+#define ADIE_bit  3       /**< ADC Interrupt Enable Bit */                        
+#define ADIF_bit  4       /**< ADC Interrupt Flag Bit */                          
+#define ADATE_bit 5       /**< ADC Auto Trigger Enable Bit */                    
+#define ADSC_bit  6       /**< ADC Start Conversion Bit */                       
+#define ADEN_bit  7       /**< ADC Enable Bit */                                 
 
 /**
  * @defgroup SFIOR_Reg Bits Names
@@ -98,21 +98,21 @@ typedef struct
  * @note  bit 4 is reserved & Bits from 0:3 are for PUD, PSR2, PSR10 preferable not to touch them
  */
 
-#define ADTS0_bit 5          /**< Bits for Auto Trigger Selection */   //yes
-#define ADTS1_bit 6          /**< Bits for Auto Trigger Selection */   //yes
-#define ADTS2_bit 7          /**< Bits for Auto Trigger Selection */   //yes       
+#define ADTS0_bit 5          /**< Bits for Auto Trigger Selection */   
+#define ADTS1_bit 6          /**< Bits for Auto Trigger Selection */   
+#define ADTS2_bit 7          /**< Bits for Auto Trigger Selection */          
 /**
  * @defgroup ADC Auto Trigger Source Options
  * @brief This section defines the auto trigger source options for the ADC module.
  */
-#define ADC_FREE_RUNNING_MODE       0    /**< Auto Trigger Source Options */    //yes
-#define ADC_ANALOG_COMPARATOR       1    /**< Auto Trigger Source Options */    //yes
-#define ADC_EXTERNAL_INTERRUPT0     2    /**< Auto Trigger Source Options */    //yes
-#define ADC_TIMER0_COMPARE_MATCH    3    /**< Auto Trigger Source Options */    //yes
-#define ADC_TIMER0_OVERFLOW         4    /**< Auto Trigger Source Options */    //yes
-#define ADC_TIMER1_COMPARE_MATCH_B  5    /**< Auto Trigger Source Options */    //yes
-#define ADC_TIMER1_OVERFLOW         6    /**< Auto Trigger Source Options */    //yes
-#define ADC_TIMER1_CAPTURE_EVENT    7    /**< Auto Trigger Source Options */    //yes
+#define ADC_FREE_RUNNING_MODE       0    /**< Auto Trigger Source Options */   
+#define ADC_ANALOG_COMPARATOR       1    /**< Auto Trigger Source Options */   
+#define ADC_EXTERNAL_INTERRUPT0     2    /**< Auto Trigger Source Options */   
+#define ADC_TIMER0_COMPARE_MATCH    3    /**< Auto Trigger Source Options */   
+#define ADC_TIMER0_OVERFLOW         4    /**< Auto Trigger Source Options */   
+#define ADC_TIMER1_COMPARE_MATCH_B  5    /**< Auto Trigger Source Options */   
+#define ADC_TIMER1_OVERFLOW         6    /**< Auto Trigger Source Options */   
+#define ADC_TIMER1_CAPTURE_EVENT    7    /**< Auto Trigger Source Options */   
 
 /**
  * @defgroup ADC Auto Trigger Enable/Disable
@@ -120,20 +120,20 @@ typedef struct
  * @details Enabling auto trigger allows the ADC to start conversions automatically based on the selected trigger source.
  * @note  This feature is useful for applications that require periodic or event-driven ADC conversions without CPU intervention.
  */
-#define ADC_AUTO_TRIGGER_Enable    1    //yes
-#define ADC_AUTO_TRIGGER_Disable   0    //yes
+#define ADC_AUTO_TRIGGER_Enable    1    
+#define ADC_AUTO_TRIGGER_Disable   0    
 /**
  * @defgroup ADC Interrupt Enable/Disable
  * @brief This section defines the enable/disable options for the ADC interrupt feature.
  */
-#define ADC_INTERRUPT_Enable       1   //yes
-#define ADC_INTERRUPT_Disable      0   //yes
+#define ADC_INTERRUPT_Enable       1   
+#define ADC_INTERRUPT_Disable      0   
 /**
  * @defgroup ADC Enable/Disable
  * @brief This section defines the enable/disable options for the ADC module. by setting or clearing the ADEN bit in the ADCSRA register.
  */
-#define ADC_ENABLE                 1  //yes
-#define ADC_DISABLE                0  //yes
+#define ADC_ENABLE                 1  
+#define ADC_DISABLE                0  
 /**
  * @defgroup ADC Operation Modes
  * @brief This section defines the operation modes for the ADC module.
@@ -142,19 +142,24 @@ typedef struct
  * @def   Asynchronous_Mode
  * @brief This mode is used for non-blocking (asynchronous) ADC reads using interrupts and auto-triggering. round-robin sampling of multiple channels.
  */
-#define Synchronous_Mode           1  //yes
-#define Asynchronous_Mode          0  //yes 
+#define Synchronous_Mode           1  
+#define Asynchronous_Mode          0   
 /**
  * @defgroup ADC Channel Mask
  * @brief This section defines masks for selecting ADC channels.
  */
-#define ADC_Channel_UpperNibble_Mask   0xF0   // yes 
-#define ADC_Channel_LowerNibble_Mask   0x07   // yes
+#define ADC_Channel_UpperNibble_Mask   0xF0   
+#define ADC_Channel_LowerNibble_Mask   0x07  
 /**
  * @def ADC_Max_used_Channel
  * @brief This macro represents the adc channles used in our project (starting from 0)
  */
-#define ADC_Max_used_Channel          1  // we are using only channel 0 and 1 in the application // yes
+#define ADC_Max_used_Channel         2 // we are using only channel 0 and 1 in the application 
 
-
+/**
+ * @def Flagdown
+ * @brief This macro is used to represent the flag down state
+ */
+#define Flagdown 0
+#define Flagup   1
  #endif

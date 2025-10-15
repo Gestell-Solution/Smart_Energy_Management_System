@@ -33,7 +33,7 @@
  * @note to see the options for each parameter check ADC_Private.h
  * @warning Make sure to configure these parameters according to your application requirements.
  */
-#define ADC_PRESCALER         ADC_Prescaler_DIV8
+#define ADC_PRESCALER         ADC_Prescaler_DIV32
 #define ADC_VOLTAGE_REF       ADC_AREF
 #define ADC_AUTO_TRIGGER      ADC_AUTO_TRIGGER_Enable
 #define ADC_INTERRUPT         ADC_INTERRUPT_Enable
@@ -41,27 +41,7 @@
 #define ADC_ENABLE_state      ADC_ENABLE
 #define ADC_Mode   Asynchronous_Mode
 
+/**at Synchronous mode all prescalares working perfectly , at Async only prescaler above or equal to DIV32*/
 
 
-#if ADC_Mode== Asynchronous_Mode
-ADC_ConfigType ADC_Configuration = 
-{
-    .prescaler = ADC_PRESCALER,        // ADC prescaler setting
-    .voltageRef = ADC_VOLTAGE_REF,      // Voltage reference selection
-    .autoTrigger = ADC_AUTO_TRIGGER_Enable,     // Auto trigger enable/disable
-    .interrupt = ADC_INTERRUPT_Enable,       // Interrupt enable/disable
-    .triggerSource = ADC_TRIGGER_SOURCE,   // Auto trigger source selection
-    .enable = ADC_ENABLE_state          // ADC enable/disable     
-};
-#elif ADC_Mode== Synchronous_Mode
-ADC_ConfigType ADC_Configuration =
-{
-    .prescaler = ADC_PRESCALER,                   // ADC prescaler setting
-    .voltageRef = ADC_VOLTAGE_REF,               // Voltage reference selection
-    .autoTrigger = ADC_AUTO_TRIGGER_Disable,    // Auto trigger enable/disable
-    .interrupt = ADC_INTERRUPT,                // Interrupt enable/disable
-    .triggerSource = ADC_FREE_RUNNING_MODE,   // Auto trigger source selection
-    .enable = ADC_ENABLE_state,              // ADC enable/disable
-};
-#endif
  #endif

@@ -18,11 +18,22 @@
 #include "ADC_Config.h"
 #include "../../Common/Macros.h"
 /**
- * @fn mADC_Init(const ADC_ConfigType *config)
- * @brief   This Function Initialize the ADC Module
- * @param *config : this is a struct contains the configuration parameters for the ADC module.
- * @return  void
+ * @defgroup ADC_Driver ADC Driver
+ * @brief ADC Driver APIs and Configuration for ATmega32.
+ * @{
  */
+
+/**
+ * @fn void mADC_Init(const ADC_ConfigType *config)
+ * @brief Initializes the ADC peripheral according to the provided configuration.
+ * @details 
+ * This function sets up prescaler, reference voltage, auto-trigger, interrupt mode, and ADC enable state.
+ * @param[in] config Pointer to the configuration structure containing ADC setup parameters. extern it from adc program.c
+ * @return void
+ * @note Must be called before using any other ADC functions.
+ * @warning Passing NULL as a config pointer will terminate initialization.
+ */
+
 void mADC_Init(const ADC_ConfigType *config);
 
 /**
@@ -63,5 +74,16 @@ void mADC_Stop(void);
  * @warning this function won't work except if the ADC Interrupt is enabled from the config.h
  */
 void __vector_16(void)__attribute__((signal)); // ADC Conversion Complete ISR
+/**
+ * @fn ADC_SetCallback(void (*callback)(uint16_t) , uint8_t channel)
+ * @brief This Function sets the callback function for a specific ADC channel.
+ * @param callback : pointer to the callback function that will be called with the ADC value when conversion is complete.
+ * @param channel : the ADC channel number (0-7) in our project (0-1).
+ * @return void
+ */
+void ADC_SetCallback(void (*callback)(uint16_t) , uint8_t channel);
+
+/** @} */ // end of ADC_Driver
+
 
 #endif
