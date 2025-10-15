@@ -14,11 +14,14 @@
 #include "..\Atmega32RegistersAddress.h"
 #include "..\..\common\Macros.h"
 #include "..\..\common\Config.h"
+
+#if DIO_Module == Enable
+
 #include "DIO_Private.h"
 #include "DIO_Config.h"
 #include "DIO_Interface.h"
 
-#if DIO_Module == Enable
+
 
 void mDIO_SetDirectionForPin(uint8_t GroupName,uint8_t PinNumber,uint8_t DirectionState)
 {
