@@ -22,6 +22,7 @@
 *                      - Bits Name ISC00 ,ISC01 , ISC10 ,ISC11 
 *                      - INT0 bits --> ISC00 , ISC01
 *                      - INT1 bits --> ISC10 , ISC11 
+*@{
 */
 
 
@@ -31,20 +32,26 @@
 #define      ISC10_Bit    2
 #define      ISC11_Bit    3
 
+/**@} */ //End of MCUCR_Reg Bit Names
+
 /** 
-*@defgroup          Name of Each Bit inside MCUCSR Register
+*@def          Name of Each Bit inside MCUCSR Register
 *@brief             MCUSCR Reg Has 1 bit related With External Interrupt (BIT NO 6)
 *                      - Bits Name ISC2 
-*                      - INT2 bit --> ISC2                
+*                      - INT2 bit --> ISC2 
+*@{               
 */
 
 
 #define      ISC2_Bit    6
 
+/**@} */ //End of MCUCSR_Reg Bit Name
+
 /**
 *@defgroup          Name of Each Bit inside GICR Register -- (External interrupt Enable and disable Bit )
 *@brief              GICR Reg Has 3 bits related With External Interrupt (BIT NO (5-->7)
-*                      - Bits Name INT0 ,INT1,INT2                                         
+*                      - Bits Name INT0 ,INT1,INT2  
+*@{                                       
 */
 
 
@@ -52,16 +59,21 @@
 #define      INT1_Bit        7
 #define      INT2_Bit        5
 
+/**@} */ // End of GICR_Reg Bit Names
+
 /**
 *@defgroup          Name of Each Bit inside GIFR Register -- (External interrupt FLAG Enable and disable Bit )
 *@brief             GICR Reg Has 3 bits related With External Interrupt (BIT NO (5-->7)
-*                      - Bits Name INTF0 ,INTF1,INTF2                                         
+*                      - Bits Name INTF0 ,INTF1,INTF2     
+*@{                                    
 */
 
 
 #define      INTF0_Bit        6
 #define      INTF1_Bit        7
-#define      INTF2_Bit        5         
+#define      INTF2_Bit        5  
+
+/**@} */ //End of GIFR_Reg Bit Names
 
 /**
 * @brief surface routine (ISR) Declaration\ prototype 

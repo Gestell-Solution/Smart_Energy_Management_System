@@ -28,8 +28,8 @@
  *              with the desired sense control (LOW LEVEL, ANY CHANGE, FALLING EDGE, RISING EDGE).
  *              It sets the corresponding bits in MCUCR or MCUCSR registers.
  *
- * @param[in]   source        Specifies which EXTI line to configure (EXTI0, EXTI1, EXTI2).
- * @param[in]   senseControl  Specifies the interrupt triggering condition.
+ * @param       source        Specifies which EXTI line to configure (EXTI0, EXTI1, EXTI2).
+ * @param       senseControl  Specifies the interrupt triggering condition.
  *                            Possible values: EXT_LOW_LEVEL, EXT_AnyCHANGE, EXT_FALLING_EDGE, EXT_RISING_EDGE.
  */
 
