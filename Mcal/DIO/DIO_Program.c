@@ -4,16 +4,15 @@
  * @version    1.0
  * @author     Developer : Mohamed Abdelgaber (mohamedabdelgaber247@gmail.com)
  * @author     Reviewer  : Eng/Hesham Ahmed 
- * @author     Reviewer  : Eng/Alaa Emad
- * @date       2025-10-15
+ * @date       2025-10-16
  * @copyright  Copyright (c) 2025 , Gestell Company 
  * 
  */
 
 #include <stdint.h>
-#include "..\Atmega32RegistersAddress.h"
-#include "..\..\common\Macros.h"
-#include "..\..\common\Config.h"
+#include "../Atmega32RegistersAddress.h"
+#include "../../Common/Macros.h"
+#include "../../Common/Config.h"
 
 #if DIO_Module == Enable
 

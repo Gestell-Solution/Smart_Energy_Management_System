@@ -4,15 +4,14 @@
  * @version    1.0
  * @author     Developer : Mohamed Abdelgaber (mohamedabdelgaber247@gmail.com)
  * @author     Reviewer  : Eng/Hesham Ahmed 
- * @author     Reviewer  : Eng/Alaa Emad
- * @date       2025-10-14
+ * @date       2025-10-16
  * @copyright  Copyright (c) 2025 , Gestell Company 
  * 
  */
 
 #include <stdint.h>
-#include "..\Atmega32RegistersAddress.h"
-#include "..\..\common\Macros.h"
+#include "../Atmega32RegistersAddress.h"
+#include "../../Common/Macros.h"
 
 
 
