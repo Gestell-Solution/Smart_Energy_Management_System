@@ -209,6 +209,7 @@ void mEXTI_Disable(uint8_t source)
  * EXTI(n)_CallbackFunction_and_ISR_Handler()----------->Call for Global Pointer to Function
  */
 
+void __vector_1(void) __attribute__((signal));
 void __vector_1(void)
 {  
     if(EXTI0_CallbackFunction_and_ISR_Handler !=Null){
@@ -221,6 +222,7 @@ void __vector_1(void)
     */
     } 
 }
+void __vector_2(void) __attribute__((signal));
 void __vector_2(void)
 {   
     if(EXTI1_CallbackFunction_and_ISR_Handler !=Null){
@@ -234,6 +236,7 @@ void __vector_2(void)
     
     }
 }
+void __vector_3(void) __attribute__((signal));
 void __vector_3(void)
 { 
     if(EXTI2_CallbackFunction_and_ISR_Handler !=Null){
