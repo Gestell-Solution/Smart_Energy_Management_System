@@ -28,7 +28,6 @@
 #define EEMWE_Bit    2      /**< Setting this bit to 1 Enables the EEPROM Master Write  */
 #define EERIE_Bit    3      /**< Setting this bit to 1 Enables the EEPROM Ready Interrupt */
 
-
 /**
  * @defgroup Addresses for memory map of EEPROM
  * @brief    This section defines the memory map addresses for the EEPROM.
