@@ -110,7 +110,11 @@ uint16_t mADC_Read(uint8_t channel)
     SetBit(ADCSRA_Reg, ADSC_bit);
 
     /* Wait until conversion finishes */
-    while (GetBit(ADCSRA_Reg, ADSC_bit));
+    while (GetBit(ADCSRA_Reg, ADSC_bit))
+    {
+        // Busy wait
+    }
+    
 
 #if ADC_INTERRUPT == ADC_INTERRUPT_Disable
     /* Clear flag manually if interrupts disabled */
