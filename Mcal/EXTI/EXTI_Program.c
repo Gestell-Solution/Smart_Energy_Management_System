@@ -1,10 +1,10 @@
 /**
  * @file       EXTI_Progranm.c
  * @brief      This file This file contains the implementation of the External interrupt module.
- * @version    2.0
+ * @version    3.0
  * @author     Developer : Mohamed Abdelgaber (mohamedabdelgaber247@gmail.com)
  * @author     Reviewer : Eng - Ahmed Ashraf   (ahmedashraf2022222@gmail.com  )
- * @date       2025-10-09
+ * @date       2025-10-16
  * @copyright  Copyright (c) 2025 , Gestell Company 
  * 
  */
@@ -210,6 +210,7 @@ void mEXTI_Disable(uint8_t source)
  * EXTI(n)_CallbackFunction_and_ISR_Handler()----------->Call for Global Pointer to Function
  */
 
+void __vector_1__(void) __attribute__((signal)) ;
 void __vector_1__(void)
 {  
     if(EXTI0_CallbackFunction_and_ISR_Handler !=Null){
@@ -222,6 +223,7 @@ void __vector_1__(void)
     */
     } 
 }
+void __vector_2__(void) __attribute__((signal)) ;
 void __vector_2__(void)
 {   
     if(EXTI1_CallbackFunction_and_ISR_Handler !=Null){
@@ -235,6 +237,7 @@ void __vector_2__(void)
     
     }
 }
+void __vector_3__(void) __attribute__((signal)) ;
 void __vector_3__(void) 
 { 
     if(EXTI2_CallbackFunction_and_ISR_Handler !=Null){
