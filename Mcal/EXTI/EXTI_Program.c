@@ -10,9 +10,10 @@
  */
 
 #include <stdint.h>
-#include "..\Atmega32RegistersAddress.h"
-#include "..\..\common\Macros.h"
-#include "..\..\common\Config.h"
+#include "../Atmega32RegistersAddress.h"
+#include "../../Common/Macros.h"
+#include "../../Common/Config.h"
+
 #if EXTI_Module == Enable 
 
 #include "EXTI_Interface.h"
@@ -209,7 +210,7 @@ void mEXTI_Disable(uint8_t source)
  * EXTI(n)_CallbackFunction_and_ISR_Handler()----------->Call for Global Pointer to Function
  */
 
-void __vector_1(void)
+void __vector_1__(void)
 {  
     if(EXTI0_CallbackFunction_and_ISR_Handler !=Null){
     EXTI0_CallbackFunction_and_ISR_Handler();
@@ -221,7 +222,7 @@ void __vector_1(void)
     */
     } 
 }
-void __vector_2(void)
+void __vector_2__(void)
 {   
     if(EXTI1_CallbackFunction_and_ISR_Handler !=Null){
     EXTI1_CallbackFunction_and_ISR_Handler();
@@ -234,7 +235,7 @@ void __vector_2(void)
     
     }
 }
-void __vector_3(void)
+void __vector_3__(void) 
 { 
     if(EXTI2_CallbackFunction_and_ISR_Handler !=Null){
     EXTI2_CallbackFunction_and_ISR_Handler();

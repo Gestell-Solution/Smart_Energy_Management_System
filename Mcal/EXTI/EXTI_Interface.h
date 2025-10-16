@@ -10,8 +10,8 @@
  */
 
 #include <stdint.h>
-#include "..\Atmega32RegistersAddress.h"
-#include "..\..\common\Macros.h"
+#include "../Atmega32RegistersAddress.h"
+#include "../../Common/Macros.h"
 #include "EXTI_Private.h"
 #include "EXTI_Config.h"
 
