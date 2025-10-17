@@ -32,6 +32,7 @@
  * @brief determines whether the adc works in synchronous mode or asynchronous mode
  * @note to see the options for each parameter check ADC_Private.h
  * @warning Make sure to configure these parameters according to your application requirements.
+ * @warning Asynch Mode only operates on prescaler DIV32
  * @{
  */
 #define ADC_Mode       Asynchronous_Mode
