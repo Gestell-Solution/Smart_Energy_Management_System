@@ -19,13 +19,12 @@
  *-------------------------------------------------------------*/
 
 /** @brief Callback for ADC0 channel */
-static void (*ADC0_Callback)(uint16_t) = Null;
+static void (*ADC_Callbacks[2])(uint16_t) = {Null};
 
-/** @brief Callback for ADC1 channel */
-static void (*ADC1_Callback)(uint16_t) = Null; //-> Note if used 8 channels we need 8 callbacks ?!! 
 
-/** @brief Tracks which channel is currently being converted */
-static uint8_t current_channel = ADC0_Channel;
+
+    static uint8_t Channel_Index =0;
+
 
 /*-------------------------------------------------------------
  *               Private Helper Functions
@@ -38,60 +37,45 @@ static uint8_t current_channel = ADC0_Channel;
  */
 void ADC_SetCallback(void (*callback)(uint16_t), uint8_t channel)
 {
-    if (callback == Null)
-        return;
-
-    switch (channel)
+    if (callback == Null || channel >ADC_Max_used_Channel)
     {
-        case ADC0_Channel:
-            ADC0_Callback = callback;
-            break;
-
-        case ADC1_Channel:
-            ADC1_Callback = callback;
-            break;
-
-        default:
-            // Invalid channel (ignored)
-            break;
+        return;
     }
+    ADC_Callbacks[channel]=callback ;
 }
 
 /*-------------------------------------------------------------
  *                ADC Initialization Function
  *-------------------------------------------------------------*/
 
-void mADC_Init(const ADC_ConfigType *config)
+void mADC_Init()
 {
-    if (config == Null)
-        return;
-
     /* Right-adjust result (clear ADLAR) */
     ClearBit(ADMUX_Reg, ADLAR_bit);
 
     /* Set voltage reference (REFS1:0 bits in ADMUX) */
-    ADMUX_Reg = (ADMUX_Reg & 0x3F) | ((config->voltageRef & 0x03) << REFS0_bit);
+    ADMUX_Reg = (ADMUX_Reg & 0x3F) | (( ADC_VOLTAGE_REF& 0x03) << REFS0_bit);
 
     /* Set ADC prescaler (ADPS2:0 bits in ADCSRA) */
-    ADCSRA_Reg = (ADCSRA_Reg & 0xF8) | (config->prescaler & 0x07);
+    ADCSRA_Reg = (ADCSRA_Reg & 0xF8) | (ADC_PRESCALER & 0x07);
 
     /* Enable/Disable Auto Trigger */
-    if (config->autoTrigger == ADC_AUTO_TRIGGER_Enable)
+    if (ADC_AUTO_TRIGGER== ADC_AUTO_TRIGGER_Enable)
         SetBit(ADCSRA_Reg, ADATE_bit);
     else
         ClearBit(ADCSRA_Reg, ADATE_bit);
 
     /* Enable/Disable Interrupt */
-    if (config->interrupt == ADC_INTERRUPT_Enable)
+    if ( ADC_INTERRUPT == ADC_INTERRUPT_Enable)
         SetBit(ADCSRA_Reg, ADIE_bit);
     else
         ClearBit(ADCSRA_Reg, ADIE_bit);
 
     /* Set Auto Trigger Source (ADTS2:0 bits in SFIOR) */
-    SFIOR_Reg = (SFIOR_Reg & 0x1F) | ((config->triggerSource & 0x07) << ADTS0_bit);
+    SFIOR_Reg = (SFIOR_Reg & 0x1F) | ((ADC_TRIGGER_SOURCE & 0x07) << ADTS0_bit);
 
     /* Enable/Disable ADC */
-    if (config->enable == ADC_ENABLE)
+    if (ADC_ENABLE_state == ADC_ENABLE)
         SetBit(ADCSRA_Reg, ADEN_bit);
     else
         ClearBit(ADCSRA_Reg, ADEN_bit);
@@ -143,7 +127,7 @@ void mADC_RegisterChannel(uint8_t channel, void (*callback)(uint16_t value))
 void mADC_StartGroup(void)
 {
     /* Start from ADC0 */
-    current_channel = ADC0_Channel;
+    Channel_Index = ADC0_Channel;
     ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | ADC0_Channel;
 
     /* Clear flag and enable auto trigger */
@@ -169,51 +153,38 @@ void mADC_Stop(void)
 
 void __vector_16(void)
 {
-    uint16_t adc_value = ADCData_Reg;
+    /**
+     * psuedo code
+     * read the conversion
+     * set the callback
+     * increament the current channel and round - robin
+     * switch the ADMUX_Reg
+     * Clear the interrupt flag
+     */
+    uint16_t ADC_Value = ADCData_Reg;
 
-    /* Call the corresponding callback */
-    if (current_channel == ADC0_Channel && ADC0_Callback != Null)
-        ADC0_Callback(adc_value);
-    else if (current_channel == ADC1_Channel && ADC1_Callback != Null)
-        ADC1_Callback(adc_value);
+    /* Call current channel callback if valid */
+    if (ADC_Callbacks[Channel_Index] != Null)
+    {
+        ADC_Callbacks[Channel_Index](ADC_Value);
+    }
 
-    /* Switch channel for next conversion */
-    current_channel = (current_channel == ADC0_Channel) ? ADC1_Channel : ADC0_Channel;
+    /* Increment and wrap around channel index */
+    Channel_Index++;
+    if (Channel_Index >= ADC_Max_used_Channel)
+    {
+        Channel_Index = 0;
+    }
 
-    /* Update ADMUX to select next channel */
-    ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | (current_channel & ADC_Channel_LowerNibble_Mask);
+    ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | Channel_Index;
+
+    ClearFlag(ADCSRA_Reg, ADIF_bit);
 
 #if ADC_AUTO_TRIGGER == ADC_AUTO_TRIGGER_Disable
-    /* Start next conversion manually if auto-trigger disabled */
+    /* If no hardware trigger, start manually */
     SetBit(ADCSRA_Reg, ADSC_bit);
 #endif
 }
 
-/*-------------------------------------------------------------
- *                    Global Configurations
- *-------------------------------------------------------------*/
-
-#if ADC_Mode == Asynchronous_Mode
-ADC_ConfigType ADC_Configuration = 
-{
-    .prescaler = ADC_PRESCALER,
-    .voltageRef = ADC_VOLTAGE_REF,
-    .autoTrigger = ADC_AUTO_TRIGGER_Enable,
-    .interrupt = ADC_INTERRUPT_Enable,
-    .triggerSource = ADC_TRIGGER_SOURCE,
-    .enable = ADC_ENABLE_state
-};
-
-#elif ADC_Mode == Synchronous_Mode
-ADC_ConfigType ADC_Configuration =
-{
-    .prescaler = ADC_PRESCALER,
-    .voltageRef = ADC_VOLTAGE_REF,
-    .autoTrigger = ADC_AUTO_TRIGGER_Disable,
-    .interrupt = ADC_INTERRUPT,
-    .triggerSource = ADC_FREE_RUNNING_MODE,
-    .enable = ADC_ENABLE_state
-};
-#endif
 
 #endif /* ADC_Module == Enable */

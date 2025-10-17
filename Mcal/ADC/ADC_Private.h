@@ -182,7 +182,7 @@ typedef struct
  * @def ADC_Max_used_Channel
  * @brief This macro represents the adc channles used in our project (starting from 0)
  */
-#define ADC_Max_used_Channel         2 // we are using only channel 0 and 1 in the application 
+#define ADC_Max_used_Channel        2// we are using only channel 0 and 1 in the application 
 
 /**
  * @def Flagdown

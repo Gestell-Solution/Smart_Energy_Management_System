@@ -34,7 +34,7 @@
  * @warning Passing NULL as a config pointer will terminate initialization.
  */
 
-void mADC_Init(const ADC_ConfigType *config);
+void mADC_Init();
 
 /**
  * @fn uint16_t mADC_Read(uint8_t channel)

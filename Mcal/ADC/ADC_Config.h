@@ -34,13 +34,27 @@
  * @warning Make sure to configure these parameters according to your application requirements.
  * @{
  */
+#define ADC_Mode       Asynchronous_Mode
+
+#if ADC_Mode == Synchronous_Mode
+
+#define ADC_PRESCALER         ADC_Prescaler_DIV2
+#define ADC_VOLTAGE_REF       ADC_AREF
+#define ADC_AUTO_TRIGGER      ADC_AUTO_TRIGGER_Disable
+#define ADC_INTERRUPT         ADC_INTERRUPT_Enable
+#define ADC_TRIGGER_SOURCE    ADC_FREE_RUNNING_MODE
+#define ADC_ENABLE_state      ADC_ENABLE
+
+#elif ADC_Mode == Asynchronous_Mode
+
 #define ADC_PRESCALER         ADC_Prescaler_DIV32
 #define ADC_VOLTAGE_REF       ADC_AREF
 #define ADC_AUTO_TRIGGER      ADC_AUTO_TRIGGER_Enable
 #define ADC_INTERRUPT         ADC_INTERRUPT_Enable
 #define ADC_TRIGGER_SOURCE    ADC_FREE_RUNNING_MODE
 #define ADC_ENABLE_state      ADC_ENABLE
-#define ADC_Mode              Synchronous_Mode
+
+#endif
 /** @} */
 
 
