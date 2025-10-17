@@ -97,19 +97,19 @@
                 <mxCell id="34" value="Common" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=20;" parent="1" vertex="1">
                     <mxGeometry x="740" y="60" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="35" value="Mcaros" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#05FF00;strokeColor=#b85450;" parent="1" vertex="1">
+                <mxCell id="35" value="Mcaros" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="730" y="120" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="37" value="Config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#37FF00;strokeColor=#b85450;" parent="1" vertex="1">
+                <mxCell id="37" value="Config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="730" y="170" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="38" value="Error Code" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
+                <mxCell id="38" value="Error Code" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="730" y="230" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="39" value="Status&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
+                <mxCell id="39" value="Status&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="730" y="290" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="40" value="Project Cfg" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00FF41;" parent="1" vertex="1">
+                <mxCell id="40" value="Project Cfg" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="730" y="345" width="80" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="44" value="Timer0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF0000;" parent="1" vertex="1">
@@ -124,7 +124,7 @@
                 <mxCell id="47" value="TWI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;" parent="1" vertex="1">
                     <mxGeometry x="420" y="450" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="48" value="SystemData Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
+                <mxCell id="48" value="SystemData Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="730" y="400" width="80" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="59" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
