@@ -1,53 +1,79 @@
 <mxfile host="65bd71144e">
     <diagram id="1vf5WqhU-142VchibEfF" name="Page-1">
-        <mxGraphModel dx="1105" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1006" dy="622" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="13" style="edgeStyle=none;html=1;" edge="1" parent="1" source="2" target="12">
+                <mxCell id="13" style="edgeStyle=none;html=1;" parent="1" source="2" target="12" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="14" style="edgeStyle=none;html=1;" edge="1" parent="1" source="2" target="11">
+                <mxCell id="14" style="edgeStyle=none;html=1;" parent="1" source="2" target="11" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="16" style="edgeStyle=none;html=1;" edge="1" parent="1" source="2" target="9">
+                <mxCell id="16" style="edgeStyle=none;html=1;" parent="1" source="2" target="9" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="17" style="edgeStyle=none;html=1;" edge="1" parent="1" source="2" target="8">
+                <mxCell id="17" style="edgeStyle=none;html=1;" parent="1" source="2" target="8" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="18" style="edgeStyle=none;html=1;" edge="1" parent="1" source="2" target="7">
+                <mxCell id="18" style="edgeStyle=none;html=1;" parent="1" source="2" target="7" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="20" style="edgeStyle=none;html=1;" edge="1" parent="1" source="2" target="6">
+                <mxCell id="20" style="edgeStyle=none;html=1;" parent="1" source="2" target="6" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="2" value="User&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                <mxCell id="25" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1" target="26">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-70" y="530" as="targetPoint"/>
+                        <mxPoint x="120" y="330" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="27" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2" edge="1" target="28">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-130" y="410" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="User&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
                     <mxGeometry x="50" y="260" width="70" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="Manual load switching on/off" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="280" y="510" width="120" height="80" as="geometry"/>
+                <mxCell id="6" value="Manual load switching on/off" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="360" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="Sensor calibration" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="410" y="480" width="120" height="80" as="geometry"/>
+                <mxCell id="7" value="Sensor calibration" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="300" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="Power reset" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="510" y="380" width="120" height="80" as="geometry"/>
+                <mxCell id="8" value="Power reset" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="220" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="9" value="Send data to phone/web" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="590" y="280" width="120" height="80" as="geometry"/>
+                <mxCell id="9" value="Send data to phone/web" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="425" y="170" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="10" value="Alert/shutdown in case of overload" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="500" y="190" width="120" height="80" as="geometry"/>
+                <mxCell id="10" value="Alert/shutdown in case of overload" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="100" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="Record accumulated energy" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="410" y="110" width="120" height="80" as="geometry"/>
+                <mxCell id="11" value="Record accumulated energy" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="60" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="12" value="View current consumption" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="290" y="40" width="120" height="80" as="geometry"/>
+                <mxCell id="12" value="View current consumption" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="40" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="15" style="edgeStyle=none;html=1;entryX=-0.017;entryY=0.613;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="2" target="10">
+                <mxCell id="15" style="edgeStyle=none;html=1;entryX=-0.017;entryY=0.613;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="2" target="10" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" style="edgeStyle=none;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1" target="23">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="120" y="320" as="sourcePoint"/>
+                        <mxPoint x="200" y="590" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="Download Data For&lt;br&gt;sharing info like&amp;nbsp;&lt;br&gt;CSV or PDF" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="420" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="Remote Control via App/Web&lt;br&gt;(If applicable&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;)&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="450" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="Schedule Load Switching" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="470" width="120" height="80" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
