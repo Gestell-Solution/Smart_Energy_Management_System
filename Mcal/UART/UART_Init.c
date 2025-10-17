@@ -42,7 +42,7 @@ void mUART_Init(const UART_Config_t *Config)
     /* UCSRA: Normal speed mode */
    
     ClearBit(UCSRA_Reg,uart_U2X);
-    /* UCSRB: Enable Rx/Tx and their interrupts */
+    /* UCSRB: Enable Rx/Tx  */
     SetBit(UCSRB_Reg, uart_RXEN);   /**<Enable Receiver */
     SetBit(UCSRB_Reg, uart_TXEN);   /**<Enable Transmitter */
 

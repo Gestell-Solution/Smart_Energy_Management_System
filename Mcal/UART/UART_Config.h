@@ -45,15 +45,16 @@ typedef struct
      */
     volatile uint8_t buffer[UART_TX_BUFFER_SIZE]; 
     /**
-     * @var head
-     * @brief Index of the next byte to insert
+     * @var front
+     * @brief  next byte to to be read
      */
-    volatile uint16_t head;     
+    volatile int16_t front;
     /**
-     * @var tail
-     * @brief Index of the next byte to read
+     * @var rear
+     * @brief  next byte to be written 
      */
-    volatile uint16_t tail;                      
+    volatile int16_t rear;
+
     /**
      * @var size
      * @brief Total buffer capacity
@@ -76,8 +77,8 @@ typedef struct
  */
 static inline void UART_Buffer_Init(UART_Buffer_t *buf, uint16_t buffer_size)
 {
-    buf->head = 0;
-    buf->tail = 0;
+    buf->front= -1;
+    buf->rear = -1;
     buf->size = buffer_size;
 }
 
@@ -90,8 +91,11 @@ static inline void UART_Buffer_Init(UART_Buffer_t *buf, uint16_t buffer_size)
  */
 static inline bool UART_Buffer_IsEmpty(const UART_Buffer_t *buf)
 {
-    return (buf->head == buf->tail);
+    return (buf->front == -1 && buf->rear == -1);
+
 }
+
+
 
 /**
  * @brief Checks if a circular buffer is full.
@@ -102,19 +106,35 @@ static inline bool UART_Buffer_IsEmpty(const UART_Buffer_t *buf)
  */
 static inline bool UART_Buffer_IsFull(const UART_Buffer_t *buf)
 {
-    return ((buf->head + 1) % buf->size) == buf->tail;
-}
+    return ((buf->rear + 1) % buf->size == buf->front);
 
+}
+//
 /**
  * @brief Inserts one byte into the buffer.
  * @param buf Pointer to the UART buffer.
  * @param data Byte to be inserted.
  * @warning UART_Buffer_Init() must be called before this function.
  */
-static inline void UART_Buffer_Put(UART_Buffer_t *buf, uint8_t data)
+static inline bool UART_Buffer_Put(UART_Buffer_t *buf, uint8_t data)
 {
-    buf->buffer[buf->head] = data;
-    buf->head = (buf->head + 1) % buf->size;
+    if (UART_Buffer_IsFull(buf)){
+        return false;
+    }
+    else {
+        if (UART_Buffer_IsEmpty(buf)){
+            buf->front=buf->rear=0;
+            buf->buffer[buf->rear]=data;
+        }
+        else if (buf->rear==buf->size-1){
+            buf->rear=0;
+            buf->buffer[buf->rear]=data;
+        }
+        else{
+            buf->buffer[++(buf->rear)]=data;
+        }
+        return true;
+    }
 }
 
 /**
@@ -123,11 +143,24 @@ static inline void UART_Buffer_Put(UART_Buffer_t *buf, uint8_t data)
  * @return Byte read from the buffer.
  * @warning UART_Buffer_Init() must be called before this function.
  */
-static inline uint8_t UART_Buffer_Get(UART_Buffer_t *buf)
+static inline bool UART_Buffer_Get(UART_Buffer_t *buf, uint8_t *data)
 {
-    uint8_t data = buf->buffer[buf->tail];
-    buf->tail = (buf->tail + 1) % buf->size;
-    return data;
+    if (UART_Buffer_IsEmpty(buf)){
+        return false;
+    }
+    else{
+        *data = buf->buffer[buf->front];
+        if(buf->front==buf->rear){
+            buf->front =buf->rear=-1;  /**<one element in the buffer  */
+        }
+        else if(buf->front==buf->size-1){
+            buf->front=0;          /**< Wrap around to beginning */
+        } 
+        else{
+            buf->front++;           /**<Normal mode */
+        }
+        return true;
+    }
 }
 
 #endif /* UART_CONFIG_H_ */

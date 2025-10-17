@@ -14,7 +14,6 @@
 
 /* External Tx buffer defined in UART_Interrupt.c */
 extern UART_Buffer_t UART_TxBuffer;
-static void (*UART_Tx_Callback)(void) = 0; /**< Pointer to transmit complete callback */
 
 
 /**
@@ -25,19 +24,11 @@ void UART_Tx_Init(void)
 {
     UART_Buffer_Init((UART_Buffer_t *)&UART_TxBuffer, UART_TX_BUFFER_SIZE);
     SetBit(UCSRB_Reg, uart_TXCIE);  /**<Enable Transmit Complete Interrupt */
+    /* Enable Data Register Empty Interrupt(interrupt when udr is ready for another byte) */
+    //SetBit(UCSRB_Reg, uart_UDRIE); 
 
 }
 
-/**
- * @fn UART_Tx_SetCallback
- * @brief Set callback function for transmission complete event.
- * @param LocalPtr Pointer to user function .
- */
-void UART_Tx_SetCallback(void (*LocalPtr)(void))
-{
-    if (LocalPtr != 0)
-        UART_Tx_Callback = LocalPtr;
-}
 
 /**
  * @fn mUART_SendByte
@@ -48,13 +39,12 @@ void UART_Tx_SetCallback(void (*LocalPtr)(void))
 void mUART_SendByte(uint8_t data)
 {
     /* Wait if buffer is full */
-    while (UART_Buffer_IsFull(&UART_TxBuffer))
-        ;  // Could also choose to drop instead of blocking
-
+    if(UART_Buffer_IsFull(&UART_TxBuffer)) {
+        return ;
+    }
     UART_Buffer_Put(&UART_TxBuffer, data);
+    SetBit(UCSRB_Reg, uart_UDRIE); 
 
-    /* Enable Data Register Empty Interrupt */
-    SetBit(UCSRB_Reg, uart_UDRIE);
 }
 
 /**
@@ -87,8 +77,6 @@ void mUART_SendBuffer(const uint8_t *data, uint16_t length)
     }
 }
 
-
-
 /**
  * @brief UART Data Register Empty ISR (manual vector).
  * @details Sends next byte from buffer or disables interrupt if no data.
@@ -97,14 +85,16 @@ void mUART_SendBuffer(const uint8_t *data, uint16_t length)
 void __vector_14(void) __attribute__((signal));
 void __vector_14(void)
 {
-    if (!UART_Buffer_IsEmpty((UART_Buffer_t *)&UART_TxBuffer))
+    uint8_t data;
+
+    // If there’s still data in the transmit buffer
+    if (UART_Buffer_Get((UART_Buffer_t *)&UART_TxBuffer, &data))
     {
-        UDR_Reg = UART_Buffer_Get((UART_Buffer_t *)&UART_TxBuffer);
+        // Load the next byte into the UART Data Register
+        UDR_Reg = data;
     }
     else
     {
-        ClearBit(UCSRB_Reg, uart_UDRIE); /**< Disable interrupt */
-        if (UART_Tx_Callback != 0)
-            UART_Tx_Callback();
+        ClearBit(UCSRB_Reg, uart_UDRIE); /**< Disable interrupt */ //don't
     }
 }
