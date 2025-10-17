@@ -81,9 +81,9 @@
 */
 
 
-void __vector_1__(void) __attribute__((signal)) ; // Related with INT0 
-void __vector_2__(void) __attribute__((signal)) ; // Related With INT1
-void __vector_3__(void) __attribute__((signal)) ; // Related with INT2
+void __vector_1(void) __attribute__((signal)) ; // Related with INT0 
+void __vector_2(void) __attribute__((signal)) ; // Related With INT1
+void __vector_3(void) __attribute__((signal)) ; // Related with INT2
 
 /**
 *
