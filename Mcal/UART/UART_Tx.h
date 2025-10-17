@@ -51,7 +51,6 @@ void mUART_SendBuffer(const uint8_t *data, uint16_t length);
  * @brief Set callback function for transmission complete event.
  * @param LocalPtr Pointer to user function .
  */
-void UART_Tx_SetCallback(void (*LocalPtr)(void));
 
 #endif /* UART_TX_H_ */
 
