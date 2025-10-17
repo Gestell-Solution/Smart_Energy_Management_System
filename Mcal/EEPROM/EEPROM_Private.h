@@ -20,6 +20,7 @@
  * @details The EECR register is used to control the operations of the EEPROM. , Bits Values in this register
  *          can be accessed using the defined bit positions. bit values can be only 0 or 1.
  *          bit from 4 to 7 are reserved.
+ * @{
  */
 
 
@@ -27,12 +28,13 @@
 #define EEWE_Bit     1      /**< Setting this bit to 1 Enables EEPROM Writing (EEMWE Must = 1) */
 #define EEMWE_Bit    2      /**< Setting this bit to 1 Enables the EEPROM Master Write  */
 #define EERIE_Bit    3      /**< Setting this bit to 1 Enables the EEPROM Ready Interrupt */
-
+/** @} */ //End of EECR_Reg Bit names
 /**
  * @defgroup Addresses for memory map of EEPROM
  * @brief    This section defines the memory map addresses for the EEPROM.
  * @details This Addresses are used to store data in the EEPROM 
  *          a proper value should be written on the address register (EEARH, EEARL) before any read or write operation.
+ * @{
  */
 #define Device_ID_Add           0x00  /**<   1  Byte*/
 #define Voltage_Calib_Add       0x01  /**<   2  Byte*/   
@@ -40,6 +42,7 @@
 #define Energy_Counter_Add      0x05  /**<   4  Byte*/
 #define Overvoltage_Limit_Add   0x09  /**<   2  Byte*/
 #define Overcurrent_Limit_Add   0x0B  /**<   2  Byte*/
+/** @} */ // End of Addresses of Memory map
 
 
 /**

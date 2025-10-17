@@ -33,9 +33,8 @@ void mEEPROM_WriteByte(uint16_t Address, uint8_t Data)
 
     EEAR_Reg = Address; // Set the EEPROM address
     EEDR_Reg = Data;    // Set the data to be written
-    // SetBit(EECR_Reg, EEMWE_Bit); // Set the Master Write Enable bit
-    // SetBit(EECR_Reg, EEWE_Bit);  // Start the write by setting the Write Enable bit
-  EECR_Reg |= (1 << EEMWE_Bit) | (1<<EEWE_Bit); // Start the write by setting the Write Enable bit
+    SetBit(EECR_Reg, EEMWE_Bit); // Set the Master Write Enable bit
+    SetBit(EECR_Reg, EEWE_Bit);  // Start the write by setting the Write Enable bit
  
 }
 uint8_t mEEPROM_ReadByte(uint16_t Address)
