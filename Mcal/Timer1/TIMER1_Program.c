@@ -67,7 +67,7 @@ void mTIMER1_Init(void)
 void mTIMER1_Start(void)
 {
         
-        TCCR1B_Reg&= (TCCR1B_Reg& ~0x07u) |(Timer1_Prescaler&0x7u);
+        TCCR1B_Reg|= (TCCR1B_Reg& ~0x07u) |(Timer1_Prescaler&0x7u);
 
 }
 
