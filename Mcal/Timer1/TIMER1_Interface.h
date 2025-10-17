@@ -10,8 +10,8 @@
  * @date       2025-10-07
  * @copyright  Copyright (c) 2025 , Gestell Company
  */
-#ifndef _TIMER0_Interface_H_
-#define _TIMER0_Interface_H_
+#ifndef _TIMER1_INTERFACE_H_
+#define _TIMER1_INTERFACE_H_
 #include <stdint.h>
 #include "TIMER1_Config.h"
 

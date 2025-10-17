@@ -244,10 +244,10 @@ typedef enum
 #define OCF1B_Bit 3
 
 /**
- * @def     T1_Stop
- * @brief   Defining the 8bits to stop the Timer
+ * @def     T1_StopMask
+ * @brief   Mask to clear CS12:CS10 (stop the timer) while preserving other TCCR1B bits.
+ * @note    Use as: TCCR1B_Reg &= T1_StopMask;
  */
-#define T1_Stop 0xF8 //0xF8==0b(11111000) //stop the precaller bits so the timer stops
-
+#define T1_StopMask 0xF8u /* 0b11111000 */
 
 #endif

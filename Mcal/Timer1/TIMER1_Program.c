@@ -20,6 +20,7 @@
  */
 #include "TIMER1_Config.h"
 #include "TIMER1_Interface.h"
+#include "TIMER1_Private.h"
 
 static void (*Timer1_Global_Callback)(void)=Null;
 void mTIMER1_Init(void)
@@ -65,18 +66,15 @@ void mTIMER1_Init(void)
 
 void mTIMER1_Start(void)
 {
-        uint8_t TCCR1B_Temp=Timer1_Prescaler;
         
-        TCCR1B_Reg|=TCCR1B_Temp;
+        TCCR1B_Reg&= (TCCR1B_Reg& ~0x07u) |(Timer1_Prescaler&0x7u);
 
 }
 
 
 void mTIMER1_Stop(void)
 {
-        uint8_t TCCR1B_Temp=T1_Stop;
-        TCCR1B_Reg=TCCR1B_Temp;
-
+    TCCR1B_Reg &= T1_StopMask;
 }
 
 
@@ -92,7 +90,21 @@ void mTIMER1_RegisterCallback(void (*callback)(void))
 
 } 
 
+
+void __vector_7(void) __attribute__((signal,used));
+
 void __vector_7()
+{
+        if(Timer1_Global_Callback!=Null)
+        {
+                Timer1_Global_Callback();
+        }
+        else {
+                
+        }
+}
+void __vector_8(void) __attribute__((signal,used));
+void __vector_8()
 {
         if(Timer1_Global_Callback!=Null)
         {
