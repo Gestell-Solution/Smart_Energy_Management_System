@@ -1,28 +1,28 @@
 <mxfile host="65bd71144e">
     <diagram id="VcRqlH0Wo6caGOfmv4Bw" name="Page-1">
-        <mxGraphModel dx="1420" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1006" dy="622" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="110" y="390" width="580" height="110" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="DIO" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="3" value="DIO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF0000;" parent="1" vertex="1">
                     <mxGeometry x="140" y="400" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="ADC" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="4" value="ADC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF0000;" parent="1" vertex="1">
                     <mxGeometry x="230" y="400" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="5" value="GIE" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="5" value="GIE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF0000;" parent="1" vertex="1">
                     <mxGeometry x="320" y="400" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="EEP" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="6" value="EEP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF0000;" parent="1" vertex="1">
                     <mxGeometry x="420" y="400" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="EXTI" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="7" value="EXTI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF0000;" parent="1" vertex="1">
                     <mxGeometry x="510" y="400" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="Timer1" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="8" value="Timer1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF0000;" parent="1" vertex="1">
                     <mxGeometry x="600" y="400" width="70" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="9" value="Mcal" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=20;" parent="1" vertex="1">
@@ -31,64 +31,64 @@
                 <mxCell id="43" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="10" target="2" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="10" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="10" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="110" y="250" width="580" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="Voltage Sensor" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="11" value="Voltage Sensor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="130" y="260" width="100" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="12" value="LCD Driver" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="12" value="LCD Driver" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="350" y="260" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" value="Relay Control" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="13" value="Relay Control" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="240" y="260" width="100" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="14" value="Buzzer" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="14" value="Buzzer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="430" y="260" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="15" value="RGB" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="15" value="RGB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="510" y="260" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="16" value="Btn" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="16" value="Btn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="600" y="260" width="70" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="17" value="Hal" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=20;" parent="1" vertex="1">
                     <mxGeometry x="30" y="275" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="18" value="Current Sensor" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="18" value="Current Sensor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="130" y="305" width="100" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="19" value="HC05" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="19" value="HC05" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="350" y="305" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="21" value="ESP01 Wifi Control" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="21" value="ESP01 Wifi Control" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="240" y="305" width="100" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="42" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="22" target="10" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="22" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="22" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="110" y="100" width="580" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="23" value="Measurement Engine" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="23" value="Measurement Engine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="130" y="110" width="140" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="24" value="Communication Manager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="24" value="Communication Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="510" y="110" width="150" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="25" value="Display Manager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="25" value="Display Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="510" y="155" width="150" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="29" value="App" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=20;" parent="1" vertex="1">
                     <mxGeometry x="30" y="125" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="30" value="Protection Manager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="30" value="Protection Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="330" y="110" width="130" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="31" value="Calibration Manager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="31" value="Calibration Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="330" y="155" width="130" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="32" value="Energy Logger" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="32" value="Energy Logger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0AEFFF;" parent="1" vertex="1">
                     <mxGeometry x="130" y="155" width="140" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="33" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -97,35 +97,63 @@
                 <mxCell id="34" value="Common" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=20;" parent="1" vertex="1">
                     <mxGeometry x="740" y="60" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="35" value="Mcaros" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                <mxCell id="35" value="Mcaros" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="730" y="120" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="37" value="Config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                <mxCell id="37" value="Config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#b85450;" parent="1" vertex="1">
                     <mxGeometry x="730" y="170" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="38" value="Error Code" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="38" value="Error Code" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="730" y="230" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="39" value="Status&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="39" value="Status&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="730" y="290" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="40" value="Project Cfg" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="40" value="Project Cfg" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="730" y="345" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="44" value="Timer0" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="44" value="Timer0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF0000;" parent="1" vertex="1">
                     <mxGeometry x="140" y="450" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="45" value="UART" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="45" value="UART" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF0000;" parent="1" vertex="1">
                     <mxGeometry x="230" y="450" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="46" value="SPI" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="46" value="SPI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;" parent="1" vertex="1">
                     <mxGeometry x="320" y="450" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="47" value="TWI" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="47" value="TWI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;" parent="1" vertex="1">
                     <mxGeometry x="420" y="450" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="48" value="SystemData Manager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="48" value="SystemData Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="730" y="400" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry y="540" width="490" height="360" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="Next Sprints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#06CDFF;" parent="1" vertex="1">
+                    <mxGeometry x="25" y="560" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="Done" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33FF04;" parent="1" vertex="1">
+                    <mxGeometry x="25" y="620" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="This Sprint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF0208;" parent="1" vertex="1">
+                    <mxGeometry x="25" y="680" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="Folllows the background color" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="25" y="750" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="" style="shape=flexArrow;endArrow=classic;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="170" y="714.5" as="sourcePoint"/>
+                        <mxPoint x="260" y="714.5" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="62" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;Color Repreesentations&lt;/span&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;br&gt;&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="270" y="670" width="210" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="BackLog&lt;br&gt;Future Feature" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3B3B3;" vertex="1" parent="1">
+                    <mxGeometry x="25" y="810" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
