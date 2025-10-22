@@ -87,25 +87,28 @@ void hLCD_Clear(uint8_t ClearLine)
 }
 void hLCD_SetCursor(uint8_t Line, uint8_t Digits)
 {
-    uint8_t address = LinesOfDisplay[Line-1]+Digits;
-    
-    hLCD_SendCommand(SET_DDRAM+address);
-    
+   // Need know How Sent to LCD Move in DDRM
+    // Line Option
+    // Line1 : Address For Line 1 = 0x00
+    // Line2 : Address for Line 2 = 0x40
+
+    uint8_t DDRAM_Address = 0 ;
+    switch(Line)
+    {
+        case 1 :  DDRAM_Address = 0x80 ;break;
+        case 2 :  DDRAM_Address = 0xC0 ;break;
+        case 3 :  DDRAM_Address = 0x94 ;break; // For 20x4 LCD
+        case 4 :  DDRAM_Address = 0xD4 ;break; // For 20x4 LCD
+        default:
+            break;
+    }
+    hLCD_SendCommand( DDRAM_Address);
+    _delay_ms(1);
 }
 
 void hLCD_WriteChar(char Character)
 {
-    static uint8_t Columns = 0;
-    static uint8_t Rows = 0;  // 0-based index
 
-    if (Columns >= 16) {
-        Columns = 0;
-        Rows++;
-        if (Rows >= 4) Rows = 0;
-        hLCD_SetCursor(Rows + 2, Columns);
-    }
-
-    // Send character
     mDIO_WritePin(LCD_Group, RS_Pin, High);
     LCD_Port_Output &= 0xF0;
     LCD_Port_Output |= Upper_Nibble_Masking(Character);
@@ -119,7 +122,7 @@ void hLCD_WriteChar(char Character)
     _delay_us(Enable_Pulse_Wait);
     mDIO_WritePin(LCD_Group, EN_Pin, Low);
 
-    Columns++;
+
 }
 
 void hLCD_WriteString(const char *str)
