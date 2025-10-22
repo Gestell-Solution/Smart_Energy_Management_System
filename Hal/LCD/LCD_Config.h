@@ -56,5 +56,10 @@
  * @brief Maximum number of digits for a 32-bit unsigned integer.
  */
 #define Array_Num_Of_Digits 10 
+/** 
+ * @def LowerBitMaskDeletion
+ * @brief Maximum number of digits for a 32-bit unsigned integer.
+ */
+#define LowerBitMaskDeletion 0xF0
 
 #endif

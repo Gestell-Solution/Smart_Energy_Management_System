@@ -17,49 +17,33 @@
  * @def Row_1_Start 
  * @brief Start address of Row 1 in DDRAM.
  */
-#define Row_1_Start  0x00
+#define Row_1_Start  0x80
 
-/** 
- * @def Row_1_End 
- * @brief End address of Row 1 in DDRAM.
- */
-#define Row_1_End    0x0F
+
 
 /** 
  * @def Row_2_Start 
  * @brief Start address of Row 2 in DDRAM.
  */
-#define Row_2_Start  0x40
+#define Row_2_Start  0xC0
 
-/** 
- * @def Row_2_End 
- * @brief End address of Row 2 in DDRAM.
- */
-#define Row_2_End    0x4F
+
 
 /** 
  * @def Row_3_Start 
  * @brief Start address of Row 3 in DDRAM.
  */
-#define Row_3_Start  0x10
+#define Row_3_Start  0x94
 
-/** 
- * @def Row_3_End 
- * @brief End address of Row 3 in DDRAM.
- */
-#define Row_3_End    0x1F
+
 
 /** 
  * @def Row_4_Start 
  * @brief Start address of Row 4 in DDRAM.
  */
-#define Row_4_Start  0x50
+#define Row_4_Start  0xD4
 
-/** 
- * @def Row_4_End 
- * @brief End address of Row 4 in DDRAM.
- */
-#define Row_4_End    0x5F
+
 
 
 
