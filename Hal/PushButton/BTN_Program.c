@@ -75,9 +75,10 @@ void hBtn_ISRAction(void)
 
 uint8_t hBtn_GetStatus(void)
 {
-    uint8_t BTNSTATE;
+    uint8_t BTNSTATE=0;
     mDIO_ReadPin(BTN_PORT,BTN_PIN,&BTNSTATE);
 
     return BTNSTATE ;
 }
+
 #endif /*Btn_Module==Enable */
