@@ -14,7 +14,6 @@
 #include "LCD_Config.h"
 #include "LCD_Interface.h"
 #include "LCD_Private.h"
-#include <cstdint>
 #include <stdint.h>
 #include <util/delay.h>
 
@@ -57,11 +56,12 @@ void hLCD_Init(void)
         _delay_ms(MILLI_Second );
  
 }
+
 void hLCD_SendCommand(uint8_t Command)
 {
     mDIO_WritePin(LCD_Group, RS_Pin, Low);
-   
-    LCD_Port|= Upper_Nibble_Masking(Command);
+    LCD_Port_Output&=0xF0;
+    LCD_Port_Output|= Upper_Nibble_Masking(Command);
     
     mDIO_WritePin(LCD_Group, EN_Pin, High);
     
@@ -70,7 +70,8 @@ void hLCD_SendCommand(uint8_t Command)
     
     mDIO_WritePin(LCD_Group, RS_Pin, Low);
     
-    LCD_Port|= Lower_Nibble_Masking(Command);
+    LCD_Port_Output&=0xF0;
+    LCD_Port_Output|= Lower_Nibble_Masking(Command);
 
     mDIO_WritePin(LCD_Group, EN_Pin, High);
 
@@ -91,28 +92,36 @@ void hLCD_SetCursor(uint8_t Line, uint8_t Digits)
     hLCD_SendCommand(SET_DDRAM+address);
     
 }
+
 void hLCD_WriteChar(char Character)
 {
+    static uint8_t Columns = 0;
+    static uint8_t Rows = 0;  // 0-based index
+
+    if (Columns >= 16) {
+        Columns = 0;
+        Rows++;
+        if (Rows >= 4) Rows = 0;
+        hLCD_SetCursor(Rows + 2, Columns);
+    }
+
+    // Send character
     mDIO_WritePin(LCD_Group, RS_Pin, High);
-   
-    LCD_Port|= Upper_Nibble_Masking(Character);
-    
+    LCD_Port_Output &= 0xF0;
+    LCD_Port_Output |= Upper_Nibble_Masking(Character);
     mDIO_WritePin(LCD_Group, EN_Pin, High);
-    
-    _delay_us( Enable_Pulse_Wait);
+    _delay_us(Enable_Pulse_Wait);
     mDIO_WritePin(LCD_Group, EN_Pin, Low);
-    
-    mDIO_WritePin(LCD_Group, RS_Pin, High);
-    
-    LCD_Port|= Lower_Nibble_Masking(Character);
 
+    LCD_Port_Output &= 0xF0;
+    LCD_Port_Output |= Lower_Nibble_Masking(Character);
     mDIO_WritePin(LCD_Group, EN_Pin, High);
-
-    _delay_us( Enable_Pulse_Wait);
-
+    _delay_us(Enable_Pulse_Wait);
     mDIO_WritePin(LCD_Group, EN_Pin, Low);
-    
+
+    Columns++;
 }
+
 void hLCD_WriteString(const char *str)
 {
 

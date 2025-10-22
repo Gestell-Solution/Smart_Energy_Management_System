@@ -164,10 +164,10 @@
 
 
 /** 
- * @def LCD_Port 
+ * @def LCD_Port_Output 
  * @brief Port used for LCD data and control.
  */
-#define LCD_Port DDRC_Reg
+#define LCD_Port_Output PORTC_Reg
 
 /** 
  * @def Data_Pin4 
