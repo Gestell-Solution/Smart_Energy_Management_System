@@ -43,12 +43,12 @@ uint16_t mUART_ReceiveBuffer(uint8_t *data, uint16_t maxLength)
 uint8_t mUART_ReceiveString(char *str, uint16_t maxLength, char terminator)
 {
     static uint16_t index = 0;
-    uint8_t c;
+    uint8_t Recieved_Byte;
    
 
-    while (UART_Buffer_Get(&UART_RxBuffer, (uint8_t*)&c))
+    while (UART_Buffer_Get(&UART_RxBuffer, (uint8_t*)&Recieved_Byte))
     {
-        if (c == terminator ||c== '\r' ||c== '\n')
+        if (Recieved_Byte == terminator ||Recieved_Byte== '\r' ||Recieved_Byte== '\n')
         {
             str[index] = '\0';
             index = 0;
@@ -57,7 +57,7 @@ uint8_t mUART_ReceiveString(char *str, uint16_t maxLength, char terminator)
 
        else if (index < (maxLength - 1))
         {
-            str[index++] = c;
+            str[index++] = Recieved_Byte;
         }
         else
         {
@@ -78,8 +78,9 @@ void UART_Rx_Init(void)
 
 void UART_Rx_SetCallback(void (*LocalPtr)(uint8_t))
 {
-    if (LocalPtr != 0)
+    if (LocalPtr != Null){
         UART_Rx_Callback = LocalPtr;
+}
 }
 
 /**
