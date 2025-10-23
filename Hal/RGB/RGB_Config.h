@@ -40,7 +40,7 @@
  * @def RGB_RED_GROUP
  * @brief Defines the DIO group (port) used for the red LED.
  */
-#define RGB_RED_GROUP          GroupC
+#define RGB_RED_GROUP          GroupA
 
 /*============================================================================*/
 /**

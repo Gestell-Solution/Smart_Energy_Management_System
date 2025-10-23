@@ -29,40 +29,7 @@
  * @{
  */
 
-/*=============================== Enumerations ===============================*/
 
-/**
- * @enum RGB_State_t
- * @brief Represents the predefined operating states of the RGB LED.
- */
-typedef enum
-{
-    /** @var RGB_OFF
-     *  @brief The RGB LED is turned off.
-     */
-    RGB_OFF,
-
-    /** @var RGB_RED
-     *  @brief The RGB LED displays red color.
-     */
-    RGB_RED,
-
-    /** @var RGB_GREEN
-     *  @brief The RGB LED displays green color.
-     */
-    RGB_GREEN,
-
-    /** @var RGB_ERROR
-     *  @brief The RGB LED indicates an error state (custom defined by the application).
-     */
-    RGB_ERROR,
-
-    /** @var RGB_NORMAL
-     *  @brief The RGB LED indicates a normal operating state.
-     */
-    RGB_NORMAL
-
-} RGB_State_t;
 
 /*=============================== API Functions ==============================*/
 
@@ -72,7 +39,7 @@ typedef enum
  * @details    Configures the RGB LED control pins as output and sets the default state to OFF.
  * @note       This function must be called before using any other RGB functions.
  */
-void RGB_Init(void);
+void hRGB_Init(void);
 
 /**
  * @fn         void RGB_SetColor(uint8_t red, uint8_t green)
@@ -83,7 +50,7 @@ void RGB_Init(void);
  * @param[in]  green  Green LED state (0: OFF, 1: ON).
  * @warning    RGB_Init() must be called before using this function.
  */
-void RGB_SetColor(uint8_t red, uint8_t green);
+void hRGB_SetColor(uint8_t RedState, uint8_t GreenState);
 
 /**
  * @fn         void RGB_SetState(RGB_State_t state)
@@ -92,7 +59,7 @@ void RGB_SetColor(uint8_t red, uint8_t green);
  *             such as NORMAL, ERROR, or OFF.
  * @param[in]  state  The desired LED state (see @ref RGB_State_t).
  */
-void RGB_SetState(RGB_State_t state);
+void hRGB_SetState(RGB_State_t state);
 
 /** @} */ /* End of RGB_Driver group */
 
