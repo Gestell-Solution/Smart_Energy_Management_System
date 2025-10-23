@@ -107,7 +107,8 @@ void hLCD_WriteChar(char Character)
     mDIO_WritePin(LCD_Group, EN_Pin, High);
     _delay_us(Enable_Pulse_Wait);
     mDIO_WritePin(LCD_Group, EN_Pin, Low);
-
+    
+    mDIO_WritePin(LCD_Group, RS_Pin, High);
     LCD_Port_Output &= LowerBitMaskDeletion;
     LCD_Port_Output |= Lower_Nibble_Masking(Character);
     mDIO_WritePin(LCD_Group, EN_Pin, High);
@@ -147,9 +148,9 @@ void hLCD_WriteNumber(int32_t Number)
                 NumArr[index]=Number%10;
                 NumArr[index]+='0';
                 Number/=10;
+                index++;
         if (Number==0) {
         
-                index++;
                 break;
         }
     }
@@ -158,6 +159,7 @@ void hLCD_WriteNumber(int32_t Number)
      {
        
         hLCD_WriteChar(NumArr[index]);
-        
+        _delay_ms(20);
+
     }
 }

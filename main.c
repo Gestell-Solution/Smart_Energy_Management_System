@@ -13,7 +13,7 @@ while (1)
 {
    
 hLCD_SetCursor(1, 2);
-hLCD_WriteString(TEST_String1);
+hLCD_WriteNumber(550);
     _delay_ms(1000);
 
 hLCD_SetCursor(2, 1);
