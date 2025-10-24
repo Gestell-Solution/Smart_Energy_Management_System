@@ -12,7 +12,7 @@
 #ifndef _LCD_CONFIG_H_
 #define _LCD_CONFIG_H_
 #include "LCD_Private.h"
-#include "../../Mcal\DIO\DIO_Interface.h"
+#include "../../Mcal/DIO/DIO_Interface.h"
 /** 
  * @def Clear_Line_String 
  * @brief String used to clear a line on the LCD.

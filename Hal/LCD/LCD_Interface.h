@@ -15,8 +15,8 @@
 #include <stdint.h>
 #include "LCD_Config.h"
 #include "LCD_Private.h"
-#include "../../Common\Macros.h"
-#include "../../Mcal\DIO\DIO_Interface.h"
+#include "../../Common/Macros.h"
+#include "../../Mcal/DIO/DIO_Interface.h"
 /**
  * @fn     hLCD_Init
  * @brief  Initialize the LCD in the configured interface mode (e.g. 4-bit).
