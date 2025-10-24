@@ -29,7 +29,7 @@
 
 /**
  * @fn      void BTN_Init(void)
- * @brief   Initialize the Push Button Module.
+ * @brief   Initializes the Push Button Module.
  * @details 
  *  - Configure button pin (PD2) as input.  
  *  - Enable internal pull-up resistor.  
@@ -59,6 +59,21 @@ void hBtn_ISRAction(void);
  */
 
 uint8_t hBtn_GetStatus(void);
+
+
+/* --------------------------------------------------------------------------
+*                           Global Variable
+* --------------------------------------------------------------------------*/
+
+/**
+ * @brief Global variable storing current system mode.
+ * @details 
+ * - 0 → Automatic Mode  
+ * - 1 → Manual Mode  
+ * @note Declared here so that application (main) can read the current mode.
+*/
+extern uint8_t BTN_SystemMode;
+
 
 
 #endif /*_HBUTTON_INTERFACE_H_*/

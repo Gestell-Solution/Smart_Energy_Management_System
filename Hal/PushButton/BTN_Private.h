@@ -42,20 +42,6 @@
 #define BTN_Pressed     0
 #define BTN_NotPressed  1
 
-/** @} */ // End of BTN State 
-
-/* --------------------------------------------------------------------------
-*                           Global Variable
-* --------------------------------------------------------------------------*/
-
-/**
- * @brief Global variable storing current system mode.
- * @details 
- * - 0 → Automatic Mode  
- * - 1 → Manual Mode  
- * @note Declared here so that application (main) can read the current mode.
-*/
-extern uint8_t BTN_SystemMode;
 
 
 #endif /*_HBUTTON_PRIVATE_H_*/
