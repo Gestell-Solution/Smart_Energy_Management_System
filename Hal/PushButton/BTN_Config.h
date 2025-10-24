@@ -24,11 +24,11 @@
 * --------------------------------------------------------------------------*/
 
 /**
- * @def        BTN_Sense_Control
- * @brief      Defines button (PIND2)-->EXT0 Interrupt triggers only on falling edge .  
- * 
- * 
-*/
+ * @def   BTN_Sense_Control
+ * @brief Defines the EXTI trigger mode for button input (PD2 → EXTI0).
+ * @details 
+ * The button interrupt will trigger only on the falling edge.
+ */
 
 #define BTN_Sense_Control  EXT_FALLING_EDGE
 
@@ -38,25 +38,23 @@
 
 /**
  * @def   BTN_DebounceEnable
- * @brief Enables or disables debounce.
- * @details Debouncing Occurs in Hardware mainly as the button while Pressing on it vibrates mechanicaly and may do more than one interrupt
- * so we handle this by adding a delay between each press and another press.
+ * @brief Enables or disables software debounce filtering.
+ * @details
+ * Mechanical buttons can generate multiple interrupts due to contact vibration.  
+ * Debouncing adds a short delay to filter false triggers.
  * 
- * Options:
- *   - Enable-----> Software Debounce is active
- *   - Disable----> no debounce filtering
-*/
+ * **Options:**
+ * - `Enable` → Activate software debounce.  
+ * - `Disable` → No debounce filtering.
+ */
 
 #define BTN_DebounceEnable    Enable
 
 /**
  * @def   BTN_DebounceDelay
- * @brief Sets the debounce delay time (in milliseconds).
- * @details Debounce by giving delay between each press and another press
- * 
- * @note Use This When BTN_Debounce------>Enable
- * 
-*/
+ * @brief Defines the debounce delay time in milliseconds.
+ * @note  Used only if `BTN_DebounceEnable` is set to `Enable`.
+ */
 
 #define BTN_DebounceDelay   50
 

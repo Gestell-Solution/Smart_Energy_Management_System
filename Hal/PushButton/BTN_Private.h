@@ -12,47 +12,50 @@
 #ifndef _HBUTTON_PRIVATE_H_
 #define _HBUTTON_PRIVATE_H_
 
-/* --------------------------------------------------------------------------
-*                               Include LIB
-* --------------------------------------------------------------------------*/
-#include <stdint.h>
-#include "../../Mcal/EXTI/EXTI_Interface.h"
-#include "../../Mcal/DIO/DIO_Interface.h"
-#include "../../Mcal/GIE_Interface.h"
 
 /* --------------------------------------------------------------------------
-*                           PORT,PIN Mapping
-* --------------------------------------------------------------------------*/
+ *                           PORT & PIN Mapping
+ * --------------------------------------------------------------------------*/
 
 /**
- * @defgroup BTN_Port , BTN_Pin
- * @brief    Defines the Button where it will be connected at What Port & What Pin
+ * @defgroup BTN_Port_Pin Button Hardware Mapping
+ * @brief    Defines the port and pin connection for the push button.
+ * @{
 */
 
 #define BTN        1                //Related With EXTI0
 #define BTN_PORT GroupD 
 #define BTN_PIN  PIN2
 
+/** @} */ // End of PORT & Pin Mapping
+
 /* --------------------------------------------------------------------------
 *                           BTN State
 * --------------------------------------------------------------------------*/
 
+/**
+ * @defgroup BTN_States Button Logic States
+ * @brief    Defines the logical states of the push button.
+ * @{
+*/
+
 #define BTN_Pressed     0
 #define BTN_NotPressed  1
 
+/** @} */ // End of BTN State 
+
 /* --------------------------------------------------------------------------
-*                    Variable Stores System Mode 
+*                           Global Variable
 * --------------------------------------------------------------------------*/
 
 /**
- * @def   static uint8_t BTN_SystemMode
- * @brief Internal variable storing the system mode.
- * @details
- *  0 → Automatic Mode  
- *  1 → Manual Mode  
-*/
-
-extern uint8_t BTN_SystemMode ;
+ * @brief Global variable storing current system mode.
+ * @details 
+ * - 0 → Automatic Mode  
+ * - 1 → Manual Mode  
+ * @note Declared here so that application (main) can read the current mode.
+ */
+extern uint8_t BTN_SystemMode;
 
 
 #endif /*_HBUTTON_PRIVATE_H_*/
