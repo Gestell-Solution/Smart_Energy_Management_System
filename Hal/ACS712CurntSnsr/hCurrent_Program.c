@@ -72,7 +72,7 @@ void hCurrent_Calibrate(void) // Adjust zero offset at no load
 {
     uint16_t SamplesNum=Num_OF_Calibration_Samples;
     float ADC_Avrg_samples=0;
-    while (SamplesNum) {
+    while (SamplesNum--) {
     ADC_Avrg_samples+= mADC_Read(ACS712_PIN);
     }
     ADC_Avrg_samples/=Num_OF_Calibration_Samples;
