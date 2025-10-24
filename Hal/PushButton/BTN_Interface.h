@@ -19,7 +19,6 @@
 #include "../../Common/Macros.h"
 #include "../../Mcal/DIO/DIO_Interface.h"
 #include "../../Mcal/EXTI/EXTI_Interface.h"
-#include "../../Mcal/GIE_Interface.h"
 #include "BTN_Private.h"
 #include "BTN_Config.h"
 
