@@ -30,11 +30,16 @@
 #include "../../Mcal/DIO/DIO_Interface.h"
 
 /* --------------------------------------------------------------------------
-*                           Global Variable 
+*                           Global Variable
 * --------------------------------------------------------------------------*/
 
-uint8_t BTN_SystemMode = 0;  // 0 = Auto Mode , 1 = Manual Mode
-
+/**
+ * @brief Global variable storing current system mode.
+ * @details 
+ * - 0 → Automatic Mode  
+ * - 1 → Manual Mode  
+*/
+static uint8_t BTN_SystemMode= 0 ; // 0-->automatic ,1--> manual
 
 /* --------------------------------------------------------------------------
 *                           Functions Definitions
@@ -47,7 +52,8 @@ void hBtn_Init(void)
     mEXTI_Init(EXTI0,BTN_Sense_Control);
     mEXTI_setCallback(EXTI0, hBtn_ISRAction); 
     mEXTI_Enable(EXTI0);
-    GIE_Enable();
+    
+    
 
 }
 
@@ -65,7 +71,7 @@ void hBtn_ISRAction(void)
     if (BTNState==BTN_Pressed)
     {
         if ( BTN_SystemMode == 1)
-            BTN_SystemMode = 0 ; // Manaul -->Automatic Mode
+            BTN_SystemMode = 0 ; // Manaul -->   Automatic Mode
         else if ( BTN_SystemMode == 0)
             BTN_SystemMode = 1 ; // Automatic -->Manual Mode
 
@@ -75,10 +81,7 @@ void hBtn_ISRAction(void)
 
 uint8_t hBtn_GetStatus(void)
 {
-    uint8_t BTNSTATE=0;
-    mDIO_ReadPin(BTN_PORT,BTN_PIN,&BTNSTATE);
-
-    return BTNSTATE ;
+    return BTN_SystemMode ;
 }
 
 #endif /*Btn_Module==Enable */
