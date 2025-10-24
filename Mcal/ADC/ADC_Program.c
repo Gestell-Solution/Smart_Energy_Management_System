@@ -13,6 +13,7 @@
 
 #if ADC_Module == Enable
 #include "ADC_Interface.h"
+uint8_t isADC_Initialized=0;
 
 /*-------------------------------------------------------------
  *                   Private Global Variables
@@ -50,6 +51,11 @@ void ADC_SetCallback(void (*callback)(uint16_t), uint8_t channel)
 
 void mADC_Init()
 {
+    //ADC Guard
+    if (isADC_Initialized==0) {
+    
+        isADC_Initialized=1;
+    }else return;
     /* Right-adjust result (clear ADLAR) */
     ClearBit(ADMUX_Reg, ADLAR_bit);
 
