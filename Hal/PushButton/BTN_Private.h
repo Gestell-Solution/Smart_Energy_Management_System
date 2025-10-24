@@ -54,7 +54,7 @@
  * - 0 → Automatic Mode  
  * - 1 → Manual Mode  
  * @note Declared here so that application (main) can read the current mode.
- */
+*/
 extern uint8_t BTN_SystemMode;
 
 
