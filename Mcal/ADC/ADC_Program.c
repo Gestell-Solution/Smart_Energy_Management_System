@@ -52,6 +52,14 @@ void ADC_SetCallback(void (*callback)(uint16_t), uint8_t channel)
 
 void mADC_Init()
 {
+    if (isADC_Initialized==0)
+    {
+        isADC_Initialized = 1;
+    }
+    
+    else {
+        return;
+    }
     /* Right-adjust result (clear ADLAR) */
     ClearBit(ADMUX_Reg, ADLAR_bit);
 
