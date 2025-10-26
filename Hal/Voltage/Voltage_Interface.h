@@ -17,6 +17,8 @@
 #include "../../Mcal/Adc/Adc_Interface.h"
 #include "Voltage_Config.h"
 #include "Voltage_Private.h"
+#include "../../Mcal/ADC/ADC_Interface.h"
+#include "../../Mcal/DIO/DIO_Interface.h"
 /**
  * @defgroup Voltage Sensor Api's
  * @brief This section contains the APIs for the Voltage Sensor module.

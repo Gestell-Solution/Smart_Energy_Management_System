@@ -12,4 +12,42 @@
 
 #ifndef Voltage_Config_H
 #define Voltage_Config_H
+#include"../../Common/Config.h"
+#include"../../Common/Macros.h"
+/**
+ * @def Voltage_Group
+ * @brief Refers to the ADC Group (GroupA) 
+ */
+#define Voltage_Group     GroupA           /**< Select the ADC Group connected to Voltage Sensor */
+/**
+ * @def Voltage_Pin
+ * @brief Refers to the ADC Pin (PIN1)
+ */
+#define Voltage_Pin       PIN1            /**< Select the ADC Pin connected to Voltage Sensor */
+/**
+ * @def Voltage_REF
+ * @brief Refers to the maximum Voltage can be input in the ADC (5V)
+ */
+#define Voltage_REF       5UL            /**< Reference Voltage for ADC in Volts (V) */
+/**
+ * @def Voltage_Scaling_Factor
+ * @brief Refers to the Scaling Factor for Voltage Calculation
+ */
+#define Voltage_Scaling_Factor  11.0f    /**< Equals (R_ADC+R_GND)/R_ADC  */
+/**
+ * @def R_WITH_ADC
+ * @brief The Resistor between Vcc and the adc input
+ */
+#define R_WITH_Vcc     1000.0f          /**< The Resistor between Vcc and the adc input  */
+/**
+ * @def R_With_GND
+ * @brief The Resistor between GND and the adc input
+ */
+#define R_With_GND     10000.0f         /**< the Resisotr between GND And ADC Input  */
+/**
+ * @def VCC_Voltage
+ * @brief The Vcc Voltage Which needs to be measured
+ */
+#define VCC_Voltage   55            /**< The Vcc Voltage Value in Volts (V) */
+
 #endif
