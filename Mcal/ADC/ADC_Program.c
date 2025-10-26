@@ -14,6 +14,8 @@
 #if ADC_Module == Enable
 #include "ADC_Interface.h"
 
+static uint8_t isADC_Initialized = 0;
+
 /*-------------------------------------------------------------
  *                   Private Global Variables
  *-------------------------------------------------------------*/
