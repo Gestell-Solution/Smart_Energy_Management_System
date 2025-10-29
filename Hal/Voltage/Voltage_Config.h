@@ -29,16 +29,12 @@
  * @brief Refers to the maximum Voltage can be input in the ADC (5V)
  */
 #define Voltage_REF       5UL            /**< Reference Voltage for ADC in Volts (V) */
-/**
- * @def Voltage_Scaling_Factor
- * @brief Refers to the Scaling Factor for Voltage Calculation
- */
-#define Voltage_Scaling_Factor  11.0f    /**< Equals (R_ADC+R_GND)/R_ADC  */
+
 /**
  * @def R_WITH_ADC
  * @brief The Resistor between Vcc and the adc input
  */
-#define R_WITH_Vcc     1000.0f          /**< The Resistor between Vcc and the adc input  */
+#define R_WITH_Vcc     590000.0f          /**< The Resistor between Vcc and the adc input  */
 /**
  * @def R_With_GND
  * @brief The Resistor between GND and the adc input
@@ -48,6 +44,6 @@
  * @def VCC_Voltage
  * @brief The Vcc Voltage Which needs to be measured
  */
-#define VCC_Voltage   55            /**< The Vcc Voltage Value in Volts (V) */
+#define VCC_Voltage   300            /**< The Vcc Voltage Value in Volts (V) */
 
 #endif

@@ -14,6 +14,9 @@
 #if VoltageSensor_Module==Enable
 #include"Voltage_Interface.h"
 extern isADC_Initialized ;
+
+static float Voltage_Scaling_Factor=(R_With_GND + R_WITH_Vcc) / R_WITH_Vcc;
+
 void hVoltage_Init(void)
 {
     if (isADC_Initialized == 0)
@@ -53,7 +56,6 @@ void hVoltage_Calibrate(float ref)
     float currentVoltage = hVoltage_ReadInstant();
     float calibrationFactor = ref / currentVoltage;
     // Update the scaling factor
-    #undef Voltage_Scaling_Factor
-    #define Voltage_Scaling_Factor (11.0f * calibrationFactor)
+   Voltage_Scaling_Factor*= calibrationFactor;
 }
 #endif
