@@ -16,7 +16,7 @@
  * @def ACS712_PIN
  * @brief Defines the ADC pin connected to the ACS712 sensor.
  */
-#define ACS712_PIN 0 
+#define ACS712_PIN  0ul 
 
 /**
  * @def ACS712_SENSITIVITY
@@ -41,5 +41,7 @@
  * @brief Initial zero-current voltage offset (typically Vref/2).
  */
 #define ACS712_Initial_ZERO_OFFSET (Vref / 2.0)
+
+#define RMS_Nominal_Samples_Num  200
 
 #endif

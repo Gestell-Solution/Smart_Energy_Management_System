@@ -10,6 +10,24 @@
 #ifndef _H_CURRENT_INTERFACE_H_
 #define _H_CURRENT_INTERFACE_H_
 #include <stdint.h>
+
+typedef struct
+{
+
+    float Previous_ADC_Avrg_Value;
+    float Current_ADC_Avrg_Value;
+    uint16_t Callibration_Samples_Num;
+    float   ADC_Readings_Sum;
+} Calibration_Data;
+typedef struct
+{
+    float Summing_Squares;
+    float Current_RMS_Value;
+    float Previous_RMS_Value;
+    uint16_t RMS_Samples_Num;
+
+} RMS_Data;
+
 /**
  * @fn void hCurrent_Init(void)
  * @brief Initializes the ACS712 current sensor driver.
@@ -29,15 +47,13 @@ void hCurrent_Init(void);
 float hCurrent_ReadInstant(void);
 
 /**
- * @fn float hCurrent_ReadRMS(uint16_t samples)
+ * @fn float hCurrent_ReadRMS()
  * @brief Calculates the RMS current over a number of samples.
- * @details Reads multiple instantaneous current values, squares them, averages the result, and returns the square root.
- * @param samples Number of samples to use for RMS calculation.
  * @return float RMS current value in amperes.
  * @retval Returns the calculated RMS current.
  * @note Larger sample sizes improve accuracy but increase computation time.
  */
-float hCurrent_ReadRMS(uint16_t samples);
+float hCurrent_ReadRMS();
 /**
  * @fn void hCurrent_Calibrate(void)
  * @brief Calibrates the zero-current offset of the ACS712 sensor.
