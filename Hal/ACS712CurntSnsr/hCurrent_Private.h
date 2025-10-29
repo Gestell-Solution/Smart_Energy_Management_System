@@ -28,10 +28,4 @@
  */
 #define ADC_MAX 1023.0
 
-/**
- * @def Num_OF_Calibration_Samples
- * @brief Number of samples used during zero offset calibration.
- */
-#define Num_OF_Calibration_Samples 500
-
 #endif

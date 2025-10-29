@@ -11,20 +11,38 @@
 #define _H_CURRENT_INTERFACE_H_
 #include <stdint.h>
 
+/**
+ * @struct Calibration_Data
+ * @brief Holds running data used to compute the ADC zero offset (calibration).
+ *
+ * @details
+ * Used when calibrating the ACS712 sensor to determine the baseline ADC
+ * value when no current is flowing. The driver accumulates ADC readings and
+ * computes an average which is stored in this structure.
+ */
 typedef struct
 {
-
-    float Previous_ADC_Avrg_Value;
-    float Current_ADC_Avrg_Value;
-    uint16_t Callibration_Samples_Num;
-    float   ADC_Readings_Sum;
+    float Previous_ADC_Avrg_Value; /**< Previous averaged ADC value from calibration. */
+    float Current_ADC_Avrg_Value;  /**< Current averaged ADC value being accumulated. */
+    uint16_t Callibration_Samples_Num; /**< Number of samples used for calibration averaging. */
+    float   ADC_Readings_Sum; /**< Running sum of ADC readings used to compute the average. */
 } Calibration_Data;
+
+/**
+ * @struct RMS_Data
+ * @brief Holds intermediate values used to compute RMS current.
+ *
+ * @details
+ * The RMS algorithm accumulates squared current (or ADC) samples, keeps track
+ * of the number of samples and computes a root-mean-square value which is
+ * converted to the current RMS reading.
+ */
 typedef struct
 {
-    float Summing_Squares;
-    float Current_RMS_Value;
-    float Previous_RMS_Value;
-    uint16_t RMS_Samples_Num;
+    float Summing_Squares;      /**< Sum of squared (zero-centered) sample values. */
+    float Current_RMS_Value;    /**< Most recently computed RMS current value (A). */
+    float Previous_RMS_Value;   /**< Previous RMS current value (A), useful for filtering or change detection. */
+    uint16_t RMS_Samples_Num;   /**< Number of samples included in the RMS computation. */
 
 } RMS_Data;
 
