@@ -58,6 +58,15 @@ float hVoltage_ReadRMS(uint16_t samples); // RMS voltage (V) over N samples
 
 void hVoltage_Calibrate(float ref); // Calibrate scaling factor
 
+/**
+ * @fn hVoltage_Callback
+ * @brief Placeholder for voltage measurement callback function.
+ * @param dummy A dummy parameter for future use.
+ */
+
+
+void hVoltage_Callback(uint16_t dummy);
+
 /** @} */
 
 #endif

@@ -14,5 +14,15 @@
 #ifndef Voltage_Private_H
 #define Voltage_Private_H
 
+typedef struct 
+{
+    
+    float sumOfSquares;
+    float Voltage_RMS_Value;
+    float Voltage_Previous_RMS;
+    uint16_t sampleCount;
+
+}Voltage_RMS_Data;
+
 
 #endif 

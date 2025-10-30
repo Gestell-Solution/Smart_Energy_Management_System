@@ -13,9 +13,14 @@
 #include"../../Common/Config.h"
 #if VoltageSensor_Module==Enable
 #include"Voltage_Interface.h"
+#include <math.h>
 extern isADC_Initialized ;
 
-static float Voltage_Scaling_Factor=(R_With_GND + R_WITH_Vcc) / R_WITH_Vcc;
+static float Voltage_Scaling_Factor=(R_With_GND + R_WITH_Vcc) / R_With_GND;
+
+static float Voltage_Value=0.0f;
+
+Voltage_RMS_Data Voltage_RMS ={0.0f,0.0f,0.0f,0};
 
 void hVoltage_Init(void)
 {
@@ -57,5 +62,27 @@ void hVoltage_Calibrate(float ref)
     float calibrationFactor = ref / currentVoltage;
     // Update the scaling factor
    Voltage_Scaling_Factor*= calibrationFactor;
+}
+
+void hVoltage_Callback(uint16_t dummy)
+{
+    Voltage_Value=mADC_ReadChannel(Voltage_Pin);
+     Voltage_Value *= (1 / 1023.0f) * Voltage_REF * Voltage_Scaling_Factor;
+
+     // update RMS calculation
+     Voltage_RMS.sampleCount++;
+     Voltage_RMS.sumOfSquares += Voltage_Value * Voltage_Value;
+
+     if (Voltage_RMS.sampleCount==200)
+     {
+            Voltage_RMS.Voltage_Previous_RMS=Voltage_RMS.Voltage_RMS_Value;
+            Voltage_RMS.Voltage_RMS_Value=sqrtf(Voltage_RMS.sumOfSquares / Voltage_RMS.sampleCount);
+            Voltage_RMS.sumOfSquares=0.0f;
+            Voltage_RMS.sampleCount=0;
+     }
+     else {
+        // do nothing
+     }
+     
 }
 #endif
