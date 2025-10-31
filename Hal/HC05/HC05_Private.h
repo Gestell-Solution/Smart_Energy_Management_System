@@ -1,12 +1,11 @@
 /**
- * @file       HC05_Config.h
- * @brief      Configuration file for the HC-05 Bluetooth driver.
- * @details    This file contains user-defined configuration macros for the HC-05 Bluetooth driver,
- *             including UART settings and parameters.
+ * @file       HC05_private.h
+ * @brief      private file for the HC-05 Bluetooth driver.
+ * @details    This file 
  * @version    1.0
  * @date       2025-10-28
  * @author     Developer: Ahmed Twap  (ahmedtwap2@gmail.com)
- * @author     Reviewer: Ahmed Ashraf
+ * @author     Reviewer: Ahmed Ashraf (ahmedashraf2022222@gmail.com)
  * @copyright  Copyright (c) 2025, Gestell Company
  */
 
@@ -14,10 +13,6 @@
 #define HC05_PRIVATE_H_
 
 
-/**
- * @enum HC05_State_t
- * @brief Defines the HC-05 module operational states.
- */
 
 
 #endif /* HC05_PRIVATE_H_ */
