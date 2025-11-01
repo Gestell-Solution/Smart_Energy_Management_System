@@ -48,7 +48,7 @@ float hVoltage_ReadInstant(void); // Instantaneous voltage (V)
  * @return Returns a Floating Value of the RMS Voltage Value in Volts (V)
  */
 
-float hVoltage_ReadRMS(uint16_t samples); // RMS voltage (V) over N samples
+float hVoltage_ReadRMS(); // RMS voltage (V) over N samples
 
 /**
  * @fn hVoltage_Calibrate

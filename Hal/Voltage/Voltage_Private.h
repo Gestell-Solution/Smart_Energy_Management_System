@@ -24,5 +24,12 @@ typedef struct
 
 }Voltage_RMS_Data;
 
+typedef struct {
+    float Voltage_Prev_Value ;
+    float Voltage_Current_Value ;
+    uint16_t Callibration_Count ;
+    float ADC_Reading_Sum ;
+} Voltage_Calibration_Data;
 
+#define g 200
 #endif 
