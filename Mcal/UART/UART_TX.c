@@ -11,6 +11,7 @@
 
 
 #include "../UART/UART_Tx.h"
+#include "../../Common/Macros.h"
 
 /* External Tx buffer defined in UART_Interrupt.c */
 extern UART_Buffer_t UART_TxBuffer;
@@ -55,7 +56,12 @@ void mUART_SendByte(uint8_t data)
  */
 void mUART_SendString(const char *str)
 {
-    while (*str != '\0')
+    if (str==Null)
+    {
+        return;
+    }
+    
+    while (*str != '\0') 
     {
         mUART_SendByte((uint8_t)*str);
         str++;
@@ -71,6 +77,10 @@ void mUART_SendString(const char *str)
  */
 void mUART_SendBuffer(const uint8_t *data, uint16_t length)
 {
+    if (data==Null || length==0)
+    {
+        return;
+    }
     for (uint16_t i = 0; i < length; i++)
     {
         mUART_SendByte(data[i]);
