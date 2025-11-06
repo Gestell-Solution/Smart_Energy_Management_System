@@ -169,7 +169,6 @@ void __vector_16(void) __attribute__((signal)); // ADC Conversion Complete ISR
 
 void __vector_16(void)
 {
-mDIO_WritePin(GroupB , PIN2,High);
     /**
      * psuedo code
      * read the conversion
@@ -178,9 +177,8 @@ mDIO_WritePin(GroupB , PIN2,High);
      * switch the ADMUX_Reg
      * Clear the interrupt flag
      */
-    uint8_t Lower=ADCL_Reg;
-    uint8_t Higher =ADCH_Reg;
-    uint16_t ADC_Value = (Higher<<8)|(Lower);
+    
+    uint16_t ADC_Value = ADCData_Reg;
     /* Call current channel callback if valid */
     if (ADC_Callbacks[Channel_Index] != Null)
     {
@@ -194,9 +192,6 @@ mDIO_WritePin(GroupB , PIN2,High);
     {
         Channel_Index = 0;
     }
-//0B 0100 0001 -> 0B 0100 0000 
-//0B 0100 0001 & 0B 1111 0000 = 0B 0100 0000
-//0B 0100 0000 | 0B 0000 0001 = 0B 0100 0001
     ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) |Channel_Index;
 
 
@@ -204,7 +199,6 @@ mDIO_WritePin(GroupB , PIN2,High);
     /* If no hardware trigger, start manually */
     SetBit(ADCSRA_Reg, ADSC_bit);
 #endif
-mDIO_WritePin(GroupB , PIN2,Low);
 }
 
 void __vector_7(void) __attribute__((signal));

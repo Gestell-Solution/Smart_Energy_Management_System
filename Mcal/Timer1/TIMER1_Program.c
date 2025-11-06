@@ -53,8 +53,8 @@ void mTIMER1_Init(void)
         CompareMatch1B_InterruptEnable;
         CompareMatch1A_InterruptEnable;
         //setting the registers
-        OCR1A_Reg=62500;
-        OCR1B_Reg=62500;
+        OCR1A_Reg=1250;
+        OCR1B_Reg=1250;
         ICR1_Reg=Timer1_TOPvalue;
         TCCR1A_Reg=TCCR1A_Temp;
         TCCR1B_Reg=TCCR1B_Temp;

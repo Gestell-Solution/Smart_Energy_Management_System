@@ -150,6 +150,6 @@
  * @warning Ensure that the value fits within the 16-bit range (0–65535) to
  * avoid overflow.
  */
-#define Timer1_TOPvalue 62500
+#define Timer1_TOPvalue 1250
 
 #endif
