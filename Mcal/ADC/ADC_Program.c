@@ -169,6 +169,7 @@ void __vector_16(void) __attribute__((signal)); // ADC Conversion Complete ISR
 
 void __vector_16(void)
 {
+
     /**
      * psuedo code
      * read the conversion
@@ -195,36 +196,10 @@ void __vector_16(void)
     ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) |Channel_Index;
 
 
-#if ADC_AUTO_TRIGGER == ADC_AUTO_TRIGGER_Disable
-    /* If no hardware trigger, start manually */
+
     SetBit(ADCSRA_Reg, ADSC_bit);
-#endif
-}
-
-void __vector_7(void) __attribute__((signal));
-
-void __vector_7()
-{
-        // if(Timer1_Global_Callback!=Null)
-        // {
-        //         Timer1_Global_Callback();
-        // }
-        // else {
-                
-        // }
 
 }
-void __vector_8(void) __attribute__((signal));
-void __vector_8()
-{
-        // if(Timer1_Global_Callback!=Null)
-        // {
-        //         Timer1_Global_Callback();
-        // }
-        // else {
-                
-        // }
-        SetBit(ADCSRA_Reg, ADSC_bit);
 
-}
+
 #endif /* ADC_Module == Enable */
