@@ -31,5 +31,5 @@ typedef struct {
     float ADC_Reading_Sum ;
 } Voltage_Calibration_Data;
 
-#define g 200
+#define Voltage_Calibration_Samples 200
 #endif 

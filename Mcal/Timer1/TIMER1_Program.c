@@ -53,8 +53,8 @@ void mTIMER1_Init(void)
         CompareMatch1B_InterruptEnable;
         CompareMatch1A_InterruptEnable;
         //setting the registers
-        OCR1A_Reg=CompareMatchValueA;
-        OCR1B_Reg=CompareMatchValueB;
+        OCR1A_Reg=62500;
+        OCR1B_Reg=62500;
         ICR1_Reg=Timer1_TOPvalue;
         TCCR1A_Reg=TCCR1A_Temp;
         TCCR1B_Reg=TCCR1B_Temp;
@@ -91,7 +91,7 @@ void mTIMER1_RegisterCallback(void (*callback)(void))
 } 
 
 
-void __vector_7(void) __attribute__((signal,used));
+void __vector_7(void) __attribute__((signal));
 
 void __vector_7()
 {
@@ -102,8 +102,9 @@ void __vector_7()
         else {
                 
         }
+
 }
-void __vector_8(void) __attribute__((signal,used));
+void __vector_8(void) __attribute__((signal));
 void __vector_8()
 {
         if(Timer1_Global_Callback!=Null)
@@ -113,4 +114,5 @@ void __vector_8()
         else {
                 
         }
+        
 }

@@ -31,7 +31,7 @@
  * @brief Enables Timer1 Compare Match B interrupt.
  * @details Sets the OCIE1B bit in the TIMSK register.
  */
-#define CompareMatch1B_InterruptEnable SetBit(TIMSK_Reg, OCF1A_Bit)
+#define CompareMatch1B_InterruptEnable SetBit(TIMSK_Reg, OCF1B_Bit)
 
 /**
  * @def Timer1_Prescaler
@@ -150,6 +150,6 @@
  * @warning Ensure that the value fits within the 16-bit range (0–65535) to
  * avoid overflow.
  */
-#define Timer1_TOPvalue 1000
+#define Timer1_TOPvalue 62500
 
 #endif
