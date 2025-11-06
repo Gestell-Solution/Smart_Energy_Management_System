@@ -46,4 +46,9 @@
  */
 #define VCC_Voltage   300            /**< The Vcc Voltage Value in Volts (V) */
 
+/**
+ * @def Voltage_Calibration_Samples
+ * @brief Number of samples to take for voltage calibration.
+ */
+#define Voltage_Calibration_Samples 200
 #endif

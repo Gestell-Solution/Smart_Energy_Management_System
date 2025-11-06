@@ -57,9 +57,5 @@ typedef struct {
 } Voltage_Calibration_Data;
 /**@} */
 
-/**
- * @def Voltage_Calibration_Samples
- * @brief Number of samples to take for voltage calibration.
- */
-#define Voltage_Calibration_Samples 200
+
 #endif 
