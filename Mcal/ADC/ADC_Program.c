@@ -178,7 +178,9 @@ mDIO_WritePin(GroupB , PIN2,High);
      * switch the ADMUX_Reg
      * Clear the interrupt flag
      */
-    uint16_t ADC_Value = ADCData_Reg;
+    uint8_t Lower=ADCL_Reg;
+    uint8_t Higher =ADCH_Reg;
+    uint16_t ADC_Value = (Higher<<8)|(Lower);
     /* Call current channel callback if valid */
     if (ADC_Callbacks[Channel_Index] != Null)
     {
@@ -203,8 +205,32 @@ mDIO_WritePin(GroupB , PIN2,High);
     SetBit(ADCSRA_Reg, ADSC_bit);
 #endif
 mDIO_WritePin(GroupB , PIN2,Low);
-_delay_ms(300);
 }
 
+void __vector_7(void) __attribute__((signal));
 
+void __vector_7()
+{
+        // if(Timer1_Global_Callback!=Null)
+        // {
+        //         Timer1_Global_Callback();
+        // }
+        // else {
+                
+        // }
+
+}
+void __vector_8(void) __attribute__((signal));
+void __vector_8()
+{
+        // if(Timer1_Global_Callback!=Null)
+        // {
+        //         Timer1_Global_Callback();
+        // }
+        // else {
+                
+        // }
+        SetBit(ADCSRA_Reg, ADSC_bit);
+
+}
 #endif /* ADC_Module == Enable */
