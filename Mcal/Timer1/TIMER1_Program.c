@@ -90,12 +90,15 @@ void mTIMER1_RegisterCallback(void (*callback)(void))
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 void __vector_7(void) __attribute__((signal));
 =======
 void _vector_7(void) __attribute_((signal));
 >>>>>>> e1f2cf6 ([Fixing the Bugs in the Sensor])
 =======
 >>>>>>> f7d9b7d (Resolving Some Basic Conflicts)
+=======
+>>>>>>> dc9e5f9b51878b27df15f17a49802182505aec30
 
 void __vector_7()
 {
@@ -110,12 +113,15 @@ void __vector_7()
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 void __vector_8(void) __attribute__((signal));
 =======
 void _vector_8(void) __attribute_((signal));
 >>>>>>> e1f2cf6 ([Fixing the Bugs in the Sensor])
 =======
 >>>>>>> f7d9b7d (Resolving Some Basic Conflicts)
+=======
+>>>>>>> dc9e5f9b51878b27df15f17a49802182505aec30
 void __vector_8()
 {
         if(Timer1_Global_Callback!=Null)
