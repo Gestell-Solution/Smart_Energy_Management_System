@@ -11,7 +11,7 @@
 /**                     File Inclusion                           */
 #include "../../Mcal\DIO\DIO_Interface.h"
 #include "../../Mcal\ADC\ADC_Interface.h"
-#include "hCurrent_Conifg.h"
+#include "hCurrent_Config.h"
 #include "hCurrent_Interface.h"
 #include "hCurrent_Private.h"
 #include <math.h>
