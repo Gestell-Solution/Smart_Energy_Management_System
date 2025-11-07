@@ -10,7 +10,8 @@
 #ifndef _H_CURRENT_INTERFACE_H_
 #define _H_CURRENT_INTERFACE_H_
 #include <stdint.h>
-
+#include "hCurrent_Conifg.h"
+#include "hCurrent_Private.h"
 /**
  * @struct Calibration_Data
  * @brief Holds running data used to compute the ADC zero offset (calibration).
