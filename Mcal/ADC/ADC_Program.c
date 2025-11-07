@@ -142,8 +142,8 @@ void mADC_RegisterChannel(uint8_t channel, void (*callback)(uint16_t value))
 void mADC_StartGroup(void)
 {
     /* Start from ADC0 */
-    Channel_Index = ADC1_Channel;
-    ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | ADC1_Channel;
+    Channel_Index = ADC0_Channel;
+    ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | ADC0_Channel;
 
     /* Clear flag and enable auto trigger */
 <<<<<<< HEAD
