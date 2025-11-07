@@ -103,6 +103,7 @@ float hCurrent_ReadInstant(void)
 {
     float Vout = (ADC_Current_Value / ADC_MAX) * Vref;
     float Current = (Vout - ACS712_ZERO_OFFSET) / ACS712_SENSITIVITY;
+    if(Current <0) Current*=-1;
     return Current;
 } // Instantaneous current (A)
 

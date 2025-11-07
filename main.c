@@ -25,7 +25,7 @@ mDIO_SetDirectionForGroup(GroupB , 0xFF );
     hCurrent_Init();
     hLCD_SetCursor(0, 0);
     mADC_StartGroup();
-    hCurrent_Calibrate();
+    // hCurrent_Calibrate();
     while (1)
     {
         hLCD_SendCommand(0x01);
