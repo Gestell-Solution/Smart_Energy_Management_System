@@ -11,8 +11,8 @@
  * @copyright  Copyright (c) 2025, Gestell Company
  */
 
-#ifndef TIMER1_CONFIG_H
-#define TIMER1_CONFIG_H
+#ifndef _TIMER1_CONFIG_H_
+#define _TIMER1_CONFIG_H_
 
 #include "../../Common/Macros.h"
 #include "../../Common/ProjectCfg.h"
