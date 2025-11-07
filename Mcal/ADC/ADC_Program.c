@@ -50,11 +50,7 @@ void ADC_SetCallback(void (*callback)(uint16_t), uint8_t channel)
 
 void mADC_Init()
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> dc9e5f9b51878b27df15f17a49802182505aec30
+
     /**
      * 1-ADMUX = 0B 0000 0000
      * 2-ADCSRA = 0B 1010 1111
@@ -65,10 +61,7 @@ void mADC_Init()
     
         isADC_Initialized=1;
     }else return;
-<<<<<<< HEAD
->>>>>>> f7d9b7d (Resolving Some Basic Conflicts)
-=======
->>>>>>> dc9e5f9b51878b27df15f17a49802182505aec30
+
     /* Right-adjust result (clear ADLAR) */
     ClearBit(ADMUX_Reg, ADLAR_bit);
 
@@ -152,13 +145,9 @@ void mADC_StartGroup(void)
     ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | ADC0_Channel;
 
     /* Clear flag and enable auto trigger */
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     // ClearFlag(ADCSRA_Reg, ADIF_bit);
-=======
->>>>>>> f7d9b7d (Resolving Some Basic Conflicts)
-=======
->>>>>>> dc9e5f9b51878b27df15f17a49802182505aec30
+
     SetBit(ADCSRA_Reg, ADATE_bit);
 
     /* Start first conversion */
@@ -177,7 +166,7 @@ void mADC_Stop(void)
 /*-------------------------------------------------------------
  *                    ADC Interrupt Service Routine
  *-------------------------------------------------------------*/
-void __vector_16(void) __attribute__((signal)); // ADC Conversion Complete ISR
+void __vector_16(void)__attribute__((signal)); // ADC Conversion Complete ISR
 
 void __vector_16(void)
 {
