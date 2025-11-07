@@ -80,13 +80,5 @@ float hCurrent_ReadRMS();
  * @note This function should be called once during setup or when environmental conditions change.
  */
 void hCurrent_Calibrate(void);
-/**
- * @fn void hcurrent_CallBack(uint16_t dummy)
- * @brief ADC interrupt callback for the ACS712 current sensor.
- * @details Invoked from the ADC ISR to notify the current-sensing layer of a new
- *          ADC conversion or to act as a simple conversion-complete signal.
- * @param[in] dummy 16-bit ADC sample.
- * @warning This function runs in interrupt context. 
- */
-void hcurrent_CallBack(uint16_t dummy);
+
 #endif

@@ -16,6 +16,17 @@
 #include "hCurrent_Private.h"
 #include <math.h>
 #include <stdint.h>
+
+/**
+ * @fn void hcurrent_CallBack(uint16_t dummy)
+ * @brief ADC interrupt callback for the ACS712 current sensor.
+ * @details Invoked from the ADC ISR to notify the current-sensing layer of a new
+ *          ADC conversion or to act as a simple conversion-complete signal.
+ * @param[in] dummy 16-bit ADC sample.
+ * @warning This function runs in interrupt context. 
+ */
+void hcurrent_CallBack(uint16_t dummy);
+
 /**                     File Inclusion                           */
 
 /**
