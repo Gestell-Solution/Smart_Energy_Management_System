@@ -15,7 +15,6 @@
 #include "ADC_Interface.h"
 uint8_t isADC_Initialized=0;
 #include "../DIO/DIO_Interface.h"
-#include "../../Hal/LCD/LCD_Interface.h"
 #include <util/delay.h>
 /*-------------------------------------------------------------
  *                   Private Global Variables

@@ -150,6 +150,15 @@
  * @warning Ensure that the value fits within the 16-bit range (0–65535) to
  * avoid overflow.
  */
-#define Timer1_TOPvalue 1250
+#define Timer1_TOPvalue      1250
+/**
+ * @def Timer1_Sampling_Clks
+ * @brief Defines the Number of clock Ticks for Timer1 Compare Match A and B.
+ * @details This macro sets the value to be loaded into the OCR1A and OCR1B registers,
+ *          which determines the compare match value for Timer1 in CTC mode , which is used to trigger ADC sampling.
+ * @note The actual timing depends on the system clock frequency and the selected prescaler.
+ * @note This Value with prescaler 64 and F_CPU 8MHz will result in 10ms time interval.
+ */
+#define Timer1_Sampling_Clks 1250  
 
 #endif
