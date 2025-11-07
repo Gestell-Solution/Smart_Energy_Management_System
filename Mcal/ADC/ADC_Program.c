@@ -51,16 +51,6 @@ void ADC_SetCallback(void (*callback)(uint16_t), uint8_t channel)
 
 void mADC_Init()
 {
-    /**
-     * 1-ADMUX = 0B 0000 0000
-     * 2-ADCSRA = 0B 1010 1111
-     * 3-SFIOR = 0B 1010 0000
-     */
-    //ADC Guard
-    if (isADC_Initialized==0) {
-    
-        isADC_Initialized=1;
-    }else return;
     /* Right-adjust result (clear ADLAR) */
     ClearBit(ADMUX_Reg, ADLAR_bit);
 
