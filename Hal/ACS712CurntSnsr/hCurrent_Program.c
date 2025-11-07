@@ -70,7 +70,7 @@ static float ADC_Current_Value = 0;
  * This variable is file-scoped (static) and persists for the lifetime of the program.
  * Concurrent access must be protected if used across threads/interrupts.
  */
-static RMS_Data RMS_Actions = {0, 0, 0};
+static RMS_Data RMS_Actions = {0, 0, 0,0};
 
 
 /**
@@ -85,7 +85,7 @@ static RMS_Data RMS_Actions = {0, 0, 0};
  * As a static file-scope object, access should be synchronized when modified or
  * read from multiple contexts to ensure consistency.
  */
-static Calibration_Data Calibration_Actions = {0, 0, 0};
+static Calibration_Data Calibration_Actions = {0, 0, 0,0};
 
 void hCurrent_Init(void)
 {
