@@ -88,7 +88,6 @@ void mTIMER1_RegisterCallback(void (*callback)(void))
 } 
 
 
-void _vector_7(void) __attribute_((signal));
 
 void __vector_7()
 {
@@ -101,7 +100,6 @@ void __vector_7()
         }
 
 }
-void _vector_8(void) __attribute_((signal));
 void __vector_8()
 {
         if(Timer1_Global_Callback!=Null)
