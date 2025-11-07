@@ -52,9 +52,7 @@ void hVoltage_Init(void)
 
 float hVoltage_ReadInstant(void)
 {
-    uint16_t ADC_Value = mADC_Read(Voltage_Pin);
-    float Voltage = ((float)ADC_Value / 1023.0f) * Voltage_REF * Voltage_Scaling_Factor;
-    return Voltage;
+    return Voltage_Value;
 }
 float hVoltage_ReadRMS()
 {
