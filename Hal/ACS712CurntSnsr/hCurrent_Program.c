@@ -11,7 +11,6 @@
 /**                     File Inclusion                           */
 #include "../../Mcal\DIO\DIO_Interface.h"
 #include "../../Mcal\ADC\ADC_Interface.h"
-#include "../../Mcal\ADC\ADC_Program.C"
 #include "hCurrent_Conifg.h"
 #include "hCurrent_Interface.h"
 #include "hCurrent_Private.h"
@@ -129,7 +128,7 @@ void hCurrent_Calibrate(void) // Adjust zero offset at no load
 
 void hcurrent_CallBack(uint16_t dummy) // setting the callback of the current sensor
 {
-    ADC_Current_Value = (float)mADC_Read(ACS712_PIN);
+    ADC_Current_Value = dummy;
 
     // Upadting RMS
     RMS_Actions.RMS_Samples_Num++;
@@ -147,7 +146,7 @@ void hcurrent_CallBack(uint16_t dummy) // setting the callback of the current se
     {
     }
 
-    // Updating RMS
+    // Updating callibration 
     Calibration_Actions.Callibration_Samples_Num++;
     Calibration_Actions.ADC_Readings_Sum += ADC_Current_Value;
     if (Calibration_Actions.Callibration_Samples_Num == Num_OF_Calibration_Samples)
