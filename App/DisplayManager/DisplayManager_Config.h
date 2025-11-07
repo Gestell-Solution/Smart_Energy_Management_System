@@ -1,5 +1,5 @@
 /**
- * @file       BTN_Program.c
+ * @file       Display Manager_Config.h
  * @brief      This file contains The Config for Display Manager .    
  * @version    1.0
  * @author     Developer : Mohamed Abdelgaber (mohamedabdelgaber247@gmail.com)

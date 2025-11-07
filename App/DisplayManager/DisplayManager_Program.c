@@ -1,5 +1,5 @@
 /**
- * @file       BTN_Program.c
+ * @file       DisplayManager_Program.c
  * @brief      This file contains The Program for Display Manager .    
  * @version    1.0
  * @author     Developer : Mohamed Abdelgaber (mohamedabdelgaber247@gmail.com)
