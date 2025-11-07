@@ -28,7 +28,7 @@
 #define EXTI_Module       Enable  /**< Enable or Disable the EXTI Module */
 #define Timer0_Module     Disable /**< Enable or Disable the Timer0 Module */
 #define Timer1_Module     Disable /**< Enable or Disable the Timer1 Module */
-#define UART_Module       Disable /**< Enable or Disable the UART Module */
+#define UART_Module       Enable /**< Enable or Disable the UART Module */
 #define SPI_Module        Disable /**< Enable or Disable the SPI Module */
 #define TWI_Module        Disable /**< Enable or Disable the TWI Module */
 

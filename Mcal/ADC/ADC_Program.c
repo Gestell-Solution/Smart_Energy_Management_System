@@ -13,6 +13,7 @@
 
 #if ADC_Module == Enable
 #include "ADC_Interface.h"
+uint8_t isADC_Initialized=0;
 
 /*-------------------------------------------------------------
  *                   Private Global Variables
@@ -50,6 +51,16 @@ void ADC_SetCallback(void (*callback)(uint16_t), uint8_t channel)
 
 void mADC_Init()
 {
+    /**
+     * 1-ADMUX = 0B 0000 0000
+     * 2-ADCSRA = 0B 1010 1111
+     * 3-SFIOR = 0B 1010 0000
+     */
+    //ADC Guard
+    if (isADC_Initialized==0) {
+    
+        isADC_Initialized=1;
+    }else return;
     /* Right-adjust result (clear ADLAR) */
     ClearBit(ADMUX_Reg, ADLAR_bit);
 
@@ -60,17 +71,19 @@ void mADC_Init()
     ADCSRA_Reg = (ADCSRA_Reg & 0xF8) | (ADC_PRESCALER & 0x07);
 
     /* Enable/Disable Auto Trigger */
-    if (ADC_AUTO_TRIGGER== ADC_AUTO_TRIGGER_Enable)
+    if (ADC_AUTO_TRIGGER== ADC_AUTO_TRIGGER_Enable){
         SetBit(ADCSRA_Reg, ADATE_bit);
-    else
+    }
+    else{
         ClearBit(ADCSRA_Reg, ADATE_bit);
-
+    }
     /* Enable/Disable Interrupt */
-    if ( ADC_INTERRUPT == ADC_INTERRUPT_Enable)
+    if ( ADC_INTERRUPT == ADC_INTERRUPT_Enable){
         SetBit(ADCSRA_Reg, ADIE_bit);
-    else
+    }
+    else{
         ClearBit(ADCSRA_Reg, ADIE_bit);
-
+    }
     /* Set Auto Trigger Source (ADTS2:0 bits in SFIOR) */
     SFIOR_Reg = (SFIOR_Reg & 0x1F) | ((ADC_TRIGGER_SOURCE & 0x07) << ADTS0_bit);
 
@@ -127,11 +140,11 @@ void mADC_RegisterChannel(uint8_t channel, void (*callback)(uint16_t value))
 void mADC_StartGroup(void)
 {
     /* Start from ADC0 */
-    Channel_Index = ADC0_Channel;
-    ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | ADC0_Channel;
+    Channel_Index = ADC1_Channel;
+    ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | ADC1_Channel;
 
     /* Clear flag and enable auto trigger */
-    ClearFlag(ADCSRA_Reg, ADIF_bit);
+    // ClearFlag(ADCSRA_Reg, ADIF_bit);
     SetBit(ADCSRA_Reg, ADATE_bit);
 
     /* Start first conversion */
@@ -150,9 +163,11 @@ void mADC_Stop(void)
 /*-------------------------------------------------------------
  *                    ADC Interrupt Service Routine
  *-------------------------------------------------------------*/
+void __vector_16(void) __attribute__((signal)); // ADC Conversion Complete ISR
 
 void __vector_16(void)
 {
+
     /**
      * psuedo code
      * read the conversion
@@ -161,12 +176,13 @@ void __vector_16(void)
      * switch the ADMUX_Reg
      * Clear the interrupt flag
      */
+    
     uint16_t ADC_Value = ADCData_Reg;
-
     /* Call current channel callback if valid */
     if (ADC_Callbacks[Channel_Index] != Null)
     {
         ADC_Callbacks[Channel_Index](ADC_Value);
+
     }
 
     /* Increment and wrap around channel index */
@@ -175,15 +191,12 @@ void __vector_16(void)
     {
         Channel_Index = 0;
     }
+    ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) |Channel_Index;
 
-    ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | Channel_Index;
 
-    ClearFlag(ADCSRA_Reg, ADIF_bit);
 
-#if ADC_AUTO_TRIGGER == ADC_AUTO_TRIGGER_Disable
-    /* If no hardware trigger, start manually */
     SetBit(ADCSRA_Reg, ADSC_bit);
-#endif
+
 }
 
 
