@@ -184,12 +184,9 @@ void __vector_16(void)
 
     ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | Channel_Index;
 
-    ClearFlag(ADCSRA_Reg, ADIF_bit);
 
-#if ADC_AUTO_TRIGGER == ADC_AUTO_TRIGGER_Disable
-    /* If no hardware trigger, start manually */
     SetBit(ADCSRA_Reg, ADSC_bit);
-#endif
+
 }
 
 
