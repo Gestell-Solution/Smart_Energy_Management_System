@@ -14,7 +14,6 @@
 #if ADC_Module == Enable
 #include "ADC_Interface.h"
 uint8_t isADC_Initialized=0;
-
 /*-------------------------------------------------------------
  *                   Private Global Variables
  *-------------------------------------------------------------*/
@@ -51,6 +50,19 @@ void ADC_SetCallback(void (*callback)(uint16_t), uint8_t channel)
 
 void mADC_Init()
 {
+<<<<<<< HEAD
+=======
+    /**
+     * 1-ADMUX = 0B 0000 0000
+     * 2-ADCSRA = 0B 1010 1111
+     * 3-SFIOR = 0B 1010 0000
+     */
+    //ADC Guard
+    if (isADC_Initialized==0) {
+    
+        isADC_Initialized=1;
+    }else return;
+>>>>>>> f7d9b7d (Resolving Some Basic Conflicts)
     /* Right-adjust result (clear ADLAR) */
     ClearBit(ADMUX_Reg, ADLAR_bit);
 
@@ -134,7 +146,10 @@ void mADC_StartGroup(void)
     ADMUX_Reg = (ADMUX_Reg & ADC_Channel_UpperNibble_Mask) | ADC1_Channel;
 
     /* Clear flag and enable auto trigger */
+<<<<<<< HEAD
     // ClearFlag(ADCSRA_Reg, ADIF_bit);
+=======
+>>>>>>> f7d9b7d (Resolving Some Basic Conflicts)
     SetBit(ADCSRA_Reg, ADATE_bit);
 
     /* Start first conversion */
