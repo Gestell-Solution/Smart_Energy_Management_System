@@ -48,5 +48,5 @@
  * @def Num_OF_Calibration_Samples
  * @brief Number of samples used during zero offset calibration.
  */
-#define Num_OF_Calibration_Samples 500
+#define Num_OF_Calibration_Samples 100
 #endif
