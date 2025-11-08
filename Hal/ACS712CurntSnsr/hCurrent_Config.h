@@ -22,7 +22,7 @@
  * @def ACS712_SENSITIVITY
  * @brief Defines the sensitivity of the ACS712 30A sensor in volts per ampere.
  */
-#define ACS712_SENSITIVITY 0.0833 // volts per ampere
+#define ACS712_SENSITIVITY 0.0667 // volts per ampere
 
 /**
  * @def Vref
