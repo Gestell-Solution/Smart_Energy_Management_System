@@ -40,13 +40,13 @@ if (hVoltage_ReadRMS()>Vrms_Threshold || hCurrent_ReadRMS()>Irms_Threshold)
      hRelay_Off(Relay_id);
 }
      hRGB_SetState(RGB_RED);
-    //  DM_ShowProtectionState(Danger);
+     DM_ShowProtectionState(Danger);
      hBT_SendString("\nDanger , Electrical Spike\n");
      hBT_SendString("\n Please Resolve the problem and press the reset button\n");
 }
 else {
     Protection_State=Safe;
-    // DM_ShowProtectionState(Safe);
+    DM_ShowProtectionState(Safe);
     hBT_SendString(" Safe , Everything is fine");
 }
 }
