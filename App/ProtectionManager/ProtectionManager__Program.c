@@ -16,9 +16,9 @@
 static uint8_t Protection_State=Safe;
 
 void PM_Init(){
+mEXTI_Enable(EXT1_Macro);
 mTIMER1_Init();     //initialize timer1
 Buzzer_Init();     //initialize Buzzer
-hBtn_Init();       //initialize Btn
 hCurrent_Init();  //initialize Currentsnsr
 hRGB_Init();     //initiliaize RGB
 hVoltage_Init(); 
