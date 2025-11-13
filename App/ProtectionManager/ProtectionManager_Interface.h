@@ -11,7 +11,6 @@
 #ifndef _PROTECTIONMANAGER_iNTERFACE_H_
 #define _PROTECTIONMANAGER_iNTERFACE_H_
 #include "ProtectionManager_Config.h"
-#include "ProtectionManager_Interface.h"
 #include "ProtectionManager_Private.h"
 #include "../../Hal/Buzzer/Buzzer_Interface.h"
 #include "../../Hal/PushButton/BTN_Interface.h"
@@ -21,6 +20,7 @@
 #include "../../Hal/RelayControl/RELAY_Interface.h"
 #include "../../Hal/RelayControl/RELAY_Config.h"
 #include "../DisplayManager/DisplayManager_Interface.h"
+#include "../../Hal/HC05/HC05_Interface.h"
 /**
  * @defgroup PM API'S
  * @brief    PM Functions

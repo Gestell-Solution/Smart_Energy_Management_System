@@ -13,14 +13,20 @@
  #if ProtectionManager == Enable
 #include "ProtectionManager_Interface.h"
 
-static uint8_t Protection_State=255;
+static uint8_t Protection_State=Safe;
 
 void PM_Init(){
-Buzzer_Init();
-hBtn_Init();
-hCurrent_Init();
-hRGB_Init();
-hVoltage_Init();
+mTIMER1_Init();     //initialize timer1
+Buzzer_Init();     //initialize Buzzer
+hBtn_Init();       //initialize Btn
+hCurrent_Init();  //initialize Currentsnsr
+hRGB_Init();     //initiliaize RGB
+hVoltage_Init(); 
+DM_Init();
+mEXTI_Init(EXT1_Macro,EXT_RISING_EDGE);
+mDIO_SetDirectionForPin(GroupD , PIN3, Input);
+mDIO_WritePin(GroupD, PIN3, High);
+mEXTI_setCallback(EXT1_Macro ,PM_Reset);
 }
 
 void PM_Update(){
@@ -34,26 +40,30 @@ if (hVoltage_ReadRMS()>Vrms_Threshold || hCurrent_ReadRMS()>Irms_Threshold)
      hRelay_Off(Relay_id);
 }
      hRGB_SetState(RGB_RED);
-     DM_ShowProtectionState(Danger);
+    //  DM_ShowProtectionState(Danger);
+     hBT_SendString("\nDanger , Electrical Spike\n");
+     hBT_SendString("\n Please Resolve the problem and press the reset button\n");
 }
 else {
     Protection_State=Safe;
-    DM_ShowProtectionState(Safe);
+    // DM_ShowProtectionState(Safe);
+    hBT_SendString(" Safe , Everything is fine");
 }
 }
 
 uint8_t PM_IsTripped(){
 
-    if (Protection_State==Danger){
-        return Danger ;
-    }
-    else {
-        return Safe;
-    
-    }
+   return Protection_State;
 }
 void PM_Reset(){
-
+if (Protection_State==Safe){
+hRGB_SetState(RGB_GREEN);
+DM_ShowProtectionState(Safe);
+ for (uint8_t Relay_id =hRELAY_0 ; Relay_id <=hRELAY_3 ; Relay_id ++)
+{
+     hRelay_On(Relay_id);
+}
+}
     
 }
 

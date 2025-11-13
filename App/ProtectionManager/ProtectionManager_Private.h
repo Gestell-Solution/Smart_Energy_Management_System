@@ -13,4 +13,6 @@
 #define Danger 1
 #define Safe   0
 
+#define EXT1_Macro  1
+
 #endif
