@@ -38,6 +38,7 @@ typedef enum{
 #define GET_RMS_DATA                        0x05
 #define Get_Logged_DATA                     0x06
 #define Message_To_User                     0x07
+#define Update_EEPROM                       0x08
 
 /**
  * @}
