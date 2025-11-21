@@ -171,6 +171,13 @@ void App_CommManager_ProcessCommand(uint8_t *frame)
 
         App_CommManager_SendFrame(tx_buffer, GET_RMS_DATA, 4);
         break;
+    case Protection_Manager_danger:
+
+        break;
+    case Protection_Manager_Safe:
+
+
+        break;
 
     default: // case of unknown ID
 

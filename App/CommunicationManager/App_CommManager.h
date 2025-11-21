@@ -39,6 +39,8 @@ typedef enum{
 #define Get_Logged_DATA                     0x06
 #define Message_To_User                     0x07
 #define Update_EEPROM                       0x08
+#define Protection_Manager_danger           0x09
+#define Protection_Manager_Safe           0x0A
 
 /**
  * @}
