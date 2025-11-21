@@ -82,24 +82,24 @@ void App_CommManager_ReceiveHandler(uint8_t *data, uint16_t len)
         for (uint16_t i = 0; i < len; i++)
         {
 
-            uint8_t byte = data[i];
+            uint8_t value = data[i];
 
             switch (CurrentState)
             {
 
             case WaitTheHeader:
-                if (byte == FRAME_HEADER) // frame header 0xAA
+                if (value == FRAME_HEADER) // frame header 0xAA
                 {
                     Rx_Index = 0;
-                    RxFrameBuffer[Rx_Index++] = byte;
+                    RxFrameBuffer[Rx_Index] = value;
                     CurrentState = WaitLen;
                 }
                 break;
 
             case WaitLen:
-                RxFrameBuffer[Rx_Index++] = byte;
+                RxFrameBuffer[Rx_Index++] = value;
 
-                if (byte > 50 )
+                if (value > 50 )
                 {
                     CurrentState = WaitTheHeader; // error data is not there
                 }
@@ -110,7 +110,7 @@ void App_CommManager_ReceiveHandler(uint8_t *data, uint16_t len)
                 break;
 
             case Wait_data_With_command:
-                RxFrameBuffer[Rx_Index++] = byte;
+                RxFrameBuffer[Rx_Index++] = value;
 
                 if (Rx_Index >= len || Rx_Index >= 50)
                 {
