@@ -73,7 +73,6 @@ void mADC_Stop(void);
  * @brief ISR Action for ADC Conversion
  * @warning this function won't work except if the ADC Interrupt is enabled from the config.h
  */
-void __vector_16(void)__attribute__((signal)); // ADC Conversion Complete ISR
 /**
  * @fn ADC_SetCallback(void (*callback)(uint16_t) , uint8_t channel)
  * @brief This Function sets the callback function for a specific ADC channel.
