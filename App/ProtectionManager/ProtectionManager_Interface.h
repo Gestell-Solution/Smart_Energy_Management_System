@@ -1,6 +1,6 @@
 /**
  * @file ProtectionManager_Interface.h
- * @brief This File Contains the Protection Manager Interfacing 
+ * @brief This File Contains the Protection Manager Interfacing
  * @version 1.0
  * @date 11-11-2025
  * @author Developer : Ahmed Ashraf (ahmedashraf2022222@gmail.com)
@@ -38,28 +38,27 @@ void PM_Init(void);
  * @brief Checks Periodically all the Protection Conditions
  */
 
-void PM_Update(void);     // Periodic check of all protection conditions
+void PM_Update(void); // Periodic check of all protection conditions
 /**
  * @fn PM_IsTripped
  * @brief Check if System Is Currently in Protection Mode
  * @return returns Danger or
  */
 
-uint8_t PM_IsTripped(void);  // Check if system is currently in protection mode
+uint8_t PM_IsTripped(void); // Check if system is currently in protection mode
 
 /**
  * @fn PM_Reset
  * @brief Resets the Normal operation after fixing the problem
- * @details this function is triggered by the system automatically, 
+ * @details this function is triggered by the system automatically,
  *          when the protection conditions are exceeded system stucks in a loop till problem is fixed
  *          , to reset the Operation Press the Reset button
- * 
+ *
  * @warning Please Make Sure not to press the button till the problem is fixed
- * 
+ *
  */
-void PM_Reset(void);      // Restore normal operation
+void PM_Reset(void); // Restore normal operation
 
 /** @} */
-
 
 #endif
