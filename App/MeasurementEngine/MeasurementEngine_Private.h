@@ -15,16 +15,6 @@
 #ifndef MEASUREMENT_ENGINE_PRIVATE_H
 #define MEASUREMENT_ENGINE_PRIVATE_H
 
-/* Internal RMS voltage value (Volts) */
-static float ME_Vrms = 0.0f;
 
-/* Internal RMS current value (Amperes) */
-static float ME_Irms = 0.0f;
-
-/* Internal instantaneous power (Watts) */
-static float ME_Power = 0.0f;
-
-/* Internal accumulated energy (Watt-seconds / Joules) */
-static float ME_Energy = 0.0f;
 
 #endif /* MEASUREMENT_ENGINE_PRIVATE_H */

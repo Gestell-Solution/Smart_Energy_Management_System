@@ -26,17 +26,22 @@
 #include "MeasurementEngine_Private.h"
 
 //==============================================================================
+static float ME_Vrms ;
+static float ME_Irms ;
+static float ME_Power ;
+static float ME_Energy ;
+
+//==============================================================================
 void ME_Init(void)
 {
+
     hVoltage_Init();
     hCurrent_Init();
-    ME_Vrms = 0.0f;
-    ME_Irms = 0.0f;
-    ME_Power = 0.0f;
-    ME_Energy = 0.0f;
+
+   
 }
 //==============================================================================
-void ME_Update(void)
+/*void ME_Update(void)
 {
     ME_Vrms = hVoltage_ReadRMS();
     ME_Irms = hCurrent_ReadRMS();
@@ -45,13 +50,16 @@ void ME_Update(void)
 
     ME_Energy += ME_Power * ME_SAMPLE_INTERVAL;
 }
+    */
 //==============================================================================
 float ME_GetVoltageRMS(void) 
 { 
-    return ME_Vrms; 
+    ME_Vrms = hVoltage_ReadRMS();
+
+    return ME_Vrms ; 
 }
 
-//==============================================================================
+/*//==============================================================================
 float ME_GetCurrentRMS(void) 
 { 
     return ME_Irms; 
@@ -61,13 +69,17 @@ float ME_GetPower(void)
 { 
     return ME_Power; 
 }
+
 //==============================================================================
 float ME_GetEnergy(void)     
 { 
     return ME_Energy; 
 }
+
 //==============================================================================
 void ME_ResetEnergy(void)
 {
     ME_Energy = 0.0f;
 }
+//==============================================================================
+*/
