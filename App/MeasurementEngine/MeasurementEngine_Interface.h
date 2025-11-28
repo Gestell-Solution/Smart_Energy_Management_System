@@ -88,7 +88,7 @@ float ME_GetPower(void);
  * @fn         float ME_GetEnergy(void)
  * @brief      Returns the accumulated energy consumption.
  * @details    Calculates total consumed energy over time based on integrated power values.
- * @return     float  Energy consumption in watt-hours (Wh).
+ * @return     float  Energy consumption in joules (J).
  */
 float ME_GetEnergy(void);
 

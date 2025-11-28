@@ -19,9 +19,8 @@
  * @def ME_SAMPLE_INTERVAL
  * @brief Sampling period between consecutive ME_Update() calls in seconds.
  * @details Determines how often the Measurement Engine reads new ADC samples.
- *          Example: 0.001f corresponds to a 1 kHz sampling rate.
  */
-#define ME_SAMPLE_INTERVAL   0.001f     
+#define ME_SAMPLE_INTERVAL   0.01f   
 
 
 
