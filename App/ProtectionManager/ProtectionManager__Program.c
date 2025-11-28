@@ -8,68 +8,69 @@
  * @copyright Copyright (c) 2025 , Gestell Company
  */
 
- #include "../../Common/Config.h"
+#include "../../Common/Config.h"
 
- #if ProtectionManager == Enable
+#if ProtectionManager == Enable
 #include "ProtectionManager_Interface.h"
 
-static uint8_t Protection_State=Safe;
+static uint8_t Protection_State = Safe;
 
-void PM_Init(){
-mEXTI_Enable(EXT1_Macro);
-mTIMER1_Init();     //initialize timer1
-Buzzer_Init();     //initialize Buzzer
-hCurrent_Init();  //initialize Currentsnsr
-hRGB_Init();     //initiliaize RGB
-hVoltage_Init(); 
-DM_Init();
-mEXTI_Init(EXT1_Macro,EXT_RISING_EDGE);
-mDIO_SetDirectionForPin(GroupD , PIN3, Input);
-mDIO_WritePin(GroupD, PIN3, High);
-mEXTI_setCallback(EXT1_Macro ,PM_Reset);
-}
-
-void PM_Update(){
-if (hVoltage_ReadRMS()>Vrms_Threshold || hCurrent_ReadRMS()>Irms_Threshold)
+void PM_Init()
 {
-    Protection_State =Danger;
-   Buzzer_On();
+     mEXTI_Enable(EXT1_Macro);
+     mTIMER1_Init();  // initialize timer1
+     Buzzer_Init();   // initialize Buzzer
+     hCurrent_Init(); // initialize Currentsnsr
+     hRGB_Init();     // initiliaize RGB
+     hVoltage_Init();
+     DM_Init();
+     mEXTI_Init(EXT1_Macro, EXT_RISING_EDGE);
+     mDIO_SetDirectionForPin(GroupD, PIN3, Input);
+     mDIO_WritePin(GroupD, PIN3, High);
+     mEXTI_setCallback(EXT1_Macro, PM_Reset);
+}
 
-  for (uint8_t Relay_id =hRELAY_0 ; Relay_id <=hRELAY_3 ; Relay_id ++)
+void PM_Update()
 {
-     hRelay_Off(Relay_id);
-}
-     hRGB_SetState(RGB_RED);
-     DM_ShowProtectionState(Danger);
-     hBT_SendString("\nDanger , Electrical Spike\n");
-     hBT_SendString("\n Please Resolve the problem and press the reset button\n");
-}
-else {
-    Protection_State=Safe;
-    DM_ShowProtectionState(Safe);
-    hBT_SendString(" Safe , Everything is fine");
-}
+     if (hVoltage_ReadRMS() > Vrms_Threshold || hCurrent_ReadRMS() > Irms_Threshold)
+     {
+          Protection_State = Danger;
+          Buzzer_On();
+
+          for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
+          {
+               hRelay_Off(Relay_id);
+          }
+          hRGB_SetState(RGB_RED);
+          DM_ShowProtectionState(Danger);
+          // hBT_SendString("\nDanger , Electrical Spike\n");
+          // hBT_SendString("\n Please Resolve the problem and press the reset button\n"); need communication manager to send this message
+     }
+     else
+     {
+          Protection_State = Safe;
+          DM_ShowProtectionState(Safe);
+          //     hBT_SendString(" Safe , Everything is fine"); need Communication manager to send this message
+     }
 }
 
-uint8_t PM_IsTripped(){
-
-   return Protection_State;
-}
-void PM_Reset(){
-if (Protection_State==Safe){
-hRGB_SetState(RGB_GREEN);
-DM_ShowProtectionState(Safe);
- for (uint8_t Relay_id =hRELAY_0 ; Relay_id <=hRELAY_3 ; Relay_id ++)
+uint8_t PM_IsTripped()
 {
-     hRelay_On(Relay_id);
+
+     return Protection_State;
 }
+void PM_Reset()
+{
+     if (Protection_State == Safe)
+     {
+          for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
+          {
+               hRelay_On(Relay_id);
+          }
+          Buzzer_Off();
+          hRGB_SetState(RGB_GREEN);
+          DM_ShowProtectionState(Safe);
+     }
 }
-    
-}
 
-
-
-
-
-
- #endif
+#endif
