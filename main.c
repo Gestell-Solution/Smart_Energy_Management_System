@@ -1,5 +1,5 @@
 // AVR peripheral libraries
-#include <avr/interrupt.h> // Required for sei()
+//#include <avr/interrupt.h> // Required for sei()
 #include <util/delay.h>    // Required for _delay_ms()
 
 // HAL (Hardware Abstraction Layer) drivers
@@ -15,7 +15,7 @@
 int main(void)
 {
 
-// mGIE_Enable();
+    mGIE_Enable();
         SetBit(SREG_Reg,7); 
 
 mDIO_SetDirectionForGroup(GroupB , 0xFF );
