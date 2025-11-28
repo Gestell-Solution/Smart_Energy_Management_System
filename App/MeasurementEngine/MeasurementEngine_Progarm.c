@@ -41,7 +41,7 @@ void ME_Init(void)
    
 }
 //==============================================================================
-/*void ME_Update(void)
+void ME_Update(void)
 {
     ME_Vrms = hVoltage_ReadRMS();
     ME_Irms = hCurrent_ReadRMS();
@@ -50,16 +50,14 @@ void ME_Init(void)
 
     ME_Energy += ME_Power * ME_SAMPLE_INTERVAL;
 }
-    */
 //==============================================================================
 float ME_GetVoltageRMS(void) 
 { 
-    ME_Vrms = hVoltage_ReadRMS();
 
     return ME_Vrms ; 
 }
 
-/*//==============================================================================
+//==============================================================================
 float ME_GetCurrentRMS(void) 
 { 
     return ME_Irms; 
@@ -82,4 +80,3 @@ void ME_ResetEnergy(void)
     ME_Energy = 0.0f;
 }
 //==============================================================================
-*/
