@@ -13,6 +13,7 @@
 
 #ifndef Voltage_Private_H
 #define Voltage_Private_H
+#include <stdint.h>
 /**
  * @{
  * @struct Voltage_RMS_Data

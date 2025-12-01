@@ -12,7 +12,7 @@
  */
 
 #include "../UART/UART_Init.h"
-#include"../UART/UART_RX.h"
+#include"../UART/UART_Rx.h"
 #include"../UART/UART_Tx.h"
 #include"../Atmega32RegistersAddress.h"
 #include "../../Common/Macros.h"

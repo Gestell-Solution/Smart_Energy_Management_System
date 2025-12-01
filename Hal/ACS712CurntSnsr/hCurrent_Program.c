@@ -9,8 +9,8 @@
  * @copyright   Copyright (c) 2025, Gestell Company
  */
 /**                     File Inclusion                           */
-#include "../../Mcal\DIO\DIO_Interface.h"
-#include "../../Mcal\ADC\ADC_Interface.h"
+#include "../../Mcal/DIO/DIO_Interface.h"
+#include "../../Mcal/ADC/ADC_Interface.h"
 #include "hCurrent_Config.h"
 #include "hCurrent_Interface.h"
 #include "hCurrent_Private.h"

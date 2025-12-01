@@ -18,9 +18,9 @@
 #define HC05_INTERFACE_H_
 
 /*================================= Includes =================================*/
-#include "../../MCAL/UART/UART_Init.h"
-#include "../../MCAL/UART/UART_Tx.h"
-#include "../../MCAL/UART/UART_Rx.h"
+#include "../../Mcal/UART/UART_Init.h"
+#include "../../Mcal/UART/UART_Tx.h"
+#include "../../Mcal/UART/UART_Rx.h"
 #include "../../Common/Macros.h"
 #include <string.h>
 #include <stdint.h>
