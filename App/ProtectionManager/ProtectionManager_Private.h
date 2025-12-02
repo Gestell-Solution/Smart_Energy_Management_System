@@ -26,4 +26,15 @@
  */
 #define EXT1_Macro 1
 
+/**
+ * @def Fixed
+ * @brief State when the problem is fixed
+ */
+#define Fixed 0
+/**
+ * @def Not_Fixed
+ * @brief State when the problem is not fixed
+ * @details Fixed , Not_Fixed Are used to check if the problem is fixed or not in order to display the correct message
+ */
+#define Not_Fixed 1
 #endif

@@ -14,7 +14,7 @@
 #include "ProtectionManager_Interface.h"
 
 static uint8_t Protection_State = Safe;
-
+static uint8_t Fix_Check = 0;
 void PM_Init()
 {
      mEXTI_Enable(EXT1_Macro);
@@ -28,6 +28,7 @@ void PM_Init()
      mDIO_SetDirectionForPin(GroupD, PIN3, Input);
      mDIO_WritePin(GroupD, PIN3, High);
      mEXTI_setCallback(EXT1_Macro, PM_Reset);
+     mADC_StartGroup();
 }
 
 void PM_Update()
@@ -43,14 +44,19 @@ void PM_Update()
           }
           hRGB_SetState(RGB_RED);
           DM_ShowProtectionState(Danger);
-          // hBT_SendString("\nDanger , Electrical Spike\n");
-          // hBT_SendString("\n Please Resolve the problem and press the reset button\n"); need communication manager to send this message
+          Fix_Check = 1;
      }
-     else
+     else if (Fix_Check == Fixed)
      {
           Protection_State = Safe;
           DM_ShowProtectionState(Safe);
-          //     hBT_SendString(" Safe , Everything is fine"); need Communication manager to send this message
+     }
+     else if (Fix_Check == Not_Fixed)
+     {
+          hLCD_SendCommand(0x01);
+          hLCD_WriteString("Fixed,");
+          hLCD_SetCursor(2, 0);
+          hLCD_WriteString("Press Reset");
      }
 }
 
@@ -71,6 +77,7 @@ void PM_Reset()
           hRGB_SetState(RGB_GREEN);
           DM_ShowProtectionState(Safe);
      }
+     Fix_Check = Fixed;
 }
 
 #endif
