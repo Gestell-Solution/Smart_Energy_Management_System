@@ -19,7 +19,7 @@
 #include "../../Hal/Voltage/Voltage_Interface.h"
 #include "../../Hal/RelayControl/RELAY_Interface.h"
 #include "../../Hal/RelayControl/RELAY_Config.h"
-#include "../DisplayManager/DisplayManager_Interface.h"
+#include "../DM_Driver/DisplayManager_Interface.h"
 #include "../../Hal/LCD/LCD_Interface.h"
 /**
  * @defgroup PM API'S

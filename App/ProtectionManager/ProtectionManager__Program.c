@@ -21,14 +21,15 @@ void PM_Init()
      mTIMER1_Init();  // initialize timer1
      Buzzer_Init();   // initialize Buzzer
      hCurrent_Init(); // initialize Currentsnsr
-     hRGB_Init();     // initiliaize RGB
      hVoltage_Init();
+     hRGB_Init(); // initiliaize RGB
      DM_Init();
      mEXTI_Init(EXT1_Macro, EXT_RISING_EDGE);
      mDIO_SetDirectionForPin(GroupD, PIN3, Input);
      mDIO_WritePin(GroupD, PIN3, High);
      mEXTI_setCallback(EXT1_Macro, PM_Reset);
      mADC_StartGroup();
+     hRGB_SetState(RGB_GREEN);
 }
 
 void PM_Update()
