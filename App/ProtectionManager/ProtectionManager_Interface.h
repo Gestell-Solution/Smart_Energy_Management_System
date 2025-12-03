@@ -14,13 +14,14 @@
 #include "ProtectionManager_Private.h"
 #include "../../Hal/Buzzer/Buzzer_Interface.h"
 #include "../../Hal/PushButton/BTN_Interface.h"
-#include "../../Hal/ACS712CurntSnsr/hCurrent_Interface.h"
 #include "../../Hal/RGB/RGB_Interface.h"
-#include "../../Hal/Voltage/Voltage_Interface.h"
 #include "../../Hal/RelayControl/RELAY_Interface.h"
 #include "../../Hal/RelayControl/RELAY_Config.h"
 #include "../DM_Driver/DisplayManager_Interface.h"
 #include "../../Hal/LCD/LCD_Interface.h"
+
+#include "../MeasurementEngine/MeasurementEngine_Interface.h"
+#include "../../Common/SystemDataManager/SystemDataManager.h"
 /**
  * @defgroup PM API'S
  * @brief    PM Functions

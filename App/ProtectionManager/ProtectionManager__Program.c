@@ -12,7 +12,7 @@
 
 #if ProtectionManager == Enable
 #include "ProtectionManager_Interface.h"
-
+extern SystemData_t g_SystemData;
 static uint8_t Protection_State = Safe;
 static uint8_t Fix_Check = 0;
 void PM_Init()
@@ -34,10 +34,13 @@ void PM_Init()
 
 void PM_Update()
 {
-     if (hVoltage_ReadRMS() > Vrms_Threshold || hCurrent_ReadRMS() > Irms_Threshold)
+     ME_Update();
+     float RMS_voltage_Read = ME_GetVoltageRMS();
+     float RMS_Current_Read = ME_GetCurrentRMS();
+     float Power_Read = ME_GetPower();
+     if (ME_GetVoltageRMS()> Vrms_Threshold || ME_GetCurrentRMS()> Irms_Threshold || ME_GetPower()> P_Threshold)
      {
           Protection_State = Danger;
-          Buzzer_On();
 
           for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
           {
@@ -45,7 +48,11 @@ void PM_Update()
           }
           hRGB_SetState(RGB_RED);
           DM_ShowProtectionState(Danger);
+          Buzzer_On();
           Fix_Check = 1;
+          g_SystemData.Voltage_RMS = RMS_voltage_Read;
+          g_SystemData.Current_RMS = RMS_Current_Read;
+          g_SystemData.Power = Power_Read;
      }
      else if (Fix_Check == Fixed)
      {
@@ -55,7 +62,7 @@ void PM_Update()
      else if (Fix_Check == Not_Fixed)
      {
           hLCD_SendCommand(0x01);
-          hLCD_WriteString("Fixed,");
+          hLCD_WriteString("Fixed ");
           hLCD_SetCursor(2, 0);
           hLCD_WriteString("Press Reset");
      }

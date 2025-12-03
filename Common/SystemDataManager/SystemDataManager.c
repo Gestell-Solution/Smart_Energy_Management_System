@@ -37,6 +37,9 @@ void SystemData_SetDefaults(void){
     g_SystemData.EnergyCounter     = DEFAULT_ENERGY_COUNTER;
     g_SystemData.OvervoltageLimit  = DEFAULT_OVERVOLTAGE_LIMIT;
     g_SystemData.OvercurrentLimit  = DEFAULT_OVERCURRENT_LIMIT;
+    g_SystemData.Voltage_RMS       = DEFAULT_VOLTAGE_RMS;    
+    g_SystemData.Current_RMS       = DEFAULT_CURRENT_RMS;
+    g_SystemData.Power             = DEFAULT_POWER;
 }
 bool SystemData_Validate(void){
     return (g_SystemData.MagicNumber == SYSTEMDATA_MAGIC);
