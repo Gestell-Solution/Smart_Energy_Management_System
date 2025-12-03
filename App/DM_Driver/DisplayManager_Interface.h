@@ -14,7 +14,7 @@
 #define DISPLAYMANAGER_INTERFACE_H_
 
 #include <stdint.h>
-#include <stdbool.h>
+
 
 /**
  * @brief Initialize the Display Manager and underlying LCD.
@@ -41,13 +41,13 @@ void DM_ShowMeasurements(float V, float I, float P, float E);
  * @brief Set the display mode.
  * @param isAuto true = AUTO mode, false = MANUAL mode.
  */
-void DM_ShowMode(bool isAuto);
+void DM_ShowMode(uint8_t isAuto);
 
 /**
  * @brief Set protection/trip state.
  * @param isTripped true = protection active (trip), false = normal.
  */
-void DM_ShowProtectionState(bool isTripped);
+void DM_ShowProtectionState(uint8_t isTripped);
 
 /**
  * @brief Show a short custom message (temporary).

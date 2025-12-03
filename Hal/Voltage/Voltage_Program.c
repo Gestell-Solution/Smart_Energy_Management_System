@@ -14,7 +14,7 @@
 #if VoltageSensor_Module==Enable
 #include"Voltage_Interface.h"
 #include <math.h>
-extern isADC_Initialized ;
+extern uint8_t isADC_Initialized ;
 
 static float Voltage_Scaling_Factor=(R_With_GND + R_WITH_Vcc) / R_With_GND;
 
