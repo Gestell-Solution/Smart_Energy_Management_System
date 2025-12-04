@@ -111,6 +111,5 @@ void App_EnergyLogger_ReadLog(uint16_t index, EnergyLog_t *log);
  * @brief Timer callback for periodic sampling of voltage/current and storing logs.
  */
 void EnergyLogger_TimerCallback(void);
-void Test_RAM_Buffer(void);
 
 #endif 

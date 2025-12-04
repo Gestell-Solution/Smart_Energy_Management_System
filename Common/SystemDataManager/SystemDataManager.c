@@ -42,12 +42,12 @@ bool SystemData_Validate(void){
     return (g_SystemData.MagicNumber == SYSTEMDATA_MAGIC);
 
 }
-void main(void)
-{
-    SystemData_Init(); 
+// void main(void)
+// {
+//     SystemData_Init(); 
 
-    g_SystemData.VoltageCalib = 1020;
-    SystemData_SaveToEEPROM(); 
+//     g_SystemData.VoltageCalib = 1020;
+//     SystemData_SaveToEEPROM(); 
 
-    SystemData_LoadFromEEPROM();
-}
+//     SystemData_LoadFromEEPROM();
+// }

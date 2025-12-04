@@ -14,7 +14,6 @@
 
 #ifndef Voltage_Interface_H
 #define Voltage_Interface_H
-#include "../../Mcal/Adc/Adc_Interface.h"
 #include "Voltage_Config.h"
 #include "Voltage_Private.h"
 #include "../../Mcal/ADC/ADC_Interface.h"
