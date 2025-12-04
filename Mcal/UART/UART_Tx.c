@@ -12,7 +12,8 @@
 
 #include "../UART/UART_Tx.h"
 #include "../../Common/Macros.h"
-
+#include <avr/io.h>
+#include <avr/interrupt.h>
 /* External Tx buffer defined in UART_Interrupt.c */
 extern UART_Buffer_t UART_TxBuffer;
 
@@ -24,7 +25,6 @@ extern UART_Buffer_t UART_TxBuffer;
 void UART_Tx_Init(void)
 {
     UART_Buffer_Init((UART_Buffer_t *)&UART_TxBuffer, UART_TX_BUFFER_SIZE);
-    SetBit(UCSRB_Reg, uart_TXCIE);  /**<Enable Transmit Complete Interrupt */
     /* Enable Data Register Empty Interrupt(interrupt when udr is ready for another byte) */
     //SetBit(UCSRB_Reg, uart_UDRIE); 
 
@@ -37,15 +37,18 @@ void UART_Tx_Init(void)
  * @details Update the tx Buffer with data will be Sent and Waiting until Data Transimate
  * @param data The byte to send.
  */
+
 void mUART_SendByte(uint8_t data)
 {
-    /* Wait if buffer is full */
-    if(UART_Buffer_IsFull(&UART_TxBuffer)) {
-        return ;
-    }
-    UART_Buffer_Put(&UART_TxBuffer, data);
-    SetBit(UCSRB_Reg, uart_UDRIE); 
+    uint8_t sreg = SREG;  
+    cli();               
 
+    if(!UART_Buffer_IsFull(&UART_TxBuffer)) {
+        UART_Buffer_Put(&UART_TxBuffer, data);
+        SetBit(UCSRB_Reg, uart_UDRIE);
+    }
+
+    SREG = sreg;          
 }
 
 /**
