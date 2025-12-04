@@ -1,4 +1,9 @@
+#include "Tests/Uart/uartTest.h"
 void main()
 {
-    hgi
+    UartTestMain();
+    while(1)
+    {
+        
+    }
 }
