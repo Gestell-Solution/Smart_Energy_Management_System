@@ -143,11 +143,10 @@ void mSPI_Init(void)
     // ----------------------
     // SPI Interrupt
     // ----------------------
-    #if SPI_INTERRUPT == Enable
+    if (SPI_INTERRUPT == Enable_SPI_Interrupt)
         SetBit(SPCR_REG, SPIE_Bit7);
-    #elif SPI_INTERRUPT == Disable
+    else if (SPI_INTERRUPT == Disable_SPI_Interrupt)
             ClearBit(SPCR_REG, SPIE_Bit7);
-    #endif
     // ----------------------
     
 }
@@ -155,10 +154,12 @@ void mSPI_Init(void)
 // Transmit Byte (Blocking)
 uint8_t mSPI_TransmitByte(uint8_t data)
 {
+    uint8_t receivedData = 0;
     SPDR_REG =data;// Start transmission
 
-    while(GetBit(SPSR_REG, SPIF_Bit7) == 0);
-    return SPDR_REG;// Return received byte
+    while(GetBit(SPSR_REG, SPIF_Bit7) == 0);// Wait for transmission complete
+    receivedData = SPDR_REG;// Get received byte
+    return receivedData;// Return received byte
 }
 
 //------------------------------------------------------------------------------------------
