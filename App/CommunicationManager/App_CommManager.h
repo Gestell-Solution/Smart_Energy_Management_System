@@ -31,16 +31,16 @@ typedef enum{
  * @{ 
  */
 
-#define Calibrate_Current_Sensor            0x01
-#define Calibrate_Voltage_Sensor            0x02
-#define Read_EEPROM                         0x03
-#define Write_EEPROM                        0x04
-#define GET_RMS_DATA                        0x05
-#define Get_Logged_DATA                     0x06
-#define Message_To_User                     0x07
-#define Update_EEPROM                       0x08
-#define Protection_Manager_danger           0x09
-#define Protection_Manager_Safe           0x0A
+#define Calibrate_Current_Sensor                0x01
+#define Calibrate_Voltage_Sensor                0x02
+#define Read_EEPROM                             0x03
+#define Write_EEPROM                            0x04
+#define GET_RMS_DATA                            0x05
+#define Get_Logged_DATA                         0x06
+#define Message_To_User                         0x07
+#define Update_EEPROM                           0x08
+#define Protection_Manager_danger               0x09
+#define Protection_Manager_Safe                 0x0A
 
 /**
  * @}
