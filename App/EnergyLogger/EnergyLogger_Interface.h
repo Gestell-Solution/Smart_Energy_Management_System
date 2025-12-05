@@ -12,7 +12,7 @@
 
 
 #ifndef ENERGY_LOGGER_INTERFACE_H
-#define ENERGY_LOGGER_INTERFACE _H
+#define ENERGY_LOGGER_INTERFACE_H
 
 #include <stdint.h>
 #include "EnergyLogger_config.h"
@@ -74,10 +74,11 @@ typedef struct
 
 
 
-static EnergyLogBuffer_t EnergyRAM;
-static uint16_t EEPROM_head = 0; 
-static uint16_t EEPROM_count = 0; 
-static uint32_t timestampCounter = 0;
+extern EnergyLogBuffer_t EnergyRAM;
+extern uint16_t EEPROM_head ; 
+extern uint16_t EEPROM_count ; 
+extern uint32_t timestampCounter ;
+
 /**
  * @fn App_EnergyLogger_Init
  * @brief Initializes the Energy Logger module, RAM buffer, EEPROM head, voltage/current sensors, and timer.

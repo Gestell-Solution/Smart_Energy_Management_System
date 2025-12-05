@@ -22,23 +22,7 @@
 #define LED_REAR2    PIN6
 
 #define LED_PORT    GroupB
-#define LCD_CLEAR_ALL  0xFF  // arbitrary value to represent "clear all"
-void hLCD_Clear1(uint8_t ClearLine)
-{
-    if (ClearLine == LCD_CLEAR_ALL)
-    {
-        for (uint8_t i = 0; i < NumOfRows; i++)
-        {
-            hLCD_SetCursor(i, 0);
-            hLCD_WriteString(Clear_Line_String);
-        }
-    }
-    else
-    {
-        hLCD_SetCursor(ClearLine, 0);
-        hLCD_WriteString(Clear_Line_String);
-    }
-}
+
 
 
 void Test_RAM_Buffer(void)
@@ -79,18 +63,18 @@ void Test_EEPROM_LCD(void)
 {
     EnergyLog_t readLog;
 
-    // Store all logs from RAM to EEPROM
+    /* Store all logs from RAM to EEPROM*/ 
     while(EnergyRAM.count > 0)
     {
         App_EnergyLogger_StoreToEEPROM();
     }
 
-    // Clear LCD and show EEPROM logs
-    hLCD_Clear1(LCD_CLEAR_ALL);
+    
+    hLCD_SendCommand(0x01);
     for(uint16_t i = 0; i < EEPROM_count; i++)
     {
         App_EnergyLogger_ReadLog(i, &readLog);
-        hLCD_Clear1(LCD_CLEAR_ALL);
+        hLCD_SendCommand(0x01);
         hLCD_SetCursor(1, 0);
         hLCD_WriteString("V:");
         hLCD_WriteNumber((int)readLog.voltage);
@@ -106,27 +90,20 @@ int LoggerTestMain(void)
     for(uint8_t i = 0; i <= LED_REAR2; i++)
         mDIO_SetDirectionForPin(LED_PORT, i, 1);
 
-    // Initialize LCD
     hLCD_Init();
-    hLCD_Clear1(LCD_CLEAR_ALL);
-
-    // Initialize EnergyLogger RAM
+    hLCD_SendCommand(0x01);
     App_EnergyLogger_Init();
 
-    // Fill RAM buffer
     Test_RAM_Buffer();
 
-    // Display RAM status on LEDs
     Display_LED_Status();
 
-    // Small delay (simulate wait)
     for(uint32_t i = 0; i < 100000; i++);
 
-    // Store RAM → EEPROM and display on LCD
     Test_EEPROM_LCD();
 
     while(1)
     {
-        Display_LED_Status(); // Keep updating LEDs
+        Display_LED_Status(); 
     }
 }

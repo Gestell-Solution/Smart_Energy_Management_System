@@ -18,6 +18,11 @@
 #include "../../Mcal/DIO/DIO_Interface.h"
 #include "../../Hal/LCD/LCD_Interface.h"
 
+EnergyLogBuffer_t EnergyRAM;
+uint16_t EEPROM_head = 0; 
+uint16_t EEPROM_count = 0; 
+uint32_t timestampCounter = 0;
+
 void App_EnergyLogger_Init(void){
     EnergyRAM.front = -1;
     EnergyRAM.rear = -1;
@@ -62,8 +67,9 @@ void App_EnergyLogger_Update(const EnergyLog_t *newLog)
 }
 
 void App_EnergyLogger_StoreToEEPROM(void){
-     if (EnergyRAM.count == 0)
+     if (EnergyRAM.count == 0){
         return;  
+     }
     EnergyLog_t logToeeprom = EnergyRAM.buffer[EnergyRAM.front];
 
     uint16_t addr = EEPROM_head * sizeof(EnergyLog_t); /*gives the address to start write the new log*/
@@ -86,7 +92,7 @@ void App_EnergyLogger_StoreToEEPROM(void){
 void App_EnergyLogger_ReadLog(uint16_t logIndex, EnergyLog_t *readLog)
 {
     if (logIndex >= EEPROM_count){
-                return; 
+        return; 
     }
 
     uint16_t addr = logIndex * sizeof(EnergyLog_t);
