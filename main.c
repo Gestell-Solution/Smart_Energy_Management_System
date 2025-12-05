@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "Tests/Uart/uartTest.h"
 void main()
 {
@@ -8,6 +9,8 @@ void main()
         
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8d69fa8498a4864fee1dcf3307c94d1d8e86d50d
 // AVR peripheral libraries
 //#include <avr/interrupt.h> // Required for sei()
 #include <util/delay.h>    // Required for _delay_ms()
@@ -41,6 +44,9 @@ int main(void)
         hBT_ReadString("hello");
 
         mTIMER0_Delay_ms(50);
+<<<<<<< HEAD
 >>>>>>> 6660dab (adding the changes of the Master)
+=======
+>>>>>>> 8d69fa8498a4864fee1dcf3307c94d1d8e86d50d
     }
 }
