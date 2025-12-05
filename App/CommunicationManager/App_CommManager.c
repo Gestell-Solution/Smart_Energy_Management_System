@@ -77,9 +77,6 @@ void App_CommManager_ReceiveHandler()
 {
     if (Ishandling || CurrentSizeofBuffer >= Max_Buffer_size)
     {
-        
-        mDIO_TogglePin(GroupD,PIN3);
-
         return;
     }
 
