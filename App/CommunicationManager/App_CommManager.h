@@ -15,29 +15,63 @@
 #ifndef _APP_COMM_MANAGER_H
 #define _APP_COMM_MANAGER_H
 #include <stdint.h>
+
+
 typedef enum{
         WaitTheHeader,
         WaitLen,
         Wait_data_With_command,
 }Recive_states;
 
-#define Scheduling_Time                     50
-#define FRAME_HEADER                        0xAA
-#define Done_Action                         1
-#define Max_Buffer_size                     50
+#define Scheduling_Time                         5
+#define FRAME_HEADER                            0xAA
+#define Done_Action                             1
+#define Max_Buffer_size                         128
+#define YES                                     1
+#define NO                                      0
+/**
+ * @defgroup Queue_circular_Buffer 
+ * @brief    This is for defining circular array to handle the data of the recieved Action
+ * @{ 
+ */
+uint8_t Comm_Front;
+uint8_t Comm_Rear;
+/**
+ * @def   RearOfQueue 
+ * @brief Queue 
+ */
+#define RearOfQueue (Comm_Rear%Max_Buffer_size)          
+/**
+ * @def   FrontOfQueue 
+ * @brief Queue 
+ */
+#define FrontOfQueue (Comm_Front%Max_Buffer_size)          
+/**
+ * @def   Update_RearOfQueue 
+ * @brief Queue 
+ */
+#define Update_RearOfQueue Comm_Rear=((Comm_Rear+1)%Max_Buffer_size)          
+/**
+ * @def   Update_FrontOfQueue 
+ * @brief Queue 
+ */
+#define Update_FrontOfQueue Comm_Front=((Comm_Front+1)%Max_Buffer_size)        
+/**
+ * @}
+ */
+
 /**
  * @defgroup    Commands ID
  * @brief       This group is concerned to define the Commands sent by the communication Manager to other places in the APP
  * @{ 
  */
 
-#define Calibrate_Current_Sensor                0x01
-#define Calibrate_Voltage_Sensor                0x02
+#define Calibrate_Sensors                       0x0B
 #define Read_EEPROM                             0x03
 #define Write_EEPROM                            0x04
 #define GET_RMS_DATA                            0x05
 #define Get_Logged_DATA                         0x06
-#define Message_To_User                         0x07
+#define Notification_To_User                    0x07
 #define Update_EEPROM                           0x08
 #define Protection_Manager_danger               0x09
 #define Protection_Manager_Safe                 0x0A
@@ -46,8 +80,6 @@ typedef enum{
  * @}
  */
 
-#define ShiftToLowerbyte(Val) (Val >>8 )
-#define TakeUpperByte(Val)    (Val&0xFF)
 /**
  * @fn void App_CommManager_Init(void)
  * @brief Initializes the Application Communication Manager.
@@ -109,7 +141,7 @@ void App_CommManager_SendFrame(uint8_t *data,uint8_t Command, uint16_t len);
  *       communication manager needs to retain it asynchronously it must copy
  *       the content before returning.
  */
-void App_CommManager_ReceiveHandler(uint8_t *data);
+void App_CommManager_ReceiveHandler();
 
 /**
  * @fn void App_CommManager_ProcessCommand(uint8_t *frame)
@@ -127,5 +159,8 @@ void App_CommManager_ReceiveHandler(uint8_t *data);
  *       length frames are expected to be processed in the future.
  */
 void App_CommManager_ProcessCommand(uint8_t *frame);
+
+uint8_t Accesslength();
+
 
 #endif
