@@ -73,12 +73,12 @@ void App_CommManager_SendFrame(uint8_t *data, uint8_t Command, uint16_t len)
 void App_CommManager_ReceiveHandler(uint8_t *data, uint16_t len)
 {
 
-    uint8_t RxFrameBuffer[50];
+    static  uint8_t RxFrameBuffer[50];
+    static  uint8_t CurrentState = WaitTheHeader;
+    static  uint8_t Rx_Index;
 
     if (data != Null || len != 0)
     {
-        uint8_t CurrentState = WaitTheHeader;
-        uint8_t Rx_Index;
         for (uint16_t i = 0; i < len; i++)
         {
 
@@ -99,7 +99,7 @@ void App_CommManager_ReceiveHandler(uint8_t *data, uint16_t len)
             case WaitLen:
                 RxFrameBuffer[Rx_Index++] = byte;
 
-                if (byte > 50 || byte < 3)
+                if (byte > 50 )
                 {
                     CurrentState = WaitTheHeader; // error data is not there
                 }
@@ -164,17 +164,11 @@ void App_CommManager_ProcessCommand(uint8_t *frame)
 
         uint16_t volt = (uint16_t)ME_GetVoltageRMS();
         uint16_t curr = (uint16_t)ME_GetVoltageRMS();
-
-        // 2. Pack the data into a temp buffer
-        // We split 16-bit integers into 2 bytes (High, Low)
-
         tx_buffer[0] = ShiftToLowerbyte(volt);
         tx_buffer[1] = TakeUpperByte(volt);
         tx_buffer[2] = ShiftToLowerbyte(curr);
         tx_buffer[3] = TakeUpperByte(curr);
 
-        // 3. Send the Reply Frame back to the App
-        // We reuse the SAME ID (CMD_GET_RMS_DATA) so the App knows what this data is
         App_CommManager_SendFrame(tx_buffer, GET_RMS_DATA, 4);
         break;
 
@@ -182,6 +176,7 @@ void App_CommManager_ProcessCommand(uint8_t *frame)
 
         break;
     }
+
 }
 
 void App_SendAction()
