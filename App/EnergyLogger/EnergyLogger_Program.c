@@ -8,7 +8,7 @@
  */
 
 #include "EnergyLogger_Interface.h"
-#include "../../MCAL/EEPROM/EEPROM_Interface.h"
+#include "../../Mcal/EEPROM/EEPROM_Interface.h"
 #include "../../Mcal/Timer1/TIMER1_Interface.h"  
 
 #include "../../Hal/Voltage/Voltage_Interface.h"
