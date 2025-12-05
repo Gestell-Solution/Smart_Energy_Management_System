@@ -2,7 +2,7 @@
 #include "../Atmega32RegistersAddress.h"
 #include "../../Common/Macros.h"
 #include "../../Common/Config.h"
-#include "../../MCAL/DIO/DIO_Interface.h"
+#include "../../Mcal/DIO/DIO_Interface.h"
     
 #include "SPI_Private.h"
 #include "SPI_Interface.h"
