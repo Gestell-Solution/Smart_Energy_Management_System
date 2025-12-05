@@ -1,9 +1,13 @@
 #include "Tests/Uart/uartTest.h"
+#include "Tests/Energy_Logger/Logger_Test.h"
 void main()
 {
-    UartTestMain();
+    LoggerTestMain();
+
+    //UartTestMain();
     while(1)
     {
         
     }
+    
 }
