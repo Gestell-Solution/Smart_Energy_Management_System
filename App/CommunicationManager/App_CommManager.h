@@ -109,7 +109,7 @@ void App_CommManager_SendFrame(uint8_t *data,uint8_t Command, uint16_t len);
  *       communication manager needs to retain it asynchronously it must copy
  *       the content before returning.
  */
-void App_CommManager_ReceiveHandler(uint8_t *data, uint16_t len);
+void App_CommManager_ReceiveHandler(uint8_t *data);
 
 /**
  * @fn void App_CommManager_ProcessCommand(uint8_t *frame)
