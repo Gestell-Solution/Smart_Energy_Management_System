@@ -145,10 +145,10 @@ typedef enum
 /**
  * @brief SPI pin mapping (as per ATmega32 hardware).
  */
-#define SS_GROUP     GroupA
-#define MOSI_GROUP   GroupA
-#define MISO_GROUP   GroupA
-#define SCK_GROUP    GroupA
+#define SS_GROUP     GroupB
+#define MOSI_GROUP   GroupB
+#define MISO_GROUP   GroupB
+#define SCK_GROUP    GroupB
 
 #define SS_PIN       PIN4
 #define MOSI_PIN     PIN5
