@@ -1,7 +1,10 @@
+
+#include "Tests/CommunicationManagerTests/CommunicationManager.h"
 #include "Tests/Uart/uartTest.h"
 #include "Tests/Energy_Logger/Logger_Test.h"
-void main()
+int main(void)
 {
+    CommManagerTestsMain();
     LoggerTestMain();
 
     //UartTestMain();
@@ -9,5 +12,6 @@ void main()
     {
         
     }
-    
+     
 }
+
