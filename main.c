@@ -5,6 +5,8 @@
 =======
 #include "App/CommunicationManager/App_CommManager.h"
 #include "Mcal/Timer0/TIMER0_Interface.h"
+#include "Mcal/GIE/GIE_Interface.h"
+#include "Hal/HC05/HC05_Interface.h"
 // Include your HAL headers here (e.g., hBT.h, mTIMER.h)
 >>>>>>> fafca73 (Fixing Some logic of using static data logic)
 
@@ -12,20 +14,22 @@ int main(void)
 {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     mGIE_Enable();
         SetBit(SREG_Reg,7); 
 =======
+=======
+    mGIE_Enable();
+    mTIMER0_Init();
+>>>>>>> 3bedcf6 (Testing)
     App_CommManager_Init(); 
 >>>>>>> fafca73 (Fixing Some logic of using static data logic)
 
 
-    uint8_t boot_msg[] = { 'R', 'e', 'a', 'd', 'y' };
-    App_CommManager_SendFrame( boot_msg,0x00, 5);
 
     while (1)
     {
-        App_CommManager_Task();
-
+        hBT_ReadString("hello");
 
         mTIMER0_Delay_ms(50);
     }

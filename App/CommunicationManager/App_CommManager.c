@@ -16,34 +16,30 @@
 #include "App_CommManager.h"
 #include "../../Mcal/Timer0/TIMER0_Interface.h"
 #include "../../Hal/HC05/HC05_Interface.h"
-#include "../../Mcal/UART/UART_Init.h"
-#include "../../Mcal/UART/UART_RX.h"
-#include "../../Mcal/UART/UART_Tx.h"
 
+uint8_t Datareceived[50];
+uint8_t Index_recieving=0;
 static uint8_t Send_ = 0;
+void DataUpdater()
+{
+    hBT_ReadByte(Datareceived[Index_recieving]);
+    Index_recieving++;
+}
 void App_CommManager_Init()
 {
     hBT_Init();
     // hEsp01_init();
     mTIMER0_StartDelay(Scheduling_Time, App_CommManager_Task); // scheduling the task of the APP ecery 50ms it checks the items
+    UART_Rx_SetCallback(DataUpdater);
 }
 
 void App_CommManager_Task(void)
 {
 
-    uint8_t temp_buffer[Max_Buffer_size];
-    uint8_t Value;
-    uint16_t length = 0;
 
-    while ((hBT_Read(&Value) == Done_Action) && (length < Max_Buffer_size))
+    if (Index_recieving > 3)
     {
-        temp_buffer[length] = Value;
-        length++;
-    }
-
-    if (length > 0)
-    {
-        App_CommManager_ReceiveHandler(temp_buffer, length);
+        App_CommManager_ReceiveHandler(Datareceived);
     }
 }
 
@@ -54,7 +50,7 @@ void App_CommManager_SendFrame(uint8_t *data, uint8_t Command, uint16_t len)
     Frame_Setting[1] = len;
     Frame_Setting[2] = Command;
 
-    if (data != Null)
+    if (data != Null&&len!=0)
     {
         int i = 0;
         for (; i < len; i++)
@@ -70,16 +66,16 @@ void App_CommManager_SendFrame(uint8_t *data, uint8_t Command, uint16_t len)
         return;
     }
 }
-void App_CommManager_ReceiveHandler(uint8_t *data, uint16_t len)
+void App_CommManager_ReceiveHandler(uint8_t *data)
 {
 
     static  uint8_t RxFrameBuffer[50];
     static  uint8_t CurrentState = WaitTheHeader;
     static  uint8_t Rx_Index;
 
-    if (data != Null || len != 0)
+    if (data != Null || data[1] != 0)
     {
-        for (uint16_t i = 0; i < len; i++)
+        for (uint16_t i = 0; i < data[1]; i++)
         {
 
             uint8_t value = data[i];
@@ -99,20 +95,14 @@ void App_CommManager_ReceiveHandler(uint8_t *data, uint16_t len)
             case WaitLen:
                 RxFrameBuffer[Rx_Index++] = value;
 
-                if (value > 50 )
-                {
-                    CurrentState = WaitTheHeader; // error data is not there
-                }
-                else
-                {
-                    CurrentState = Wait_data_With_command;
-                }
+                CurrentState = Wait_data_With_command;
+                
                 break;
 
             case Wait_data_With_command:
                 RxFrameBuffer[Rx_Index++] = value;
 
-                if (Rx_Index >= len || Rx_Index >= 50)
+                if (Rx_Index >= data[1])
                 {
 
                     App_CommManager_ProcessCommand(&RxFrameBuffer[2]); // to avoid the header and the length
@@ -150,29 +140,20 @@ void App_CommManager_ProcessCommand(uint8_t *frame)
         break;
 
     case Write_EEPROM:
-        App_EnergyLogger_StoreToEEPROM();
+        
 
         break;
     case Read_EEPROM:
-        App_EnergyLogger_ReadLog(data, 15);
         break;
     case Update_EEPROM:
-        App_EnergyLogger_Update();
         break;
 
     case GET_RMS_DATA:
 
-        uint16_t volt = (uint16_t)ME_GetVoltageRMS();
-        uint16_t curr = (uint16_t)ME_GetVoltageRMS();
-        tx_buffer[0] = ShiftToLowerbyte(volt);
-        tx_buffer[1] = TakeUpperByte(volt);
-        tx_buffer[2] = ShiftToLowerbyte(curr);
-        tx_buffer[3] = TakeUpperByte(curr);
 
-        App_CommManager_SendFrame(tx_buffer, GET_RMS_DATA, 4);
         break;
     case Protection_Manager_danger:
-
+        
         break;
     case Protection_Manager_Safe:
 
