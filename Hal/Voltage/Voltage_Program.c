@@ -42,11 +42,12 @@ void hVoltage_Init(void)
         mADC_Init();
         isADC_Initialized = 1;
       mDIO_SetDirectionForPin(Voltage_Group, Voltage_Pin, Input);
-
+     mADC_RegisterChannel(Voltage_Pin,hVoltage_Callback);
     }
     else {
     mDIO_SetDirectionForPin(Voltage_Group, Voltage_Pin, Input);
-    
+         mADC_RegisterChannel(Voltage_Pin,hVoltage_Callback);
+
 }
 }
 

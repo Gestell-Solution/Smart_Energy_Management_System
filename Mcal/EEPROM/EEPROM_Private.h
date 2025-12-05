@@ -23,35 +23,35 @@
  * @{
  */
 
-
-#define EERE_Bit     0      /**< Setting this bit to 1 Enables Reading */    
-#define EEWE_Bit     1      /**< Setting this bit to 1 Enables EEPROM Writing (EEMWE Must = 1) */
-#define EEMWE_Bit    2      /**< Setting this bit to 1 Enables the EEPROM Master Write  */
-#define EERIE_Bit    3      /**< Setting this bit to 1 Enables the EEPROM Ready Interrupt */
-/** @} */ //End of EECR_Reg Bit names
+#define EERE_Bit 0  /**< Setting this bit to 1 Enables Reading */
+#define EEWE_Bit 1  /**< Setting this bit to 1 Enables EEPROM Writing (EEMWE Must = 1) */
+#define EEMWE_Bit 2 /**< Setting this bit to 1 Enables the EEPROM Master Write  */
+#define EERIE_Bit 3 /**< Setting this bit to 1 Enables the EEPROM Ready Interrupt */
+/** @} */           // End of EECR_Reg Bit names
 /**
  * @defgroup Addresses for memory map of EEPROM
  * @brief    This section defines the memory map addresses for the EEPROM.
- * @details This Addresses are used to store data in the EEPROM 
+ * @details This Addresses are used to store data in the EEPROM
  *          a proper value should be written on the address register (EEARH, EEARL) before any read or write operation.
  * @{
  */
-#define Device_ID_Add           0x00  /**<   1  Byte*/
-#define Voltage_Calib_Add       0x01  /**<   2  Byte*/   
-#define Current_Calib_Add       0x03  /**<   2  Byte*/
-#define Energy_Counter_Add      0x05  /**<   4  Byte*/
-#define Overvoltage_Limit_Add   0x09  /**<   2  Byte*/
-#define Overcurrent_Limit_Add   0x0B  /**<   2  Byte*/
-/** @} */ // End of Addresses of Memory map
-
+#define Device_ID_Add 0x00         /**<   1  Byte*/
+#define Voltage_Calib_Add 0x01     /**<   2  Byte*/
+#define Current_Calib_Add 0x03     /**<   2  Byte*/
+#define Energy_Counter_Add 0x05    /**<   4  Byte*/
+#define Overvoltage_Limit_Add 0x09 /**<   2  Byte*/
+#define Overcurrent_Limit_Add 0x0B /**<   2  Byte*/
+#define Voltage_RMS_Add 0x0D       /**<   2  Byte*/
+#define Current_RMS_Add 0x0F       /**<   2  Byte*/
+#define Power_Add 0x11             /**<   2  Byte*/
+/** @} */                          // End of Addresses of Memory map
 
 /**
  * @def AVR_EEPROM_MAXAddress
- * @brief Maximum addressable EEPROM location for Atmega32. 
+ * @brief Maximum addressable EEPROM location for Atmega32.
  * @details The Atmega32 microcontroller has 1024 bytes of EEPROM memory,
  *          which means the valid address range is from 0x0000 to 0x03FF.
  */
-#define AVR_EEPROM_MAXAddress    1023
-
+#define AVR_EEPROM_MAXAddress 1023
 
 #endif
