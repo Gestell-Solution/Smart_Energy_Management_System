@@ -31,6 +31,9 @@ typedef struct
     uint16_t OvervoltageLimit;
     uint16_t OvercurrentLimit;
     uint8_t  Checksum;   /**< Optional data validation field */
+    uint16_t Voltage_RMS;
+    uint16_t Current_RMS;
+    uint16_t Power;
 } SystemData_t;
 
 
@@ -43,6 +46,9 @@ typedef struct
 #define DEFAULT_ENERGY_COUNTER       0x00000000
 #define DEFAULT_OVERVOLTAGE_LIMIT    250
 #define DEFAULT_OVERCURRENT_LIMIT    10
+#define DEFAULT_VOLTAGE_RMS          0
+#define DEFAULT_CURRENT_RMS          0
+#define DEFAULT_POWER                0
 #define SYSTEMDATA_MAGIC  0xA5
 
 /**

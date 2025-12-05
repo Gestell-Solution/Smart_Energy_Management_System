@@ -17,7 +17,7 @@
 extern uint8_t isADC_Initialized ;
 
 static float Voltage_Scaling_Factor=(R_With_GND + R_WITH_Vcc) / R_With_GND;
-
+float calibrationFactor=1.0f;
 static float Voltage_Value=0.0f;
 
 Voltage_RMS_Data Voltage_RMS ={
@@ -42,11 +42,12 @@ void hVoltage_Init(void)
         mADC_Init();
         isADC_Initialized = 1;
       mDIO_SetDirectionForPin(Voltage_Group, Voltage_Pin, Input);
-
+     mADC_RegisterChannel(Voltage_Pin,hVoltage_Callback);
     }
     else {
     mDIO_SetDirectionForPin(Voltage_Group, Voltage_Pin, Input);
-    
+         mADC_RegisterChannel(Voltage_Pin,hVoltage_Callback);
+
 }
 }
 
@@ -74,7 +75,7 @@ void hVoltage_Calibrate(float ref)
    else {
         currentVoltage = Voltage_Calibration.Voltage_Current_Value;
     }
-    float calibrationFactor = ref / currentVoltage;
+    calibrationFactor = ref / currentVoltage;
     // Update the scaling factor
    Voltage_Scaling_Factor*= calibrationFactor;
 }

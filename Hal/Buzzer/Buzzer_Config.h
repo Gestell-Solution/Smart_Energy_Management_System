@@ -16,8 +16,8 @@
  * @defgroup
  * @brief Configurable Pin for buzzer
  */
-#define BUZZER_PORT     GroupB
-#define BUZZER_PIN      PIN0
+#define BUZZER_PORT     GroupD
+#define BUZZER_PIN      PIN4
 /**
  * @defgroup
  * @brief beep durations in milliseconds
