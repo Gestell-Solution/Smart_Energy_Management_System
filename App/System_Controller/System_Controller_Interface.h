@@ -12,6 +12,9 @@
 
 #ifndef SYSTEM_CONTROLLER_INTERFACE_H
 #define SYSTEM_CONTROLLER_INTERFACE_H
+#include "System_Controller_Config.h"
+#include "../DM_Driver/DisplayManager_Interface.h"
+#include "../MeasurementEngine/MeasurementEngine_Interface.h"
 void App_SystemController_Init(void);
 /* Initialize all dependent modules and set initial system state */
 
