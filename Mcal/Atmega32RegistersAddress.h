@@ -60,11 +60,11 @@
 /*Bootloader Support Registes */
 #define SPMCR_Reg   *(volatile uint8_t*)0x57
 /*TWI Registers */
-#define TWCR_Reg    *(volatile uint8_t*)0x56
-#define TWSR_Reg    *(volatile uint8_t*)0x20
-#define TWSC_Reg    *(volatile uint8_t*)0x21
-#define TWAR_Reg    *(volatile uint8_t*)0x22
-#define TWDR_Reg    *(volatile uint8_t*)0x23
+#define TWBR_Reg    *((volatile uint8_t*)0x20)
+#define TWSR_Reg    *((volatile uint8_t*)0x21)
+#define TWAR_Reg    *((volatile uint8_t*)0x22)
+#define TWDR_Reg    *((volatile uint8_t*)0x23)
+#define TWCR_Reg    *((volatile uint8_t*)0x56)  
 /*ADC Registers and Analog Comparator */
 #define ADMUX_Reg   *((volatile uint8_t*)0x27)
 #define ADCSRA_Reg  *((volatile uint8_t*)0x26)
