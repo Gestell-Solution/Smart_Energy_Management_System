@@ -2,7 +2,7 @@
  * @file    App_CommManager.h
  * @brief   This File is for declaring main APIs And needed Macros for the App layer Communication Manager.
  * @details - This Module is about Decoding incoming commands and route them to the appropriate module.
- *          - Provide a unified interface for communication with both Bluetooth (local) and Wi-Fi (remote) and Applying the wanted framing 
+ *          - Provide a unified interface for communication with both Bluetooth (local) and Wi-Fi (remote) and Applying the wanted framing
  *            Protocol and lastly maintain the synchronization between UART and Network Layer.
  * @version 1.0
  * @author Developer : Mohammed Diaa (mohammeddiaato@gmail.com)
@@ -11,51 +11,50 @@
  * @copyright Copyright (c) 2025 , Gestell Company
  */
 
-
 #ifndef _APP_COMM_MANAGER_H
 #define _APP_COMM_MANAGER_H
 #include <stdint.h>
 
-
-typedef enum{
+typedef enum
+{
         WaitTheHeader,
         WaitLen,
         Wait_data_With_command,
-}Recive_states;
+} Recive_states;
 
-#define Scheduling_Time                         5
-#define FRAME_HEADER                            0xAA
-#define Done_Action                             1
-#define Max_Buffer_size                         128
-#define YES                                     1
-#define NO                                      0
+#define Scheduling_Time 5
+#define FRAME_HEADER 0xAA
+#define Done_Action 1
+#define Max_Buffer_size 128
+#define YES 1
+#define NO 0
 /**
- * @defgroup Queue_circular_Buffer 
+ * @defgroup Queue_circular_Buffer
  * @brief    This is for defining circular array to handle the data of the recieved Action
- * @{ 
+ * @{
  */
 uint8_t Comm_Front;
 uint8_t Comm_Rear;
 /**
- * @def   RearOfQueue 
- * @brief Queue 
+ * @def   RearOfQueue
+ * @brief Queue
  */
-#define RearOfQueue (Comm_Rear%Max_Buffer_size)          
+#define RearOfQueue (Comm_Rear % Max_Buffer_size)
 /**
- * @def   FrontOfQueue 
- * @brief Queue 
+ * @def   FrontOfQueue
+ * @brief Queue
  */
-#define FrontOfQueue (Comm_Front%Max_Buffer_size)          
+#define FrontOfQueue (Comm_Front % Max_Buffer_size)
 /**
- * @def   Update_RearOfQueue 
- * @brief Queue 
+ * @def   Update_RearOfQueue
+ * @brief Queue
  */
-#define Update_RearOfQueue Comm_Rear=((Comm_Rear+1)%Max_Buffer_size)          
+#define Update_RearOfQueue Comm_Rear = ((Comm_Rear + 1) % Max_Buffer_size)
 /**
- * @def   Update_FrontOfQueue 
- * @brief Queue 
+ * @def   Update_FrontOfQueue
+ * @brief Queue
  */
-#define Update_FrontOfQueue Comm_Front=((Comm_Front+1)%Max_Buffer_size)        
+#define Update_FrontOfQueue Comm_Front = ((Comm_Front + 1) % Max_Buffer_size)
 /**
  * @}
  */
@@ -63,18 +62,25 @@ uint8_t Comm_Rear;
 /**
  * @defgroup    Commands ID
  * @brief       This group is concerned to define the Commands sent by the communication Manager to other places in the APP
- * @{ 
+ * @{
  */
 
-#define Calibrate_Sensors                       0x0B
-#define Read_EEPROM                             0x03
-#define Write_EEPROM                            0x04
-#define GET_RMS_DATA                            0x05
-#define Get_Logged_DATA                         0x06
-#define Notification_To_User                    0x07
-#define Update_EEPROM                           0x08
-#define Protection_Manager_danger               0x09
-#define Protection_Manager_Safe                 0x0A
+enum
+{
+        Calibrate_Sensors               = 0x0B,
+        Read_From_EEPROM                = 0x03,
+        Store_In__EEPROM                = 0x04,
+        GET_RMS_DATA                    = 0x05,
+        Get_Logged_DATA                 = 0x06,
+        Notification_To_User            = 0x07,
+        Update_EEPROM                   = 0x08,
+        Protection_Manager_danger       = 0x09,
+        SetOverLoad_Current_Limit       = 0x0A,
+        SetOverLoad_Voltage_Limit       = 0x0B,
+        SHUTDOWN_Device                 = 0x0C
+        
+
+};
 
 /**
  * @}
@@ -124,7 +130,7 @@ void App_CommManager_Task(void);
  * @warning Ensure the transport layer is initialized and not in error state
  *          before calling this function.
  */
-void App_CommManager_SendFrame(uint8_t *data,uint8_t Command, uint16_t len);
+void App_CommManager_SendFrame(uint8_t *data, uint8_t Command, uint16_t len);
 
 /**
  * @fn void App_CommManager_ReceiveHandler(uint8_t *data, uint16_t len)
@@ -161,6 +167,5 @@ void App_CommManager_ReceiveHandler();
 void App_CommManager_ProcessCommand(uint8_t *frame);
 
 uint8_t Accesslength();
-
 
 #endif

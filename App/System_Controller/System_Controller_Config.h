@@ -57,24 +57,28 @@
  */
 
 /**
- * @defgroup SystemControllerStructures
- * @brief    Structure of data used by the SystemController
+ * @defgroup SystemControllerEvents
+ * @brief    Events Handled by the SystemController
  * @{
- */
+    */
 
-typedef struct 
-{
-    uint8_t State;
-    uint8_t CMD_Id;
-    uint8_t
-}SystemEvent_t;
 
-typedef struct 
-{
 
-}SystemState_t;
+// EVENT_OVERLOAD_DETECTED
+// EVENT_OVERLOAD_CLEARED
+// EVENT_MODE_TOGGLE
+// EVENT_CALIBRATION_DONE
+// EVENT_COMM_RECEIVED_CMD
+// EVENT_SENSOR_FAULT
 
 /**
  * @}
  */
+
+
+
+
+
+
+
 #endif

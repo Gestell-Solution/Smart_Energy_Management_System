@@ -11,8 +11,20 @@
 #include "../../Common/Config.h"
 #if System_Controller_Module ==Enable
 #include "System_Controller_Interface.h"
+extern SystemData_t g_SystemData;
+
+SystemEvent_t SystemController;
+SystemState_t Status;
 void App_SystemController_Init(void)
 {
+    SystemController.SysState.State=INIT_State;
+    DM_Init();
+    PM_Init();
+    ME_Init();
+    SystemData_Init();
+    App_CommManager_Init();
+    App_EnergyLogger_Init();
+    SystemController.SysState.State=NORMAL_State;
     
 }
 /* Initialize all dependent modules and set initial system state */
