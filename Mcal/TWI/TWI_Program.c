@@ -9,12 +9,14 @@
  * 
 */
 
-#include <stdint.h>
-#include <string.h>         
+#include <stdint.h>       
 #include <avr/interrupt.h>  
 #include "../../Common/Macros.h"
 #include "../../Common/Config.h"
 #include "../Atmega32RegistersAddress.h"
+
+#if TWI_Module == Enable
+
 #include "TWI_Interface.h"  
 #include "TWI_Config.h"
 #include "TWI_Private.h"
@@ -469,4 +471,4 @@ ISR(TWI_vect) {
             break;
     }
 }
-
+#endif /* TWI Module Enable*/
