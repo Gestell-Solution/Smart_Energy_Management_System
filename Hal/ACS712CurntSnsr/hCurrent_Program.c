@@ -125,7 +125,9 @@ float hCurrent_ReadRMS() // RMS current over N samples using polling
         RMS_Actions.RMS_Samples_Num++;
     }
     float meanSquare = RMS_Actions.Summing_Squares / (float)RMS_Actions.RMS_Samples_Num;
+    if(meanSquare>=0){
     RMS_Actions.Current_RMS_Value = sqrt(meanSquare);
+    }
     return RMS_Actions.Current_RMS_Value;
 }
 
