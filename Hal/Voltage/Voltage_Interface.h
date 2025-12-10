@@ -45,6 +45,7 @@ float hVoltage_ReadInstant(void); // Instantaneous voltage (V)
  * @brief Reads the RMS voltage value over a specified number of samples.
  * @param samples The number of samples to average for RMS calculation.
  * @return Returns a Floating Value of the RMS Voltage Value in Volts (V)
+ * @note Execution Time =10.4ms for 100 Samples At 8 MHz and ADC prescaler 64
  */
 
 float hVoltage_ReadRMS(); // RMS voltage (V) over N samples

@@ -8,31 +8,29 @@
  * @copyright Copyright (c) 2025 ,Gestell Company
  */
 
-
-
-#include"../../Common/Config.h"
-#if VoltageSensor_Module==Enable
-#include"Voltage_Interface.h"
+#include "../../Common/Config.h"
+#if VoltageSensor_Module == Enable
+#include "Voltage_Interface.h"
+#include "../LCD/LCD_Interface.h"
 #include <math.h>
-extern uint8_t isADC_Initialized ;
+extern uint8_t isADC_Initialized;
 
-static float Voltage_Scaling_Factor=(R_With_GND + R_WITH_Vcc) / R_With_GND;
-float calibrationFactor=1.0f;
-static float Voltage_Value=0.0f;
+static float Voltage_Scaling_Factor = (R_With_GND + R_WITH_Vcc) / R_With_GND;
+float calibrationFactor = 1.0f;
+static float Voltage_Value = 0.0f;
 
-Voltage_RMS_Data Voltage_RMS ={
-.sumOfSquares=0.0f,
-.Voltage_RMS_Value=0.0f,
-.Voltage_Previous_RMS=0.0f,
-.sampleCount=0
-};
-Voltage_Calibration_Data Voltage_Calibration={
-.Voltage_Prev_Value=0.0f,
-.Voltage_Current_Value=0.0f,
-.Callibration_Count=0,
-.ADC_Reading_Sum=0.0f
+volatile uint8_t New_Sample_Flag = 0;
 
-
+Voltage_RMS_Data Voltage_RMS = {
+    .sumOfSquares = 0.0f,
+    .Voltage_RMS_Value = 0.0f,
+    .Voltage_Previous_RMS = 0.0f,
+    .sampleCount = 0};
+Voltage_Calibration_Data Voltage_Calibration = {
+    .Voltage_Prev_Value = 0.0f,
+    .Voltage_Current_Value = 0.0f,
+    .Callibration_Count = 0,
+    .ADC_Reading_Sum = 0.0f
 
 };
 void hVoltage_Init(void)
@@ -41,76 +39,64 @@ void hVoltage_Init(void)
     {
         mADC_Init();
         isADC_Initialized = 1;
-      mDIO_SetDirectionForPin(Voltage_Group, Voltage_Pin, Input);
-     mADC_RegisterChannel(Voltage_Pin,hVoltage_Callback);
+        mDIO_SetDirectionForPin(Voltage_Group, Voltage_Pin, Input);
+        mADC_RegisterChannel(Voltage_Pin, hVoltage_Callback);
     }
-    else {
-    mDIO_SetDirectionForPin(Voltage_Group, Voltage_Pin, Input);
-         mADC_RegisterChannel(Voltage_Pin,hVoltage_Callback);
-
-}
+    else
+    {
+        mDIO_SetDirectionForPin(Voltage_Group, Voltage_Pin, Input);
+        mADC_RegisterChannel(Voltage_Pin, hVoltage_Callback);
+    }
 }
 
 float hVoltage_ReadInstant(void)
 {
     return Voltage_Value;
 }
-float hVoltage_ReadRMS()
+
+float hVoltage_ReadRMS(void)
 {
-    if (Voltage_RMS.sampleCount<Voltage_Calibration_Samples)
+    Voltage_RMS.sumOfSquares = 0.0f;
+    Voltage_RMS.sampleCount = 0;
+
+    while (Voltage_RMS.sampleCount < Voltage_Calibration_Samples)
     {
-        return sqrt (Voltage_RMS.Voltage_Previous_RMS);
+        while (New_Sample_Flag == 0)
+        {
+            // Wait for new sample
+        }
+
+        New_Sample_Flag = 0;
+        float instant_voltage = Voltage_Value * (1.0f / 1023.0f) * Voltage_REF * Voltage_Scaling_Factor;
+        Voltage_RMS.sumOfSquares += (instant_voltage * instant_voltage);
+        Voltage_RMS.sampleCount++;
     }
-    else {
-return sqrt (Voltage_RMS.Voltage_RMS_Value);
-  }
+
+    float meanSquare = Voltage_RMS.sumOfSquares / (float)Voltage_RMS.sampleCount;
+    Voltage_RMS.Voltage_RMS_Value = sqrt(meanSquare);
+
+    return Voltage_RMS.Voltage_RMS_Value;
 }
 void hVoltage_Calibrate(float ref)
 {
-     float currentVoltage;
-    if (Voltage_Calibration.Callibration_Count<Voltage_Calibration_Samples)
+    float currentVoltage;
+    if (Voltage_Calibration.Callibration_Count < Voltage_Calibration_Samples)
     {
         currentVoltage = Voltage_Calibration.Voltage_Prev_Value;
     }
-   else {
+    else
+    {
         currentVoltage = Voltage_Calibration.Voltage_Current_Value;
     }
     calibrationFactor = ref / currentVoltage;
     // Update the scaling factor
-   Voltage_Scaling_Factor*= calibrationFactor;
+    Voltage_Scaling_Factor *= calibrationFactor;
 }
 
 void hVoltage_Callback(uint16_t dummy)
 {
-   
-    Voltage_Value=dummy;
-     Voltage_Value *= (1 / 1023.0f) * Voltage_REF * Voltage_Scaling_Factor;
 
-     Voltage_RMS.sampleCount++;
-     Voltage_RMS.sumOfSquares += Voltage_Value * Voltage_Value;
-
-     if (Voltage_RMS.sampleCount==Voltage_Calibration_Samples)
-     {
-            Voltage_RMS.Voltage_Previous_RMS=Voltage_RMS.Voltage_RMS_Value;
-            Voltage_RMS.Voltage_RMS_Value=Voltage_RMS.sumOfSquares / Voltage_RMS.sampleCount;
-            Voltage_RMS.sumOfSquares=0.0f;
-            Voltage_RMS.sampleCount=0;
-     }
-     else {
-        // do nothing
-     }
-    //  update Calibration data
-     Voltage_Calibration.Callibration_Count++;
-        Voltage_Calibration.ADC_Reading_Sum += Voltage_Value;
-        if(Voltage_Calibration.Callibration_Count==Voltage_Calibration_Samples)
-        {
-            Voltage_Calibration.Voltage_Prev_Value=Voltage_Calibration.Voltage_Current_Value;
-            Voltage_Calibration.Voltage_Current_Value=Voltage_Calibration.ADC_Reading_Sum / Voltage_Calibration.Callibration_Count;
-            Voltage_Calibration.ADC_Reading_Sum=0.0f;
-            Voltage_Calibration.Callibration_Count=0;
-        }
-        else {
-            // do nothing
-        }
+    Voltage_Value = dummy;
+    New_Sample_Flag = 1;
 }
 #endif

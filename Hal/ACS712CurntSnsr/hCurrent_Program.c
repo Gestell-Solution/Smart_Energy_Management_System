@@ -17,13 +17,15 @@
 #include <math.h>
 #include <stdint.h>
 
+volatile uint8_t New_Current_Sample_Flag = 0;
+
 /**
  * @fn void hcurrent_CallBack(uint16_t dummy)
  * @brief ADC interrupt callback for the ACS712 current sensor.
  * @details Invoked from the ADC ISR to notify the current-sensing layer of a new
  *          ADC conversion or to act as a simple conversion-complete signal.
  * @param[in] dummy 16-bit ADC sample.
- * @warning This function runs in interrupt context. 
+ * @warning This function runs in interrupt context.
  */
 void hcurrent_CallBack(uint16_t dummy);
 
@@ -56,8 +58,6 @@ static float ACS712_ZERO_OFFSET = ACS712_Initial_ZERO_OFFSET;
  */
 static float ADC_Current_Value = 0;
 
-
-
 /**
  * @var RMS_Actions
  * @brief Container for RMS-related accumulators and results.
@@ -70,8 +70,7 @@ static float ADC_Current_Value = 0;
  * This variable is file-scoped (static) and persists for the lifetime of the program.
  * Concurrent access must be protected if used across threads/interrupts.
  */
-static RMS_Data RMS_Actions = {0, 0, 0,0};
-
+static RMS_Data RMS_Actions = {0, 0, 0, 0};
 
 /**
  * @var Calibration_Actions
@@ -85,7 +84,7 @@ static RMS_Data RMS_Actions = {0, 0, 0,0};
  * As a static file-scope object, access should be synchronized when modified or
  * read from multiple contexts to ensure consistency.
  */
-static Calibration_Data Calibration_Actions = {0, 0, 0,0};
+static Calibration_Data Calibration_Actions = {0, 0, 0, 0};
 
 void hCurrent_Init(void)
 {
@@ -96,45 +95,55 @@ void hCurrent_Init(void)
         isADC_Initialized = 1;
     }
     mDIO_SetDirectionForPin(ADC_Group, ACS712_PIN, Input);
-    mADC_RegisterChannel(ACS712_PIN,hcurrent_CallBack);
+    mADC_RegisterChannel(ACS712_PIN, hcurrent_CallBack);
 }
 
 float hCurrent_ReadInstant(void)
 {
     float Vout = (ADC_Current_Value / ADC_MAX) * Vref;
     float Current = (Vout - ACS712_ZERO_OFFSET) / ACS712_SENSITIVITY;
-    if(Current <0) Current*=-1;
+    if (Current < 0)
+        Current *= -1;
     return Current;
 } // Instantaneous current (A)
 
-
 float hCurrent_ReadRMS() // RMS current over N samples using polling
 {
-    if (RMS_Actions.RMS_Samples_Num < RMS_Nominal_Samples_Num)
+    // Upadting RMS
+    RMS_Actions.Summing_Squares = 0.0f;
+    RMS_Actions.RMS_Samples_Num = 0;
+    while (RMS_Actions.RMS_Samples_Num < RMS_Nominal_Samples_Num)
     {
-        return sqrt(RMS_Actions.Previous_RMS_Value);
+        while (New_Current_Sample_Flag == 0)
+        {
+            // Wait for new sample
+        }
+
+        New_Current_Sample_Flag = 0;
+        float instant_current = hCurrent_ReadInstant();
+        RMS_Actions.Summing_Squares += (instant_current * instant_current);
+        RMS_Actions.RMS_Samples_Num++;
     }
-    return sqrt(RMS_Actions.Current_RMS_Value);
+    float meanSquare = RMS_Actions.Summing_Squares / (float)RMS_Actions.RMS_Samples_Num;
+    RMS_Actions.Current_RMS_Value = sqrt(meanSquare);
+    return RMS_Actions.Current_RMS_Value;
 }
 
 void hCurrent_Calibrate(void) // Adjust zero offset at no load
 {
 
-    float VoltageConversion=0;
+    float VoltageConversion = 0;
     if (Calibration_Actions.Callibration_Samples_Num < RMS_Nominal_Samples_Num)
     {
 
-        float VoltageConversion = (Calibration_Actions.Previous_ADC_Avrg_Value/ ADC_MAX) * Vref;
-        
-        
-    }else
-    {
-        
-        float VoltageConversion = (Calibration_Actions.Current_ADC_Avrg_Value/ ADC_MAX) * Vref;
-        
+        float VoltageConversion = (Calibration_Actions.Previous_ADC_Avrg_Value / ADC_MAX) * Vref;
     }
-    
-    
+    else
+    {
+
+        float VoltageConversion = (Calibration_Actions.Current_ADC_Avrg_Value / ADC_MAX) * Vref;
+    }
+
     ACS712_ZERO_OFFSET = VoltageConversion;
 }
 
@@ -142,34 +151,5 @@ void hcurrent_CallBack(uint16_t dummy) // setting the callback of the current se
 {
     ADC_Current_Value = dummy;
 
-    // Upadting RMS
-    RMS_Actions.RMS_Samples_Num++;
-    float Current_Val = hCurrent_ReadInstant();
-    RMS_Actions.Summing_Squares += Current_Val * Current_Val;
-
-    if (RMS_Actions.RMS_Samples_Num == RMS_Nominal_Samples_Num)
-    {
-        RMS_Actions.RMS_Samples_Num = 0;
-        RMS_Actions.Previous_RMS_Value = RMS_Actions.Current_RMS_Value;
-        RMS_Actions.Current_RMS_Value = RMS_Actions.Summing_Squares / RMS_Nominal_Samples_Num;
-        RMS_Actions.Summing_Squares = 0;
-    }
-    else
-    {
-    }
-
-    // Updating callibration 
-    Calibration_Actions.Callibration_Samples_Num++;
-    Calibration_Actions.ADC_Readings_Sum += ADC_Current_Value;
-    if (Calibration_Actions.Callibration_Samples_Num == Num_OF_Calibration_Samples)
-    {
-        Calibration_Actions.Callibration_Samples_Num = 0;
-        Calibration_Actions.Previous_ADC_Avrg_Value = Calibration_Actions.Current_ADC_Avrg_Value;
-        Calibration_Actions.Current_ADC_Avrg_Value = Calibration_Actions.ADC_Readings_Sum / Num_OF_Calibration_Samples;
-        Calibration_Actions.Current_ADC_Avrg_Value=0;
-    }
-    else
-    {
-    }
-    
+    New_Current_Sample_Flag = 1;
 }
