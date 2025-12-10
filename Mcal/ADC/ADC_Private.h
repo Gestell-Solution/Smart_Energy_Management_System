@@ -175,7 +175,7 @@ typedef struct
  * @brief This section defines masks for selecting ADC channels.
  * @{
  */
-#define ADC_Channel_UpperNibble_Mask   0xF0   
+#define ADC_Channel_UpperNibble_Mask   0xE0   
 #define ADC_Channel_LowerNibble_Mask   0x07  
 /** @} */ // End of ADC Channel Mask
 /**
