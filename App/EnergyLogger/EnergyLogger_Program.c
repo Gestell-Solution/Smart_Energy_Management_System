@@ -30,12 +30,13 @@ void App_EnergyLogger_Init(void){
 
     EEPROM_head = 0;
     EEPROM_count = 0;
-    mTIMER1_Init();
-    mTIMER1_RegisterCallback(EnergyLogger_TimerCallback);
-    mTIMER1_Start();
-    hVoltage_Init();
-    hCurrent_Init();
-
+    
+    /* Timer1 and Sensor Initialization removed to avoid conflict with MeasurementEngine */
+    /* mTIMER1_Init(); */
+    /* mTIMER1_RegisterCallback(EnergyLogger_TimerCallback); */
+    /* mTIMER1_Start(); */
+    /* hVoltage_Init(); */
+    /* hCurrent_Init(); */
 }
 
 void App_EnergyLogger_Update(const EnergyLog_t *newLog)
@@ -98,22 +99,20 @@ void App_EnergyLogger_ReadLog(uint16_t logIndex, EnergyLog_t *readLog)
     uint16_t addr = logIndex * sizeof(EnergyLog_t);
     mEEPROM_ReadBlock(addr, (uint8_t*)readLog, sizeof(EnergyLog_t));
 }
-void EnergyLogger_TimerCallback(void)
+
+void App_EnergyLogger_Task(void)
 {
+    /* This function should be called periodically or after updates */
+    /* Logic to flush to EEPROM based on sample count or buffer size could go here. */
+    /* For now, preserving original logic: Flush when explicitely told or periodic? */
+    /* The original TimerCallback flushed every N_SAMPLES_TO_EEPROM. 
+       We will monitor internal count or let main handle it. 
+       Let's assume main calls this when it wants to try flushing.
+    */
+    
+    // Using a static counter to mimic the batch write behavior
     static uint8_t sampleCounter = 0;
-    static float accumulatedEnergy = 0;  
-
-    EnergyLog_t log;
-
-    log.timestamp = timestampCounter++; 
-    log.voltage = hVoltage_ReadRMS(); 
-    log.current = hCurrent_ReadRMS();  
-    log.power   = log.voltage * log.current;
-    accumulatedEnergy += log.power * SAMPLE_INTERVAL_HOURS; 
-    log.energy_kwh  = accumulatedEnergy; 
-
-    App_EnergyLogger_Update(&log);
-
+    
     sampleCounter++;
     if(sampleCounter >= N_SAMPLES_TO_EEPROM)
     {

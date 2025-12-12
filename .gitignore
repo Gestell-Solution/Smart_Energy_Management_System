@@ -66,5 +66,3 @@ Makefile
 .vscode-ctags
 *.json
 
-
-main.c

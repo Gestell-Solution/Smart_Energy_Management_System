@@ -108,9 +108,11 @@ void App_EnergyLogger_StoreToEEPROM(void);
 void App_EnergyLogger_ReadLog(uint16_t index, EnergyLog_t *log);
 
 /**
- * @fn   EnergyLogger_TimerCallback
- * @brief Timer callback for periodic sampling of voltage/current and storing logs.
+ * @fn   App_EnergyLogger_Task
+ * @brief Periodic processing task for Energy Logger (e.g., flushing buffer to EEPROM).
+ * @details This function should be called periodically from the main loop. It monitors the
+ *          log buffer and handles batch writing to EEPROM to minimize write cycles.
  */
-void EnergyLogger_TimerCallback(void);
+void App_EnergyLogger_Task(void);
 
 #endif 
