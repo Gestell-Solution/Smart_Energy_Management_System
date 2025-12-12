@@ -133,7 +133,7 @@ typedef enum
      * @brief Fast PWM mode.
      */
     T0_FastPWM = 3,
-} WaveGenModes;
+} WaveGenModesTimer0;
 /**
  * @enum    CompareOutputModes
  * @brief   Defines the waveform generation modes for Timer0.
@@ -161,7 +161,7 @@ typedef enum
      * @brief  Set OC0 on compare match
      */
     T0_OC0_Set = 3,
-} CompareOutputModes_NonPWM;
+} CompareOutputModes_NonPWM_Timer0;
 
 /**
  * @def   OCIE0_Bit

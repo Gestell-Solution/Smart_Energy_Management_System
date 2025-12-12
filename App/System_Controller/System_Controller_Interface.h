@@ -20,10 +20,13 @@
 #include "System_Controller_Config.h"
 #include "../DM_Driver/DisplayManager_Interface.h"
 #include "../MeasurementEngine/MeasurementEngine_Interface.h"
+#include "../Calibration_Manager/Calibration_Manager_Interface.h"
 #include "../ProtectionManager/ProtectionManager_Interface.h"
 #include "../EnergyLogger/EnergyLogger_Interface.h"
 #include "../CommunicationManager/App_CommManager.h"
-#include "Common\SystemDataManager\SystemDataManager.h"
+#include "../../Common/SystemDataManager/SystemDataManager.h"
+#include "../../Mcal/Timer0/TIMER0_Interface.h"
+#include "../../Mcal/EXTI/EXTI_Interface.h"
 /**
  * @}
  */
@@ -38,8 +41,10 @@
 
  typedef struct
 {
-    volatile uint8_t SysState;
-    volatile SystemData_t Data;
+    volatile uint8_t      SysState;
+    volatile EnergyLog_t  RamData;
+    volatile char         Data[40];
+    volatile uint8_t    SystemMode;
     
 } SystemState_t;
 
@@ -47,7 +52,6 @@ typedef struct
 {
     volatile uint8_t CmdID;
     volatile uint8_t Event;
-    volatile uint8_t* data;
 
 } SystemEvent_t;
 
@@ -60,7 +64,7 @@ void App_SystemController_Init(void);
 void App_SystemController_Update(void);
 /* Called periodically (e.g., every 100ms) to handle system tasks and transitions */
 
-void App_SystemController_HandleEvent(SystemEvent_t event);
+void App_SystemController_HandleEvent(SystemEvent_t Action);
 /* Receive and process asynchronous events from modules (Protection, Comm, etc.) */
 
 SystemState_t App_SystemController_GetState(void);

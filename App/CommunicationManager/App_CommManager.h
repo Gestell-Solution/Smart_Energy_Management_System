@@ -67,17 +67,18 @@ uint8_t Comm_Rear;
 
 enum
 {
-        Calibrate_Sensors               = 0x0B,
+        Calibrate_Sensors               = 0x02,
         Read_From_EEPROM                = 0x03,
         Store_In__EEPROM                = 0x04,
         GET_RMS_DATA                    = 0x05,
         Get_Logged_DATA                 = 0x06,
         Notification_To_User            = 0x07,
         Update_EEPROM                   = 0x08,
-        Protection_Manager_danger       = 0x09,
+        CuttOFF                         = 0x09,
         SetOverLoad_Current_Limit       = 0x0A,
         SetOverLoad_Voltage_Limit       = 0x0B,
-        SHUTDOWN_Device                 = 0x0C
+        SHUTDOWN_Device                 = 0x0C,
+        ShowModeState                   = 0x0D
         
 
 };
