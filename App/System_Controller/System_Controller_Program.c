@@ -43,11 +43,11 @@ void Update_Global_SystemData(void)
 void FloatNumber_to_string(float Num,char res[])
 {
 
-    res[0]=((uint32_t)Num / 10) % 10 + '0';
-    res[1]=((uint32_t)Num ) % 10 + '0';
+    res[0]=((uint16_t)Num / 10) % 10 + '0';
+    res[1]=((uint16_t)Num ) % 10 + '0';
     res[2] = '.';
-    res[3] = ((uint32_t)(Num * 10)) % 10+'0';
-    res[4] = ((uint32_t)(Num * 100)) % 10+'0';
+    res[3] = ((uint16_t)(Num * 10)) % 10+'0';
+    res[4] = ((uint16_t)(Num * 100)) % 10+'0';
 
 
     res[5]=NullChar;

@@ -41,8 +41,8 @@
  * @details   The Macros defined in this section allow for easy enabling or disabling of specific HAL modules based on project requirements
  * @note      The available options for each module are 'Enable' and 'Disable'.
  * @{ */
-#define RGB_Module            Enable  /**< Enable or Disable the RGB Module */
-#define LCD_Module            Enable  /**< Enable or Disable the LCD Module */
+#define RGB_Module            Disable  /**< Enable or Disable the RGB Module */
+#define LCD_Module            Disable  /**< Enable or Disable the LCD Module */
 #define Btn_Module            Enable  /**< Enable or Disable the Button Module */
 #define Buzzer_Module         Enable  /**< Enable or Disable the Buzzer Module */
 #define Relay_Module          Enable  /**< Enable or Disable the Relay Module */

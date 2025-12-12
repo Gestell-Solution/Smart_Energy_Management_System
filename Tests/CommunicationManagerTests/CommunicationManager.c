@@ -25,9 +25,9 @@ void CommManagerTestsMain()
     while (1)
     {
 
-        // App_CommManager_SendFrame("HELLO, IAM: ",0x1,13)   ;     
-        // App_CommManager_SendFrame("Ahmed ",0xAA,7)   ;     
-        // App_CommManager_ReceiveHandler("HELLO, IAM: ");
+        App_CommManager_SendFrame("HELLO, IAM: ",0x1,13)   ;     
+        App_CommManager_SendFrame(" والنبي اشتغل يا سعييد",0xAA,7)   ;     
+        App_CommManager_ReceiveHandler("والنبي اشتغل يا سعييد ");
         _delay_ms(500);
             
     }
