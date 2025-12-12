@@ -28,7 +28,6 @@
  * @brief Initializes the ADC peripheral according to the provided configuration.
  * @details 
  * This function sets up prescaler, reference voltage, auto-trigger, interrupt mode, and ADC enable state.
- * @param[in] config Pointer to the configuration structure containing ADC setup parameters. extern it from adc program.c
  * @return void
  * @note Must be called before using any other ADC functions.
  * @warning Passing NULL as a config pointer will terminate initialization.
@@ -40,6 +39,7 @@ void mADC_Init();
  * @fn uint16_t mADC_Read(uint8_t channel)
  * @brief  This Function reads the ADC value from the specified channel.
  * @return returns the 10-bit ADC value.
+ * @param channel : the ADC channel number (0-7) in our project (0-1).
  * @warning to use this function the ADC must be initialized in Synchronous_Mode from the config.h
  */
 uint16_t mADC_Read(uint8_t channel);
