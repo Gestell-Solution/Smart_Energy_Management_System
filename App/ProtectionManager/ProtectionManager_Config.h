@@ -34,5 +34,5 @@
  *@def Reset_BTN_Group
  *@brief Reset Button Pin
  */
-#define Reset_BTN_Group PIN3
+#define Reset_BTN_Pin PIN3
 #endif

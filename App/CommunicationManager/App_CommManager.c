@@ -15,14 +15,29 @@
 
 #include "App_CommManager.h"
 #include "../../Mcal/Timer0/TIMER0_Interface.h"
+#include "../System_Controller/System_Controller_Interface.h"
 #include "../../Hal/HC05/HC05_Interface.h"
 #include "../../Mcal/DIO/DIO_Interface.h"
 #include "../../Mcal/UART/UART_Rx.h"
+
 uint8_t Datareceived[Max_Buffer_size];
-extern uint8_t Comm_Front = 0;
-extern uint8_t Comm_Rear = 0;
+extern uint8_t Comm_Front ;
+extern uint8_t Comm_Rear ;
 uint8_t CurrentSizeofBuffer = 0;
 uint8_t Ishandling = 0;
+extern SystemEvent_t SystemController;
+extern SystemState_t Status;
+
+uint16_t stringtoNumber(uint8_t* Frame)
+{
+        uint16_t sum;
+        for (int i = 0; i < Frame[0]-3; i++)
+        {
+            sum=sum*10 +Frame[i+2];
+        }
+        
+        return sum ;
+}
 void App_CommManager_Init()
 {
     hBT_Init();
@@ -34,13 +49,11 @@ void App_CommManager_Init()
 void App_CommManager_Task(void)
 {
 
-
     uint8_t Value;
-
 
     while ((hBT_ReadByte(&Value) == Done_Action) && (CurrentSizeofBuffer < Max_Buffer_size))
     {
-        
+
         Datareceived[RearOfQueue] = Value;
         Update_RearOfQueue;
         CurrentSizeofBuffer++;
@@ -104,10 +117,8 @@ void App_CommManager_ReceiveHandler()
 
             break;
         case WaitLen:
-            // FrameLen=value;
-            FrameLen = 5;
-            // LocalFrameBuffer[Rx_Index++]=value;
-            LocalFrameBuffer[Rx_Index++] = 5;
+            FrameLen = value;
+            LocalFrameBuffer[Rx_Index++] = value;
             CurrentState = Wait_data_With_command;
             break;
 
@@ -116,7 +127,9 @@ void App_CommManager_ReceiveHandler()
             Rx_Index++;
             if (Rx_Index >= FrameLen)
             {
-                App_CommManager_ProcessCommand(&LocalFrameBuffer[2]);
+                SystemController.Event = EVENT_COMM_RECEIVED_CMD;
+                SystemController.CmdID = LocalFrameBuffer[2];
+                App_CommManager_ProcessCommand(&LocalFrameBuffer[1]);
                 CurrentState = WaitTheHeader;
                 Rx_Index = 0;
                 Ishandling = 0;
@@ -131,57 +144,56 @@ void App_CommManager_ReceiveHandler()
 
 void App_CommManager_ProcessCommand(uint8_t *frame)
 {
-    App_CommManager_SendFrame(&frame[1],frame[0],5);
-     mDIO_TogglePin(GroupD,PIN3);
+    switch (frame[1])
+    {
 
-}
-// void App_CommManager_ProcessCommand(uint8_t *frame)
-// {
-//     switch (frame[0])
-//     {
+    case GET_RMS_DATA:
 
-//     case Read_EEPROM:
-//         //void App_SystemController_HandleEvent(SystemEvent_t event);
-//         break;
-//     case Write_EEPROM:
-//         //void App_SystemController_HandleEvent(SystemEvent_t event);
+        App_CommManager_SendFrame(App_SystemController_GetState().Data, GET_RMS_DATA, RMS_Message_length);
+
+        break;
+    case Get_Logged_DATA:
+        App_EnergyLogger_ReadLog(stringtoNumber(frame),&Status.RamData);
+        App_CommManager_SendFrame("Done", SystemController.CmdID,4);
+
+        break;
+    // case Notification_To_User:
         
-//         break;
-//     case GET_RMS_DATA:
-//         //void App_SystemController_HandleEvent(SystemEvent_t event);
+    //     App_CommManager_SendFrame(, SystemController.CmdID);
 
-//         break;
-//     case Get_Logged_DATA:
-//         //void App_SystemController_HandleEvent(SystemEvent_t event);
+    //     break;
+    case Update_EEPROM:
+        
+        App_EnergyLogger_Update(&Status.RamData);
+        App_CommManager_SendFrame(UpdatedEEPROM_Message, SystemController.CmdID,UpdatedEEPROM_Message_length);
 
-//         break;
-//     case Notification_To_User:
-//         //void App_SystemController_HandleEvent(SystemEvent_t event);
+        break;
+    case CuttOFF:
 
-//         break;
-//     case Update_EEPROM:
-//         //void App_SystemController_HandleEvent(SystemEvent_t event);
+        App_CommManager_SendFrame(CuttoFF_Message, SystemController.CmdID, Cutoff_message_length);
+        break;
+    case Calibrate_Sensors:
+        // calibration Manager Action
+        break;
+    case SetOverLoad_Current_Limit:
+        
+        g_SystemData.OvercurrentLimit=stringtoNumber(frame);
+        break;
+    case SetOverLoad_Voltage_Limit:
+        g_SystemData.OvervoltageLimit=stringtoNumber(frame); 
+        break;
+    case SHUTDOWN_Device:
+        SystemController.Event=EVENT_Power_Down;
+        App_SystemController_HandleEvent(SystemController);
+        MCUCR_Reg;
+        break;
 
-//         break;
-//     case Protection_Manager_danger:
-//         //void App_SystemController_HandleEvent(SystemEvent_t event);
-
-//         break;
-//     case Protection_Manager_Safe:
-//         //void App_SystemController_HandleEvent(SystemEvent_t event);
-
-//         break;
-//     case Calibrate_Sensors:
-
-//         break;
-
-//     default:
-//         break;
-//     }
-// }
+    default:
+        break;
+    }
+}
 
 uint8_t Accesslength()
 {
     return Datareceived[(FrontOfQueue + 1) % Max_Buffer_size];
 }
-

@@ -11,7 +11,7 @@
  */
 #include "TIMER0_Interface.h"
 
-
+uint8_t isdelaying=0;
 Timer0_ScheduledTasks Timer0_TasksList[T0_ScheduledTasksNum];
 
 void mTIMER0_Init(void)//CTC MODE
@@ -34,6 +34,7 @@ void mTIMER0_Init(void)//CTC MODE
 
 void mTIMER0_Delay_ms(uint32_t delay_ms)//Blocking Delay on the Timer
 {
+        isdelaying=1;
         for (int i = 0; i < delay_ms; i++)
         {
                 while (!IsCOM_FlagSet);
@@ -43,7 +44,7 @@ void mTIMER0_Delay_ms(uint32_t delay_ms)//Blocking Delay on the Timer
 }                           
 void mTIMER0_StartDelay(uint32_t delay_ms, void (*callback)(void))
 {
-        
+       
 for (int i = 0; i < T0_ScheduledTasksNum; i++)
 {
         if (!Timer0_TasksList[i].Active)
@@ -84,5 +85,6 @@ void mTIMER0_TickHandler(void)
 
 
 void __vector_10(void) {
+         if(isdelaying) return;
         mTIMER0_TickHandler();
 }

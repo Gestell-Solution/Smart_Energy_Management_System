@@ -21,16 +21,17 @@
  * @note      The available options for each module are 'Enable' and 'Disable'.
  * @{
  */
-#define DIO_Module        Enable  /**< Enable or Disable the DIO Module */
-#define ADC_Module        Enable  /**< Enable or Disable the ADC Module */
-#define GIE_Module        Enable  /**< Enable or Disable the GIE Module */
-#define EEP_Module        Enable  /**< Enable or Disable the EEPROM Module */
-#define EXTI_Module       Enable  /**< Enable or Disable the EXTI Module */
-#define Timer0_Module     Disable /**< Enable or Disable the Timer0 Module */
-#define Timer1_Module     Disable /**< Enable or Disable the Timer1 Module */
-#define UART_Module       Enable /**< Enable or Disable the UART Module */
-#define SPI_Module        Disable /**< Enable or Disable the SPI Module */
-#define TWI_Module        Disable /**< Enable or Disable the TWI Module */
+#define DIO_Module                  Enable  /**< Enable or Disable the DIO Module */
+#define ADC_Module                  Enable  /**< Enable or Disable the ADC Module */
+#define GIE_Module                  Enable  /**< Enable or Disable the GIE Module */
+#define EEP_Module                  Enable  /**< Enable or Disable the EEPROM Module */
+#define EXTI_Module                 Enable  /**< Enable or Disable the EXTI Module */
+#define Timer0_Module               Disable /**< Enable or Disable the Timer0 Module */
+#define Timer1_Module               Disable /**< Enable or Disable the Timer1 Module */
+#define UART_Module                 Enable /**< Enable or Disable the UART Module */
+#define SPI_Module                  Disable /**< Enable or Disable the SPI Module */
+#define TWI_Module                  Disable /**< Enable or Disable the TWI Module */
+#define System_Controller_Module    Enable /**< Enable or Disable the TWI Module */
 
 /** @} */
 /*****************************************************************************************************************************************************/
@@ -40,8 +41,8 @@
  * @details   The Macros defined in this section allow for easy enabling or disabling of specific HAL modules based on project requirements
  * @note      The available options for each module are 'Enable' and 'Disable'.
  * @{ */
-#define RGB_Module            Enable  /**< Enable or Disable the RGB Module */
-#define LCD_Module            Enable  /**< Enable or Disable the LCD Module */
+#define RGB_Module            Disable  /**< Enable or Disable the RGB Module */
+#define LCD_Module            Disable  /**< Enable or Disable the LCD Module */
 #define Btn_Module            Enable  /**< Enable or Disable the Button Module */
 #define Buzzer_Module         Enable  /**< Enable or Disable the Buzzer Module */
 #define Relay_Module          Enable  /**< Enable or Disable the Relay Module */
