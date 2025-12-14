@@ -1,0 +1,91 @@
+\doxysection{Mcal/\+Timer1/\+TIMER1\+\_\+\+Program.c File Reference}
+\hypertarget{TIMER1__Program_8c}{}\label{TIMER1__Program_8c}\index{Mcal/Timer1/TIMER1\_Program.c@{Mcal/Timer1/TIMER1\_Program.c}}
+
+
+Implementation of Timer1 driver functions for ATmega32.  
+
+
+{\ttfamily \#include "{}TIMER1\+\_\+\+Config.\+h"{}}\newline
+{\ttfamily \#include "{}TIMER1\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}TIMER1\+\_\+\+Private.\+h"{}}\newline
+Include dependency graph for TIMER1\+\_\+\+Program.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIMER1__Program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Timer1_ga113e1ec9fa759bf923a578e129dcb220}{m\+TIMER1\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes Timer1 in CTC (Clear Timer on Compare Match) mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Timer1_ga34dcda1bc849b2aaabbf6c858429396e}{m\+TIMER1\+\_\+\+Start}} (void)
+\begin{DoxyCompactList}\small\item\em Starts Timer1 operation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Timer1_ga8024a2069288eef125e61076a2c2cd3c}{m\+TIMER1\+\_\+\+Stop}} (void)
+\begin{DoxyCompactList}\small\item\em Stops Timer1 operation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Timer1_ga0b295f6b0d6dab26b566467988dec2fb}{m\+TIMER1\+\_\+\+Register\+Callback}} (void(\texorpdfstring{$\ast$}{*}callback)(void))
+\item 
+void \mbox{\hyperlink{TIMER1__Program_8c_a452562d7ce876fc3a4943bd345dd9d9c}{\+\_\+\+\_\+vector\+\_\+7}} (void)
+\item 
+void \mbox{\hyperlink{TIMER1__Program_8c_a43b49e7a23a6076f63106b90b6fadfe3}{\+\_\+\+\_\+vector\+\_\+8}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{TIMER1__Program_8c_a89022a3de71ce731ead13bd1468f0fa5}{Timer1\+\_\+\+Global\+\_\+\+Callback}} )(void) =\mbox{\hyperlink{group__Common_gaaa8b54751ff9c56e4405bea260e336eb}{Null}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of Timer1 driver functions for ATmega32. 
+
+This source file contains the function definitions for initializing, starting, stopping, and handling Timer1 in CTC mode. It supports interrupt-\/driven operation via callback registration and uses configuration macros defined in \doxylink{TIMER1__Config_8h}{TIMER1\+\_\+\+Config.\+h}.
+
+The driver is designed to be modular and reusable across different applications requiring precise timing, task scheduling, or delay generation.
+
+\begin{DoxyAuthor}{Author}
+Developer\+: Mohamed Diaa (\href{mailto:mohammeddiaato@gmail.com}{\texttt{ mohammeddiaato@gmail.\+com}}) 
+
+Reviewer\+: Basma 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+3 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/10-\/09 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025, Gestell Company
+\end{DoxyCopyright}
+\begin{DoxyNote}{Note}
+Ensure \doxylink{TIMER1__Config_8h}{TIMER1\+\_\+\+Config.\+h} is properly configured before using this driver. 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+Global interrupts must be enabled for callback functionality to work. 
+\end{DoxyWarning}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{TIMER1__Program_8c_a452562d7ce876fc3a4943bd345dd9d9c}\label{TIMER1__Program_8c_a452562d7ce876fc3a4943bd345dd9d9c} 
+\index{TIMER1\_Program.c@{TIMER1\_Program.c}!\_\_vector\_7@{\_\_vector\_7}}
+\index{\_\_vector\_7@{\_\_vector\_7}!TIMER1\_Program.c@{TIMER1\_Program.c}}
+\doxysubsubsection{\texorpdfstring{\_\_vector\_7()}{\_\_vector\_7()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+vector\+\_\+7 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{TIMER1__Program_8c_a43b49e7a23a6076f63106b90b6fadfe3}\label{TIMER1__Program_8c_a43b49e7a23a6076f63106b90b6fadfe3} 
+\index{TIMER1\_Program.c@{TIMER1\_Program.c}!\_\_vector\_8@{\_\_vector\_8}}
+\index{\_\_vector\_8@{\_\_vector\_8}!TIMER1\_Program.c@{TIMER1\_Program.c}}
+\doxysubsubsection{\texorpdfstring{\_\_vector\_8()}{\_\_vector\_8()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+vector\+\_\+8 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{TIMER1__Program_8c_a89022a3de71ce731ead13bd1468f0fa5}\label{TIMER1__Program_8c_a89022a3de71ce731ead13bd1468f0fa5} 
+\index{TIMER1\_Program.c@{TIMER1\_Program.c}!Timer1\_Global\_Callback@{Timer1\_Global\_Callback}}
+\index{Timer1\_Global\_Callback@{Timer1\_Global\_Callback}!TIMER1\_Program.c@{TIMER1\_Program.c}}
+\doxysubsubsection{\texorpdfstring{Timer1\_Global\_Callback}{Timer1\_Global\_Callback}}
+{\footnotesize\ttfamily void(\texorpdfstring{$\ast$}{*} Timer1\+\_\+\+Global\+\_\+\+Callback) (void) (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption}) =\mbox{\hyperlink{group__Common_gaaa8b54751ff9c56e4405bea260e336eb}{Null}}\hspace{0.3cm}{\ttfamily [static]}}
+

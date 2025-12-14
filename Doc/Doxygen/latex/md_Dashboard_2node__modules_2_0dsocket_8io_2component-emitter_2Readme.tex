@@ -1,0 +1,64 @@
+\chapter{\texorpdfstring{$<$}{<}tt\texorpdfstring{$>$}{>}\textbackslash{}@socket.\+io/component-\/emitter\texorpdfstring{$<$}{<}/tt\texorpdfstring{$>$}{>}}
+\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme}{}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme}\index{$<$tt$>$\textbackslash{}"@socket.io/component-\/emitter$<$/tt$>$@{$<$tt$>$\textbackslash{}"@socket.io/component-\/emitter$<$/tt$>$}}
+\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md126}%
+\Hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md126}%
+ Event emitter component.
+
+This project is a fork of the \href{https://github.com/sindresorhus/component-emitter}{\texttt{ {\ttfamily component-\/emitter}}} project, with \href{https://socket.io/}{\texttt{ Socket.\+IO}}-\/specific Type\+Script typings.\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md127}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md127}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ i\ @socket.io/component-\/emitter}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md128}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md128}
+\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md129}{}\doxysubsection{\texorpdfstring{Emitter(obj)}{Emitter(obj)}}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md129}
+The {\ttfamily Emitter} may also be used as a mixin. For example a "{}plain"{} object may become an emitter, or you may extend an existing prototype.
+
+As an {\ttfamily Emitter} instance\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{\ Emitter\ \}\ from\ '@socket.io/component-\/emitter';}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ emitter\ =\ new\ Emitter;}
+\DoxyCodeLine{emitter.emit('something');}
+
+\end{DoxyCode}
+
+
+As a mixin\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{\ Emitter\ \}\ from\ '@socket.io/component-\/emitter';}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ user\ =\ \{\ name:\ 'tobi'\ \};}
+\DoxyCodeLine{Emitter(user);}
+\DoxyCodeLine{}
+\DoxyCodeLine{user.emit('im\ a\ user');}
+
+\end{DoxyCode}
+
+
+As a prototype mixin\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{\ Emitter\ \}\ from\ '@socket.io/component-\/emitter';}
+\DoxyCodeLine{}
+\DoxyCodeLine{Emitter(User.prototype);}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md130}{}\doxysubsection{\texorpdfstring{Emitter\#on(event, fn)}{Emitter\#on(event, fn)}}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md130}
+Register an {\ttfamily event} handler {\ttfamily fn}.\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md131}{}\doxysubsection{\texorpdfstring{Emitter\#once(event, fn)}{Emitter\#once(event, fn)}}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md131}
+Register a single-\/shot {\ttfamily event} handler {\ttfamily fn}, removed immediately after it is invoked the first time.\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md132}{}\doxysubsection{\texorpdfstring{Emitter\#off(event, fn)}{Emitter\#off(event, fn)}}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md132}
+
+\begin{DoxyItemize}
+\item Pass {\ttfamily event} and {\ttfamily fn} to remove a listener.
+\item Pass {\ttfamily event} to remove all listeners on that event.
+\item Pass nothing to remove all listeners on all events.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md133}{}\doxysubsection{\texorpdfstring{Emitter\#emit(event, ...)}{Emitter\#emit(event, ...)}}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md133}
+Emit an {\ttfamily event} with variable option args.\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md134}{}\doxysubsection{\texorpdfstring{Emitter\#listeners(event)}{Emitter\#listeners(event)}}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md134}
+Return an array of callbacks, or an empty array.\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md135}{}\doxysubsection{\texorpdfstring{Emitter\#has\+Listeners(event)}{Emitter\#hasListeners(event)}}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md135}
+Check if this emitter has {\ttfamily event} handlers.\hypertarget{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md136}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2_0dsocket_8io_2component-emitter_2Readme_autotoc_md136}
+MIT 

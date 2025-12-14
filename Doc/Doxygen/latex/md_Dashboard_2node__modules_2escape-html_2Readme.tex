@@ -1,0 +1,41 @@
+\chapter{escape-\/html}
+\hypertarget{md_Dashboard_2node__modules_2escape-html_2Readme}{}\label{md_Dashboard_2node__modules_2escape-html_2Readme}\index{escape-\/html@{escape-\/html}}
+\label{md_Dashboard_2node__modules_2escape-html_2Readme_autotoc_md798}%
+\Hypertarget{md_Dashboard_2node__modules_2escape-html_2Readme_autotoc_md798}%
+ Escape string for use in HTML\hypertarget{md_Dashboard_2node__modules_2escape-html_2Readme_autotoc_md799}{}\doxysection{\texorpdfstring{Example}{Example}}\label{md_Dashboard_2node__modules_2escape-html_2Readme_autotoc_md799}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ escape\ =\ require('escape-\/html');}
+\DoxyCodeLine{var\ html\ =\ escape('foo\ \&\ bar');}
+\DoxyCodeLine{//\ -\/>\ foo\ \&amp;\ bar}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2escape-html_2Readme_autotoc_md800}{}\doxysection{\texorpdfstring{Benchmark}{Benchmark}}\label{md_Dashboard_2node__modules_2escape-html_2Readme_autotoc_md800}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ run-\/script\ bench}
+\DoxyCodeLine{}
+\DoxyCodeLine{>\ escape-\/html@1.0.3\ bench\ nodejs-\/escape-\/html}
+\DoxyCodeLine{>\ node\ benchmark/index.js}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ http\_parser@1.0}
+\DoxyCodeLine{\ \ node@0.10.33}
+\DoxyCodeLine{\ \ v8@3.14.5.9}
+\DoxyCodeLine{\ \ ares@1.9.0-\/DEV}
+\DoxyCodeLine{\ \ uv@0.10.29}
+\DoxyCodeLine{\ \ zlib@1.2.3}
+\DoxyCodeLine{\ \ modules@11}
+\DoxyCodeLine{\ \ openssl@1.0.1j}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ 1\ test\ completed.}
+\DoxyCodeLine{\ \ 2\ tests\ completed.}
+\DoxyCodeLine{\ \ 3\ tests\ completed.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ no\ special\ characters\ \ \ \ x\ 19,435,271\ ops/sec\ ±0.85\%\ (187\ runs\ sampled)}
+\DoxyCodeLine{\ \ single\ special\ character\ x\ \ 6,132,421\ ops/sec\ ±0.67\%\ (194\ runs\ sampled)}
+\DoxyCodeLine{\ \ many\ special\ characters\ \ x\ \ 3,175,826\ ops/sec\ ±0.65\%\ (193\ runs\ sampled)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2escape-html_2Readme_autotoc_md801}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2escape-html_2Readme_autotoc_md801}
+MIT 

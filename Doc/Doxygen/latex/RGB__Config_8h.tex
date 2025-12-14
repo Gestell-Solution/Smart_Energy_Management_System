@@ -1,0 +1,59 @@
+\doxysection{Hal/\+RGB/\+RGB\+\_\+\+Config.h File Reference}
+\hypertarget{RGB__Config_8h}{}\label{RGB__Config_8h}\index{Hal/RGB/RGB\_Config.h@{Hal/RGB/RGB\_Config.h}}
+
+
+Configuration file for the RGB LED driver.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+DIO/\+DIO\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}RGB\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}RGB\+\_\+\+Private.\+h"{}}\newline
+Include dependency graph for RGB\+\_\+\+Config.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RGB__Config_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RGB__Config_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__RGB__Config_ga897eae5b5b8966b40cb500ae42844418}{RGB\+\_\+\+Driver}}~\mbox{\hyperlink{group__Common_gad8d4471f3f3d14ff352de34a29877b58}{Enable}}
+\begin{DoxyCompactList}\small\item\em Enable or disable the RGB driver module. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__RGB__Config_gabc51af3a3764bb4e5400142a1466bc90}{RGB\+\_\+\+RED\+\_\+\+GROUP}}~\mbox{\hyperlink{DIO__Private_8h_aeec24df6b3d2d010f877500fa9a00b7b}{GroupA}}
+\begin{DoxyCompactList}\small\item\em Defines the DIO group (port) used for the red LED. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__RGB__Config_ga365d560e41f0b35cacaceac6c86ba301}{RGB\+\_\+\+GREEN\+\_\+\+GROUP}}~\mbox{\hyperlink{DIO__Private_8h_aeec24df6b3d2d010f877500fa9a00b7b}{GroupA}}
+\begin{DoxyCompactList}\small\item\em Defines the DIO group (port) used for the green LED. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__RGB__Config_ga674fcfb292e527072f6912335ab5f7eb}{RGB\+\_\+\+RED\+\_\+\+PIN}}~\mbox{\hyperlink{DIO__Private_8h_a903210ad84aed4458cbc75b489f9bb7e}{PIN2}}
+\begin{DoxyCompactList}\small\item\em Defines the pin number for the red LED connection. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__RGB__Config_gae575a1e42e15f26660fa41c50771e05e}{RGB\+\_\+\+GREEN\+\_\+\+PIN}}~\mbox{\hyperlink{DIO__Private_8h_ac4b639acb4bf160a49ff3c0d8fa80fc4}{PIN3}}
+\begin{DoxyCompactList}\small\item\em Defines the pin number for the green LED connection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Configuration file for the RGB LED driver. 
+
+This file contains user-\/defined configuration macros for the RGB LED driver, including pin assignments, port groups, and driver enable/disable options. Modify these values according to your hardware connections. \begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/10-\/19 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Developer\+: Ahmed Twap (\href{mailto:ahmedtwap2@gmail.com}{\texttt{ ahmedtwap2@gmail.\+com}}) 
+
+Reviewer\+: bassma khaled 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025, Gestell Company 
+\end{DoxyCopyright}

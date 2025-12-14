@@ -1,0 +1,61 @@
+\doxysection{Mcal/\+ADC/\+ADC\+\_\+\+Interface.h File Reference}
+\hypertarget{ADC__Interface_8h}{}\label{ADC__Interface_8h}\index{Mcal/ADC/ADC\_Interface.h@{Mcal/ADC/ADC\_Interface.h}}
+
+
+This file contains the interface for the ADC (Analog-\/to-\/\+Digital Converter) module.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}ADC\+\_\+\+Private.\+h"{}}\newline
+{\ttfamily \#include "{}ADC\+\_\+\+Config.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+Include dependency graph for ADC\+\_\+\+Interface.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADC__Interface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADC__Interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__ADC__Driver_ga143d65005f0426645abce481e2bc7533}{m\+ADC\+\_\+\+Init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the ADC peripheral. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{group__ADC__Driver_gaf051b88647d9b01ed8118a9667ca105f}{m\+ADC\+\_\+\+Read}} (uint8\+\_\+t channel)
+\begin{DoxyCompactList}\small\item\em This Function reads the ADC value from the specified channel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__ADC__Driver_ga6d329af1bb6843f8d54b802b034934f9}{m\+ADC\+\_\+\+Register\+Channel}} (uint8\+\_\+t channel, void(\texorpdfstring{$\ast$}{*}callback)(uint16\+\_\+t value))
+\begin{DoxyCompactList}\small\item\em This Function registers a callback function for a specific ADC channel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__ADC__Driver_gab22dee2029da82f9398f3119011f7629}{m\+ADC\+\_\+\+Start\+Group}} (void)
+\begin{DoxyCompactList}\small\item\em enables auto-\/triggering and starts the ADC conversion process for a group of channels in round-\/robin fashion. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__ADC__Driver_ga9d7457f9c576cc1f739d22eb0a07164d}{m\+ADC\+\_\+\+Stop}} (void)
+\begin{DoxyCompactList}\small\item\em This Function stops the ADC auto-\/triggering and conversion process. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__ADC__Driver_ga6e61785f9732e9197a2ef392fc23c34e}{ADC\+\_\+\+Set\+Callback}} (void(\texorpdfstring{$\ast$}{*}callback)(uint16\+\_\+t), uint8\+\_\+t channel)
+\begin{DoxyCompactList}\small\item\em This Function sets the callback function for a specific ADC channel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the interface for the ADC (Analog-\/to-\/\+Digital Converter) module. 
+
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer \+: Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}}) 
+
+Reviewer \+: 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/11 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}

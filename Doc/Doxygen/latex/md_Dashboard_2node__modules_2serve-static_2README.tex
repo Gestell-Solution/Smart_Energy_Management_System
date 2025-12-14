@@ -1,0 +1,161 @@
+\chapter{serve-\/static}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README}{}\label{md_Dashboard_2node__modules_2serve-static_2README}\index{serve-\/static@{serve-\/static}}
+\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2786}%
+\Hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2786}%
+ \href{https://npmjs.org/package/serve-static}{\texttt{ }} \href{https://npmjs.org/package/serve-static}{\texttt{ }} \href{https://github.com/expressjs/serve-static/actions/workflows/ci.yml}{\texttt{ }} \href{https://ci.appveyor.com/project/dougwilson/serve-static}{\texttt{ }} \href{https://coveralls.io/r/expressjs/serve-static?branch=master}{\texttt{ }}\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2787}{}\doxysection{\texorpdfstring{Install}{Install}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2787}
+This is a \href{https://nodejs.org/en/}{\texttt{ Node.\+js}} module available through the \href{https://www.npmjs.com/}{\texttt{ npm registry}}. Installation is done using the \href{https://docs.npmjs.com/getting-started/installing-npm-packages-locally}{\texttt{ {\ttfamily npm install} command}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ serve-\/static}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2788}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2788}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ serveStatic\ =\ require('serve-\/static')}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2789}{}\doxysubsection{\texorpdfstring{serve\+Static(root, options)}{serveStatic(root, options)}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2789}
+Create a new middleware function to serve files from within a given root directory. The file to serve will be determined by combining {\ttfamily req.\+url} with the provided root directory. When a file is not found, instead of sending a 404 response, this module will instead call {\ttfamily next()} to move on to the next middleware, allowing for stacking and fall-\/backs.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2790}{}\doxysubsubsection{\texorpdfstring{Options}{Options}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2790}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2791}{}\doxyparagraph{\texorpdfstring{accept\+Ranges}{acceptRanges}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2791}
+Enable or disable accepting ranged requests, defaults to true. Disabling this will not send {\ttfamily Accept-\/\+Ranges} and ignore the contents of the {\ttfamily Range} request header.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2792}{}\doxyparagraph{\texorpdfstring{cache\+Control}{cacheControl}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2792}
+Enable or disable setting {\ttfamily Cache-\/\+Control} response header, defaults to true. Disabling this will ignore the {\ttfamily immutable} and {\ttfamily max\+Age} options.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2793}{}\doxyparagraph{\texorpdfstring{dotfiles}{dotfiles}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2793}
+Set how "{}dotfiles"{} are treated when encountered. A dotfile is a file or directory that begins with a dot ("{}."{}). Note this check is done on the path itself without checking if the path actually exists on the disk. If {\ttfamily root} is specified, only the dotfiles above the root are checked (i.\+e. the root itself can be within a dotfile when set to "{}deny"{}).
+
+
+\begin{DoxyItemize}
+\item `\textquotesingle{}allow'{\ttfamily No special treatment for dotfiles. -\/}\textquotesingle{}deny\textquotesingle{}{\ttfamily Deny a request for a dotfile and 403/}next(){\ttfamily . -\/}\textquotesingle{}ignore\textquotesingle{}{\ttfamily Pretend like the dotfile does not exist and 404/}next()\`{}.
+\end{DoxyItemize}
+
+The default value is similar to `\textquotesingle{}ignore'\`{}, with the exception that this default will not ignore the files within a directory that begins with a dot.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2794}{}\doxyparagraph{\texorpdfstring{etag}{etag}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2794}
+Enable or disable etag generation, defaults to true.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2795}{}\doxyparagraph{\texorpdfstring{extensions}{extensions}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2795}
+Set file extension fallbacks. When set, if a file is not found, the given extensions will be added to the file name and search for. The first that exists will be served. Example\+: `\mbox{[}\textquotesingle{}html', \textquotesingle{}htm\textquotesingle{}\mbox{]}\`{}.
+
+The default value is {\ttfamily false}.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2796}{}\doxyparagraph{\texorpdfstring{fallthrough}{fallthrough}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2796}
+Set the middleware to have client errors fall-\/through as just unhandled requests, otherwise forward a client error. The difference is that client errors like a bad request or a request to a non-\/existent file will cause this middleware to simply {\ttfamily next()} to your next middleware when this value is {\ttfamily true}. When this value is {\ttfamily false}, these errors (even 404s), will invoke {\ttfamily next(err)}.
+
+Typically {\ttfamily true} is desired such that multiple physical directories can be mapped to the same web address or for routes to fill in non-\/existent files.
+
+The value {\ttfamily false} can be used if this middleware is mounted at a path that is designed to be strictly a single file system directory, which allows for short-\/circuiting 404s for less overhead. This middleware will also reply to all methods.
+
+The default value is {\ttfamily true}.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2797}{}\doxyparagraph{\texorpdfstring{immutable}{immutable}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2797}
+Enable or disable the {\ttfamily immutable} directive in the {\ttfamily Cache-\/\+Control} response header, defaults to {\ttfamily false}. If set to {\ttfamily true}, the {\ttfamily max\+Age} option should also be specified to enable caching. The {\ttfamily immutable} directive will prevent supported clients from making conditional requests during the life of the {\ttfamily max\+Age} option to check if the file has changed.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2798}{}\doxyparagraph{\texorpdfstring{index}{index}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2798}
+By default this module will send "{}index.\+html"{} files in response to a request on a directory. To disable this set {\ttfamily false} or to supply a new index pass a string or an array in preferred order.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2799}{}\doxyparagraph{\texorpdfstring{last\+Modified}{lastModified}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2799}
+Enable or disable {\ttfamily Last-\/\+Modified} header, defaults to true. Uses the file system\textquotesingle{}s last modified value.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2800}{}\doxyparagraph{\texorpdfstring{max\+Age}{maxAge}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2800}
+Provide a max-\/age in milliseconds for http caching, defaults to 0. This can also be a string accepted by the \href{https://www.npmjs.org/package/ms\#readme}{\texttt{ ms}} module.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2801}{}\doxyparagraph{\texorpdfstring{redirect}{redirect}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2801}
+Redirect to trailing "{}/"{} when the pathname is a dir. Defaults to {\ttfamily true}.\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2802}{}\doxyparagraph{\texorpdfstring{set\+Headers}{setHeaders}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2802}
+Function to set custom headers on response. Alterations to the headers need to occur synchronously. The function is called as {\ttfamily fn(res, path, stat)}, where the arguments are\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily res} the response object
+\item {\ttfamily path} the file path that is being sent
+\item {\ttfamily stat} the stat object of the file that is being sent
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2803}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2803}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2804}{}\doxysubsection{\texorpdfstring{Serve files with vanilla node.\+js http server}{Serve files with vanilla node.js http server}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2804}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ finalhandler\ =\ require('finalhandler')}
+\DoxyCodeLine{var\ http\ =\ require('http')}
+\DoxyCodeLine{var\ serveStatic\ =\ require('serve-\/static')}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Serve\ up\ public/ftp\ folder}
+\DoxyCodeLine{var\ serve\ =\ serveStatic('public/ftp',\ \{\ index:\ ['index.html',\ 'index.htm']\ \})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Create\ server}
+\DoxyCodeLine{var\ server\ =\ http.createServer(function\ onRequest\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ serve(req,\ res,\ finalhandler(req,\ res))}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Listen}
+\DoxyCodeLine{server.listen(3000)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2805}{}\doxysubsection{\texorpdfstring{Serve all files as downloads}{Serve all files as downloads}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2805}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ contentDisposition\ =\ require('content-\/disposition')}
+\DoxyCodeLine{var\ finalhandler\ =\ require('finalhandler')}
+\DoxyCodeLine{var\ http\ =\ require('http')}
+\DoxyCodeLine{var\ serveStatic\ =\ require('serve-\/static')}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Serve\ up\ public/ftp\ folder}
+\DoxyCodeLine{var\ serve\ =\ serveStatic('public/ftp',\ \{}
+\DoxyCodeLine{\ \ index:\ false,}
+\DoxyCodeLine{\ \ setHeaders:\ setHeaders}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Set\ header\ to\ force\ download}
+\DoxyCodeLine{function\ setHeaders\ (res,\ path)\ \{}
+\DoxyCodeLine{\ \ res.setHeader('Content-\/Disposition',\ contentDisposition(path))}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Create\ server}
+\DoxyCodeLine{var\ server\ =\ http.createServer(function\ onRequest\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ serve(req,\ res,\ finalhandler(req,\ res))}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Listen}
+\DoxyCodeLine{server.listen(3000)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2806}{}\doxysubsection{\texorpdfstring{Serving using express}{Serving using express}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2806}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2807}{}\doxysubsubsection{\texorpdfstring{Simple}{Simple}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2807}
+This is a simple example of using Express.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ express\ =\ require('express')}
+\DoxyCodeLine{var\ serveStatic\ =\ require('serve-\/static')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ app\ =\ express()}
+\DoxyCodeLine{}
+\DoxyCodeLine{app.use(serveStatic('public/ftp',\ \{\ index:\ ['default.html',\ 'default.htm']\ \}))}
+\DoxyCodeLine{app.listen(3000)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2808}{}\doxysubsubsection{\texorpdfstring{Multiple roots}{Multiple roots}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2808}
+This example shows a simple way to search through multiple directories. Files are searched for in {\ttfamily public-\/optimized/} first, then {\ttfamily public/} second as a fallback.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ express\ =\ require('express')}
+\DoxyCodeLine{var\ path\ =\ require('path')}
+\DoxyCodeLine{var\ serveStatic\ =\ require('serve-\/static')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ app\ =\ express()}
+\DoxyCodeLine{}
+\DoxyCodeLine{app.use(serveStatic(path.join(\_\_dirname,\ 'public-\/optimized')))}
+\DoxyCodeLine{app.use(serveStatic(path.join(\_\_dirname,\ 'public')))}
+\DoxyCodeLine{app.listen(3000)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2809}{}\doxysubsubsection{\texorpdfstring{Different settings for paths}{Different settings for paths}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2809}
+This example shows how to set a different max age depending on the served file type. In this example, HTML files are not cached, while everything else is for 1 day.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ express\ =\ require('express')}
+\DoxyCodeLine{var\ path\ =\ require('path')}
+\DoxyCodeLine{var\ serveStatic\ =\ require('serve-\/static')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ app\ =\ express()}
+\DoxyCodeLine{}
+\DoxyCodeLine{app.use(serveStatic(path.join(\_\_dirname,\ 'public'),\ \{}
+\DoxyCodeLine{\ \ maxAge:\ '1d',}
+\DoxyCodeLine{\ \ setHeaders:\ setCustomCacheControl}
+\DoxyCodeLine{\}))}
+\DoxyCodeLine{}
+\DoxyCodeLine{app.listen(3000)}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ setCustomCacheControl\ (res,\ path)\ \{}
+\DoxyCodeLine{\ \ if\ (serveStatic.mime.lookup(path)\ ===\ 'text/html')\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Custom\ Cache-\/Control\ for\ HTML\ files}
+\DoxyCodeLine{\ \ \ \ res.setHeader('Cache-\/Control',\ 'public,\ max-\/age=0')}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2810}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2serve-static_2README_autotoc_md2810}
+\mbox{[}MIT\mbox{]}(LICENSE) 

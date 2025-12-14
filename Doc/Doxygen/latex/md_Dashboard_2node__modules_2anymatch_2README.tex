@@ -1,0 +1,74 @@
+\chapter{anymatch \texorpdfstring{$<$}{<}a href="{}https\+://travis-\/ci.\+org/micromatch/anymatch"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://travis-\/ci.\+org/micromatch/anymatch.\+svg?branch=master"{} alt="{}\+Build Status"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>} \texorpdfstring{$<$}{<}a href="{}https\+://coveralls.\+io/r/micromatch/anymatch?branch=master"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://img.\+shields.\+io/coveralls/micromatch/anymatch.\+svg?branch=master"{} alt="{}\+Coverage Status"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>}}
+\hypertarget{md_Dashboard_2node__modules_2anymatch_2README}{}\label{md_Dashboard_2node__modules_2anymatch_2README}\index{anymatch $<$a href="{}https://travis-\/ci.org/micromatch/anymatch"{} $>$$<$img src="{}https://travis-\/ci.org/micromatch/anymatch.svg?branch=master"{} alt="{}Build Status"{}/$>$$<$/a$>$ $<$a href="{}https://coveralls.io/r/micromatch/anymatch?branch=master"{} $>$$<$img src="{}https://img.shields.io/coveralls/micromatch/anymatch.svg?branch=master"{} alt="{}Coverage Status"{}/$>$$<$/a$>$@{anymatch $<$a href=""https://travis-\/ci.org/micromatch/anymatch"" $>$$<$img src=""https://travis-\/ci.org/micromatch/anymatch.svg?branch=master"" alt=""Build Status""/$>$$<$/a$>$ $<$a href=""https://coveralls.io/r/micromatch/anymatch?branch=master"" $>$$<$img src=""https://img.shields.io/coveralls/micromatch/anymatch.svg?branch=master"" alt=""Coverage Status""/$>$$<$/a$>$}}
+Javascript module to match a string against a regular expression, glob, string, or function that takes the string as an argument and returns a truthy or falsy value. The matcher can also be an array of any or all of these. Useful for allowing a very flexible user-\/defined config to define things like file paths.
+
+{\bfseries{Note\+: This module has Bash-\/parity, please be aware that Windows-\/style backslashes are not supported as separators. See \href{https://github.com/micromatch/micromatch\#backslashes}{\texttt{ https\+://github.\+com/micromatch/micromatch\#backslashes}} for more information.}}\hypertarget{md_Dashboard_2node__modules_2anymatch_2README_autotoc_md198}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_Dashboard_2node__modules_2anymatch_2README_autotoc_md198}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ anymatch}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2anymatch_2README_autotoc_md199}{}\doxysubsubsection{\texorpdfstring{anymatch(matchers, test\+String, \mbox{[}return\+Index\mbox{]}, \mbox{[}options\mbox{]})}{anymatch(matchers, testString, [returnIndex], [options])}}\label{md_Dashboard_2node__modules_2anymatch_2README_autotoc_md199}
+
+\begin{DoxyItemize}
+\item {\bfseries{matchers}}\+: ({\itshape Array\texorpdfstring{$\vert$}{|}\+String\texorpdfstring{$\vert$}{|}\+Reg\+Exp\texorpdfstring{$\vert$}{|}\+Function}) String to be directly matched, string with glob patterns, regular expression test, function that takes the test\+String as an argument and returns a truthy value if it should be matched, or an array of any number and mix of these types.
+\item {\bfseries{test\+String}}\+: ({\itshape String\texorpdfstring{$\vert$}{|}\+Array}) The string to test against the matchers. If passed as an array, the first element of the array will be used as the {\ttfamily test\+String} for non-\/function matchers, while the entire array will be applied as the arguments for function matchers.
+\item {\bfseries{options}}\+: ({\itshape Object} \mbox{[}optional\mbox{]}\+\_\+) Any of the \href{https://github.com/micromatch/picomatch\#options}{\texttt{ picomatch}} options.
+\begin{DoxyItemize}
+\item {\bfseries{return\+Index}}\+: ({\itshape Boolean \mbox{[}optional\mbox{]}}) If true, return the array index of the first matcher that that test\+String matched, or -\/1 if no match, instead of a boolean result.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ anymatch\ =\ require('anymatch');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ matchers\ =\ [\ 'path/to/file.js',\ 'path/anyjs/**/*.js',\ /foo.js\$/,\ string\ =>\ string.includes('bar')\ \&\&\ string.length\ >\ 10\ ]\ ;}
+\DoxyCodeLine{}
+\DoxyCodeLine{anymatch(matchers,\ 'path/to/file.js');\ //\ true}
+\DoxyCodeLine{anymatch(matchers,\ 'path/anyjs/baz.js');\ //\ true}
+\DoxyCodeLine{anymatch(matchers,\ 'path/to/foo.js');\ //\ true}
+\DoxyCodeLine{anymatch(matchers,\ 'path/to/bar.js');\ //\ true}
+\DoxyCodeLine{anymatch(matchers,\ 'bar.js');\ //\ false}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ returnIndex\ =\ true}
+\DoxyCodeLine{anymatch(matchers,\ 'foo.js',\ \{returnIndex:\ true\});\ //\ 2}
+\DoxyCodeLine{anymatch(matchers,\ 'path/anyjs/foo.js',\ \{returnIndex:\ true\});\ //\ 1}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ any\ picomatc}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ using\ globs\ to\ match\ directories\ and\ their\ children}
+\DoxyCodeLine{anymatch('node\_modules',\ 'node\_modules');\ //\ true}
+\DoxyCodeLine{anymatch('node\_modules',\ 'node\_modules/somelib/index.js');\ //\ false}
+\DoxyCodeLine{anymatch('node\_modules/**',\ 'node\_modules/somelib/index.js');\ //\ true}
+\DoxyCodeLine{anymatch('node\_modules/**',\ '/absolute/path/to/node\_modules/somelib/index.js');\ //\ false}
+\DoxyCodeLine{anymatch('**/node\_modules/**',\ '/absolute/path/to/node\_modules/somelib/index.js');\ //\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ matcher\ =\ anymatch(matchers);}
+\DoxyCodeLine{['foo.js',\ 'bar.js'].filter(matcher);\ \ //\ [\ 'foo.js'\ ]}
+\DoxyCodeLine{anymatch\ master*\ ❯}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2anymatch_2README_autotoc_md200}{}\doxysubsubsection{\texorpdfstring{anymatch(matchers)}{anymatch(matchers)}}\label{md_Dashboard_2node__modules_2anymatch_2README_autotoc_md200}
+You can also pass in only your matcher(s) to get a curried function that has already been bound to the provided matching criteria. This can be used as an {\ttfamily Array\#filter} callback.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ matcher\ =\ anymatch(matchers);}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher('path/to/file.js');\ //\ true}
+\DoxyCodeLine{matcher('path/anyjs/baz.js',\ true);\ //\ 1}
+\DoxyCodeLine{}
+\DoxyCodeLine{['foo.js',\ 'bar.js'].filter(matcher);\ //\ ['foo.js']}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2anymatch_2README_autotoc_md201}{}\doxysection{\texorpdfstring{Changelog}{Changelog}}\label{md_Dashboard_2node__modules_2anymatch_2README_autotoc_md201}
+\href{https://github.com/micromatch/anymatch/releases}{\texttt{ See release notes page on Git\+Hub}}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{v3.\+0\+:}} Removed {\ttfamily start\+Index} and {\ttfamily end\+Index} arguments. Node 8.\+x-\/only.
+\item {\bfseries{v2.\+0\+:}} \href{https://github.com/jonschlinkert/micromatch}{\texttt{ micromatch}} moves away from minimatch-\/parity and inline with Bash. This includes handling backslashes differently (see \href{https://github.com/micromatch/micromatch\#backslashes}{\texttt{ https\+://github.\+com/micromatch/micromatch\#backslashes}} for more information).
+\item {\bfseries{v1.\+2\+:}} anymatch uses \href{https://github.com/jonschlinkert/micromatch}{\texttt{ micromatch}} for glob pattern matching. Issues with glob pattern matching should be reported directly to the \href{https://github.com/jonschlinkert/micromatch/issues}{\texttt{ micromatch issue tracker}}.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2anymatch_2README_autotoc_md202}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2anymatch_2README_autotoc_md202}
+\href{https://raw.github.com/micromatch/anymatch/master/LICENSE}{\texttt{ ISC}} 

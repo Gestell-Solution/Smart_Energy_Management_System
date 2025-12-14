@@ -17,6 +17,14 @@
 #ifndef HC05_INTERFACE_H_
 #define HC05_INTERFACE_H_
 
+/**
+ * @addtogroup Hal
+ * @{
+ * @addtogroup HC05_Bluetooth
+ * @{
+ */
+
+
 /*================================= Includes =================================*/
 #include "../../Mcal/UART/UART_Init.h"
 #include "../../Mcal/UART/UART_Tx.h"
@@ -103,5 +111,11 @@ uint16_t hBT_ReadBuffer(uint8_t *data, uint16_t len);
 
 
 /** @} */ /* End of HC05_Driver group */
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /* HC05_INTERFACE_H_ */

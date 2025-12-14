@@ -1,0 +1,31 @@
+\chapter{call-\/bound \texorpdfstring{$<$}{<}sup\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}a href="{}https\+://npmjs.\+org/package/call-\/bound"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://versionbadg.\+es/ljharb/call-\/bound.\+svg"{} alt="{}\+Version Badge"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/sup\texorpdfstring{$>$}{>}}
+\hypertarget{md_Dashboard_2node__modules_2call-bound_2README}{}\label{md_Dashboard_2node__modules_2call-bound_2README}\index{call-\/bound $<$sup$>$$<$a href="{}https://npmjs.org/package/call-\/bound"{} $>$$<$img src="{}https://versionbadg.es/ljharb/call-\/bound.svg"{} alt="{}Version Badge"{}/$>$$<$/a$>$$<$/sup$>$@{call-\/bound $<$sup$>$$<$a href=""https://npmjs.org/package/call-\/bound"" $>$$<$img src=""https://versionbadg.es/ljharb/call-\/bound.svg"" alt=""Version Badge""/$>$$<$/a$>$$<$/sup$>$}}
+\label{md_Dashboard_2node__modules_2call-bound_2README_autotoc_md432}%
+\Hypertarget{md_Dashboard_2node__modules_2call-bound_2README_autotoc_md432}%
+ \href{https://github.com/ljharb/call-bound/actions}{\texttt{ }} \href{https://app.codecov.io/gh/ljharb/call-bound/}{\texttt{ }} \href{https://david-dm.org/ljharb/call-bound}{\texttt{ }} \href{https://david-dm.org/ljharb/call-bound\#info=devDependencies}{\texttt{ }} \mbox{[}\mbox{]}\mbox{[}license-\/url\mbox{]} \href{https://npm-stat.com/charts.html?package=call-bound}{\texttt{ }}
+
+\href{https://npmjs.org/package/call-bound}{\texttt{ }}
+
+Robust call-\/bound Java\+Script intrinsics, using {\ttfamily call-\/bind} and {\ttfamily get-\/intrinsic}.\hypertarget{md_Dashboard_2node__modules_2call-bound_2README_autotoc_md433}{}\doxysection{\texorpdfstring{Getting started}{Getting started}}\label{md_Dashboard_2node__modules_2call-bound_2README_autotoc_md433}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ call-\/bound}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2call-bound_2README_autotoc_md434}{}\doxysection{\texorpdfstring{Usage/\+Examples}{Usage/Examples}}\label{md_Dashboard_2node__modules_2call-bound_2README_autotoc_md434}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ assert\ =\ require('assert');}
+\DoxyCodeLine{const\ callBound\ =\ require('call-\/bound');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ slice\ =\ callBound('Array.prototype.slice');}
+\DoxyCodeLine{}
+\DoxyCodeLine{delete\ Function.prototype.call;}
+\DoxyCodeLine{delete\ Function.prototype.bind;}
+\DoxyCodeLine{delete\ Array.prototype.slice;}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.deepEqual(slice([1,\ 2,\ 3,\ 4],\ 1,\ -\/1),\ [2,\ 3]);}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2call-bound_2README_autotoc_md435}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{md_Dashboard_2node__modules_2call-bound_2README_autotoc_md435}
+Clone the repo, {\ttfamily npm install}, and run {\ttfamily npm test} 

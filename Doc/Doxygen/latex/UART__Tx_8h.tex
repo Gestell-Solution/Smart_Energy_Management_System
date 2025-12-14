@@ -1,0 +1,60 @@
+\doxysection{Mcal/\+UART/\+UART\+\_\+\+Tx.h File Reference}
+\hypertarget{UART__Tx_8h}{}\label{UART__Tx_8h}\index{Mcal/UART/UART\_Tx.h@{Mcal/UART/UART\_Tx.h}}
+
+
+UART Transmission (Tx) driver for ATmega32 -\/ Non-\/blocking with interrupts.  
+
+
+{\ttfamily \#include "{}../\+UART/\+UART\+\_\+\+Init.\+h"{}}\newline
+Include dependency graph for UART\+\_\+\+Tx.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{UART__Tx_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{UART__Tx_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__UART_ga7687639cd2698194dea33346025bd907}{UART\+\_\+\+Tx\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the UART Tx buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__UART_ga571e119d1f29f26771f22dd63be5b97c}{m\+UART\+\_\+\+Send\+Byte}} (uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Sends a single byte using non-\/blocking UART transmission. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__UART_gae9b580529670fbc08bcb3d9ae8f5cad0}{m\+UART\+\_\+\+Send\+String}} (const char \texorpdfstring{$\ast$}{*}str)
+\begin{DoxyCompactList}\small\item\em Sends a null-\/terminated string using non-\/blocking UART transmission. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__UART_gac6dbe0652857f1c0d4eac14808373c5d}{m\+UART\+\_\+\+Send\+Buffer}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint16\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Sends a raw data buffer using non-\/blocking UART transmission. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+UART Transmission (Tx) driver for ATmega32 -\/ Non-\/blocking with interrupts. 
+
+This module implements UART transmission functionality It uses interrupt-\/driven transmission and a circular buffer to send data without blocking CPU time, ensuring smooth operation alongside ADC sampling and control logic. Features\+:
+\begin{DoxyItemize}
+\item Send single byte
+\item Send null-\/terminated string
+\item Send raw data buffer
+\item Non-\/blocking transmission using interrupts and circular buffer
+\item Configurable buffer size \begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+$<$\+Basma khaled$>$ \href{mailto:basmak55@gmail.com}{\texttt{ basmak55@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/08 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+\end{DoxyItemize}

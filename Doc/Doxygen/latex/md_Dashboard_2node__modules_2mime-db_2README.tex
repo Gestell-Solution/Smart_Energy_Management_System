@@ -1,0 +1,69 @@
+\chapter{mime-\/db}
+\hypertarget{md_Dashboard_2node__modules_2mime-db_2README}{}\label{md_Dashboard_2node__modules_2mime-db_2README}\index{mime-\/db@{mime-\/db}}
+\label{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1598}%
+\Hypertarget{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1598}%
+ \href{https://npmjs.org/package/mime-db}{\texttt{ }} \href{https://npmjs.org/package/mime-db}{\texttt{ }} \href{https://nodejs.org/en/download}{\texttt{ }} \href{https://github.com/jshttp/mime-db/actions?query=workflow\%3Aci}{\texttt{ }} \href{https://coveralls.io/r/jshttp/mime-db?branch=master}{\texttt{ }}
+
+This is a large database of mime types and information about them. It consists of a single, public JSON file and does not include any logic, allowing it to remain as un-\/opinionated as possible with an API. It aggregates data from the following sources\+:
+
+
+\begin{DoxyItemize}
+\item \href{http://www.iana.org/assignments/media-types/media-types.xhtml}{\texttt{ http\+://www.\+iana.\+org/assignments/media-\/types/media-\/types.\+xhtml}}
+\item \href{http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types}{\texttt{ http\+://svn.\+apache.\+org/repos/asf/httpd/httpd/trunk/docs/conf/mime.\+types}}
+\item \href{http://hg.nginx.org/nginx/raw-file/default/conf/mime.types}{\texttt{ http\+://hg.\+nginx.\+org/nginx/raw-\/file/default/conf/mime.\+types}}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1599}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1599}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ mime-\/db}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1600}{}\doxysubsection{\texorpdfstring{Database Download}{Database Download}}\label{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1600}
+If you\textquotesingle{}re crazy enough to use this in the browser, you can just grab the JSON file using \href{https://www.jsdelivr.com/}{\texttt{ js\+Delivr}}. It is recommended to replace {\ttfamily master} with \href{https://github.com/jshttp/mime-db/tags}{\texttt{ a release tag}} as the JSON format may change in the future.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{https://cdn.jsdelivr.net/gh/jshttp/mime-\/db@master/db.json}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1601}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1601}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ db\ =\ require('mime-\/db')}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ grab\ data\ on\ .js\ files}
+\DoxyCodeLine{var\ data\ =\ db['application/javascript']}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1602}{}\doxysection{\texorpdfstring{Data Structure}{Data Structure}}\label{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1602}
+The JSON file is a map lookup for lowercased mime types. Each mime type has the following properties\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily .source} -\/ where the mime type is defined. If not set, it\textquotesingle{}s probably a custom media type.
+\begin{DoxyItemize}
+\item {\ttfamily apache} -\/ \href{http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types}{\texttt{ Apache common media types}}
+\item {\ttfamily iana} -\/ \href{http://www.iana.org/assignments/media-types/media-types.xhtml}{\texttt{ IANA-\/defined media types}}
+\item {\ttfamily nginx} -\/ \href{http://hg.nginx.org/nginx/raw-file/default/conf/mime.types}{\texttt{ nginx media types}}
+\end{DoxyItemize}
+\item {\ttfamily .extensions\mbox{[}\mbox{]}} -\/ known extensions associated with this mime type.
+\item {\ttfamily .compressible} -\/ whether a file of this type can be gzipped.
+\item {\ttfamily .charset} -\/ the default charset associated with this type, if any.
+\end{DoxyItemize}
+
+If unknown, every property could be {\ttfamily undefined}.\hypertarget{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1603}{}\doxysection{\texorpdfstring{Contributing}{Contributing}}\label{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1603}
+To edit the database, only make PRs against {\ttfamily src/custom-\/types.\+json} or {\ttfamily src/custom-\/suffix.\+json}.
+
+The {\ttfamily src/custom-\/types.\+json} file is a JSON object with the MIME type as the keys and the values being an object with the following keys\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily compressible} -\/ leave out if you don\textquotesingle{}t know, otherwise {\ttfamily true}/{\ttfamily false} to indicate whether the data represented by the type is typically compressible.
+\item {\ttfamily extensions} -\/ include an array of file extensions that are associated with the type.
+\item {\ttfamily notes} -\/ human-\/readable notes about the type, typically what the type is.
+\item {\ttfamily sources} -\/ include an array of URLs of where the MIME type and the associated extensions are sourced from. This needs to be a \href{https://en.wikipedia.org/wiki/Primary_source}{\texttt{ primary source}}; links to type aggregating sites and Wikipedia are {\itshape not acceptable}.
+\end{DoxyItemize}
+
+To update the build, run {\ttfamily npm run build}.\hypertarget{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1604}{}\doxysubsection{\texorpdfstring{Adding Custom Media Types}{Adding Custom Media Types}}\label{md_Dashboard_2node__modules_2mime-db_2README_autotoc_md1604}
+The best way to get new media types included in this library is to register them with the IANA. The community registration procedure is outlined in \href{http://tools.ietf.org/html/rfc6838\#section-5}{\texttt{ RFC 6838 section 5}}. Types registered with the IANA are automatically pulled into this library.
+
+If that is not possible / feasible, they can be added directly here as a "{}custom"{} type. To do this, it is required to have a primary source that definitively lists the media type. If an extension is going to be listed as associateed with this media type, the source must definitively link the media type and extension as well. 

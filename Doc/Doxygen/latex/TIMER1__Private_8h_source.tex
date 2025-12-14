@@ -1,0 +1,79 @@
+\doxysection{TIMER1\+\_\+\+Private.\+h}
+\hypertarget{TIMER1__Private_8h_source}{}\label{TIMER1__Private_8h_source}\index{Mcal/Timer1/TIMER1\_Private.h@{Mcal/Timer1/TIMER1\_Private.h}}
+\mbox{\hyperlink{TIMER1__Private_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ \_TIMER1\_PRIVATE\_H\_}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ \_TIMER1\_PRIVATE\_H\_}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}../Atmega32RegistersAddress.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78a0d5796a807b7e9aff8a8bbe29631fc91}{T1\_NoClkSource}},}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78a29823cfbda029160dc9af816abfb5aae}{T1\_ClkPrescalling\_1}},}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78a122b54a584a25d268ee3bb7999aed8ae}{T1\_ClkPrescalling\_8}},}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78abb8dc0cf7f74cabd648f2b572baabb28}{T1\_ClkPrescalling\_64}},}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78acbe5eb53757db5e1ab7988921e7ff4fe}{T1\_ClkPrescalling\_256}},}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78af13c79b40d97ff7353c128019480c98e}{T1\_ClkPrescalling\_1024}},}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78a0e11085438beac0d3bc51b410fdf5542}{T1\_EXT\_ClkOnFallingEdge}},}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78aa726ae9966b41181f6c809e2fa2358da}{T1\_EXT\_ClkOnRisingEdge}},}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \}\ \mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78}{Timer1\_Prescallers}};}
+\DoxyCodeLine{00070\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00071\ \{}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad0f16a7ff9e3ff929b47c1292605103ea44e00dabee93373dec5df8ad288f57d0}{T1\_WGM10\_Bit}},}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad0f16a7ff9e3ff929b47c1292605103ea373f7853f93e38c8526505d6cd089585}{T1\_WGM11\_Bit}},}
+\DoxyCodeLine{00087\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad0f16a7ff9e3ff929b47c1292605103ea36436d60b3286f1ceb1c7fcf6e2f1bca}{T1\_FOC1B\_Bit}},}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad0f16a7ff9e3ff929b47c1292605103ea03915f6a0c7f570997f1aadcaa97feeb}{T1\_FOC1A\_Bit}},}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad0f16a7ff9e3ff929b47c1292605103eafc34aef020b9c3576bb2998f1507a9d4}{T1\_COM1B0\_Bit}},}
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad0f16a7ff9e3ff929b47c1292605103ea14a0db581b04eb7be732fca7553c3a3f}{T1\_COM1B1\_Bit}},}
+\DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad0f16a7ff9e3ff929b47c1292605103ea393ea552026866ddf8a2b5095325d394}{T1\_COM1A0\_Bit}},}
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad0f16a7ff9e3ff929b47c1292605103ea475015958d4dd2a4dd2f511ffd5cabfb}{T1\_COM1A1\_Bit}},}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \}\ \mbox{\hyperlink{TIMER1__Private_8h_ad0f16a7ff9e3ff929b47c1292605103e}{TCCR1A\_Bits}};}
+\DoxyCodeLine{00115\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00116\ \{}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00122\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_afa8453705f0d0a4bd89cdd07cbed5705a63bcefaf584c7678300e84dcb3683c6a}{T1\_CS10\_Bit}}\ =\ 0,}
+\DoxyCodeLine{00127\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_afa8453705f0d0a4bd89cdd07cbed5705a61d7ec71d0b4459acd4ace770d3c9cbe}{T1\_CS11\_Bit}}\ =\ 1,}
+\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_afa8453705f0d0a4bd89cdd07cbed5705ab73bae1edc44144c711454394d51f438}{T1\_CS12\_Bit}}\ =\ 2,}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_afa8453705f0d0a4bd89cdd07cbed5705abd5c351d3625cf59177e0712e5a4962e}{T1\_WGM12\_Bit}}\ =\ 3,}
+\DoxyCodeLine{00142\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_afa8453705f0d0a4bd89cdd07cbed5705a2f729b0e90bd5232c1c029fe66d9468c}{T1\_WGM13\_Bit}}\ =\ 4,}
+\DoxyCodeLine{00147\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_afa8453705f0d0a4bd89cdd07cbed5705a16824c93889b95da91315b7f2937152c}{T1\_ICES1\_Bit}}\ =\ 6,}
+\DoxyCodeLine{00152\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_afa8453705f0d0a4bd89cdd07cbed5705af018b9aad8c2b09a234fd6e7c7b7bdf0}{T1\_ICNC1\_Bit}}\ =\ 7,}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \}\ \mbox{\hyperlink{TIMER1__Private_8h_afa8453705f0d0a4bd89cdd07cbed5705}{TCCR1B\_Bits}};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00161\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00162\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad729a090c363d763c04c6052d5d9426aaa8a0f650e31c9023892080e65a1699b8}{T1\_Normal}}\ =\ 0,}
+\DoxyCodeLine{00172\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad729a090c363d763c04c6052d5d9426aab686c057624f7c714e60ee98d1be6b3a}{T1\_CTC\_OCR1A\_is\_TOP}}\ =\ 4,}
+\DoxyCodeLine{00177\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ad729a090c363d763c04c6052d5d9426aad785fa3eabfa7f70b909d4465e324c18}{T1\_CTC\_ICR1\_is\_TOP}}\ =\ 12,}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \}\ \mbox{\hyperlink{TIMER1__Private_8h_ad729a090c363d763c04c6052d5d9426a}{WaveGenModes}};}
+\DoxyCodeLine{00185\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00186\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ae00fb3d863c62725dd2b3487081a9873ac96886bfda040c8aa93652cf66a1b266}{T1\_NormalPort}}\ =\ 0,}
+\DoxyCodeLine{00196\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ae00fb3d863c62725dd2b3487081a9873aa50aa8e41491c525c13413815dbea9da}{T1\_OC0\_Toggle}}\ =\ 1,}
+\DoxyCodeLine{00201\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ae00fb3d863c62725dd2b3487081a9873a3a10136a7cf7fe405be50d8075b73866}{T1\_OC0\_Clear}}\ =\ 2,}
+\DoxyCodeLine{00206\ \ \ \ \ \mbox{\hyperlink{TIMER1__Private_8h_ae00fb3d863c62725dd2b3487081a9873a0f317dc21fa5f1aa04bcadd8bf729755}{T1\_OC0\_Set}}\ =\ 3,}
+\DoxyCodeLine{00207\ \}\ \mbox{\hyperlink{TIMER1__Private_8h_ae00fb3d863c62725dd2b3487081a9873}{CompareOutputModes\_NonPWM}};}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ T1\_Second\ 1}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#define\ T1\_MilliSecond\ .001\ *\ T1\_Second}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ OCIE1A\_Bit\ 4}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#define\ OCIE1B\_Bit\ 3}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#define\ OCF1A\_Bit\ 4}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ OCF1B\_Bit\ 3}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#define\ T1\_StopMask\ 0xF8u\ }\textcolor{comment}{/*\ 0b11111000\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

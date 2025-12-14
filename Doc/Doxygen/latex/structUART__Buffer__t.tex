@@ -1,0 +1,30 @@
+\doxysection{UART\+\_\+\+Buffer\+\_\+t Struct Reference}
+\hypertarget{structUART__Buffer__t}{}\label{structUART__Buffer__t}\index{UART\_Buffer\_t@{UART\_Buffer\_t}}
+
+
+Circular buffer structure for UART data handling. This structure provides an efficient, non-\/blocking mechanism for storing bytes being transmitted or received by the UART driver.  
+
+
+
+
+{\ttfamily \#include $<$UART\+\_\+\+Config.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+volatile uint8\+\_\+t \mbox{\hyperlink{group__Mcal_gaf1cf7b74aec8b88b905cc32264c846a8}{buffer}} \mbox{[}\mbox{\hyperlink{group__UART_ga05f5d709605c6317c97e4974bec3402a}{UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Internal buffer array. \end{DoxyCompactList}\item 
+volatile int16\+\_\+t \mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}}
+\begin{DoxyCompactList}\small\item\em next byte to to be read \end{DoxyCompactList}\item 
+volatile int16\+\_\+t \mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}}
+\begin{DoxyCompactList}\small\item\em next byte to be written \end{DoxyCompactList}\item 
+volatile uint16\+\_\+t \mbox{\hyperlink{group__Mcal_ga63a670d8af991bf62831d0a6c58e258f}{size}}
+\begin{DoxyCompactList}\small\item\em Total buffer capacity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Circular buffer structure for UART data handling. This structure provides an efficient, non-\/blocking mechanism for storing bytes being transmitted or received by the UART driver. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Mcal/\+UART/\mbox{\hyperlink{UART__Config_8h}{UART\+\_\+\+Config.\+h}}\end{DoxyCompactItemize}

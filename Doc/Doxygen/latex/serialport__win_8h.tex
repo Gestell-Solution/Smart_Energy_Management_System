@@ -1,0 +1,182 @@
+\doxysection{Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/serialport\+\_\+win.h File Reference}
+\hypertarget{serialport__win_8h}{}\label{serialport__win_8h}\index{Dashboard/node\_modules/"@serialport/bindings-\/cpp/src/serialport\_win.h@{Dashboard/node\_modules/"@serialport/bindings-\/cpp/src/serialport\_win.h}}
+{\ttfamily \#include $<$napi.\+h$>$}\newline
+{\ttfamily \#include $<$uv.\+h$>$}\newline
+{\ttfamily \#include $<$node\+\_\+buffer.\+h$>$}\newline
+{\ttfamily \#include $<$list$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+Include dependency graph for serialport\+\_\+win.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serialport__win_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{serialport__win_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structWriteBaton}{Write\+Baton}}
+\item 
+struct \mbox{\hyperlink{structReadBaton}{Read\+Baton}}
+\item 
+struct \mbox{\hyperlink{structListResultItem}{List\+Result\+Item}}
+\item 
+struct \mbox{\hyperlink{structListBaton}{List\+Baton}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{serialport__win_8h_a2dc0029776b8cfa523fc558c0d80c43e}{ERROR\+\_\+\+STRING\+\_\+\+SIZE}}~1088
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static HANDLE \mbox{\hyperlink{serialport__win_8h_aae8d9cdfe7502c3851a12a61f55d7efc}{int2handle}} (int ptr)
+\item 
+\mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \mbox{\hyperlink{serialport__win_8h_a9812016efbb231982cff8df9e341634b}{Write}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&info)
+\item 
+\mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \mbox{\hyperlink{serialport__win_8h_ad24d28ef6e014464e7d49f78e0edabcf}{Read}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&info)
+\item 
+\mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \mbox{\hyperlink{serialport__win_8h_a5aa9387d4467b83ddad1cadbd43a514f}{List}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&info)
+\item 
+void \mbox{\hyperlink{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}{set\+If\+Not\+Empty}} (\mbox{\hyperlink{classNapi_1_1Object}{Napi\+::\+Object}} item, std\+::string key, const char \texorpdfstring{$\ast$}{*}value)
+\item 
+void \mbox{\hyperlink{serialport__win_8h_adfcf3cbc5f0d84abae9d2dc6c7211710}{set\+If\+Not\+Empty}} (\mbox{\hyperlink{classNapi_1_1Object}{Napi\+::\+Object}} item, std\+::string key, const wchar\+\_\+t \texorpdfstring{$\ast$}{*}value)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{serialport__win_8h_a2dc0029776b8cfa523fc558c0d80c43e}\label{serialport__win_8h_a2dc0029776b8cfa523fc558c0d80c43e} 
+\index{serialport\_win.h@{serialport\_win.h}!ERROR\_STRING\_SIZE@{ERROR\_STRING\_SIZE}}
+\index{ERROR\_STRING\_SIZE@{ERROR\_STRING\_SIZE}!serialport\_win.h@{serialport\_win.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_STRING\_SIZE}{ERROR\_STRING\_SIZE}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+STRING\+\_\+\+SIZE~1088}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{serialport__win_8h_aae8d9cdfe7502c3851a12a61f55d7efc}\label{serialport__win_8h_aae8d9cdfe7502c3851a12a61f55d7efc} 
+\index{serialport\_win.h@{serialport\_win.h}!int2handle@{int2handle}}
+\index{int2handle@{int2handle}!serialport\_win.h@{serialport\_win.h}}
+\doxysubsubsection{\texorpdfstring{int2handle()}{int2handle()}}
+{\footnotesize\ttfamily static HANDLE int2handle (\begin{DoxyParamCaption}\item[{int}]{ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serialport__win_8h_aae8d9cdfe7502c3851a12a61f55d7efc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{serialport__win_8h_a5aa9387d4467b83ddad1cadbd43a514f}\label{serialport__win_8h_a5aa9387d4467b83ddad1cadbd43a514f} 
+\index{serialport\_win.h@{serialport\_win.h}!List@{List}}
+\index{List@{List}!serialport\_win.h@{serialport\_win.h}}
+\doxysubsubsection{\texorpdfstring{List()}{List()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&}]{info }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serialport__win_8h_a5aa9387d4467b83ddad1cadbd43a514f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{serialport__win_8h_a5aa9387d4467b83ddad1cadbd43a514f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{serialport__win_8h_ad24d28ef6e014464e7d49f78e0edabcf}\label{serialport__win_8h_ad24d28ef6e014464e7d49f78e0edabcf} 
+\index{serialport\_win.h@{serialport\_win.h}!Read@{Read}}
+\index{Read@{Read}!serialport\_win.h@{serialport\_win.h}}
+\doxysubsubsection{\texorpdfstring{Read()}{Read()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} Read (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&}]{info }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serialport__win_8h_ad24d28ef6e014464e7d49f78e0edabcf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{serialport__win_8h_ad24d28ef6e014464e7d49f78e0edabcf_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}\label{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf} 
+\index{serialport\_win.h@{serialport\_win.h}!setIfNotEmpty@{setIfNotEmpty}}
+\index{setIfNotEmpty@{setIfNotEmpty}!serialport\_win.h@{serialport\_win.h}}
+\doxysubsubsection{\texorpdfstring{setIfNotEmpty()}{setIfNotEmpty()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void set\+If\+Not\+Empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1Object}{Napi\+::\+Object}}}]{item,  }\item[{std\+::string}]{key,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{value }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{serialport__win_8h_adfcf3cbc5f0d84abae9d2dc6c7211710}\label{serialport__win_8h_adfcf3cbc5f0d84abae9d2dc6c7211710} 
+\index{serialport\_win.h@{serialport\_win.h}!setIfNotEmpty@{setIfNotEmpty}}
+\index{setIfNotEmpty@{setIfNotEmpty}!serialport\_win.h@{serialport\_win.h}}
+\doxysubsubsection{\texorpdfstring{setIfNotEmpty()}{setIfNotEmpty()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void set\+If\+Not\+Empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1Object}{Napi\+::\+Object}}}]{item,  }\item[{std\+::string}]{key,  }\item[{const wchar\+\_\+t \texorpdfstring{$\ast$}{*}}]{value }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serialport__win_8h_adfcf3cbc5f0d84abae9d2dc6c7211710_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{serialport__win_8h_a9812016efbb231982cff8df9e341634b}\label{serialport__win_8h_a9812016efbb231982cff8df9e341634b} 
+\index{serialport\_win.h@{serialport\_win.h}!Write@{Write}}
+\index{Write@{Write}!serialport\_win.h@{serialport\_win.h}}
+\doxysubsubsection{\texorpdfstring{Write()}{Write()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} Write (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&}]{info }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serialport__win_8h_a9812016efbb231982cff8df9e341634b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{serialport__win_8h_a9812016efbb231982cff8df9e341634b_icgraph}
+\end{center}
+\end{figure}

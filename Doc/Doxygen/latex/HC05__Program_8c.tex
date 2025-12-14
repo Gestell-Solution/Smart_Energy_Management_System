@@ -1,0 +1,80 @@
+\doxysection{Hal/\+HC05/\+HC05\+\_\+\+Program.c File Reference}
+\hypertarget{HC05__Program_8c}{}\label{HC05__Program_8c}\index{Hal/HC05/HC05\_Program.c@{Hal/HC05/HC05\_Program.c}}
+
+
+Program file for the HC-\/05 Bluetooth driver.  
+
+
+{\ttfamily \#include "{}HC05\+\_\+\+Config.\+h"{}}\newline
+{\ttfamily \#include "{}HC05\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}HC05\+\_\+\+Private.\+h"{}}\newline
+Include dependency graph for HC05\+\_\+\+Program.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{HC05__Program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__HC05__Driver_ga26197d37bb18bc533e23ceecfb7b4411}{h\+BT\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the HC-\/05 Bluetooth module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__HC05__Driver_ga3b44cbb66c372466ba85e763b3a32e4a}{h\+BT\+\_\+\+Send\+String}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}string)
+\begin{DoxyCompactList}\small\item\em Sends a null-\/terminated string via the HC-\/05 Bluetooth module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__HC05__Driver_ga50ec3645244f5b6ad53f2ff9e4618199}{h\+BT\+\_\+\+Send\+Buffer}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint16\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Sends a raw data buffer to the HC-\/05 module. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__HC05__Driver_ga8c70278c2a069e5eda0a432278699753}{h\+BT\+\_\+\+Read\+Byte}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Reads a single byte from the HC-\/05 receive buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__HC05__Driver_ga54174e8b5a65483bbc82d6103c93cd86}{h\+BT\+\_\+\+Read\+String}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}string)
+\begin{DoxyCompactList}\small\item\em Reads a null-\/terminated string from the HC-\/05 module (non-\/blocking). \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{group__HC05__Driver_gab901efab4cd849dffffe9b1c77600974}{h\+BT\+\_\+\+Read\+Buffer}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint16\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Reads multiple bytes from the HC-\/05 receive buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const \mbox{\hyperlink{structUART__Config__t}{UART\+\_\+\+Config\+\_\+t}} \mbox{\hyperlink{HC05__Program_8c_aff6de799451cb7861c776c942b75c177}{BT\+\_\+\+Config}}
+\begin{DoxyCompactList}\small\item\em UART configuration structure for HC-\/05. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Program file for the HC-\/05 Bluetooth driver. 
+
+This file contains the implementation of all APIs used for initializing and communicating with the HC-\/05 Bluetooth module via UART0. It includes functions to send and receive data, either as single bytes, strings, or buffers. The HC-\/05 driver provides a high-\/level interface for Bluetooth serial communication. \begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/10-\/28 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Developer\+: Ahmed Twap (\href{mailto:ahmedtwap2@gmail.com}{\texttt{ ahmedtwap2@gmail.\+com}}) 
+
+Reviewer\+: Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025, Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{HC05__Program_8c_aff6de799451cb7861c776c942b75c177}\label{HC05__Program_8c_aff6de799451cb7861c776c942b75c177} 
+\index{HC05\_Program.c@{HC05\_Program.c}!BT\_Config@{BT\_Config}}
+\index{BT\_Config@{BT\_Config}!HC05\_Program.c@{HC05\_Program.c}}
+\doxysubsubsection{\texorpdfstring{BT\_Config}{BT\_Config}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structUART__Config__t}{UART\+\_\+\+Config\+\_\+t}} BT\+\_\+\+Config\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ .BaudRate\ =\ \mbox{\hyperlink{group__HC05__Config_ga5a68104be27a122d30e43bd509d4824b}{BT\_BAUDRATE}},}
+\DoxyCodeLine{\ \ \ \ .Parity\ \ \ =\ \mbox{\hyperlink{group__UART_ggab67e41a2c4fe0f53ae6ee6e548e51053aa80d2d8ea61454045ebe71d155e85b3d}{UART\_PARITY\_NONE}},}
+\DoxyCodeLine{\ \ \ \ .StopBits\ =\ \mbox{\hyperlink{group__UART_ggaa283de6e98e7d60b53bb9c73397b0012a523769f4ab02da482974f27c63379b35}{UART\_1\_STOP}},}
+\DoxyCodeLine{\ \ \ \ .DataBits\ =\ \mbox{\hyperlink{group__UART_ggac03a200b6073e3e3a785425c1851090ca3febd17414ccac951a00349c5c6bac9f}{UART\_8\_BIT}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+UART configuration structure for HC-\/05. 
+

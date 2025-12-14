@@ -12,6 +12,14 @@
  */
 #ifndef _TIMER0_Interface_H_
 #define _TIMER0_Interface_H_
+
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup Timer0
+ * @{
+ */
+
 #include <stdint.h>
 #include "TIMER0_Config.h"
 #include "TIMER0_Private.h"
@@ -66,4 +74,10 @@ void mTIMER0_TickHandler(void);
  */
        
 void __vector_10(void) __attribute__((signal));
+
+/**
+ * @}
+ * @}
+ */
+
 #endif

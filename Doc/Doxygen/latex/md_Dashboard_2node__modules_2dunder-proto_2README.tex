@@ -1,0 +1,34 @@
+\chapter{dunder-\/proto \texorpdfstring{$<$}{<}sup\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}a href="{}https\+://npmjs.\+org/package/dunder-\/proto"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://versionbadg.\+es/es-\/shims/dunder-\/proto.\+svg"{} alt="{}\+Version Badge"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/sup\texorpdfstring{$>$}{>}}
+\hypertarget{md_Dashboard_2node__modules_2dunder-proto_2README}{}\label{md_Dashboard_2node__modules_2dunder-proto_2README}\index{dunder-\/proto $<$sup$>$$<$a href="{}https://npmjs.org/package/dunder-\/proto"{} $>$$<$img src="{}https://versionbadg.es/es-\/shims/dunder-\/proto.svg"{} alt="{}Version Badge"{}/$>$$<$/a$>$$<$/sup$>$@{dunder-\/proto $<$sup$>$$<$a href=""https://npmjs.org/package/dunder-\/proto"" $>$$<$img src=""https://versionbadg.es/es-\/shims/dunder-\/proto.svg"" alt=""Version Badge""/$>$$<$/a$>$$<$/sup$>$}}
+\label{md_Dashboard_2node__modules_2dunder-proto_2README_autotoc_md662}%
+\Hypertarget{md_Dashboard_2node__modules_2dunder-proto_2README_autotoc_md662}%
+ \href{https://github.com/es-shims/dunder-proto/actions}{\texttt{ }} \href{https://app.codecov.io/gh/es-shims/dunder-proto/}{\texttt{ }} \mbox{[}\mbox{]}\mbox{[}license-\/url\mbox{]} \href{https://npm-stat.com/charts.html?package=dunder-proto}{\texttt{ }}
+
+\href{https://npmjs.org/package/dunder-proto}{\texttt{ }}
+
+If available, the {\ttfamily Object.\+prototype.\+\_\+\+\_\+proto\+\_\+\+\_\+} accessor and mutator, call-\/bound.\hypertarget{md_Dashboard_2node__modules_2dunder-proto_2README_autotoc_md663}{}\doxysection{\texorpdfstring{Getting started}{Getting started}}\label{md_Dashboard_2node__modules_2dunder-proto_2README_autotoc_md663}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ dunder-\/proto}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2dunder-proto_2README_autotoc_md664}{}\doxysection{\texorpdfstring{Usage/\+Examples}{Usage/Examples}}\label{md_Dashboard_2node__modules_2dunder-proto_2README_autotoc_md664}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ assert\ =\ require('assert');}
+\DoxyCodeLine{const\ getDunder\ =\ require('dunder-\/proto/get');}
+\DoxyCodeLine{const\ setDunder\ =\ require('dunder-\/proto/set');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ obj\ =\ \{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.equal('toString'\ in\ obj,\ true);}
+\DoxyCodeLine{assert.equal(getDunder(obj),\ Object.prototype);}
+\DoxyCodeLine{}
+\DoxyCodeLine{setDunder(obj,\ null);}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.equal('toString'\ in\ obj,\ false);}
+\DoxyCodeLine{assert.equal(getDunder(obj),\ null);}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2dunder-proto_2README_autotoc_md665}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{md_Dashboard_2node__modules_2dunder-proto_2README_autotoc_md665}
+Clone the repo, {\ttfamily npm install}, and run {\ttfamily npm test} 

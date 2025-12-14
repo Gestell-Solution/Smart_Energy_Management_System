@@ -1,0 +1,92 @@
+\doxysection{Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/darwin\+\_\+list.h File Reference}
+\hypertarget{darwin__list_8h}{}\label{darwin__list_8h}\index{Dashboard/node\_modules/"@serialport/bindings-\/cpp/src/darwin\_list.h@{Dashboard/node\_modules/"@serialport/bindings-\/cpp/src/darwin\_list.h}}
+{\ttfamily \#include $<$sys/param.\+h$>$}\newline
+{\ttfamily \#include $<$napi.\+h$>$}\newline
+{\ttfamily \#include $<$uv.\+h$>$}\newline
+{\ttfamily \#include $<$list$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+Include dependency graph for darwin\+\_\+list.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{darwin__list_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{darwin__list_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structListResultItem}{List\+Result\+Item}}
+\item 
+struct \mbox{\hyperlink{structListBaton}{List\+Baton}}
+\item 
+struct \mbox{\hyperlink{structSerialDevice}{Serial\+Device}}
+\item 
+struct \mbox{\hyperlink{structDeviceListItem}{Device\+List\+Item}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{darwin__list_8h_a2dc0029776b8cfa523fc558c0d80c43e}{ERROR\+\_\+\+STRING\+\_\+\+SIZE}}~1088
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structSerialDevice}{Serial\+Device}} \mbox{\hyperlink{darwin__list_8h_a544e397f3f8b18eec2ba7079ba853fae}{st\+Serial\+Device}}
+\item 
+typedef struct \mbox{\hyperlink{structDeviceListItem}{Device\+List\+Item}} \mbox{\hyperlink{darwin__list_8h_a4a0aeafffe08caf4c8a76898ba7ee295}{st\+Device\+List\+Item}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \mbox{\hyperlink{darwin__list_8h_a5aa9387d4467b83ddad1cadbd43a514f}{List}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&info)
+\item 
+void \mbox{\hyperlink{darwin__list_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}{set\+If\+Not\+Empty}} (\mbox{\hyperlink{classNapi_1_1Object}{Napi\+::\+Object}} item, std\+::string key, const char \texorpdfstring{$\ast$}{*}value)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{darwin__list_8h_a2dc0029776b8cfa523fc558c0d80c43e}\label{darwin__list_8h_a2dc0029776b8cfa523fc558c0d80c43e} 
+\index{darwin\_list.h@{darwin\_list.h}!ERROR\_STRING\_SIZE@{ERROR\_STRING\_SIZE}}
+\index{ERROR\_STRING\_SIZE@{ERROR\_STRING\_SIZE}!darwin\_list.h@{darwin\_list.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_STRING\_SIZE}{ERROR\_STRING\_SIZE}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+STRING\+\_\+\+SIZE~1088}
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{darwin__list_8h_a4a0aeafffe08caf4c8a76898ba7ee295}\label{darwin__list_8h_a4a0aeafffe08caf4c8a76898ba7ee295} 
+\index{darwin\_list.h@{darwin\_list.h}!stDeviceListItem@{stDeviceListItem}}
+\index{stDeviceListItem@{stDeviceListItem}!darwin\_list.h@{darwin\_list.h}}
+\doxysubsubsection{\texorpdfstring{stDeviceListItem}{stDeviceListItem}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structDeviceListItem}{Device\+List\+Item}} \mbox{\hyperlink{darwin__list_8h_a4a0aeafffe08caf4c8a76898ba7ee295}{st\+Device\+List\+Item}}}
+
+\Hypertarget{darwin__list_8h_a544e397f3f8b18eec2ba7079ba853fae}\label{darwin__list_8h_a544e397f3f8b18eec2ba7079ba853fae} 
+\index{darwin\_list.h@{darwin\_list.h}!stSerialDevice@{stSerialDevice}}
+\index{stSerialDevice@{stSerialDevice}!darwin\_list.h@{darwin\_list.h}}
+\doxysubsubsection{\texorpdfstring{stSerialDevice}{stSerialDevice}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structSerialDevice}{Serial\+Device}} \mbox{\hyperlink{darwin__list_8h_a544e397f3f8b18eec2ba7079ba853fae}{st\+Serial\+Device}}}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{darwin__list_8h_a5aa9387d4467b83ddad1cadbd43a514f}\label{darwin__list_8h_a5aa9387d4467b83ddad1cadbd43a514f} 
+\index{darwin\_list.h@{darwin\_list.h}!List@{List}}
+\index{List@{List}!darwin\_list.h@{darwin\_list.h}}
+\doxysubsubsection{\texorpdfstring{List()}{List()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&}]{info }\end{DoxyParamCaption})}
+
+\Hypertarget{darwin__list_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}\label{darwin__list_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf} 
+\index{darwin\_list.h@{darwin\_list.h}!setIfNotEmpty@{setIfNotEmpty}}
+\index{setIfNotEmpty@{setIfNotEmpty}!darwin\_list.h@{darwin\_list.h}}
+\doxysubsubsection{\texorpdfstring{setIfNotEmpty()}{setIfNotEmpty()}}
+{\footnotesize\ttfamily void set\+If\+Not\+Empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1Object}{Napi\+::\+Object}}}]{item,  }\item[{std\+::string}]{key,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{value }\end{DoxyParamCaption})}
+

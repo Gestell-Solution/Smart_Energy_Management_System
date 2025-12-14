@@ -12,6 +12,14 @@
 #ifndef _HBUTTON_INTERFACE_H_
 #define _HBUTTON_INTERFACE_H_
 
+/**
+ * @addtogroup Hal
+ * @{
+ * @addtogroup Push_Button
+ * @{
+ */
+
+
 /* --------------------------------------------------------------------------
 *                               Include LIB
 * --------------------------------------------------------------------------*/
@@ -60,5 +68,11 @@ void hBtn_ISRAction(void);
 uint8_t hBtn_GetStatus(void);
 
 
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /*_HBUTTON_INTERFACE_H_*/

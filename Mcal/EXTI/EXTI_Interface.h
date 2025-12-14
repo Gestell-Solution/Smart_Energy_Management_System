@@ -19,6 +19,14 @@
  #ifndef   _EXTI_INTERFACE_H_
  #define   _EXTI_INTERFACE_H_
 
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup EXTI
+ * @{
+ */
+
+
 
 
 /**
@@ -78,6 +86,12 @@ void mEXTI_Disable(uint8_t source);
 
 
 
+
+
+/**
+ * @}
+ * @}
+ */
 
  #endif /* _EXTI_INTERFACE_H_ */
 

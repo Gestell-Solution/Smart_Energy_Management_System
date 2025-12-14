@@ -1,0 +1,132 @@
+\chapter{minimatch}
+\hypertarget{md_Dashboard_2node__modules_2minimatch_2README}{}\label{md_Dashboard_2node__modules_2minimatch_2README}\index{minimatch@{minimatch}}
+\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1722}%
+\Hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1722}%
+ A minimal matching utility.
+
+\href{http://travis-ci.org/isaacs/minimatch}{\texttt{ }}
+
+This is the matching library used internally by npm.
+
+It works by converting glob expressions into Java\+Script {\ttfamily Reg\+Exp} objects.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1723}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1723}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ minimatch\ =\ require("{}minimatch"{})}
+\DoxyCodeLine{}
+\DoxyCodeLine{minimatch("{}bar.foo"{},\ "{}*.foo"{})\ //\ true!}
+\DoxyCodeLine{minimatch("{}bar.foo"{},\ "{}*.bar"{})\ //\ false!}
+\DoxyCodeLine{minimatch("{}bar.foo"{},\ "{}*.+(bar|foo)"{},\ \{\ debug:\ true\ \})\ //\ true,\ and\ noisy!}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1724}{}\doxysection{\texorpdfstring{Features}{Features}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1724}
+Supports these glob features\+:
+
+
+\begin{DoxyItemize}
+\item Brace Expansion
+\item Extended glob matching
+\item "{}\+Globstar"{} {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}} matching
+\end{DoxyItemize}
+
+See\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily man sh}
+\item {\ttfamily man bash}
+\item {\ttfamily man 3 fnmatch}
+\item {\ttfamily man 5 gitignore}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1725}{}\doxysection{\texorpdfstring{Minimatch Class}{Minimatch Class}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1725}
+Create a minimatch object by instantiating the {\ttfamily minimatch.\+Minimatch} class.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ Minimatch\ =\ require("{}minimatch"{}).Minimatch}
+\DoxyCodeLine{var\ mm\ =\ new\ Minimatch(pattern,\ options)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1726}{}\doxysubsection{\texorpdfstring{Properties}{Properties}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1726}
+
+\begin{DoxyItemize}
+\item {\ttfamily pattern} The original pattern the minimatch object represents.
+\item {\ttfamily options} The options supplied to the constructor.
+\item {\ttfamily set} A 2-\/dimensional array of regexp or string expressions. Each row in the array corresponds to a brace-\/expanded pattern. Each item in the row corresponds to a single path-\/part. For example, the pattern {\ttfamily \{a,b/c\}/d} would expand to a set of patterns like\+: \begin{DoxyVerb}  [ [ a, d ]
+  , [ b, c, d ] ]
+\end{DoxyVerb}
+ If a portion of the pattern doesn\textquotesingle{}t have any "{}magic"{} in it (that is, it\textquotesingle{}s something like {\ttfamily "{}foo"{}} rather than {\ttfamily fo\texorpdfstring{$\ast$}{*}o?}), then it will be left as a string rather than converted to a regular expression.
+\item {\ttfamily regexp} Created by the {\ttfamily make\+Re} method. A single regular expression expressing the entire pattern. This is useful in cases where you wish to use the pattern somewhat like {\ttfamily fnmatch(3)} with {\ttfamily FNM\+\_\+\+PATH} enabled.
+\item {\ttfamily negate} True if the pattern is negated.
+\item {\ttfamily comment} True if the pattern is a comment.
+\item {\ttfamily empty} True if the pattern is {\ttfamily "{}"{}}.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1727}{}\doxysubsection{\texorpdfstring{Methods}{Methods}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1727}
+
+\begin{DoxyItemize}
+\item {\ttfamily make\+Re} Generate the {\ttfamily regexp} member if necessary, and return it. Will return {\ttfamily false} if the pattern is invalid.
+\item {\ttfamily match(fname)} Return true if the filename matches the pattern, or false otherwise.
+\item {\ttfamily match\+One(file\+Array, pattern\+Array, partial)} Take a {\ttfamily /}-\/split filename, and match it against a single row in the {\ttfamily reg\+Exp\+Set}. This method is mainly for internal use, but is exposed so that it can be used by a glob-\/walker that needs to avoid excessive filesystem calls.
+\end{DoxyItemize}
+
+All other methods are internal, and will be called as necessary.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1728}{}\doxysubsection{\texorpdfstring{minimatch(path, pattern, options)}{minimatch(path, pattern, options)}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1728}
+Main export. Tests a path against the pattern using the options.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ isJS\ =\ minimatch(file,\ "{}*.js"{},\ \{\ matchBase:\ true\ \})}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1729}{}\doxysubsection{\texorpdfstring{minimatch.\+filter(pattern, options)}{minimatch.filter(pattern, options)}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1729}
+Returns a function that tests its supplied argument, suitable for use with {\ttfamily Array.\+filter}. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ javascripts\ =\ fileList.filter(minimatch.filter("{}*.js"{},\ \{matchBase:\ true\}))}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1730}{}\doxysubsection{\texorpdfstring{minimatch.\+match(list, pattern, options)}{minimatch.match(list, pattern, options)}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1730}
+Match against the list of files, in the style of fnmatch or glob. If nothing is matched, and options.\+nonull is set, then return a list containing the pattern itself.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ javascripts\ =\ minimatch.match(fileList,\ "{}*.js"{},\ \{matchBase:\ true\}))}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1731}{}\doxysubsection{\texorpdfstring{minimatch.\+make\+Re(pattern, options)}{minimatch.makeRe(pattern, options)}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1731}
+Make a regular expression object from the pattern.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1732}{}\doxysection{\texorpdfstring{Options}{Options}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1732}
+All options are {\ttfamily false} by default.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1733}{}\doxysubsection{\texorpdfstring{debug}{debug}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1733}
+Dump a ton of stuff to stderr.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1734}{}\doxysubsection{\texorpdfstring{nobrace}{nobrace}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1734}
+Do not expand {\ttfamily \{a,b\}} and {\ttfamily \{1..3\}} brace sets.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1735}{}\doxysubsection{\texorpdfstring{noglobstar}{noglobstar}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1735}
+Disable {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}} matching against multiple folder names.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1736}{}\doxysubsection{\texorpdfstring{dot}{dot}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1736}
+Allow patterns to match filenames starting with a period, even if the pattern does not explicitly have a period in that spot.
+
+Note that by default, {\ttfamily a/\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}/b} will {\bfseries{not}} match {\ttfamily a/.d/b}, unless {\ttfamily dot} is set.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1737}{}\doxysubsection{\texorpdfstring{noext}{noext}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1737}
+Disable "{}extglob"{} style patterns like {\ttfamily +(a\texorpdfstring{$\vert$}{|}b)}.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1738}{}\doxysubsection{\texorpdfstring{nocase}{nocase}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1738}
+Perform a case-\/insensitive match.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1739}{}\doxysubsection{\texorpdfstring{nonull}{nonull}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1739}
+When a match is not found by {\ttfamily minimatch.\+match}, return a list containing the pattern itself if this option is set. When not set, an empty list is returned if there are no matches.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1740}{}\doxysubsection{\texorpdfstring{match\+Base}{matchBase}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1740}
+If set, then patterns without slashes will be matched against the basename of the path if it contains slashes. For example, {\ttfamily a?b} would match the path {\ttfamily /xyz/123/acb}, but not {\ttfamily /xyz/acb/123}.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1741}{}\doxysubsection{\texorpdfstring{nocomment}{nocomment}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1741}
+Suppress the behavior of treating {\ttfamily \#} at the start of a pattern as a comment.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1742}{}\doxysubsection{\texorpdfstring{nonegate}{nonegate}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1742}
+Suppress the behavior of treating a leading {\ttfamily !} character as negation.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1743}{}\doxysubsection{\texorpdfstring{flip\+Negate}{flipNegate}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1743}
+Returns from negate expressions the same as if they were not negated. (Ie, true on a hit, false on a miss.)\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1744}{}\doxysubsection{\texorpdfstring{partial}{partial}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1744}
+Compare a partial path to a pattern. As long as the parts of the path that are present are not contradicted by the pattern, it will be treated as a match. This is useful in applications where you\textquotesingle{}re walking through a folder structure, and don\textquotesingle{}t yet have the full path, but want to ensure that you do not walk down paths that can never be a match.
+
+For example,
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{minimatch('/a/b',\ '/a/*/c/d',\ \{\ partial:\ true\ \})\ \ //\ true,\ might\ be\ /a/b/c/d}
+\DoxyCodeLine{minimatch('/a/b',\ '/**/d',\ \{\ partial:\ true\ \})\ \ \ \ \ //\ true,\ might\ be\ /a/b/.../d}
+\DoxyCodeLine{minimatch('/x/y/z',\ '/a/**/z',\ \{\ partial:\ true\ \})\ //\ false,\ because\ x\ !==\ a}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1745}{}\doxysubsection{\texorpdfstring{allow\+Windows\+Escape}{allowWindowsEscape}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1745}
+Windows path separator {\ttfamily \textbackslash{}} is by default converted to {\ttfamily /}, which prohibits the usage of {\ttfamily \textbackslash{}} as a escape character. This flag skips that behavior and allows using the escape character.\hypertarget{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1746}{}\doxysection{\texorpdfstring{Comparisons to other fnmatch/glob implementations}{Comparisons to other fnmatch/glob implementations}}\label{md_Dashboard_2node__modules_2minimatch_2README_autotoc_md1746}
+While strict compliance with the existing standards is a worthwhile goal, some discrepancies exist between minimatch and other implementations, and are intentional.
+
+If the pattern starts with a {\ttfamily !} character, then it is negated. Set the {\ttfamily nonegate} flag to suppress this behavior, and treat leading {\ttfamily !} characters normally. This is perhaps relevant if you wish to start the pattern with a negative extglob pattern like {\ttfamily !(a\texorpdfstring{$\vert$}{|}B)}. Multiple {\ttfamily !} characters at the start of a pattern will negate the pattern multiple times.
+
+If a pattern starts with {\ttfamily \#}, then it is treated as a comment, and will not match anything. Use {\ttfamily \textbackslash{}\#} to match a literal {\ttfamily \#} at the start of a line, or set the {\ttfamily nocomment} flag to suppress this behavior.
+
+The double-\/star character {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}} is supported by default, unless the {\ttfamily noglobstar} flag is set. This is supported in the manner of bsdglob and bash 4.\+1, where {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}} only has special significance if it is the only thing in a path part. That is, {\ttfamily a/\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}/b} will match {\ttfamily a/x/y/b}, but {\ttfamily a/\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}b} will not.
+
+If an escaped pattern has no matches, and the {\ttfamily nonull} flag is set, then minimatch.\+match returns the pattern as-\/provided, rather than interpreting the character escapes. For example, {\ttfamily minimatch.\+match(\mbox{[}\mbox{]}, "{}\textbackslash{}\textbackslash{}\texorpdfstring{$\ast$}{*}a\textbackslash{}\textbackslash{}?"{})} will return {\ttfamily "{}\textbackslash{}\textbackslash{}\texorpdfstring{$\ast$}{*}a\textbackslash{}\textbackslash{}?"{}} rather than {\ttfamily "{}\texorpdfstring{$\ast$}{*}a?"{}}. This is akin to setting the {\ttfamily nullglob} option in bash, except that it does not resolve escaped pattern characters.
+
+If brace expansion is not disabled, then it is performed before any other interpretation of the glob pattern. Thus, a pattern like {\ttfamily +(a\texorpdfstring{$\vert$}{|}\{b),c)\}}, which would not be valid in bash or zsh, is expanded {\bfseries{first}} into the set of {\ttfamily +(a\texorpdfstring{$\vert$}{|}b)} and {\ttfamily +(a\texorpdfstring{$\vert$}{|}c)}, and those patterns are checked for validity. Since those two are valid, matching proceeds. 

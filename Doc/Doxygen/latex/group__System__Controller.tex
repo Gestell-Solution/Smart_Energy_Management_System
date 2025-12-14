@@ -1,0 +1,172 @@
+\doxysubsection{System\+\_\+\+Controller}
+\hypertarget{group__System__Controller}{}\label{group__System__Controller}\index{System\_Controller@{System\_Controller}}
+Collaboration diagram for System\+\_\+\+Controller\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__System__Controller}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__File__Inclusion}{File\+\_\+\+Inclusion}}
+\begin{DoxyCompactList}\small\item\em File Inclusion Section. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__SystemControllerStructures}{System\+Controller\+Structures}}
+\begin{DoxyCompactList}\small\item\em Structure of data used by the System\+Controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__System__Controller_ga4b41755353c1ba49225f623bd2f46006}{App\+\_\+\+System\+Controller\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the System Controller and all dependent subsystems. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__System__Controller_ga2cdb26a8874f832e8e53e68d2cea901d}{App\+\_\+\+System\+Controller\+\_\+\+Update}} (void)
+\begin{DoxyCompactList}\small\item\em Periodic Update Task for the System Controller. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__System__Controller_ga26d1fa89b824d5ac6b73958242885fbe}{App\+\_\+\+System\+Controller\+\_\+\+Handle\+Event}} (\mbox{\hyperlink{structSystemEvent__t}{System\+Event\+\_\+t}} Action)
+\begin{DoxyCompactList}\small\item\em Handles system events and executes corresponding actions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structSystemState__t}{System\+State\+\_\+t}} \mbox{\hyperlink{group__System__Controller_gafcac341ea279787102859d84cbef2dd8}{App\+\_\+\+System\+Controller\+\_\+\+Get\+State}} (void)
+\begin{DoxyCompactList}\small\item\em Gets the current system state snapshot. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+\doxysubsubsection{Function Documentation}
+\Hypertarget{group__System__Controller_gafcac341ea279787102859d84cbef2dd8}\label{group__System__Controller_gafcac341ea279787102859d84cbef2dd8} 
+\index{System\_Controller@{System\_Controller}!App\_SystemController\_GetState@{App\_SystemController\_GetState}}
+\index{App\_SystemController\_GetState@{App\_SystemController\_GetState}!System\_Controller@{System\_Controller}}
+\doxysubsubsubsection{\texorpdfstring{App\_SystemController\_GetState()}{App\_SystemController\_GetState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structSystemState__t}{System\+State\+\_\+t}} App\+\_\+\+System\+Controller\+\_\+\+Get\+State (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Gets the current system state snapshot. 
+
+Updates the string formatting of data before returning. \begin{DoxyReturn}{Returns}
+\doxylink{structSystemState__t}{System\+State\+\_\+t} Current system state structure. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__System__Controller_gafcac341ea279787102859d84cbef2dd8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__System__Controller_gafcac341ea279787102859d84cbef2dd8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__System__Controller_ga26d1fa89b824d5ac6b73958242885fbe}\label{group__System__Controller_ga26d1fa89b824d5ac6b73958242885fbe} 
+\index{System\_Controller@{System\_Controller}!App\_SystemController\_HandleEvent@{App\_SystemController\_HandleEvent}}
+\index{App\_SystemController\_HandleEvent@{App\_SystemController\_HandleEvent}!System\_Controller@{System\_Controller}}
+\doxysubsubsubsection{\texorpdfstring{App\_SystemController\_HandleEvent()}{App\_SystemController\_HandleEvent()}}
+{\footnotesize\ttfamily void App\+\_\+\+System\+Controller\+\_\+\+Handle\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSystemEvent__t}{System\+Event\+\_\+t}}}]{Action }\end{DoxyParamCaption})}
+
+
+
+Handles system events and executes corresponding actions. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em Action} & \doxylink{structSystemEvent__t}{System\+Event\+\_\+t} structure containing Event ID and Command ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__System__Controller_ga26d1fa89b824d5ac6b73958242885fbe_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__System__Controller_ga26d1fa89b824d5ac6b73958242885fbe_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__System__Controller_ga4b41755353c1ba49225f623bd2f46006}\label{group__System__Controller_ga4b41755353c1ba49225f623bd2f46006} 
+\index{System\_Controller@{System\_Controller}!App\_SystemController\_Init@{App\_SystemController\_Init}}
+\index{App\_SystemController\_Init@{App\_SystemController\_Init}!System\_Controller@{System\_Controller}}
+\doxysubsubsubsection{\texorpdfstring{App\_SystemController\_Init()}{App\_SystemController\_Init()}}
+{\footnotesize\ttfamily void App\+\_\+\+System\+Controller\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the System Controller and all dependent subsystems. 
+
+
+\begin{DoxyEnumerate}
+\item Sets initial state to INIT.
+\begin{DoxyEnumerate}
+\item Calls Init functions for DM, PM, ME, System\+Data, Comm, and Energy\+Logger.
+\item Loads initial state from Energy\+Logger/\+EEPROM.
+\item Sets system to NORMAL state and Automatic mode.
+\item Starts the main scheduler task (Timer0). \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyEnumerate}
+\end{DoxyEnumerate}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__System__Controller_ga4b41755353c1ba49225f623bd2f46006_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__System__Controller_ga4b41755353c1ba49225f623bd2f46006_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__System__Controller_ga2cdb26a8874f832e8e53e68d2cea901d}\label{group__System__Controller_ga2cdb26a8874f832e8e53e68d2cea901d} 
+\index{System\_Controller@{System\_Controller}!App\_SystemController\_Update@{App\_SystemController\_Update}}
+\index{App\_SystemController\_Update@{App\_SystemController\_Update}!System\_Controller@{System\_Controller}}
+\doxysubsubsubsection{\texorpdfstring{App\_SystemController\_Update()}{App\_SystemController\_Update()}}
+{\footnotesize\ttfamily void App\+\_\+\+System\+Controller\+\_\+\+Update (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Periodic Update Task for the System Controller. 
+
+This function is called periodically (scheduled by Timer0).
+\begin{DoxyItemize}
+\item Manages the Recovery State timer.
+\item Updates Measurements and UI.
+\item Checks Protection status and triggers State Transitions (Normal \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} Overload).
+\item Checks HMI (Button) for Mode toggling. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__System__Controller_ga2cdb26a8874f832e8e53e68d2cea901d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__System__Controller_ga2cdb26a8874f832e8e53e68d2cea901d_icgraph}
+\end{center}
+\end{figure}
+\input{group__File__Inclusion}
+\input{group__SystemControllerStructures}

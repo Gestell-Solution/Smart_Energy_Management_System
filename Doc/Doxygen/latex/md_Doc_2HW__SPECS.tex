@@ -1,0 +1,158 @@
+\chapter{Smart Energy Management System – Hardware Specifications}
+\hypertarget{md_Doc_2HW__SPECS}{}\label{md_Doc_2HW__SPECS}\index{Smart Energy Management System – Hardware Specifications@{Smart Energy Management System – Hardware Specifications}}
+\label{md_Doc_2HW__SPECS_autotoc_md3450}%
+\Hypertarget{md_Doc_2HW__SPECS_autotoc_md3450}%
+ \hypertarget{md_Doc_2HW__SPECS_autotoc_md3451}{}\doxysection{\texorpdfstring{1. Microcontroller Unit (\+MCU)}{1. Microcontroller Unit (MCU)}}\label{md_Doc_2HW__SPECS_autotoc_md3451}
+
+\begin{DoxyItemize}
+\item {\bfseries{Model\+:}} ATmega32 ~\newline
+
+\item {\bfseries{Clock Frequency\+:}} 8 MHz (external crystal) ~\newline
+
+\item {\bfseries{ADC Resolution\+:}} 10-\/bit ~\newline
+
+\item {\bfseries{Supply Voltage\+:}} 5V ~\newline
+
+\item {\bfseries{Key Features Used\+:}} ~\newline
+
+\begin{DoxyItemize}
+\item ADC channels (for current \& voltage sensing) ~\newline
+
+\item DIO (for relay, buzzer, LCD, Bluetooth, Wi\+Fi) ~\newline
+
+\item UART (for HC-\/05 \& ESP8266 communication) ~\newline
+
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2HW__SPECS_autotoc_md3453}{}\doxysection{\texorpdfstring{2. Sensors \& Measurement}{2. Sensors \& Measurement}}\label{md_Doc_2HW__SPECS_autotoc_md3453}
+
+\begin{DoxyItemize}
+\item {\bfseries{Current Sensor\+:}} ACS712 (30A version) ~\newline
+
+\begin{DoxyItemize}
+\item Measurement Range\+: ±30A ~\newline
+
+\item Sensitivity\+: 66 m\+V/A ~\newline
+
+\item Output\+: Analog voltage centered at Vcc/2 (2.\+5V at 0A) ~\newline
+
+\end{DoxyItemize}
+\item {\bfseries{Voltage Measurement\+:}} Resistive Voltage Divider ~\newline
+
+\begin{DoxyItemize}
+\item Input\+: 220VAC (scaled down to \texorpdfstring{$<$}{<}5V for ADC input) ~\newline
+
+\item Divider resistors rated for high voltage and power dissipation ~\newline
+
+\item Isolation and filtering recommended (RC low-\/pass filter) ~\newline
+
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2HW__SPECS_autotoc_md3455}{}\doxysection{\texorpdfstring{3. Output \& Actuators}{3. Output \& Actuators}}\label{md_Doc_2HW__SPECS_autotoc_md3455}
+
+\begin{DoxyItemize}
+\item {\bfseries{Relay Module\+:}} ~\newline
+
+\begin{DoxyItemize}
+\item Rated\+: 250VAC, 10A ~\newline
+
+\item Control\+: 5V coil driven by MCU via transistor driver ~\newline
+
+\end{DoxyItemize}
+\item {\bfseries{Buzzer\+:}} ~\newline
+
+\begin{DoxyItemize}
+\item 5V active buzzer for overload alert ~\newline
+
+\end{DoxyItemize}
+\item {\bfseries{LCD Display\+:}} ~\newline
+
+\begin{DoxyItemize}
+\item 16x4 character LCD (HD44780 compatible) ~\newline
+
+\item Interface\+: 4-\/bit parallel mode ~\newline
+
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2HW__SPECS_autotoc_md3457}{}\doxysection{\texorpdfstring{4. Communication Modules}{4. Communication Modules}}\label{md_Doc_2HW__SPECS_autotoc_md3457}
+
+\begin{DoxyItemize}
+\item {\bfseries{Bluetooth\+:}} HC-\/05 ~\newline
+
+\begin{DoxyItemize}
+\item Interface\+: UART (9600 bps default) ~\newline
+
+\item Range\+: \texorpdfstring{$\sim$}{\string~}10m ~\newline
+
+\end{DoxyItemize}
+\item {\bfseries{Wi\+Fi\+:}} ESP8266 (ESP-\/01 or Node\+MCU) ~\newline
+
+\begin{DoxyItemize}
+\item Interface\+: UART (to ATmega32) ~\newline
+
+\item Wi\+Fi Standard\+: IEEE 802.\+11 b/g/n ~\newline
+
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2HW__SPECS_autotoc_md3459}{}\doxysection{\texorpdfstring{5. Power Supply}{5. Power Supply}}\label{md_Doc_2HW__SPECS_autotoc_md3459}
+
+\begin{DoxyItemize}
+\item {\bfseries{Input\+:}} 220VAC ~\newline
+
+\item {\bfseries{Conversion\+:}} ~\newline
+
+\begin{DoxyItemize}
+\item Step-\/down transformer + rectifier + regulator, or SMPS module (5V DC output) ~\newline
+
+\item Power rating\+: ≥ 1A to supply MCU + sensors + modules ~\newline
+
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2HW__SPECS_autotoc_md3461}{}\doxysection{\texorpdfstring{6. Pin Mapping}{6. Pin Mapping}}\label{md_Doc_2HW__SPECS_autotoc_md3461}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Component   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MCU Pin (ATmega32)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Notes    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Component   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MCU Pin (ATmega32)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Notes    }\\\cline{1-3}
+\endhead
+ACS712 Current   &PA0 (ADC0)   &Analog input    \\\cline{1-3}
+Voltage Divider   &PA1 (ADC1)   &Analog input    \\\cline{1-3}
+LCD Data D4–\+D7   &PC0–\+PC3   &4-\/bit data lines    \\\cline{1-3}
+LCD RS   &PC4   &Register Select    \\\cline{1-3}
+LCD EN   &PC5   &Enable pin    \\\cline{1-3}
+Relay Control   &PD4   &Output via transistor    \\\cline{1-3}
+Buzzer   &PD5   &Output    \\\cline{1-3}
+LED Indicator   &PD6   &Output (status alert)    \\\cline{1-3}
+Push Button   &PD2   &Input (user control)    \\\cline{1-3}
+HC-\/05 Bluetooth   &PD0 (RX), PD1 (TX)   &UART0 communication    \\\cline{1-3}
+ESP8266 Wi\+Fi   &UART1 / Soft UART   &Serial communication   \\\cline{1-3}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2HW__SPECS_autotoc_md3463}{}\doxysection{\texorpdfstring{7. Safety Considerations}{7. Safety Considerations}}\label{md_Doc_2HW__SPECS_autotoc_md3463}
+
+\begin{DoxyItemize}
+\item Use proper isolation for high-\/voltage AC measurement. ~\newline
+
+\item Add fuses/circuit breakers to protect hardware. ~\newline
+
+\item Ensure relay contacts are rated for expected load. ~\newline
+
+\item Proper grounding for user and device safety. ~\newline
+ 
+\end{DoxyItemize}

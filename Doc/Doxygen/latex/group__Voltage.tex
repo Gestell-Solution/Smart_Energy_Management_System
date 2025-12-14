@@ -1,0 +1,132 @@
+\doxysubsubsection{Sensor Api\textquotesingle{}s}
+\hypertarget{group__Voltage}{}\label{group__Voltage}\index{Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}}
+
+
+This section contains the APIs for the Voltage Sensor module.  
+
+
+Collaboration diagram for Sensor Api\textquotesingle{}s\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{group__Voltage}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Voltage_gab5083e254fc6090bf64e2ae245efd3ec}{h\+Voltage\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the voltage measurement module. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{group__Voltage_ga9bb23944586c4dfa010b2d3807f20b08}{h\+Voltage\+\_\+\+Read\+Instant}} (void)
+\begin{DoxyCompactList}\small\item\em Reads the instantaneous voltage value. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{group__Voltage_ga6bad716151d943b05a9aef027725fea3}{h\+Voltage\+\_\+\+Read\+RMS}} ()
+\begin{DoxyCompactList}\small\item\em Reads the RMS voltage value over a specified number of samples. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Voltage_ga620b978ad822332f33a93bef9188777d}{h\+Voltage\+\_\+\+Calibrate}} (float ref)
+\item 
+void \mbox{\hyperlink{group__Voltage_ga16ae18bec85337570e1d5e7e6ee06166}{h\+Voltage\+\_\+\+Callback}} (uint16\+\_\+t dummy)
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsection{Detailed Description}
+This section contains the APIs for the Voltage Sensor module. 
+
+
+
+\doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__Voltage_ga620b978ad822332f33a93bef9188777d}\label{group__Voltage_ga620b978ad822332f33a93bef9188777d} 
+\index{Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}!hVoltage\_Calibrate@{hVoltage\_Calibrate}}
+\index{hVoltage\_Calibrate@{hVoltage\_Calibrate}!Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}}
+\doxysubsubsubsubsection{\texorpdfstring{hVoltage\_Calibrate()}{hVoltage\_Calibrate()}}
+{\footnotesize\ttfamily void h\+Voltage\+\_\+\+Calibrate (\begin{DoxyParamCaption}\item[{float}]{ref }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Voltage_ga620b978ad822332f33a93bef9188777d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Voltage_ga16ae18bec85337570e1d5e7e6ee06166}\label{group__Voltage_ga16ae18bec85337570e1d5e7e6ee06166} 
+\index{Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}!hVoltage\_Callback@{hVoltage\_Callback}}
+\index{hVoltage\_Callback@{hVoltage\_Callback}!Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}}
+\doxysubsubsubsubsection{\texorpdfstring{hVoltage\_Callback()}{hVoltage\_Callback()}}
+{\footnotesize\ttfamily void h\+Voltage\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{dummy }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Voltage_ga16ae18bec85337570e1d5e7e6ee06166_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Voltage_gab5083e254fc6090bf64e2ae245efd3ec}\label{group__Voltage_gab5083e254fc6090bf64e2ae245efd3ec} 
+\index{Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}!hVoltage\_Init@{hVoltage\_Init}}
+\index{hVoltage\_Init@{hVoltage\_Init}!Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}}
+\doxysubsubsubsubsection{\texorpdfstring{hVoltage\_Init()}{hVoltage\_Init()}}
+{\footnotesize\ttfamily h\+Voltage\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the voltage measurement module. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Voltage_gab5083e254fc6090bf64e2ae245efd3ec_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Voltage_gab5083e254fc6090bf64e2ae245efd3ec_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Voltage_ga9bb23944586c4dfa010b2d3807f20b08}\label{group__Voltage_ga9bb23944586c4dfa010b2d3807f20b08} 
+\index{Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}!hVoltage\_ReadInstant@{hVoltage\_ReadInstant}}
+\index{hVoltage\_ReadInstant@{hVoltage\_ReadInstant}!Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}}
+\doxysubsubsubsubsection{\texorpdfstring{hVoltage\_ReadInstant()}{hVoltage\_ReadInstant()}}
+{\footnotesize\ttfamily h\+Voltage\+\_\+\+Read\+Instant (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Reads the instantaneous voltage value. 
+
+This function reads the instantaneous voltage value from the ADC Voltage Pin \begin{DoxyReturn}{Returns}
+Returns a Floating Value of the Instantaneous Voltage Value in Volts (V) 
+\end{DoxyReturn}
+\Hypertarget{group__Voltage_ga6bad716151d943b05a9aef027725fea3}\label{group__Voltage_ga6bad716151d943b05a9aef027725fea3} 
+\index{Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}!hVoltage\_ReadRMS@{hVoltage\_ReadRMS}}
+\index{hVoltage\_ReadRMS@{hVoltage\_ReadRMS}!Sensor Api\textquotesingle{}s@{Sensor Api\textquotesingle{}s}}
+\doxysubsubsubsubsection{\texorpdfstring{hVoltage\_ReadRMS()}{hVoltage\_ReadRMS()}}
+{\footnotesize\ttfamily h\+Voltage\+\_\+\+Read\+RMS (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Reads the RMS voltage value over a specified number of samples. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em samples} & The number of samples to average for RMS calculation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a Floating Value of the RMS Voltage Value in Volts (V) 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Execution Time =10.\+4ms for 100 Samples At 8 MHz and ADC prescaler 64 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Voltage_ga6bad716151d943b05a9aef027725fea3_icgraph}
+\end{center}
+\end{figure}

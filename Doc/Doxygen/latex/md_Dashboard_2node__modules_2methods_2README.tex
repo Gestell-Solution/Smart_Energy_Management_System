@@ -1,0 +1,30 @@
+\chapter{Methods}
+\hypertarget{md_Dashboard_2node__modules_2methods_2README}{}\label{md_Dashboard_2node__modules_2methods_2README}\index{Methods@{Methods}}
+\label{md_Dashboard_2node__modules_2methods_2README_autotoc_md1533}%
+\Hypertarget{md_Dashboard_2node__modules_2methods_2README_autotoc_md1533}%
+ \href{https://npmjs.org/package/methods}{\texttt{ }} \href{https://npmjs.org/package/methods}{\texttt{ }} \href{https://nodejs.org/en/download/}{\texttt{ }} \href{https://travis-ci.org/jshttp/methods}{\texttt{ }} \href{https://coveralls.io/r/jshttp/methods?branch=master}{\texttt{ }}
+
+HTTP verbs that Node.\+js core\textquotesingle{}s HTTP parser supports.
+
+This module provides an export that is just like {\ttfamily http.\+METHODS} from Node.\+js core, with the following differences\+:
+
+
+\begin{DoxyItemize}
+\item All method names are lower-\/cased.
+\item Contains a fallback list of methods for Node.\+js versions that do not have a {\ttfamily http.\+METHODS} export (0.\+10 and lower).
+\item Provides the fallback list when using tools like {\ttfamily browserify} without pulling in the {\ttfamily http} shim module.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2methods_2README_autotoc_md1534}{}\doxysection{\texorpdfstring{Install}{Install}}\label{md_Dashboard_2node__modules_2methods_2README_autotoc_md1534}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ methods}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2methods_2README_autotoc_md1535}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2methods_2README_autotoc_md1535}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ methods\ =\ require('methods')}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2methods_2README_autotoc_md1536}{}\doxysubsection{\texorpdfstring{methods}{methods}}\label{md_Dashboard_2node__modules_2methods_2README_autotoc_md1536}
+This is an array of lower-\/cased method names that Node.\+js supports. If Node.\+js provides the {\ttfamily http.\+METHODS} export, then this is the same array lower-\/cased, otherwise it is a snapshot of the verbs from Node.\+js 0.\+10.\hypertarget{md_Dashboard_2node__modules_2methods_2README_autotoc_md1537}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2methods_2README_autotoc_md1537}
+\mbox{[}MIT\mbox{]}(LICENSE) 

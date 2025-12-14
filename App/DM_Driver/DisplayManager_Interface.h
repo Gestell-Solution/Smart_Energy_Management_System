@@ -13,6 +13,14 @@
 #ifndef DISPLAYMANAGER_INTERFACE_H_
 #define DISPLAYMANAGER_INTERFACE_H_
 
+/**
+ * @addtogroup App
+ * @{
+ * @addtogroup Display_Manager
+ * @{
+ */
+
+
 #include <stdint.h>
 
 
@@ -54,5 +62,11 @@ void DM_ShowProtectionState(uint8_t isTripped);
  * @param msg Null-terminated C string to display.
  */
 void DM_ShowMessage(const char *msg);
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /* DISPLAYMANAGER_INTERFACE_H_ */

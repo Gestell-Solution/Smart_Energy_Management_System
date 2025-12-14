@@ -1,0 +1,151 @@
+\doxysection{Dashboard/node\+\_\+modules/node-\/addon-\/api/napi-\/inl.h File Reference}
+\hypertarget{napi-inl_8h}{}\label{napi-inl_8h}\index{Dashboard/node\_modules/node-\/addon-\/api/napi-\/inl.h@{Dashboard/node\_modules/node-\/addon-\/api/napi-\/inl.h}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include "{}napi-\/inl.\+deprecated.\+h"{}}\newline
+Include dependency graph for napi-\/inl.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{napi-inl_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{napi-inl_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1CallbackData}{Napi\+::details\+::\+Callback\+Data$<$ Callable, Return $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1CallbackData_3_01Callable_00_01void_01_4}{Napi\+::details\+::\+Callback\+Data$<$ Callable, void $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1FinalizeData}{Napi\+::details\+::\+Finalize\+Data$<$ T, Finalizer, Hint $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1AccessorCallbackData}{Napi\+::details\+::\+Accessor\+Callback\+Data$<$ Getter, Setter $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__number}{Napi\+::details\+::vf\+\_\+number$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__number_3_01bool_01_4}{Napi\+::details\+::vf\+\_\+number$<$ bool $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__utf8__charp}{Napi\+::details\+::vf\+\_\+utf8\+\_\+charp}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__utf16__charp}{Napi\+::details\+::vf\+\_\+utf16\+\_\+charp}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__utf8__string}{Napi\+::details\+::vf\+\_\+utf8\+\_\+string}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__utf16__string}{Napi\+::details\+::vf\+\_\+utf16\+\_\+string}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__fallback}{Napi\+::details\+::vf\+\_\+fallback$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1disjunction}{Napi\+::details\+::disjunction$<$... $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1disjunction_3_01B_01_4}{Napi\+::details\+::disjunction$<$ B $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1disjunction_3_01B_00_01Bs_8_8_8_01_4}{Napi\+::details\+::disjunction$<$ B, Bs... $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1can__make__string}{Napi\+::details\+::can\+\_\+make\+\_\+string$<$ T $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceNapi}{Napi}}
+\item 
+namespace \mbox{\hyperlink{namespaceNapi_1_1details}{Napi\+::details}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{napi-inl_8h_a92ffc354ab88373c30d4d65f04b0c1b1}{NODE\+\_\+\+API\+\_\+\+MODULE}}(modname,  regfunc)
+\item 
+\#define \mbox{\hyperlink{napi-inl_8h_a87fea2da79df8b637f1445e3257bcccc}{NODE\+\_\+\+API\+\_\+\+NAMED\+\_\+\+ADDON}}(modname,  classname)
+\item 
+\#define \mbox{\hyperlink{napi-inl_8h_a881e505277a01355bac20d13b2ac84b2}{NODE\+\_\+\+API\+\_\+\+ADDON}}(classname)~  \mbox{\hyperlink{napi-inl_8h_a87fea2da79df8b637f1445e3257bcccc}{NODE\+\_\+\+API\+\_\+\+NAMED\+\_\+\+ADDON}}(NODE\+\_\+\+GYP\+\_\+\+MODULE\+\_\+\+NAME, classname)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Free\+Type $>$ }\\napi\+\_\+status \mbox{\hyperlink{namespaceNapi_1_1details_ae8d3b8bf05a5a55f5cdf2104ee095b02}{Napi\+::details\+::\+Attach\+Data}} (napi\+\_\+env env, napi\+\_\+value obj, Free\+Type \texorpdfstring{$\ast$}{*}data, napi\+\_\+finalize finalizer=nullptr, void \texorpdfstring{$\ast$}{*}hint=nullptr)
+\item 
+{\footnotesize template$<$typename Callable $>$ }\\napi\+\_\+value \mbox{\hyperlink{namespaceNapi_1_1details_ad7dfc06e482555ea99ae09b2e55bc79d}{Napi\+::details\+::\+Wrap\+Callback}} (Callable callback)
+\item 
+{\footnotesize template$<$typename Callable $>$ }\\void \mbox{\hyperlink{namespaceNapi_1_1details_a3b92109504231e15075d3c7d93bfc8bb}{Napi\+::details\+::\+Wrap\+Void\+Callback}} (Callable callback)
+\item 
+{\footnotesize template$<$void(\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Callback$>$ }\\napi\+\_\+value \mbox{\hyperlink{namespaceNapi_1_1details_a17cfac33705c623011cfd42ba52de380}{Napi\+::details\+::\+Templated\+Void\+Callback}} (napi\+\_\+env env, napi\+\_\+callback\+\_\+info info) \mbox{\hyperlink{napi_8h_a0549e8092c78a35134e6b34510dfb277}{NAPI\+\_\+\+NOEXCEPT}}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}}(\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Callback$>$ }\\napi\+\_\+value \mbox{\hyperlink{namespaceNapi_1_1details_a32d741b379db2e6e3ac8dbe1d5fb2968}{Napi\+::details\+::\+Templated\+Callback}} (napi\+\_\+env env, napi\+\_\+callback\+\_\+info info) \mbox{\hyperlink{napi_8h_a0549e8092c78a35134e6b34510dfb277}{NAPI\+\_\+\+NOEXCEPT}}
+\item 
+{\footnotesize template$<$typename T , \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}}(T\+::\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Unwrap\+Callback$>$ }\\napi\+\_\+value \mbox{\hyperlink{namespaceNapi_1_1details_af616a966dd94b3cb1272bc7864623eba}{Napi\+::details\+::\+Templated\+Instance\+Callback}} (napi\+\_\+env env, napi\+\_\+callback\+\_\+info info) \mbox{\hyperlink{napi_8h_a0549e8092c78a35134e6b34510dfb277}{NAPI\+\_\+\+NOEXCEPT}}
+\item 
+{\footnotesize template$<$typename T , void(T\+::\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Unwrap\+Callback$>$ }\\napi\+\_\+value \mbox{\hyperlink{namespaceNapi_1_1details_aa75f927fdfd3fcb5ca56c8fdc83b3017}{Napi\+::details\+::\+Templated\+Instance\+Void\+Callback}} (napi\+\_\+env env, napi\+\_\+callback\+\_\+info info) \mbox{\hyperlink{napi_8h_a0549e8092c78a35134e6b34510dfb277}{NAPI\+\_\+\+NOEXCEPT}}
+\item 
+napi\+\_\+value \mbox{\hyperlink{namespaceNapi_a5858c5e2c78b25d80e4d582820dda0a8}{Napi\+::\+Register\+Module}} (napi\+\_\+env env, napi\+\_\+value exports, \mbox{\hyperlink{namespaceNapi_a107b0fd2da2143e8a852a5dee321d7af}{Module\+Register\+Callback}} register\+Callback)
+\item 
+{\footnotesize template$<$class T $>$ }\\\mbox{\hyperlink{classNapi_1_1Maybe}{Maybe}}$<$ T $>$ \mbox{\hyperlink{namespaceNapi_a3c618299a5897ce91a0beac8ae638270}{Napi\+::\+Nothing}} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\\mbox{\hyperlink{classNapi_1_1Maybe}{Maybe}}$<$ T $>$ \mbox{\hyperlink{namespaceNapi_ae4cf10cf596c741e63d580a9c94994fc}{Napi\+::\+Just}} (const T \&t)
+\item 
+{\footnotesize template$<$typename Cb\+Data $>$ }\\napi\+\_\+status \mbox{\hyperlink{namespaceNapi_aa7c97a3e0f9fd5d300951ecb5be65acd}{Napi\+::\+Create\+Function}} (napi\+\_\+env env, const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+callback cb, Cb\+Data \texorpdfstring{$\ast$}{*}data, napi\+\_\+value \texorpdfstring{$\ast$}{*}result)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \mbox{\hyperlink{namespaceNapi_ad03d3764cacb28ab23ca74f9a43874ff}{Napi\+::\+Weak}} (T value)
+\item 
+\mbox{\hyperlink{classNapi_1_1ObjectReference}{Object\+Reference}} \mbox{\hyperlink{namespaceNapi_ac06be81345bc300f4609054bad4dd590}{Napi\+::\+Weak}} (\mbox{\hyperlink{classNapi_1_1Object}{Object}} value)
+\item 
+\mbox{\hyperlink{classNapi_1_1FunctionReference}{Function\+Reference}} \mbox{\hyperlink{namespaceNapi_a6cfcc3182161447b506a50644433be4b}{Napi\+::\+Weak}} (\mbox{\hyperlink{classNapi_1_1Function}{Function}} value)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \mbox{\hyperlink{namespaceNapi_a5a4b6e9efd6b3ee6094746b2b4034918}{Napi\+::\+Persistent}} (T value)
+\item 
+\mbox{\hyperlink{classNapi_1_1ObjectReference}{Object\+Reference}} \mbox{\hyperlink{namespaceNapi_afd8d8d051af2a213f5dd6c5a46cc6ddc}{Napi\+::\+Persistent}} (\mbox{\hyperlink{classNapi_1_1Object}{Object}} value)
+\item 
+\mbox{\hyperlink{classNapi_1_1FunctionReference}{Function\+Reference}} \mbox{\hyperlink{namespaceNapi_ae260b4f01cc7939ad013cdf3e269a8aa}{Napi\+::\+Persistent}} (\mbox{\hyperlink{classNapi_1_1Function}{Function}} value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr int \mbox{\hyperlink{namespaceNapi_1_1details_a176173100099bf0be393d0c388c0b8cf}{Napi\+::details\+::napi\+\_\+no\+\_\+external\+\_\+buffers\+\_\+allowed}} = 22
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{napi-inl_8h_a881e505277a01355bac20d13b2ac84b2}\label{napi-inl_8h_a881e505277a01355bac20d13b2ac84b2} 
+\index{napi-\/inl.h@{napi-\/inl.h}!NODE\_API\_ADDON@{NODE\_API\_ADDON}}
+\index{NODE\_API\_ADDON@{NODE\_API\_ADDON}!napi-\/inl.h@{napi-\/inl.h}}
+\doxysubsubsection{\texorpdfstring{NODE\_API\_ADDON}{NODE\_API\_ADDON}}
+{\footnotesize\ttfamily \#define NODE\+\_\+\+API\+\_\+\+ADDON(\begin{DoxyParamCaption}\item[{}]{classname }\end{DoxyParamCaption})~  \mbox{\hyperlink{napi-inl_8h_a87fea2da79df8b637f1445e3257bcccc}{NODE\+\_\+\+API\+\_\+\+NAMED\+\_\+\+ADDON}}(NODE\+\_\+\+GYP\+\_\+\+MODULE\+\_\+\+NAME, classname)}
+
+\Hypertarget{napi-inl_8h_a92ffc354ab88373c30d4d65f04b0c1b1}\label{napi-inl_8h_a92ffc354ab88373c30d4d65f04b0c1b1} 
+\index{napi-\/inl.h@{napi-\/inl.h}!NODE\_API\_MODULE@{NODE\_API\_MODULE}}
+\index{NODE\_API\_MODULE@{NODE\_API\_MODULE}!napi-\/inl.h@{napi-\/inl.h}}
+\doxysubsubsection{\texorpdfstring{NODE\_API\_MODULE}{NODE\_API\_MODULE}}
+{\footnotesize\ttfamily \#define NODE\+\_\+\+API\+\_\+\+MODULE(\begin{DoxyParamCaption}\item[{}]{modname,  }\item[{}]{regfunc }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static}\ napi\_value\ \_\_napi\_\#\#regfunc(napi\_env\ env,\ napi\_value\ exports)\ \{\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceNapi_a5858c5e2c78b25d80e4d582820dda0a8}{Napi::RegisterModule}}(env,\ exports,\ regfunc);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ NAPI\_MODULE(modname,\ \_\_napi\_\#\#regfunc)}
+
+\end{DoxyCode}
+\Hypertarget{napi-inl_8h_a87fea2da79df8b637f1445e3257bcccc}\label{napi-inl_8h_a87fea2da79df8b637f1445e3257bcccc} 
+\index{napi-\/inl.h@{napi-\/inl.h}!NODE\_API\_NAMED\_ADDON@{NODE\_API\_NAMED\_ADDON}}
+\index{NODE\_API\_NAMED\_ADDON@{NODE\_API\_NAMED\_ADDON}!napi-\/inl.h@{napi-\/inl.h}}
+\doxysubsubsection{\texorpdfstring{NODE\_API\_NAMED\_ADDON}{NODE\_API\_NAMED\_ADDON}}
+{\footnotesize\ttfamily \#define NODE\+\_\+\+API\+\_\+\+NAMED\+\_\+\+ADDON(\begin{DoxyParamCaption}\item[{}]{modname,  }\item[{}]{classname }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static}\ napi\_value\ \_\_napi\_\#\#classname(napi\_env\ env,\ napi\_value\ exports)\ \{\ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceNapi_a5858c5e2c78b25d80e4d582820dda0a8}{Napi::RegisterModule}}(env,\ exports,\ \&classname::Init);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ NAPI\_MODULE(modname,\ \_\_napi\_\#\#classname)}
+
+\end{DoxyCode}

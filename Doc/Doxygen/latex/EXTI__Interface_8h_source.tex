@@ -1,0 +1,32 @@
+\doxysection{EXTI\+\_\+\+Interface.\+h}
+\hypertarget{EXTI__Interface_8h_source}{}\label{EXTI__Interface_8h_source}\index{Mcal/EXTI/EXTI\_Interface.h@{Mcal/EXTI/EXTI\_Interface.h}}
+\mbox{\hyperlink{EXTI__Interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}../Atmega32RegistersAddress.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}../../Common/Macros.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{EXTI__Private_8h}{EXTI\_Private.h}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{EXTI__Config_8h}{EXTI\_Config.h}}"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \#ifndef\ \ \ \_EXTI\_INTERFACE\_H\_}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \#define\ \ \ \_EXTI\_INTERFACE\_H\_}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__EXTI_gaac5e24b7e79b669332ba5ff1966b7f62}{mEXTI\_Init}}(uint8\_t\ source,\ uint8\_t\ senseControl);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__EXTI_ga1fd56d3b68c006c33ed37d94daa17b3b}{mEXTI\_setCallback}}(uint8\_t\ source,\ \textcolor{keywordtype}{void}\ (*PF)(\textcolor{keywordtype}{void}));}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__EXTI_ga63930277028f2e132114d86158c3493e}{mEXTI\_Enable}}(uint8\_t\ source);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00084\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__EXTI_gaefdac39f98f0bf439554f2beb2652717}{mEXTI\_Disable}}(uint8\_t\ source);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \#endif\ }\textcolor{comment}{/*\ \_EXTI\_INTERFACE\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00097\ }
+
+\end{DoxyCode}

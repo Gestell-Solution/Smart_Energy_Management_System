@@ -1,0 +1,96 @@
+\doxysection{UART\+\_\+\+Config.\+h}
+\hypertarget{UART__Config_8h_source}{}\label{UART__Config_8h_source}\index{Mcal/UART/UART\_Config.h@{Mcal/UART/UART\_Config.h}}
+\mbox{\hyperlink{UART__Config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ UART\_CONFIG\_H\_}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ UART\_CONFIG\_H\_}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include"{}../UART/UART\_Private.h"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include"{}../Atmega32RegistersAddress.h"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}../../Common/Macros.h"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <stdbool.h>}\ \ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ UART\_TX\_BUFFER\_SIZE\ \ \ \ 64}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ UART\_RX\_BUFFER\_SIZE\ \ \ \ 64}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{volatile}\ uint8\_t\ buffer[\mbox{\hyperlink{group__UART_ga05f5d709605c6317c97e4974bec3402a}{UART\_TX\_BUFFER\_SIZE}}];\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{volatile}\ int16\_t\ \mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}};}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{volatile}\ int16\_t\ \mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{volatile}\ uint16\_t\ \mbox{\hyperlink{group__Mcal_ga63a670d8af991bf62831d0a6c58e258f}{size}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \}\ \mbox{\hyperlink{structUART__Buffer__t}{UART\_Buffer\_t}};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Buffer_ga29ee47ce4f3f6f590d9829ab218e782f}{UART\_Buffer\_Init}}(\mbox{\hyperlink{structUART__Buffer__t}{UART\_Buffer\_t}}\ *buf,\ uint16\_t\ buffer\_size)}
+\DoxyCodeLine{00087\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}}=\ -\/1;}
+\DoxyCodeLine{00089\ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}}\ =\ -\/1;}
+\DoxyCodeLine{00090\ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_ga63a670d8af991bf62831d0a6c58e258f}{size}}\ =\ buffer\_size;}
+\DoxyCodeLine{00091\ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{group__Buffer_ga26b93a6a49298d08dac60a3e7b0d18ef}{UART\_Buffer\_IsEmpty}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structUART__Buffer__t}{UART\_Buffer\_t}}\ *buf)}
+\DoxyCodeLine{00101\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ (buf-\/>\mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}}\ ==\ -\/1\ \&\&\ buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}}\ ==\ -\/1);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{group__Buffer_gaffa3defe32a02522af8b6ebb6e97a11e}{UART\_Buffer\_IsFull}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structUART__Buffer__t}{UART\_Buffer\_t}}\ *buf)}
+\DoxyCodeLine{00116\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{return}\ ((buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}}\ +\ 1)\ \%\ buf-\/>\mbox{\hyperlink{group__Mcal_ga63a670d8af991bf62831d0a6c58e258f}{size}}\ ==\ buf-\/>\mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}});}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//}}
+\DoxyCodeLine{00127\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{group__Buffer_gad962401528134102ab1fbe1f4d7d55dc}{UART\_Buffer\_Put}}(\mbox{\hyperlink{structUART__Buffer__t}{UART\_Buffer\_t}}\ *buf,\ uint8\_t\ data)}
+\DoxyCodeLine{00128\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{group__Buffer_gaffa3defe32a02522af8b6ebb6e97a11e}{UART\_Buffer\_IsFull}}(buf))\{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{group__Buffer_ga26b93a6a49298d08dac60a3e7b0d18ef}{UART\_Buffer\_IsEmpty}}(buf))\{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}}=buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}}=0;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_gaf1cf7b74aec8b88b905cc32264c846a8}{buffer}}[buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}}]=data;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}}==buf-\/>\mbox{\hyperlink{group__Mcal_ga63a670d8af991bf62831d0a6c58e258f}{size}}-\/1)\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}}=0;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_gaf1cf7b74aec8b88b905cc32264c846a8}{buffer}}[buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}}]=data;}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_gaf1cf7b74aec8b88b905cc32264c846a8}{buffer}}[++(buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}})]=data;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00154\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{group__Buffer_ga7a920e8abc81de506ad8583067e31d52}{UART\_Buffer\_Get}}(\mbox{\hyperlink{structUART__Buffer__t}{UART\_Buffer\_t}}\ *buf,\ uint8\_t\ *data)}
+\DoxyCodeLine{00155\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{group__Buffer_ga26b93a6a49298d08dac60a3e7b0d18ef}{UART\_Buffer\_IsEmpty}}(buf))\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ *data\ =\ buf-\/>\mbox{\hyperlink{group__Mcal_gaf1cf7b74aec8b88b905cc32264c846a8}{buffer}}[buf-\/>\mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}}];}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(buf-\/>\mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}}==buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}})\{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}}\ =buf-\/>\mbox{\hyperlink{group__Mcal_gae09a3ba41d3219bde436a2a792162e05}{rear}}=-\/1;\ \ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(buf-\/>\mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}}==buf-\/>\mbox{\hyperlink{group__Mcal_ga63a670d8af991bf62831d0a6c58e258f}{size}}-\/1)\{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}}=0;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ buf-\/>\mbox{\hyperlink{group__Mcal_gaea5685553c24c85e81988a81c32ac067}{front}}++;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ UART\_CONFIG\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ }
+
+\end{DoxyCode}

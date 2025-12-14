@@ -10,6 +10,14 @@
 
 #ifndef EEPROM_INTERFACE_H
 #define EEPROM_INTERFACE_H
+
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup EEPROM_Internal
+ * @{
+ */
+
 #include "EEPROM_Private.h"
 #include "../Atmega32RegistersAddress.h"
 /**
@@ -42,5 +50,11 @@ void mEEPROM_WriteBlock(uint16_t Address, uint8_t* data, uint16_t length);
  */
 void mEEPROM_ReadBlock(uint16_t Address, uint8_t* data, uint16_t length);
 
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif

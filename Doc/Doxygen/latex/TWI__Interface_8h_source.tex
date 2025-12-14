@@ -1,0 +1,52 @@
+\doxysection{TWI\+\_\+\+Interface.\+h}
+\hypertarget{TWI__Interface_8h_source}{}\label{TWI__Interface_8h_source}\index{Mcal/TWI/TWI\_Interface.h@{Mcal/TWI/TWI\_Interface.h}}
+\mbox{\hyperlink{TWI__Interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}../Atmega32RegistersAddress.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}../../Common/Macros.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ \ \ \_TWI\_INTERFACE\_H\_}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ \ \ \_TWI\_INTERFACE\_H\_}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ ==============================\ \ \ \ \ \ Initialization\ \ \ \ \ \ \ ============================\ */}}
+\DoxyCodeLine{00029\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__TWI_gab1f125ba17d6c533d59fb38eef43c6f9}{mTWI\_Init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00054\ \textcolor{comment}{/*\ ==============================\ \ \ \ \ \ Master\ APIs\ \ \ \ \ \ \ ==============================\ */}}
+\DoxyCodeLine{00055\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00068\ uint8\_t\ \mbox{\hyperlink{group__TWI_ga8c598f5e9ac5142c0c33e10a957694a0}{mTWI\_MasterSendRequest}}(uint8\_t\ addr,\ \textcolor{keyword}{const}\ uint8\_t\ *data,\ uint8\_t\ len);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00080\ uint8\_t\ \mbox{\hyperlink{group__TWI_gac8ab24dc9732cc9bd083e7b839200f9f}{mTWI\_MasterReadResponse}}(uint8\_t\ addr,\ uint8\_t\ len);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00084\ \textcolor{comment}{/*\ ==============================\ \ \ \ \ \ \ Slave\ APIs\ \ \ \ \ \ \ ==============================\ */}}
+\DoxyCodeLine{00085\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__TWI_ga63446a2a6e323e756ede5a34d05714bb}{mTWI\_EnableSlave}}(uint8\_t\ slaveAddr);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__TWI_gaaac151955f562e3a41ee5bee3815a56a}{mTWI\_DisableSlave}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00105\ \textcolor{comment}{/*\ ==============================\ \ Buffer/Callback\ APIs\ \ ==============================\ */}}
+\DoxyCodeLine{00106\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__TWI_ga1bd435f5fbaf7588e854079ca16abe34}{mTWI\_SetSlaveRxCallback}}(\textcolor{keywordtype}{void}\ (*cb)(uint8\_t\ *data,\ uint8\_t\ len));}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00122\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__TWI_ga2199595777fd25999c425893024ea332}{mTWI\_SetSlaveTxProvider}}(uint8\_t\ (*provider)(uint8\_t\ *buf,\ uint8\_t\ maxLen));}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\_TWI\_INTERFACE\_H\_*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,58 @@
+\doxysection{Mcal/\+UART/\+UART\+\_\+\+Rx.h File Reference}
+\hypertarget{UART__Rx_8h}{}\label{UART__Rx_8h}\index{Mcal/UART/UART\_Rx.h@{Mcal/UART/UART\_Rx.h}}
+
+
+UART Reception (Rx) interface for ATmega32.  
+
+
+{\ttfamily \#include "{}../\+UART/\+UART\+\_\+\+Config.\+h"{}}\newline
+Include dependency graph for UART\+\_\+\+Rx.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{UART__Rx_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{UART__Rx_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__UART_gaa82e95b2098ca305618e74ff0f6d2a7a}{UART\+\_\+\+Rx\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize RX\+\_\+\+Buffer and sets bit RXCIE. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__UART_gac1004cfe43c0160d5beb67a26e14ad9a}{m\+UART\+\_\+\+Receive\+Byte}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Retrieves a single received byte from the Rx buffer (non-\/blocking). \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{group__UART_gadd480396f49930eea0319868efc747a6}{m\+UART\+\_\+\+Receive\+Buffer}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint16\+\_\+t max\+Length)
+\begin{DoxyCompactList}\small\item\em Receive multiple bytes from the UART buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__UART_ga9582c4500711465d54f0aa6e165a6e5f}{m\+UART\+\_\+\+Receive\+String}} (char \texorpdfstring{$\ast$}{*}str, uint16\+\_\+t max\+Length, char terminator)
+\begin{DoxyCompactList}\small\item\em Reads characters into a string until a terminator is found or max\+Length reached. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__UART_ga9458a615c84fb24855f299d81093febe}{UART\+\_\+\+Rx\+\_\+\+Set\+Callback}} (void(\texorpdfstring{$\ast$}{*}Local\+Ptr)(uint8\+\_\+t))
+\begin{DoxyCompactList}\small\item\em Set the user callback function for UART reception. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+UART Reception (Rx) interface for ATmega32. 
+
+Provides non-\/blocking APIs for reading bytes, buffers, and strings from the UART receive circular buffer managed by the RX interrupt.\texorpdfstring{$\ast$}{*} \begin{DoxyVersion}{Version}
+2.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer \+: Basma khaled (\href{mailto:basmak55@gmail.com}{\texttt{ basmak55@gmail.\+com}}) 
+
+Developer \+: Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}}) 
+
+Reviewer \+: Hesham Ahmed (\href{mailto:Hisham4Ahmed@gmail.com}{\texttt{ Hisham4\+Ahmed@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/21 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}

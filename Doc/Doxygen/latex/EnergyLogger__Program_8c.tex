@@ -1,0 +1,73 @@
+\doxysection{App/\+Energy\+Logger/\+Energy\+Logger\+\_\+\+Program.c File Reference}
+\hypertarget{EnergyLogger__Program_8c}{}\label{EnergyLogger__Program_8c}\index{App/EnergyLogger/EnergyLogger\_Program.c@{App/EnergyLogger/EnergyLogger\_Program.c}}
+
+
+Implementation of the Energy Logger Module.  
+
+
+{\ttfamily \#include "{}Energy\+Logger\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+EEPROM/\+EEPROM\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+Timer1/\+TIMER1\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Hal/\+Voltage/\+Voltage\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Hal/\+ACS712\+Curnt\+Snsr/h\+Current\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+UART/\+UART\+\_\+\+Tx.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+UART/\+UART\+\_\+\+Init.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+DIO/\+DIO\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Hal/\+LCD/\+LCD\+\_\+\+Interface.\+h"{}}\newline
+Include dependency graph for Energy\+Logger\+\_\+\+Program.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EnergyLogger__Program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Energy__Logger_ga529d9ca54a74d2cdfe681278443d15a1}{App\+\_\+\+Energy\+Logger\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the Energy Logger. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Energy__Logger_gaf96c6df318726a8f6996e2682daaeac5}{App\+\_\+\+Energy\+Logger\+\_\+\+Update}} (const \mbox{\hyperlink{structEnergyLog__t}{Energy\+Log\+\_\+t}} \texorpdfstring{$\ast$}{*}new\+Log)
+\begin{DoxyCompactList}\small\item\em Adds a new log entry to the RAM Circular Buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Energy__Logger_gae1cc2afc5646ce6b06b3a6ba1b499594}{App\+\_\+\+Energy\+Logger\+\_\+\+Store\+To\+EEPROM}} (void)
+\begin{DoxyCompactList}\small\item\em Moves the oldest log from RAM to EEPROM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Energy__Logger_ga2150e0c82a8eaae46e139ea8d0d3563e}{App\+\_\+\+Energy\+Logger\+\_\+\+Read\+Log}} (uint16\+\_\+t log\+Index, \mbox{\hyperlink{structEnergyLog__t}{Energy\+Log\+\_\+t}} \texorpdfstring{$\ast$}{*}read\+Log)
+\begin{DoxyCompactList}\small\item\em Reads a specific log entry from EEPROM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Energy__Logger_gae5b298334ee3ce689ada2889fa0cca4f}{App\+\_\+\+Energy\+Logger\+\_\+\+Task}} (void)
+\begin{DoxyCompactList}\small\item\em Periodic task to manage data flushing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structEnergyLogBuffer__t}{Energy\+Log\+Buffer\+\_\+t}} \mbox{\hyperlink{group__Energy__Logger_ga3d710645b9aee5909685ff12e1d81924}{Energy\+RAM}}
+\begin{DoxyCompactList}\small\item\em RAM Circular Buffer instance. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{group__Energy__Logger_gae5a77bcde6bb7b111dced601105d0e63}{EEPROM\+\_\+head}} = 0
+\begin{DoxyCompactList}\small\item\em Write index for EEPROM (Next available slot). \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{group__Energy__Logger_ga78cc9916649561a5b4c796ebda18adf0}{EEPROM\+\_\+count}} = 0
+\begin{DoxyCompactList}\small\item\em Total count of logs securely stored in EEPROM. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group__Energy__Logger_ga41b1b542dc81585dc48bff215b461bab}{timestamp\+Counter}} = 0
+\begin{DoxyCompactList}\small\item\em Global Timestamp counter (externally updated or internal). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the Energy Logger Module. 
+
+This module manages the storage of electrical measurements (Voltage, Current, Power, Energy). It utilizes a two-\/stage storage mechanism\+:
+\begin{DoxyEnumerate}
+\item {\bfseries{RAM Circular Buffer}}\+: Temporary storage for high-\/frequency samples.
+\item {\bfseries{EEPROM Storage}}\+: Persistent storage where RAM data is flushed periodically.
+\end{DoxyEnumerate}
+
+The logger handles buffer overflows by overwriting the oldest data in RAM, ensuring the most recent history is always preserved before committing to slower EEPROM. \begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/12-\/04 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Developer\+: Basma Khaled (\href{mailto:basmak55@gmail.com}{\texttt{ basmak55@gmail.\+com}}) 
+
+Reviewer\+: Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025, Gestell Company 
+\end{DoxyCopyright}

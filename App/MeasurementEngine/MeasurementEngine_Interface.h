@@ -13,6 +13,14 @@
  * @copyright  Copyright (c) 2025, Gestell Company
  */
 
+/**
+ * @addtogroup App
+ * @{
+ * @addtogroup Measurement_Engine
+ * @{
+ */
+
+
 #ifndef _MeasurementEngine_Interface_h_
 #define _MeasurementEngine_Interface_h_
 
@@ -102,5 +110,11 @@ float ME_GetEnergy(void);
 void ME_ResetEnergy(void);
 
 /** @} */ /* End of MeasurementEngine group */
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /* _MeasurementEngine_Interface_h_ */

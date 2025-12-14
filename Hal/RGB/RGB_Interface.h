@@ -14,6 +14,14 @@
 #ifndef _RGB_INTERFACE_H_
 #define _RGB_INTERFACE_H_
 
+/**
+ * @addtogroup Hal
+ * @{
+ * @addtogroup RGB_LED
+ * @{
+ */
+
+
 /*================================= Includes =================================*/
 #include <stdint.h>
 #include "../../Mcal/Atmega32RegistersAddress.h"
@@ -62,5 +70,11 @@ void hRGB_SetColor(uint8_t RedState, uint8_t GreenState);
 void hRGB_SetState(RGB_State_t state);
 
 /** @} */ /* End of RGB_Driver group */
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /* _RGB_INTERFACE_H_ */

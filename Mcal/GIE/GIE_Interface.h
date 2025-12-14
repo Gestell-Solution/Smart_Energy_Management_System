@@ -12,6 +12,14 @@
 #ifndef _GIE_INTERFACE_H_
 #define _GIE_INTERFACE_H_
 
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup GIE
+ * @{
+ */
+
+
 #include <stdint.h>
 #include "../Atmega32RegistersAddress.h"
 #include "../../Common/Macros.h"
@@ -20,4 +28,10 @@
 
 void mGIE_Enable(void);
 void mGIE_Disable(void);
+
+/**
+ * @}
+ * @}
+ */
+
 #endif /*_GIE_INTERFACE_H_*/

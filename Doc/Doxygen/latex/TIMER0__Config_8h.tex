@@ -1,0 +1,210 @@
+\doxysection{Mcal/\+Timer0/\+TIMER0\+\_\+\+Config.h File Reference}
+\hypertarget{TIMER0__Config_8h}{}\label{TIMER0__Config_8h}\index{Mcal/Timer0/TIMER0\_Config.h@{Mcal/Timer0/TIMER0\_Config.h}}
+
+
+This file contains configuration settings for Timer0 specifications.  
+
+
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+{\ttfamily \#include "{}../\+Atmega32\+Registers\+Address.\+h"{}}\newline
+{\ttfamily \#include "{}TIMER0\+\_\+\+Private.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Project\+Cfg.\+h"{}}\newline
+Include dependency graph for TIMER0\+\_\+\+Config.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIMER0__Config_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIMER0__Config_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{TIMER0__Config_8h_a0579a81c097f8e852662c90081ec4a49}{Compare\+Match\+\_\+\+Interrupt\+Enable}}~\mbox{\hyperlink{group__Common_gacc73d037d112d6d752d87762f87f5efa}{Set\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a9b6bd680ae692c4c3c0a8a9a362518cc}{TIMSK\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER0__Private_8h_abeb34a71f139a5a202b9c216cb15692a}{OCIE0\+\_\+\+Bit}})
+\begin{DoxyCompactList}\small\item\em Enble Interrupts on Compare Match. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER0__Config_8h_a04dd8b6475a01be8fe7cb72fef8cf0df}{Timer0\+\_\+\+Prescaller}}~\mbox{\hyperlink{TIMER0__Private_8h_a042422febe73d2ccdb758ed6fe4e00a2adc27a0cd4907ac9f58a00c76c1355d2f}{T0\+\_\+\+Clk\+Prescalling\+\_\+64}}
+\begin{DoxyCompactList}\small\item\em Defines the prescaler value for Timer0. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER0__Config_8h_a4b85199bc077744ed5df1c02629100c6}{Timer0\+\_\+\+Prescaller\+Value}}~64
+\begin{DoxyCompactList}\small\item\em Defines the prescaler value for Timer0. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER0__Config_8h_a499dded64cf7579f867ca168556e7ca4}{Timer0\+\_\+\+Wave\+Gen\+Mode}}~\mbox{\hyperlink{TIMER0__Private_8h_ab1f674138e8b1fda52a1a4ac9b295644ad2028d43bb24540746834f66f4ee30d6}{T0\+\_\+\+CTC}}
+\begin{DoxyCompactList}\small\item\em Selects the waveform generation mode for Timer0. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER0__Config_8h_a33714b3ba86f0e3d274987aa310db7cd}{Timer0\+\_\+\+Compare\+Output\+Mode}}~\mbox{\hyperlink{TIMER0__Private_8h_a42fce47c709ae270940efc2bb342e7aca4278db766b363392c41aa84a33e357ee}{T0\+\_\+\+Normal\+Port}}
+\begin{DoxyCompactList}\small\item\em Sets the compare output behavior for Timer0. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER0__Config_8h_ad1cfa4eb5dc03e6c1e793142b10cfc3a}{Timer0\+\_\+\+Resoultion}}~\mbox{\hyperlink{TIMER0__Private_8h_aaeea755a7a8ac80e0ee34aa4f7795f87}{T0\+\_\+\+Milli\+Second}}
+\begin{DoxyCompactList}\small\item\em Defines the time resolution for Timer0 ticks. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER0__Config_8h_a92b8f38f6b9d910ed5629b7131088549}{Is\+COM\+\_\+\+Flag\+Set}}~\mbox{\hyperlink{group__Common_ga7bcdd84fafe02843ba2ef1c5d781b6ca}{Get\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a768581424123f426adc2980c4070e923}{TIFR\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER0__Private_8h_a3169895131aacaabe4fa5f21f7eeafd4}{OCF0\+\_\+\+Bit}})
+\begin{DoxyCompactList}\small\item\em Checks if the Timer0 Compare Match flag is set. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER0__Config_8h_a675737a49b8f5702dcc3c1b06c17405f}{T0\+\_\+\+Clk\+Time}}~((float)\mbox{\hyperlink{TIMER0__Config_8h_a4b85199bc077744ed5df1c02629100c6}{Timer0\+\_\+\+Prescaller\+Value}} / \mbox{\hyperlink{ProjectCfg_8h_a43bafb28b29491ec7f871319b5a3b2f8}{F\+\_\+\+CPU}})
+\begin{DoxyCompactList}\small\item\em Calculates the time per Timer0 tick. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER0__Config_8h_acf919dd2fe809520f031f81051f6b673}{Compare\+Match\+Value}}~((\mbox{\hyperlink{TIMER0__Private_8h_aaeea755a7a8ac80e0ee34aa4f7795f87}{T0\+\_\+\+Milli\+Second}} / ((\mbox{\hyperlink{TIMER0__Config_8h_a675737a49b8f5702dcc3c1b06c17405f}{T0\+\_\+\+Clk\+Time}}) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{TIMER0__Private_8h_a4d40e465639123e2604be12867b43272}{T0\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CTC}})) ) -\/1
+\begin{DoxyCompactList}\small\item\em Calculates the OCR0 value for Timer0 in CTC mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER0__Config_8h_a9c765397f96fe9b0db002ce704dc60fb}{T0\+\_\+\+Scheduled\+Tasks\+Num}}~3
+\begin{DoxyCompactList}\small\item\em Defines the maximum number of concurrent scheduled tasks for Timer0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains configuration settings for Timer0 specifications. 
+
+This header file defines several macros that allow for defining Conifgurations based on project requirements. It includes configuration settings for Timer0 Settings. \begin{DoxyVersion}{Version}
+0.\+2 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer\+: Mohamed Diaa (\href{mailto:mohammeddiaato@gmail.com}{\texttt{ mohammeddiaato@gmail.\+com}}) 
+
+Reviewer\+: Basma () 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/07 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{TIMER0__Config_8h_a0579a81c097f8e852662c90081ec4a49}\label{TIMER0__Config_8h_a0579a81c097f8e852662c90081ec4a49} 
+\index{TIMER0\_Config.h@{TIMER0\_Config.h}!CompareMatch\_InterruptEnable@{CompareMatch\_InterruptEnable}}
+\index{CompareMatch\_InterruptEnable@{CompareMatch\_InterruptEnable}!TIMER0\_Config.h@{TIMER0\_Config.h}}
+\doxysubsubsection{\texorpdfstring{CompareMatch\_InterruptEnable}{CompareMatch\_InterruptEnable}}
+{\footnotesize\ttfamily \#define Compare\+Match\+\_\+\+Interrupt\+Enable~\mbox{\hyperlink{group__Common_gacc73d037d112d6d752d87762f87f5efa}{Set\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a9b6bd680ae692c4c3c0a8a9a362518cc}{TIMSK\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER0__Private_8h_abeb34a71f139a5a202b9c216cb15692a}{OCIE0\+\_\+\+Bit}})}
+
+
+
+Enble Interrupts on Compare Match. 
+
+Enables Timer1 Compare Match A interrupt.
+
+Sets the OCIE1A bit in the TIMSK register. \Hypertarget{TIMER0__Config_8h_acf919dd2fe809520f031f81051f6b673}\label{TIMER0__Config_8h_acf919dd2fe809520f031f81051f6b673} 
+\index{TIMER0\_Config.h@{TIMER0\_Config.h}!CompareMatchValue@{CompareMatchValue}}
+\index{CompareMatchValue@{CompareMatchValue}!TIMER0\_Config.h@{TIMER0\_Config.h}}
+\doxysubsubsection{\texorpdfstring{CompareMatchValue}{CompareMatchValue}}
+{\footnotesize\ttfamily \#define Compare\+Match\+Value~((\mbox{\hyperlink{TIMER0__Private_8h_aaeea755a7a8ac80e0ee34aa4f7795f87}{T0\+\_\+\+Milli\+Second}} / ((\mbox{\hyperlink{TIMER0__Config_8h_a675737a49b8f5702dcc3c1b06c17405f}{T0\+\_\+\+Clk\+Time}}) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{TIMER0__Private_8h_a4d40e465639123e2604be12867b43272}{T0\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CTC}})) ) -\/1}
+
+
+
+Calculates the OCR0 value for Timer0 in CTC mode. 
+
+Determines the value to load into OCR0 to achieve the desired tick resolution. \begin{DoxyNote}{Note}
+Depends on clock frequency, prescaler, and desired time resolution. 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+Ensure that the result fits within 8-\/bit range (0–255). 
+\end{DoxyWarning}
+\Hypertarget{TIMER0__Config_8h_a92b8f38f6b9d910ed5629b7131088549}\label{TIMER0__Config_8h_a92b8f38f6b9d910ed5629b7131088549} 
+\index{TIMER0\_Config.h@{TIMER0\_Config.h}!IsCOM\_FlagSet@{IsCOM\_FlagSet}}
+\index{IsCOM\_FlagSet@{IsCOM\_FlagSet}!TIMER0\_Config.h@{TIMER0\_Config.h}}
+\doxysubsubsection{\texorpdfstring{IsCOM\_FlagSet}{IsCOM\_FlagSet}}
+{\footnotesize\ttfamily \#define Is\+COM\+\_\+\+Flag\+Set~\mbox{\hyperlink{group__Common_ga7bcdd84fafe02843ba2ef1c5d781b6ca}{Get\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a768581424123f426adc2980c4070e923}{TIFR\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER0__Private_8h_a3169895131aacaabe4fa5f21f7eeafd4}{OCF0\+\_\+\+Bit}})}
+
+
+
+Checks if the Timer0 Compare Match flag is set. 
+
+Reads the OCF0 bit from the TIFR register to determine if a compare match occurred. \begin{DoxyReturn}{Returns}
+Boolean value\+: 1 if set, 0 if not. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Used in polling-\/based delay or status checking. 
+\end{DoxyNote}
+\Hypertarget{TIMER0__Config_8h_a675737a49b8f5702dcc3c1b06c17405f}\label{TIMER0__Config_8h_a675737a49b8f5702dcc3c1b06c17405f} 
+\index{TIMER0\_Config.h@{TIMER0\_Config.h}!T0\_ClkTime@{T0\_ClkTime}}
+\index{T0\_ClkTime@{T0\_ClkTime}!TIMER0\_Config.h@{TIMER0\_Config.h}}
+\doxysubsubsection{\texorpdfstring{T0\_ClkTime}{T0\_ClkTime}}
+{\footnotesize\ttfamily \#define T0\+\_\+\+Clk\+Time~((float)\mbox{\hyperlink{TIMER0__Config_8h_a4b85199bc077744ed5df1c02629100c6}{Timer0\+\_\+\+Prescaller\+Value}} / \mbox{\hyperlink{ProjectCfg_8h_a43bafb28b29491ec7f871319b5a3b2f8}{F\+\_\+\+CPU}})}
+
+
+
+Calculates the time per Timer0 tick. 
+
+Based on the selected prescaler and system clock frequency. \begin{DoxyNote}{Note}
+Used in determining the compare match value for CTC mode. 
+\end{DoxyNote}
+\Hypertarget{TIMER0__Config_8h_a9c765397f96fe9b0db002ce704dc60fb}\label{TIMER0__Config_8h_a9c765397f96fe9b0db002ce704dc60fb} 
+\index{TIMER0\_Config.h@{TIMER0\_Config.h}!T0\_ScheduledTasksNum@{T0\_ScheduledTasksNum}}
+\index{T0\_ScheduledTasksNum@{T0\_ScheduledTasksNum}!TIMER0\_Config.h@{TIMER0\_Config.h}}
+\doxysubsubsection{\texorpdfstring{T0\_ScheduledTasksNum}{T0\_ScheduledTasksNum}}
+{\footnotesize\ttfamily \#define T0\+\_\+\+Scheduled\+Tasks\+Num~3}
+
+
+
+Defines the maximum number of concurrent scheduled tasks for Timer0. 
+
+Limits the number of non-\/blocking delays that can be managed simultaneously. \begin{DoxyNote}{Note}
+Increase this value if more tasks need to be scheduled. 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+must be careful with ram possible tasks. 
+\end{DoxyWarning}
+\Hypertarget{TIMER0__Config_8h_a33714b3ba86f0e3d274987aa310db7cd}\label{TIMER0__Config_8h_a33714b3ba86f0e3d274987aa310db7cd} 
+\index{TIMER0\_Config.h@{TIMER0\_Config.h}!Timer0\_CompareOutputMode@{Timer0\_CompareOutputMode}}
+\index{Timer0\_CompareOutputMode@{Timer0\_CompareOutputMode}!TIMER0\_Config.h@{TIMER0\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer0\_CompareOutputMode}{Timer0\_CompareOutputMode}}
+{\footnotesize\ttfamily \#define Timer0\+\_\+\+Compare\+Output\+Mode~\mbox{\hyperlink{TIMER0__Private_8h_a42fce47c709ae270940efc2bb342e7aca4278db766b363392c41aa84a33e357ee}{T0\+\_\+\+Normal\+Port}}}
+
+
+
+Sets the compare output behavior for Timer0. 
+
+In Normal Port mode, the OC0 pin is disconnected and used as a regular I/O. \begin{DoxyNote}{Note}
+Used when no PWM or toggling output is needed. 
+\end{DoxyNote}
+\Hypertarget{TIMER0__Config_8h_a04dd8b6475a01be8fe7cb72fef8cf0df}\label{TIMER0__Config_8h_a04dd8b6475a01be8fe7cb72fef8cf0df} 
+\index{TIMER0\_Config.h@{TIMER0\_Config.h}!Timer0\_Prescaller@{Timer0\_Prescaller}}
+\index{Timer0\_Prescaller@{Timer0\_Prescaller}!TIMER0\_Config.h@{TIMER0\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer0\_Prescaller}{Timer0\_Prescaller}}
+{\footnotesize\ttfamily \#define Timer0\+\_\+\+Prescaller~\mbox{\hyperlink{TIMER0__Private_8h_a042422febe73d2ccdb758ed6fe4e00a2adc27a0cd4907ac9f58a00c76c1355d2f}{T0\+\_\+\+Clk\+Prescalling\+\_\+64}}}
+
+
+
+Defines the prescaler value for Timer0. 
+
+Sets the clock division factor for Timer0. This affects the timer tick frequency. \begin{DoxyNote}{Note}
+Must be one of the values defined in the TIMER0\+\_\+\+Prescaler enum. 
+\end{DoxyNote}
+\Hypertarget{TIMER0__Config_8h_a4b85199bc077744ed5df1c02629100c6}\label{TIMER0__Config_8h_a4b85199bc077744ed5df1c02629100c6} 
+\index{TIMER0\_Config.h@{TIMER0\_Config.h}!Timer0\_PrescallerValue@{Timer0\_PrescallerValue}}
+\index{Timer0\_PrescallerValue@{Timer0\_PrescallerValue}!TIMER0\_Config.h@{TIMER0\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer0\_PrescallerValue}{Timer0\_PrescallerValue}}
+{\footnotesize\ttfamily \#define Timer0\+\_\+\+Prescaller\+Value~64}
+
+
+
+Defines the prescaler value for Timer0. 
+
+Sets the clock division factor for Timer0. This affects the timer tick frequency. \begin{DoxyNote}{Note}
+Must be one of the values defined in the TIMER0\+\_\+\+Prescaler enum. 
+\end{DoxyNote}
+\Hypertarget{TIMER0__Config_8h_ad1cfa4eb5dc03e6c1e793142b10cfc3a}\label{TIMER0__Config_8h_ad1cfa4eb5dc03e6c1e793142b10cfc3a} 
+\index{TIMER0\_Config.h@{TIMER0\_Config.h}!Timer0\_Resoultion@{Timer0\_Resoultion}}
+\index{Timer0\_Resoultion@{Timer0\_Resoultion}!TIMER0\_Config.h@{TIMER0\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer0\_Resoultion}{Timer0\_Resoultion}}
+{\footnotesize\ttfamily \#define Timer0\+\_\+\+Resoultion~\mbox{\hyperlink{TIMER0__Private_8h_aaeea755a7a8ac80e0ee34aa4f7795f87}{T0\+\_\+\+Milli\+Second}}}
+
+
+
+Defines the time resolution for Timer0 ticks. 
+
+Sets the base time unit for scheduling tasks, typically in milliseconds. \begin{DoxyNote}{Note}
+Used in calculating the compare match value. 
+\end{DoxyNote}
+\Hypertarget{TIMER0__Config_8h_a499dded64cf7579f867ca168556e7ca4}\label{TIMER0__Config_8h_a499dded64cf7579f867ca168556e7ca4} 
+\index{TIMER0\_Config.h@{TIMER0\_Config.h}!Timer0\_WaveGenMode@{Timer0\_WaveGenMode}}
+\index{Timer0\_WaveGenMode@{Timer0\_WaveGenMode}!TIMER0\_Config.h@{TIMER0\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer0\_WaveGenMode}{Timer0\_WaveGenMode}}
+{\footnotesize\ttfamily \#define Timer0\+\_\+\+Wave\+Gen\+Mode~\mbox{\hyperlink{TIMER0__Private_8h_ab1f674138e8b1fda52a1a4ac9b295644ad2028d43bb24540746834f66f4ee30d6}{T0\+\_\+\+CTC}}}
+
+
+
+Selects the waveform generation mode for Timer0. 
+
+Configures Timer0 to operate in CTC (Clear Timer on Compare Match) mode. \begin{DoxyNote}{Note}
+Other modes include Normal and Fast PWM. 
+\end{DoxyNote}

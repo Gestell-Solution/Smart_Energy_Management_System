@@ -1,0 +1,91 @@
+\chapter{Smart Energy Management System – Requirements}
+\hypertarget{md_Doc_2REQ}{}\label{md_Doc_2REQ}\index{Smart Energy Management System – Requirements@{Smart Energy Management System – Requirements}}
+\label{md_Doc_2REQ_autotoc_md3464}%
+\Hypertarget{md_Doc_2REQ_autotoc_md3464}%
+ \hypertarget{md_Doc_2REQ_autotoc_md3465}{}\doxysection{\texorpdfstring{1. Objective}{1. Objective}}\label{md_Doc_2REQ_autotoc_md3465}
+A smart system for monitoring household energy consumption in real-\/time, displaying values on an LCD, transmitting data to a mobile/server, and enforcing overload protection.
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2REQ_autotoc_md3467}{}\doxysection{\texorpdfstring{2. Functional Requirements}{2. Functional Requirements}}\label{md_Doc_2REQ_autotoc_md3467}
+
+\begin{DoxyItemize}
+\item {\bfseries{FR1 – Current Measurement}} ~\newline
+
+\begin{DoxyItemize}
+\item Use ACS712 sensor to measure current in the range of 0–30A.
+\end{DoxyItemize}
+\item {\bfseries{FR2 – Voltage Measurement}} ~\newline
+
+\begin{DoxyItemize}
+\item Use a voltage divider to measure voltage in the range of 0–260\+VAC.
+\end{DoxyItemize}
+\item {\bfseries{FR3 – Power \& Energy Calculation}} ~\newline
+
+\begin{DoxyItemize}
+\item Calculate instantaneous power ( P = V \textbackslash{}times I ). ~\newline
+
+\item Calculate cumulative energy consumption in k\+Wh.
+\end{DoxyItemize}
+\item {\bfseries{FR4 – Display}} ~\newline
+
+\begin{DoxyItemize}
+\item Display measured values (V, I, P, Energy) on a 16x4 LCD with 1s refresh rate. ~\newline
+
+\end{DoxyItemize}
+\item {\bfseries{FR5 – Protection}} ~\newline
+
+\begin{DoxyItemize}
+\item If current or power exceeds a defined threshold (e.\+g., 10A or 2000W) → trigger buzzer and disconnect load via relay. ~\newline
+
+\end{DoxyItemize}
+\item {\bfseries{FR6 – Communication}} ~\newline
+
+\begin{DoxyItemize}
+\item Transmit values to mobile via HC-\/05 Bluetooth. ~\newline
+
+\item Upload data to a cloud server via ESP8266 Wi\+Fi.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2REQ_autotoc_md3469}{}\doxysection{\texorpdfstring{3. Non-\/\+Functional Requirements}{3. Non-Functional Requirements}}\label{md_Doc_2REQ_autotoc_md3469}
+
+\begin{DoxyItemize}
+\item Accuracy\+: ±5\% for current and voltage measurements after calibration. ~\newline
+
+\item Update rate\+: LCD every 1s, server update every 10s. ~\newline
+
+\item System power consumption ≤ 1W. ~\newline
+
+\item System must recover safely after unexpected reset or power loss.
+\end{DoxyItemize}\hypertarget{md_Doc_2REQ_autotoc_md3470}{}\doxysection{\texorpdfstring{4. Acceptance Criteria}{4. Acceptance Criteria}}\label{md_Doc_2REQ_autotoc_md3470}
+
+\begin{DoxyItemize}
+\item {\bfseries{AC1 (Current Measurement)\+:}} For a reference current of 2.\+0A, the reading must be within ±5\%. ~\newline
+
+\item {\bfseries{AC2 (Voltage Measurement)\+:}} For 220VAC input, the reading must be between 209–231V. ~\newline
+
+\item {\bfseries{AC3 (Protection)\+:}} When current exceeds 10A, the relay must disconnect the load within ≤ 100ms. ~\newline
+
+\item {\bfseries{AC4 (Display)\+:}} LCD must update values correctly every 1 second. ~\newline
+
+\item {\bfseries{AC5 (Mobile Communication)\+:}} Mobile app must receive updated values via HC-\/05 on demand. ~\newline
+
+\item {\bfseries{AC6 (Server Communication)\+:}} New values must be uploaded to the server every 10 seconds without interruption. ~\newline
+
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2REQ_autotoc_md3472}{}\doxysection{\texorpdfstring{5. Constraints}{5. Constraints}}\label{md_Doc_2REQ_autotoc_md3472}
+
+\begin{DoxyItemize}
+\item MCU\+: ATmega32 @ 8MHz. ~\newline
+
+\item Input Voltage\+: 220VAC @ 50Hz. ~\newline
+
+\item Sensors\+: ACS712 (current), Voltage Divider (voltage). ~\newline
+
+\item Display\+: 16x4 LCD. ~\newline
+
+\item Communication Modules\+: HC-\/05 Bluetooth, ESP8266 Wi\+Fi. 
+\end{DoxyItemize}

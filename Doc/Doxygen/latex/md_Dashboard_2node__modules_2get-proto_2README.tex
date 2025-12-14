@@ -1,0 +1,30 @@
+\chapter{get-\/proto \texorpdfstring{$<$}{<}sup\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}a href="{}https\+://npmjs.\+org/package/get-\/proto"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://versionbadg.\+es/ljharb/get-\/proto.\+svg"{} alt="{}\+Version Badge"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/sup\texorpdfstring{$>$}{>}}
+\hypertarget{md_Dashboard_2node__modules_2get-proto_2README}{}\label{md_Dashboard_2node__modules_2get-proto_2README}\index{get-\/proto $<$sup$>$$<$a href="{}https://npmjs.org/package/get-\/proto"{} $>$$<$img src="{}https://versionbadg.es/ljharb/get-\/proto.svg"{} alt="{}Version Badge"{}/$>$$<$/a$>$$<$/sup$>$@{get-\/proto $<$sup$>$$<$a href=""https://npmjs.org/package/get-\/proto"" $>$$<$img src=""https://versionbadg.es/ljharb/get-\/proto.svg"" alt=""Version Badge""/$>$$<$/a$>$$<$/sup$>$}}
+\label{md_Dashboard_2node__modules_2get-proto_2README_autotoc_md1280}%
+\Hypertarget{md_Dashboard_2node__modules_2get-proto_2README_autotoc_md1280}%
+ \href{https://github.com/ljharb/get-proto/actions}{\texttt{ }} \href{https://app.codecov.io/gh/ljharb/get-proto/}{\texttt{ }} \mbox{[}\mbox{]}\mbox{[}license-\/url\mbox{]} \href{https://npm-stat.com/charts.html?package=get-proto}{\texttt{ }}
+
+\href{https://npmjs.org/package/get-proto}{\texttt{ }}
+
+Robustly get the \mbox{[}\mbox{[}Prototype\mbox{]}\mbox{]} of an object. Uses the best available method.\hypertarget{md_Dashboard_2node__modules_2get-proto_2README_autotoc_md1281}{}\doxysection{\texorpdfstring{Getting started}{Getting started}}\label{md_Dashboard_2node__modules_2get-proto_2README_autotoc_md1281}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ get-\/proto}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2get-proto_2README_autotoc_md1282}{}\doxysection{\texorpdfstring{Usage/\+Examples}{Usage/Examples}}\label{md_Dashboard_2node__modules_2get-proto_2README_autotoc_md1282}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ assert\ =\ require('assert');}
+\DoxyCodeLine{const\ getProto\ =\ require('get-\/proto');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ a\ =\ \{\ a:\ 1,\ b:\ 2,\ [Symbol.toStringTag]:\ 'foo'\ \};}
+\DoxyCodeLine{const\ b\ =\ \{\ c:\ 3,\ \_\_proto\_\_:\ a\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.equal(getProto(b),\ a);}
+\DoxyCodeLine{assert.equal(getProto(a),\ Object.prototype);}
+\DoxyCodeLine{assert.equal(getProto(\{\ \_\_proto\_\_:\ null\ \}),\ null);}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2get-proto_2README_autotoc_md1283}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{md_Dashboard_2node__modules_2get-proto_2README_autotoc_md1283}
+Clone the repo, {\ttfamily npm install}, and run {\ttfamily npm test} 

@@ -1,0 +1,26 @@
+\doxysection{Voltage\+\_\+\+Private.\+h}
+\hypertarget{Voltage__Private_8h_source}{}\label{Voltage__Private_8h_source}\index{Hal/Voltage/Voltage\_Private.h@{Hal/Voltage/Voltage\_Private.h}}
+\mbox{\hyperlink{Voltage__Private_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifndef\ Voltage\_Private\_H}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ Voltage\_Private\_H}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structVoltage__RMS__Data_a9bcdace0e40e456bd4644a7ece480017}{sumOfSquares}};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structVoltage__RMS__Data_a229d660a30e37e109f7670ea65cb556d}{Voltage\_RMS\_Value}};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structVoltage__RMS__Data_a317ed19fa1affefdb11111a51121d8b0}{Voltage\_Previous\_RMS}};}
+\DoxyCodeLine{00036\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structVoltage__RMS__Data_a6d9533648e4a5b313654b17f3256ee62}{sampleCount}};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \}\mbox{\hyperlink{structVoltage__RMS__Data}{Voltage\_RMS\_Data}};}
+\DoxyCodeLine{00053\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structVoltage__Calibration__Data_a466283a662c755bd163d883321e8f074}{Voltage\_Prev\_Value}}\ ;}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structVoltage__Calibration__Data_a355531176c8c4c7b21a973acf3fc942a}{Voltage\_Current\_Value}}\ ;}
+\DoxyCodeLine{00056\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structVoltage__Calibration__Data_ade682798c455a34558a2d4ce9ba65bc4}{Callibration\_Count}}\ ;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structVoltage__Calibration__Data_a67140777e5f83d21e49092532e402259}{ADC\_Reading\_Sum}}\ ;}
+\DoxyCodeLine{00058\ \}\ \mbox{\hyperlink{structVoltage__Calibration__Data}{Voltage\_Calibration\_Data}};}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif\ }}
+
+\end{DoxyCode}

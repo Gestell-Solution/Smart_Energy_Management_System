@@ -10,6 +10,14 @@
 
 #ifndef _CALIBRATION_MANAGER_INTERFACE_H_
 #define _CALIBRATION_MANAGER_INTERFACE_H_
+
+/**
+ * @addtogroup App
+ * @{
+ * @addtogroup Calibration_Manager
+ * @{
+ */
+
 #include "Calibration_Manager_Config.h"
 #include "Calibration_Manager_Private.h"
 #include "../../Hal/ACS712CurntSnsr/hCurrent_Interface.h"
@@ -34,5 +42,11 @@ void App_Calibration_Remote(uint8_t *cmdData);
  * @brief Applies the Calibration Settings.
  */
 void App_Calibration_Apply(void);
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /* _CALIBRATION_MANAGER_INTERFACE_H_ */

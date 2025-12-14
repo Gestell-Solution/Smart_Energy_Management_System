@@ -16,6 +16,14 @@
 #ifndef SPI_INTERFACE_H
 #define SPI_INTERFACE_H
 
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup SPI
+ * @{
+ */
+
+
 /*==============================================================================
  *                                   Includes
  *============================================================================*/
@@ -80,5 +88,11 @@ void mSPI_Enable(void);
  * @note This clears the SPE bit in SPCR.
  */
 void mSPI_Disable(void);
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /* SPI_INTERFACE_H */

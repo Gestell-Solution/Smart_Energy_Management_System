@@ -1,0 +1,39 @@
+\chapter{Smart Energy Management System Documentation}
+\hypertarget{index}{}\label{index}\index{Smart Energy Management System Documentation@{Smart Energy Management System Documentation}}
+\hypertarget{index_intro_sec}{}\doxysection{\texorpdfstring{Introduction}{Introduction}}\label{index_intro_sec}
+The {\bfseries{Smart Energy Management System}} is an embedded solution designed to monitor, control, and log electrical parameters (Voltage, Current, Power, Energy) in real-\/time. It features a responsive display, wireless communication (Bluetooth/\+Wi-\/\+Fi), and robust protection mechanisms against over-\/current and over-\/voltage conditions.\hypertarget{index_arch_sec}{}\doxysection{\texorpdfstring{Architecture}{Architecture}}\label{index_arch_sec}
+The software is organized into a layered architecture to ensure modularity and portability\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{\doxylink{group__App}{Application Layer (App)}}}\+: High-\/level business logic, including\+:
+\begin{DoxyItemize}
+\item \doxylink{group__Measurement__Engine}{Measurement Engine}
+\item \doxylink{group__Energy__Logger}{Energy Logger}
+\item \doxylink{group__Protection__Manager}{Protection Manager}
+\item \doxylink{group__System__Controller}{System Controller}
+\item \doxylink{group__Communication__Manager}{Communication Manager}
+\item \doxylink{group__Display__Manager}{Display Manager}
+\end{DoxyItemize}
+\item {\bfseries{\doxylink{group__Hal}{Hardware Abstraction Layer (HAL)}}}\+: Drivers for external hardware modules\+:
+\begin{DoxyItemize}
+\item Sensors (Voltage, Current)
+\item Actuators (Relays, Buzzer, RGB LED)
+\item HMI (LCD, Buttons)
+\item Communication Modules (HC-\/05 Bluetooth, ESP-\/01 Wi-\/\+Fi)
+\end{DoxyItemize}
+\item {\bfseries{\doxylink{group__Mcal}{Microcontroller Abstraction Layer (MCAL)}}}\+: Low-\/level drivers for the ATmega32 peripherals\+:
+\begin{DoxyItemize}
+\item DIO, ADC, Timers, UART, SPI, TWI, EEPROM, EXTI, GIE
+\end{DoxyItemize}
+\item {\bfseries{\doxylink{group__Common}{Common Utilities}}}\+: Shared macros, configuration, and data structures.
+\end{DoxyItemize}\hypertarget{index_usage_sec}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{index_usage_sec}
+The system initializes all drivers in {\ttfamily \doxylink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main()}} and enters a superloop that\+:
+\begin{DoxyEnumerate}
+\item Updates measurements via the Measurement Engine.
+\item Checks protection conditions via the Protection Manager.
+\item Updates the User Interface (Display).
+\item Logs data to EEPROM via the Energy Logger.
+\item Handles remote commands via the Communication Manager.
+\end{DoxyEnumerate}\hypertarget{index_contact_sec}{}\doxysection{\texorpdfstring{Contact}{Contact}}\label{index_contact_sec}
+For support, contact the development team at Gestell Company. 

@@ -1,0 +1,47 @@
+\chapter{get-\/intrinsic \texorpdfstring{$<$}{<}sup\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}a href="{}https\+://npmjs.\+org/package/get-\/intrinsic"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://versionbadg.\+es/ljharb/get-\/intrinsic.\+svg"{} alt="{}\+Version Badge"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/sup\texorpdfstring{$>$}{>}}
+\hypertarget{md_Dashboard_2node__modules_2get-intrinsic_2README}{}\label{md_Dashboard_2node__modules_2get-intrinsic_2README}\index{get-\/intrinsic $<$sup$>$$<$a href="{}https://npmjs.org/package/get-\/intrinsic"{} $>$$<$img src="{}https://versionbadg.es/ljharb/get-\/intrinsic.svg"{} alt="{}Version Badge"{}/$>$$<$/a$>$$<$/sup$>$@{get-\/intrinsic $<$sup$>$$<$a href=""https://npmjs.org/package/get-\/intrinsic"" $>$$<$img src=""https://versionbadg.es/ljharb/get-\/intrinsic.svg"" alt=""Version Badge""/$>$$<$/a$>$$<$/sup$>$}}
+\label{md_Dashboard_2node__modules_2get-intrinsic_2README_autotoc_md1271}%
+\Hypertarget{md_Dashboard_2node__modules_2get-intrinsic_2README_autotoc_md1271}%
+ \href{https://github.com/ljharb/get-intrinsic/actions}{\texttt{ }} \href{https://app.codecov.io/gh/ljharb/get-intrinsic/}{\texttt{ }} \href{https://david-dm.org/ljharb/get-intrinsic}{\texttt{ }} \href{https://david-dm.org/ljharb/get-intrinsic\#info=devDependencies}{\texttt{ }} \mbox{[}\mbox{]}\mbox{[}license-\/url\mbox{]} \href{https://npm-stat.com/charts.html?package=get-intrinsic}{\texttt{ }}
+
+\href{https://npmjs.org/package/get-intrinsic}{\texttt{ }}
+
+Get and robustly cache all JS language-\/level intrinsics at first require time.
+
+See the syntax described \href{https://tc39.es/ecma262/\#sec-well-known-intrinsic-objects}{\texttt{ in the JS spec}} for reference.\hypertarget{md_Dashboard_2node__modules_2get-intrinsic_2README_autotoc_md1272}{}\doxysection{\texorpdfstring{Example}{Example}}\label{md_Dashboard_2node__modules_2get-intrinsic_2README_autotoc_md1272}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ GetIntrinsic\ =\ require('get-\/intrinsic');}
+\DoxyCodeLine{var\ assert\ =\ require('assert');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ static\ methods}
+\DoxyCodeLine{assert.equal(GetIntrinsic('\%Math.pow\%'),\ Math.pow);}
+\DoxyCodeLine{assert.equal(Math.pow(2,\ 3),\ 8);}
+\DoxyCodeLine{assert.equal(GetIntrinsic('\%Math.pow\%')(2,\ 3),\ 8);}
+\DoxyCodeLine{delete\ Math.pow;}
+\DoxyCodeLine{assert.equal(GetIntrinsic('\%Math.pow\%')(2,\ 3),\ 8);}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ instance\ methods}
+\DoxyCodeLine{var\ arr\ =\ [1];}
+\DoxyCodeLine{assert.equal(GetIntrinsic('\%Array.prototype.push\%'),\ Array.prototype.push);}
+\DoxyCodeLine{assert.deepEqual(arr,\ [1]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{arr.push(2);}
+\DoxyCodeLine{assert.deepEqual(arr,\ [1,\ 2]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{GetIntrinsic('\%Array.prototype.push\%').call(arr,\ 3);}
+\DoxyCodeLine{assert.deepEqual(arr,\ [1,\ 2,\ 3]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{delete\ Array.prototype.push;}
+\DoxyCodeLine{GetIntrinsic('\%Array.prototype.push\%').call(arr,\ 4);}
+\DoxyCodeLine{assert.deepEqual(arr,\ [1,\ 2,\ 3,\ 4]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ missing\ features}
+\DoxyCodeLine{delete\ JSON.parse;\ //\ to\ simulate\ a\ real\ intrinsic\ that\ is\ missing\ in\ the\ environment}
+\DoxyCodeLine{assert.throws(()\ =>\ GetIntrinsic('\%JSON.parse\%'));}
+\DoxyCodeLine{assert.equal(undefined,\ GetIntrinsic('\%JSON.parse\%',\ true));}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2get-intrinsic_2README_autotoc_md1273}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{md_Dashboard_2node__modules_2get-intrinsic_2README_autotoc_md1273}
+Simply clone the repo, {\ttfamily npm install}, and run {\ttfamily npm test}\hypertarget{md_Dashboard_2node__modules_2get-intrinsic_2README_autotoc_md1274}{}\doxysection{\texorpdfstring{Security}{Security}}\label{md_Dashboard_2node__modules_2get-intrinsic_2README_autotoc_md1274}
+Please email \href{https://github.com/ljharb}{\texttt{ @ljharb}} or see \href{https://tidelift.com/security}{\texttt{ https\+://tidelift.\+com/security}} if you have a potential security vulnerability to report. 

@@ -1,0 +1,143 @@
+\doxysection{Mcal/\+TWI/\+TWI\+\_\+\+Config.h File Reference}
+\hypertarget{TWI__Config_8h}{}\label{TWI__Config_8h}\index{Mcal/TWI/TWI\_Config.h@{Mcal/TWI/TWI\_Config.h}}
+
+
+This file contains Config for Master/\+Slave (I2C) TWI driver.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}../\+Atmega32\+Registers\+Address.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+Include dependency graph for TWI\+\_\+\+Config.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TWI__Config_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{TWI__Config_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_a43bafb28b29491ec7f871319b5a3b2f8}{F\+\_\+\+CPU}}~8000000\+UL
+\begin{DoxyCompactList}\small\item\em Defines the CPU frequency used for baud rate calculations. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_a565c2279c35c9a997b8dc152b1be001c}{TWI\+\_\+\+Bit\+\_\+\+Rate}}~100000\+UL
+\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_a8e2783f33dfe0fdce36aec0556bd39ed}{TWI\+\_\+\+Slave\+\_\+\+Address}}~0x50
+\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_a9677878f3d019a8c50ade7819704ae47}{TWI\+\_\+\+Enable\+\_\+\+Master\+Arbitration}}~1
+\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_a7b41ae5bd5cf0c349f262476a3338ff9}{TWI\+\_\+\+MAX\+\_\+\+Master\+\_\+\+Retries}}~3
+\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_a09a795507f8416b4fb5ff336c9046884}{TWI\+\_\+\+Enable\+\_\+\+ACK}}~1
+\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_ac0f48ddcb500cea703eb207c32e202aa}{TWI\+\_\+\+General\+\_\+\+Call\+\_\+\+Enable}}~0
+\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_a1586192b02d45508a16fadd8eb668043}{TWI\+\_\+\+Master\+\_\+\+Tx\+\_\+\+Buffer\+Size}}~64
+\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_ad660c74ea86223247895af65055b4963}{TWI\+\_\+\+Master\+\_\+\+Rx\+\_\+\+Buffer\+Size}}~64
+\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_a83997d81d012a05a81dd2ed23aa57108}{TWI\+\_\+\+Slave\+\_\+\+Tx\+\_\+\+Buffer\+Size}}~64
+\item 
+\#define \mbox{\hyperlink{TWI__Config_8h_a219549fd41c79c1832974240aaef5b24}{TWI\+\_\+\+Slave\+\_\+\+Rx\+\_\+\+Buffer\+Size}}~64
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains Config for Master/\+Slave (I2C) TWI driver. 
+
+Configuration file for TWI driver including Bit rate, Slave address, Arbitration, and Buffer sizes settings. \begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer \+: Mohamed Abdelgaber (\href{mailto:mohamedabdelgaber247@gmail.com}{\texttt{ mohamedabdelgaber247@gmail.\+com}}) 
+
+Reviewer \+: Eng/\+Basma 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/12-\/3 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{TWI__Config_8h_a43bafb28b29491ec7f871319b5a3b2f8}\label{TWI__Config_8h_a43bafb28b29491ec7f871319b5a3b2f8} 
+\index{TWI\_Config.h@{TWI\_Config.h}!F\_CPU@{F\_CPU}}
+\index{F\_CPU@{F\_CPU}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{F\_CPU}{F\_CPU}}
+{\footnotesize\ttfamily \#define F\+\_\+\+CPU~8000000\+UL}
+
+
+
+Defines the CPU frequency used for baud rate calculations. 
+
+\Hypertarget{TWI__Config_8h_a565c2279c35c9a997b8dc152b1be001c}\label{TWI__Config_8h_a565c2279c35c9a997b8dc152b1be001c} 
+\index{TWI\_Config.h@{TWI\_Config.h}!TWI\_Bit\_Rate@{TWI\_Bit\_Rate}}
+\index{TWI\_Bit\_Rate@{TWI\_Bit\_Rate}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{TWI\_Bit\_Rate}{TWI\_Bit\_Rate}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+Bit\+\_\+\+Rate~100000\+UL}
+
+\Hypertarget{TWI__Config_8h_a09a795507f8416b4fb5ff336c9046884}\label{TWI__Config_8h_a09a795507f8416b4fb5ff336c9046884} 
+\index{TWI\_Config.h@{TWI\_Config.h}!TWI\_Enable\_ACK@{TWI\_Enable\_ACK}}
+\index{TWI\_Enable\_ACK@{TWI\_Enable\_ACK}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{TWI\_Enable\_ACK}{TWI\_Enable\_ACK}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+Enable\+\_\+\+ACK~1}
+
+\Hypertarget{TWI__Config_8h_a9677878f3d019a8c50ade7819704ae47}\label{TWI__Config_8h_a9677878f3d019a8c50ade7819704ae47} 
+\index{TWI\_Config.h@{TWI\_Config.h}!TWI\_Enable\_MasterArbitration@{TWI\_Enable\_MasterArbitration}}
+\index{TWI\_Enable\_MasterArbitration@{TWI\_Enable\_MasterArbitration}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{TWI\_Enable\_MasterArbitration}{TWI\_Enable\_MasterArbitration}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+Enable\+\_\+\+Master\+Arbitration~1}
+
+\Hypertarget{TWI__Config_8h_ac0f48ddcb500cea703eb207c32e202aa}\label{TWI__Config_8h_ac0f48ddcb500cea703eb207c32e202aa} 
+\index{TWI\_Config.h@{TWI\_Config.h}!TWI\_General\_Call\_Enable@{TWI\_General\_Call\_Enable}}
+\index{TWI\_General\_Call\_Enable@{TWI\_General\_Call\_Enable}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{TWI\_General\_Call\_Enable}{TWI\_General\_Call\_Enable}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+General\+\_\+\+Call\+\_\+\+Enable~0}
+
+\Hypertarget{TWI__Config_8h_ad660c74ea86223247895af65055b4963}\label{TWI__Config_8h_ad660c74ea86223247895af65055b4963} 
+\index{TWI\_Config.h@{TWI\_Config.h}!TWI\_Master\_Rx\_BufferSize@{TWI\_Master\_Rx\_BufferSize}}
+\index{TWI\_Master\_Rx\_BufferSize@{TWI\_Master\_Rx\_BufferSize}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{TWI\_Master\_Rx\_BufferSize}{TWI\_Master\_Rx\_BufferSize}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+Master\+\_\+\+Rx\+\_\+\+Buffer\+Size~64}
+
+\Hypertarget{TWI__Config_8h_a1586192b02d45508a16fadd8eb668043}\label{TWI__Config_8h_a1586192b02d45508a16fadd8eb668043} 
+\index{TWI\_Config.h@{TWI\_Config.h}!TWI\_Master\_Tx\_BufferSize@{TWI\_Master\_Tx\_BufferSize}}
+\index{TWI\_Master\_Tx\_BufferSize@{TWI\_Master\_Tx\_BufferSize}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{TWI\_Master\_Tx\_BufferSize}{TWI\_Master\_Tx\_BufferSize}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+Master\+\_\+\+Tx\+\_\+\+Buffer\+Size~64}
+
+\Hypertarget{TWI__Config_8h_a7b41ae5bd5cf0c349f262476a3338ff9}\label{TWI__Config_8h_a7b41ae5bd5cf0c349f262476a3338ff9} 
+\index{TWI\_Config.h@{TWI\_Config.h}!TWI\_MAX\_Master\_Retries@{TWI\_MAX\_Master\_Retries}}
+\index{TWI\_MAX\_Master\_Retries@{TWI\_MAX\_Master\_Retries}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{TWI\_MAX\_Master\_Retries}{TWI\_MAX\_Master\_Retries}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+MAX\+\_\+\+Master\+\_\+\+Retries~3}
+
+\Hypertarget{TWI__Config_8h_a8e2783f33dfe0fdce36aec0556bd39ed}\label{TWI__Config_8h_a8e2783f33dfe0fdce36aec0556bd39ed} 
+\index{TWI\_Config.h@{TWI\_Config.h}!TWI\_Slave\_Address@{TWI\_Slave\_Address}}
+\index{TWI\_Slave\_Address@{TWI\_Slave\_Address}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{TWI\_Slave\_Address}{TWI\_Slave\_Address}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+Slave\+\_\+\+Address~0x50}
+
+\Hypertarget{TWI__Config_8h_a219549fd41c79c1832974240aaef5b24}\label{TWI__Config_8h_a219549fd41c79c1832974240aaef5b24} 
+\index{TWI\_Config.h@{TWI\_Config.h}!TWI\_Slave\_Rx\_BufferSize@{TWI\_Slave\_Rx\_BufferSize}}
+\index{TWI\_Slave\_Rx\_BufferSize@{TWI\_Slave\_Rx\_BufferSize}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{TWI\_Slave\_Rx\_BufferSize}{TWI\_Slave\_Rx\_BufferSize}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+Slave\+\_\+\+Rx\+\_\+\+Buffer\+Size~64}
+
+\Hypertarget{TWI__Config_8h_a83997d81d012a05a81dd2ed23aa57108}\label{TWI__Config_8h_a83997d81d012a05a81dd2ed23aa57108} 
+\index{TWI\_Config.h@{TWI\_Config.h}!TWI\_Slave\_Tx\_BufferSize@{TWI\_Slave\_Tx\_BufferSize}}
+\index{TWI\_Slave\_Tx\_BufferSize@{TWI\_Slave\_Tx\_BufferSize}!TWI\_Config.h@{TWI\_Config.h}}
+\doxysubsubsection{\texorpdfstring{TWI\_Slave\_Tx\_BufferSize}{TWI\_Slave\_Tx\_BufferSize}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+Slave\+\_\+\+Tx\+\_\+\+Buffer\+Size~64}
+

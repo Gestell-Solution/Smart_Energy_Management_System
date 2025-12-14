@@ -1,0 +1,184 @@
+\chapter{body-\/parser}
+\hypertarget{md_Dashboard_2node__modules_2body-parser_2README}{}\label{md_Dashboard_2node__modules_2body-parser_2README}\index{body-\/parser@{body-\/parser}}
+\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md294}%
+\Hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md294}%
+ \href{https://npmjs.org/package/body-parser}{\texttt{ }} \href{https://npmjs.org/package/body-parser}{\texttt{ }} \href{https://github.com/expressjs/body-parser/actions/workflows/ci.yml}{\texttt{ }} \href{https://coveralls.io/r/expressjs/body-parser?branch=master}{\texttt{ }} \href{https://ossf.github.io/scorecard-visualizer/\#/projects/github.com/expressjs/body-parser}{\texttt{ }}
+
+Node.\+js body parsing middleware.
+
+Parse incoming request bodies in a middleware before your handlers, available under the {\ttfamily req.\+body} property.
+
+{\bfseries{Note}} As {\ttfamily req.\+body}\textquotesingle{}s shape is based on user-\/controlled input, all properties and values in this object are untrusted and should be validated before trusting. For example, {\ttfamily req.\+body.\+foo.\+to\+String()} may fail in multiple ways, for example the {\ttfamily foo} property may not be there or may not be a string, and {\ttfamily to\+String} may not be a function and instead a string or other user input.
+
+\href{https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/}{\texttt{ Learn about the anatomy of an HTTP transaction in Node.\+js}}.
+
+{\itshape This does not handle multipart bodies}, due to their complex and typically large nature. For multipart bodies, you may be interested in the following modules\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://www.npmjs.org/package/busboy\#readme}{\texttt{ busboy}} and \href{https://www.npmjs.org/package/connect-busboy\#readme}{\texttt{ connect-\/busboy}}
+\item \href{https://www.npmjs.org/package/multiparty\#readme}{\texttt{ multiparty}} and \href{https://www.npmjs.org/package/connect-multiparty\#readme}{\texttt{ connect-\/multiparty}}
+\item \href{https://www.npmjs.org/package/formidable\#readme}{\texttt{ formidable}}
+\item \href{https://www.npmjs.org/package/multer\#readme}{\texttt{ multer}}
+\end{DoxyItemize}
+
+This module provides the following parsers\+:
+
+
+\begin{DoxyItemize}
+\item JSON body parser
+\item Raw body parser
+\item Text body parser
+\item URL-\/encoded form body parser
+\end{DoxyItemize}
+
+Other body parsers you might be interested in\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://www.npmjs.org/package/body\#readme}{\texttt{ body}}
+\item \href{https://www.npmjs.org/package/co-body\#readme}{\texttt{ co-\/body}}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md295}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md295}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ body-\/parser}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md296}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md296}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ bodyParser\ =\ require('body-\/parser')}
+
+\end{DoxyCode}
+
+
+The {\ttfamily body\+Parser} object exposes various factories to create middlewares. All middlewares will populate the {\ttfamily req.\+body} property with the parsed body when the {\ttfamily Content-\/\+Type} request header matches the {\ttfamily type} option, or an empty object ({\ttfamily \{\}}) if there was no body to parse, the {\ttfamily Content-\/\+Type} was not matched, or an error occurred.
+
+The various errors returned by this module are described in the errors section.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md297}{}\doxysubsection{\texorpdfstring{body\+Parser.\+json(\mbox{[}options\mbox{]})}{bodyParser.json([options])}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md297}
+Returns middleware that only parses {\ttfamily json} and only looks at requests where the {\ttfamily Content-\/\+Type} header matches the {\ttfamily type} option. This parser accepts any Unicode encoding of the body and supports automatic inflation of {\ttfamily gzip} and {\ttfamily deflate} encodings.
+
+A new {\ttfamily body} object containing the parsed data is populated on the {\ttfamily request} object after the middleware (i.\+e. {\ttfamily req.\+body}).\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md298}{}\doxysubsubsection{\texorpdfstring{Options}{Options}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md298}
+The {\ttfamily json} function takes an optional {\ttfamily options} object that may contain any of the following keys\+:\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md299}{}\doxyparagraph{\texorpdfstring{inflate}{inflate}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md299}
+When set to {\ttfamily true}, then deflated (compressed) bodies will be inflated; when {\ttfamily false}, deflated bodies are rejected. Defaults to {\ttfamily true}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md300}{}\doxyparagraph{\texorpdfstring{limit}{limit}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md300}
+Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the \href{https://www.npmjs.com/package/bytes}{\texttt{ bytes}} library for parsing. Defaults to `\textquotesingle{}100kb'\`{}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md301}{}\doxyparagraph{\texorpdfstring{reviver}{reviver}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md301}
+The {\ttfamily reviver} option is passed directly to {\ttfamily JSON.\+parse} as the second argument. You can find more information on this argument \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse\#Example.3A_Using_the_reviver_parameter}{\texttt{ in the MDN documentation about JSON.\+parse}}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md302}{}\doxyparagraph{\texorpdfstring{strict}{strict}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md302}
+When set to {\ttfamily true}, will only accept arrays and objects; when {\ttfamily false} will accept anything {\ttfamily JSON.\+parse} accepts. Defaults to {\ttfamily true}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md303}{}\doxyparagraph{\texorpdfstring{type}{type}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md303}
+The {\ttfamily type} option is used to determine what media type the middleware will parse. This option can be a string, array of strings, or a function. If not a function, {\ttfamily type} option is passed directly to the \href{https://www.npmjs.org/package/type-is\#readme}{\texttt{ type-\/is}} library and this can be an extension name (like {\ttfamily json}), a mime type (like {\ttfamily application/json}), or a mime type with a wildcard (like {\ttfamily \texorpdfstring{$\ast$}{*}/\texorpdfstring{$\ast$}{*}} or {\ttfamily \texorpdfstring{$\ast$}{*}/json}). If a function, the {\ttfamily type} option is called as {\ttfamily fn(req)} and the request is parsed if it returns a truthy value. Defaults to {\ttfamily application/json}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md304}{}\doxyparagraph{\texorpdfstring{verify}{verify}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md304}
+The {\ttfamily verify} option, if supplied, is called as {\ttfamily verify(req, res, buf, encoding)}, where {\ttfamily buf} is a {\ttfamily Buffer} of the raw request body and {\ttfamily encoding} is the encoding of the request. The parsing can be aborted by throwing an error.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md305}{}\doxysubsection{\texorpdfstring{body\+Parser.\+raw(\mbox{[}options\mbox{]})}{bodyParser.raw([options])}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md305}
+Returns middleware that parses all bodies as a {\ttfamily Buffer} and only looks at requests where the {\ttfamily Content-\/\+Type} header matches the {\ttfamily type} option. This parser supports automatic inflation of {\ttfamily gzip} and {\ttfamily deflate} encodings.
+
+A new {\ttfamily body} object containing the parsed data is populated on the {\ttfamily request} object after the middleware (i.\+e. {\ttfamily req.\+body}). This will be a {\ttfamily Buffer} object of the body.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md306}{}\doxysubsubsection{\texorpdfstring{Options}{Options}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md306}
+The {\ttfamily raw} function takes an optional {\ttfamily options} object that may contain any of the following keys\+:\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md307}{}\doxyparagraph{\texorpdfstring{inflate}{inflate}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md307}
+When set to {\ttfamily true}, then deflated (compressed) bodies will be inflated; when {\ttfamily false}, deflated bodies are rejected. Defaults to {\ttfamily true}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md308}{}\doxyparagraph{\texorpdfstring{limit}{limit}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md308}
+Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the \href{https://www.npmjs.com/package/bytes}{\texttt{ bytes}} library for parsing. Defaults to `\textquotesingle{}100kb'\`{}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md309}{}\doxyparagraph{\texorpdfstring{type}{type}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md309}
+The {\ttfamily type} option is used to determine what media type the middleware will parse. This option can be a string, array of strings, or a function. If not a function, {\ttfamily type} option is passed directly to the \href{https://www.npmjs.org/package/type-is\#readme}{\texttt{ type-\/is}} library and this can be an extension name (like {\ttfamily bin}), a mime type (like {\ttfamily application/octet-\/stream}), or a mime type with a wildcard (like {\ttfamily \texorpdfstring{$\ast$}{*}/\texorpdfstring{$\ast$}{*}} or {\ttfamily application/\texorpdfstring{$\ast$}{*}}). If a function, the {\ttfamily type} option is called as {\ttfamily fn(req)} and the request is parsed if it returns a truthy value. Defaults to {\ttfamily application/octet-\/stream}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md310}{}\doxyparagraph{\texorpdfstring{verify}{verify}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md310}
+The {\ttfamily verify} option, if supplied, is called as {\ttfamily verify(req, res, buf, encoding)}, where {\ttfamily buf} is a {\ttfamily Buffer} of the raw request body and {\ttfamily encoding} is the encoding of the request. The parsing can be aborted by throwing an error.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md311}{}\doxysubsection{\texorpdfstring{body\+Parser.\+text(\mbox{[}options\mbox{]})}{bodyParser.text([options])}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md311}
+Returns middleware that parses all bodies as a string and only looks at requests where the {\ttfamily Content-\/\+Type} header matches the {\ttfamily type} option. This parser supports automatic inflation of {\ttfamily gzip} and {\ttfamily deflate} encodings.
+
+A new {\ttfamily body} string containing the parsed data is populated on the {\ttfamily request} object after the middleware (i.\+e. {\ttfamily req.\+body}). This will be a string of the body.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md312}{}\doxysubsubsection{\texorpdfstring{Options}{Options}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md312}
+The {\ttfamily text} function takes an optional {\ttfamily options} object that may contain any of the following keys\+:\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md313}{}\doxyparagraph{\texorpdfstring{default\+Charset}{defaultCharset}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md313}
+Specify the default character set for the text content if the charset is not specified in the {\ttfamily Content-\/\+Type} header of the request. Defaults to {\ttfamily utf-\/8}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md314}{}\doxyparagraph{\texorpdfstring{inflate}{inflate}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md314}
+When set to {\ttfamily true}, then deflated (compressed) bodies will be inflated; when {\ttfamily false}, deflated bodies are rejected. Defaults to {\ttfamily true}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md315}{}\doxyparagraph{\texorpdfstring{limit}{limit}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md315}
+Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the \href{https://www.npmjs.com/package/bytes}{\texttt{ bytes}} library for parsing. Defaults to `\textquotesingle{}100kb'\`{}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md316}{}\doxyparagraph{\texorpdfstring{type}{type}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md316}
+The {\ttfamily type} option is used to determine what media type the middleware will parse. This option can be a string, array of strings, or a function. If not a function, {\ttfamily type} option is passed directly to the \href{https://www.npmjs.org/package/type-is\#readme}{\texttt{ type-\/is}} library and this can be an extension name (like {\ttfamily txt}), a mime type (like {\ttfamily text/plain}), or a mime type with a wildcard (like {\ttfamily \texorpdfstring{$\ast$}{*}/\texorpdfstring{$\ast$}{*}} or {\ttfamily text/\texorpdfstring{$\ast$}{*}}). If a function, the {\ttfamily type} option is called as {\ttfamily fn(req)} and the request is parsed if it returns a truthy value. Defaults to {\ttfamily text/plain}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md317}{}\doxyparagraph{\texorpdfstring{verify}{verify}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md317}
+The {\ttfamily verify} option, if supplied, is called as {\ttfamily verify(req, res, buf, encoding)}, where {\ttfamily buf} is a {\ttfamily Buffer} of the raw request body and {\ttfamily encoding} is the encoding of the request. The parsing can be aborted by throwing an error.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md318}{}\doxysubsection{\texorpdfstring{body\+Parser.\+urlencoded(\mbox{[}options\mbox{]})}{bodyParser.urlencoded([options])}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md318}
+Returns middleware that only parses {\ttfamily urlencoded} bodies and only looks at requests where the {\ttfamily Content-\/\+Type} header matches the {\ttfamily type} option. This parser accepts only UTF-\/8 encoding of the body and supports automatic inflation of {\ttfamily gzip} and {\ttfamily deflate} encodings.
+
+A new {\ttfamily body} object containing the parsed data is populated on the {\ttfamily request} object after the middleware (i.\+e. {\ttfamily req.\+body}). This object will contain key-\/value pairs, where the value can be a string or array (when {\ttfamily extended} is {\ttfamily false}), or any type (when {\ttfamily extended} is {\ttfamily true}).\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md319}{}\doxysubsubsection{\texorpdfstring{Options}{Options}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md319}
+The {\ttfamily urlencoded} function takes an optional {\ttfamily options} object that may contain any of the following keys\+:\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md320}{}\doxyparagraph{\texorpdfstring{extended}{extended}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md320}
+The {\ttfamily extended} option allows to choose between parsing the URL-\/encoded data with the {\ttfamily querystring} library (when {\ttfamily false}) or the {\ttfamily qs} library (when {\ttfamily true}). The "{}extended"{} syntax allows for rich objects and arrays to be encoded into the URL-\/encoded format, allowing for a JSON-\/like experience with URL-\/encoded. For more information, please \href{https://www.npmjs.org/package/qs\#readme}{\texttt{ see the qs library}}.
+
+Defaults to {\ttfamily true}, but using the default has been deprecated. Please research into the difference between {\ttfamily qs} and {\ttfamily querystring} and choose the appropriate setting.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md321}{}\doxyparagraph{\texorpdfstring{inflate}{inflate}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md321}
+When set to {\ttfamily true}, then deflated (compressed) bodies will be inflated; when {\ttfamily false}, deflated bodies are rejected. Defaults to {\ttfamily true}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md322}{}\doxyparagraph{\texorpdfstring{limit}{limit}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md322}
+Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the \href{https://www.npmjs.com/package/bytes}{\texttt{ bytes}} library for parsing. Defaults to `\textquotesingle{}100kb'\`{}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md323}{}\doxyparagraph{\texorpdfstring{parameter\+Limit}{parameterLimit}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md323}
+The {\ttfamily parameter\+Limit} option controls the maximum number of parameters that are allowed in the URL-\/encoded data. If a request contains more parameters than this value, a 413 will be returned to the client. Defaults to {\ttfamily 1000}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md324}{}\doxyparagraph{\texorpdfstring{type}{type}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md324}
+The {\ttfamily type} option is used to determine what media type the middleware will parse. This option can be a string, array of strings, or a function. If not a function, {\ttfamily type} option is passed directly to the \href{https://www.npmjs.org/package/type-is\#readme}{\texttt{ type-\/is}} library and this can be an extension name (like {\ttfamily urlencoded}), a mime type (like {\ttfamily application/x-\/www-\/form-\/urlencoded}), or a mime type with a wildcard (like {\ttfamily \texorpdfstring{$\ast$}{*}/x-\/www-\/form-\/urlencoded}). If a function, the {\ttfamily type} option is called as {\ttfamily fn(req)} and the request is parsed if it returns a truthy value. Defaults to {\ttfamily application/x-\/www-\/form-\/urlencoded}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md325}{}\doxyparagraph{\texorpdfstring{verify}{verify}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md325}
+The {\ttfamily verify} option, if supplied, is called as {\ttfamily verify(req, res, buf, encoding)}, where {\ttfamily buf} is a {\ttfamily Buffer} of the raw request body and {\ttfamily encoding} is the encoding of the request. The parsing can be aborted by throwing an error.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md326}{}\doxysubsubsection{\texorpdfstring{depth}{depth}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md326}
+The {\ttfamily depth} option is used to configure the maximum depth of the {\ttfamily qs} library when {\ttfamily extended} is {\ttfamily true}. This allows you to limit the amount of keys that are parsed and can be useful to prevent certain types of abuse. Defaults to {\ttfamily 32}. It is recommended to keep this value as low as possible.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md327}{}\doxysection{\texorpdfstring{Errors}{Errors}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md327}
+The middlewares provided by this module create errors using the \href{https://www.npmjs.com/package/http-errors}{\texttt{ {\ttfamily http-\/errors} module}}. The errors will typically have a {\ttfamily status}/{\ttfamily status\+Code} property that contains the suggested HTTP response code, an {\ttfamily expose} property to determine if the {\ttfamily message} property should be displayed to the client, a {\ttfamily type} property to determine the type of error without matching against the {\ttfamily message}, and a {\ttfamily body} property containing the read body, if available.
+
+The following are the common errors created, though any error can come through for various reasons.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md328}{}\doxysubsection{\texorpdfstring{content encoding unsupported}{content encoding unsupported}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md328}
+This error will occur when the request had a {\ttfamily Content-\/\+Encoding} header that contained an encoding but the "{}inflation"{} option was set to {\ttfamily false}. The {\ttfamily status} property is set to {\ttfamily 415}, the {\ttfamily type} property is set to `\textquotesingle{}encoding.\+unsupported'{\ttfamily , and the}charset\`{} property will be set to the encoding that is unsupported.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md329}{}\doxysubsection{\texorpdfstring{entity parse failed}{entity parse failed}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md329}
+This error will occur when the request contained an entity that could not be parsed by the middleware. The {\ttfamily status} property is set to {\ttfamily 400}, the {\ttfamily type} property is set to `\textquotesingle{}entity.\+parse.\+failed'{\ttfamily , and the}body\`{} property is set to the entity value that failed parsing.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md330}{}\doxysubsection{\texorpdfstring{entity verify failed}{entity verify failed}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md330}
+This error will occur when the request contained an entity that could not be failed verification by the defined {\ttfamily verify} option. The {\ttfamily status} property is set to {\ttfamily 403}, the {\ttfamily type} property is set to `\textquotesingle{}entity.\+verify.\+failed'{\ttfamily , and the }body\`{} property is set to the entity value that failed verification.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md331}{}\doxysubsection{\texorpdfstring{request aborted}{request aborted}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md331}
+This error will occur when the request is aborted by the client before reading the body has finished. The {\ttfamily received} property will be set to the number of bytes received before the request was aborted and the {\ttfamily expected} property is set to the number of expected bytes. The {\ttfamily status} property is set to {\ttfamily 400} and {\ttfamily type} property is set to `\textquotesingle{}request.\+aborted'\`{}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md332}{}\doxysubsection{\texorpdfstring{request entity too large}{request entity too large}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md332}
+This error will occur when the request body\textquotesingle{}s size is larger than the "{}limit"{} option. The {\ttfamily limit} property will be set to the byte limit and the {\ttfamily length} property will be set to the request body\textquotesingle{}s length. The {\ttfamily status} property is set to {\ttfamily 413} and the {\ttfamily type} property is set to `\textquotesingle{}entity.\+too.\+large'\`{}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md333}{}\doxysubsection{\texorpdfstring{request size did not match content length}{request size did not match content length}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md333}
+This error will occur when the request\textquotesingle{}s length did not match the length from the {\ttfamily Content-\/\+Length} header. This typically occurs when the request is malformed, typically when the {\ttfamily Content-\/\+Length} header was calculated based on characters instead of bytes. The {\ttfamily status} property is set to {\ttfamily 400} and the {\ttfamily type} property is set to `\textquotesingle{}request.\+size.\+invalid'\`{}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md334}{}\doxysubsection{\texorpdfstring{stream encoding should not be set}{stream encoding should not be set}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md334}
+This error will occur when something called the {\ttfamily req.\+set\+Encoding} method prior to this middleware. This module operates directly on bytes only and you cannot call {\ttfamily req.\+set\+Encoding} when using this module. The {\ttfamily status} property is set to {\ttfamily 500} and the {\ttfamily type} property is set to `\textquotesingle{}stream.\+encoding.\+set'\`{}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md335}{}\doxysubsection{\texorpdfstring{stream is not readable}{stream is not readable}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md335}
+This error will occur when the request is no longer readable when this middleware attempts to read it. This typically means something other than a middleware from this module read the request body already and the middleware was also configured to read the same request. The {\ttfamily status} property is set to {\ttfamily 500} and the {\ttfamily type} property is set to `\textquotesingle{}stream.\+not.\+readable'\`{}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md336}{}\doxysubsection{\texorpdfstring{too many parameters}{too many parameters}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md336}
+This error will occur when the content of the request exceeds the configured {\ttfamily parameter\+Limit} for the {\ttfamily urlencoded} parser. The {\ttfamily status} property is set to {\ttfamily 413} and the {\ttfamily type} property is set to `\textquotesingle{}parameters.\+too.\+many'\`{}.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md337}{}\doxysubsection{\texorpdfstring{unsupported charset "{}\+BOGUS"{}}{unsupported charset "BOGUS"}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md337}
+This error will occur when the request had a charset parameter in the {\ttfamily Content-\/\+Type} header, but the {\ttfamily iconv-\/lite} module does not support it OR the parser does not support it. The charset is contained in the message as well as in the {\ttfamily charset} property. The {\ttfamily status} property is set to {\ttfamily 415}, the {\ttfamily type} property is set to `\textquotesingle{}charset.\+unsupported'{\ttfamily , and the}charset\`{} property is set to the charset that is unsupported.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md338}{}\doxysubsection{\texorpdfstring{unsupported content encoding "{}bogus"{}}{unsupported content encoding "bogus"}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md338}
+This error will occur when the request had a {\ttfamily Content-\/\+Encoding} header that contained an unsupported encoding. The encoding is contained in the message as well as in the {\ttfamily encoding} property. The {\ttfamily status} property is set to {\ttfamily 415}, the {\ttfamily type} property is set to `\textquotesingle{}encoding.\+unsupported'{\ttfamily , and the}encoding\`{} property is set to the encoding that is unsupported.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md339}{}\doxysubsection{\texorpdfstring{The input exceeded the depth}{The input exceeded the depth}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md339}
+This error occurs when using {\ttfamily body\+Parser.\+urlencoded} with the {\ttfamily extended} property set to {\ttfamily true} and the input exceeds the configured {\ttfamily depth} option. The {\ttfamily status} property is set to {\ttfamily 400}. It is recommended to review the {\ttfamily depth} option and evaluate if it requires a higher value. When the {\ttfamily depth} option is set to {\ttfamily 32} (default value), the error will not be thrown.\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md340}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md340}
+\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md341}{}\doxysubsection{\texorpdfstring{Express/\+Connect top-\/level generic}{Express/Connect top-level generic}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md341}
+This example demonstrates adding a generic JSON and URL-\/encoded parser as a top-\/level middleware, which will parse the bodies of all incoming requests. This is the simplest setup.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ express\ =\ require('express')}
+\DoxyCodeLine{var\ bodyParser\ =\ require('body-\/parser')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ app\ =\ express()}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ parse\ application/x-\/www-\/form-\/urlencoded}
+\DoxyCodeLine{app.use(bodyParser.urlencoded(\{\ extended:\ false\ \}))}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ parse\ application/json}
+\DoxyCodeLine{app.use(bodyParser.json())}
+\DoxyCodeLine{}
+\DoxyCodeLine{app.use(function\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ res.setHeader('Content-\/Type',\ 'text/plain')}
+\DoxyCodeLine{\ \ res.write('you\ posted:\(\backslash\)n')}
+\DoxyCodeLine{\ \ res.end(JSON.stringify(req.body,\ null,\ 2))}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md342}{}\doxysubsection{\texorpdfstring{Express route-\/specific}{Express route-specific}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md342}
+This example demonstrates adding body parsers specifically to the routes that need them. In general, this is the most recommended way to use body-\/parser with Express.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ express\ =\ require('express')}
+\DoxyCodeLine{var\ bodyParser\ =\ require('body-\/parser')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ app\ =\ express()}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ create\ application/json\ parser}
+\DoxyCodeLine{var\ jsonParser\ =\ bodyParser.json()}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ create\ application/x-\/www-\/form-\/urlencoded\ parser}
+\DoxyCodeLine{var\ urlencodedParser\ =\ bodyParser.urlencoded(\{\ extended:\ false\ \})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ POST\ /login\ gets\ urlencoded\ bodies}
+\DoxyCodeLine{app.post('/login',\ urlencodedParser,\ function\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ res.send('welcome,\ '\ +\ req.body.username)}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ POST\ /api/users\ gets\ JSON\ bodies}
+\DoxyCodeLine{app.post('/api/users',\ jsonParser,\ function\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ //\ create\ user\ in\ req.body}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md343}{}\doxysubsection{\texorpdfstring{Change accepted type for parsers}{Change accepted type for parsers}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md343}
+All the parsers accept a {\ttfamily type} option which allows you to change the {\ttfamily Content-\/\+Type} that the middleware will parse.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ express\ =\ require('express')}
+\DoxyCodeLine{var\ bodyParser\ =\ require('body-\/parser')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ app\ =\ express()}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ parse\ various\ different\ custom\ JSON\ types\ as\ JSON}
+\DoxyCodeLine{app.use(bodyParser.json(\{\ type:\ 'application/*+json'\ \}))}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ parse\ some\ custom\ thing\ into\ a\ Buffer}
+\DoxyCodeLine{app.use(bodyParser.raw(\{\ type:\ 'application/vnd.custom-\/type'\ \}))}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ parse\ an\ HTML\ body\ into\ a\ string}
+\DoxyCodeLine{app.use(bodyParser.text(\{\ type:\ 'text/html'\ \}))}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md344}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2body-parser_2README_autotoc_md344}
+\mbox{[}MIT\mbox{]}(LICENSE) 

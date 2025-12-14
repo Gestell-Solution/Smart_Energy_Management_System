@@ -1,0 +1,225 @@
+\chapter{Chokidar \texorpdfstring{$<$}{<}a href="{}https\+://github.\+com/paulmillr/chokidar"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://img.\+shields.\+io/npm/dw/chokidar.\+svg"{} alt="{}\+Weekly downloads"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>} \texorpdfstring{$<$}{<}a href="{}https\+://github.\+com/paulmillr/chokidar"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://img.\+shields.\+io/npm/dy/chokidar.\+svg"{} alt="{}\+Yearly downloads"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>}}
+\hypertarget{md_Dashboard_2node__modules_2chokidar_2README}{}\label{md_Dashboard_2node__modules_2chokidar_2README}\index{Chokidar $<$a href="{}https://github.com/paulmillr/chokidar"{} $>$$<$img src="{}https://img.shields.io/npm/dw/chokidar.svg"{} alt="{}Weekly downloads"{}/$>$$<$/a$>$ $<$a href="{}https://github.com/paulmillr/chokidar"{} $>$$<$img src="{}https://img.shields.io/npm/dy/chokidar.svg"{} alt="{}Yearly downloads"{}/$>$$<$/a$>$@{Chokidar $<$a href=""https://github.com/paulmillr/chokidar"" $>$$<$img src=""https://img.shields.io/npm/dw/chokidar.svg"" alt=""Weekly downloads""/$>$$<$/a$>$ $<$a href=""https://github.com/paulmillr/chokidar"" $>$$<$img src=""https://img.shields.io/npm/dy/chokidar.svg"" alt=""Yearly downloads""/$>$$<$/a$>$}}
+\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md436}%
+\Hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md436}%
+ \begin{quote}
+Minimal and efficient cross-\/platform file watching library \end{quote}
+\href{https://www.npmjs.com/package/chokidar}{\texttt{ }}\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md437}{}\doxysection{\texorpdfstring{Why?}{Why?}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md437}
+Node.\+js {\ttfamily fs.\+watch}\+:
+
+
+\begin{DoxyItemize}
+\item Doesn\textquotesingle{}t report filenames on Mac\+OS.
+\item Doesn\textquotesingle{}t report events at all when using editors like Sublime on Mac\+OS.
+\item Often reports events twice.
+\item Emits most changes as {\ttfamily rename}.
+\item Does not provide an easy way to recursively watch file trees.
+\item Does not support recursive watching on Linux.
+\end{DoxyItemize}
+
+Node.\+js {\ttfamily fs.\+watch\+File}\+:
+
+
+\begin{DoxyItemize}
+\item Almost as bad at event handling.
+\item Also does not provide any recursive watching.
+\item Results in high CPU utilization.
+\end{DoxyItemize}
+
+Chokidar resolves these problems.
+
+Initially made for {\bfseries{\href{https://brunch.io/}{\texttt{ Brunch}}}} (an ultra-\/swift web app build tool), it is now used in \href{https://github.com/microsoft/vscode}{\texttt{ Microsoft\textquotesingle{}s Visual Studio Code}}, \href{https://github.com/gulpjs/gulp/}{\texttt{ gulp}}, \href{https://karma-runner.github.io/}{\texttt{ karma}}, \href{https://github.com/Unitech/PM2}{\texttt{ PM2}}, \href{http://browserify.org/}{\texttt{ browserify}}, \href{https://webpack.github.io/}{\texttt{ webpack}}, \href{https://www.browsersync.io/}{\texttt{ Browser\+Sync}}, and \href{https://www.npmjs.com/browse/depended/chokidar}{\texttt{ many others}}. It has proven itself in production environments.
+
+Version 3 is out! Check out our blog post about it\+: \href{https://paulmillr.com/posts/chokidar-3-save-32tb-of-traffic/}{\texttt{ Chokidar 3\+: How to save 32TB of traffic every week}}\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md438}{}\doxysection{\texorpdfstring{How?}{How?}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md438}
+Chokidar does still rely on the Node.\+js core {\ttfamily fs} module, but when using {\ttfamily fs.\+watch} and {\ttfamily fs.\+watch\+File} for watching, it normalizes the events it receives, often checking for truth by getting file stats and/or dir contents.
+
+On Mac\+OS, chokidar by default uses a native extension exposing the Darwin {\ttfamily FSEvents} API. This provides very efficient recursive watching compared with implementations like {\ttfamily kqueue} available on most \texorpdfstring{$\ast$}{*}nix platforms. Chokidar still does have to do some work to normalize the events received that way as well.
+
+On most other platforms, the {\ttfamily fs.\+watch}-\/based implementation is the default, which avoids polling and keeps CPU usage down. Be advised that chokidar will initiate watchers recursively for everything within scope of the paths that have been specified, so be judicious about not wasting system resources by watching much more than needed.\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md439}{}\doxysection{\texorpdfstring{Getting started}{Getting started}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md439}
+Install with npm\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ chokidar}
+
+\end{DoxyCode}
+
+
+Then {\ttfamily require} and use it in your code\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ chokidar\ =\ require('chokidar');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ One-\/liner\ for\ current\ directory}
+\DoxyCodeLine{chokidar.watch('.').on('all',\ (event,\ path)\ =>\ \{}
+\DoxyCodeLine{\ \ console.log(event,\ path);}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md440}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md440}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ Example\ of\ a\ more\ typical\ implementation\ structure}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Initialize\ watcher.}
+\DoxyCodeLine{const\ watcher\ =\ chokidar.watch('file,\ dir,\ glob,\ or\ array',\ \{}
+\DoxyCodeLine{\ \ ignored:\ /(\string^|[\(\backslash\)/\(\backslash\)\(\backslash\)])\(\backslash\)../,\ //\ ignore\ dotfiles}
+\DoxyCodeLine{\ \ persistent:\ true}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Something\ to\ use\ when\ events\ are\ received.}
+\DoxyCodeLine{const\ log\ =\ console.log.bind(console);}
+\DoxyCodeLine{//\ Add\ event\ listeners.}
+\DoxyCodeLine{watcher}
+\DoxyCodeLine{\ \ .on('add',\ path\ =>\ log(`File\ \$\{path\}\ has\ been\ added`))}
+\DoxyCodeLine{\ \ .on('change',\ path\ =>\ log(`File\ \$\{path\}\ has\ been\ changed`))}
+\DoxyCodeLine{\ \ .on('unlink',\ path\ =>\ log(`File\ \$\{path\}\ has\ been\ removed`));}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ More\ possible\ events.}
+\DoxyCodeLine{watcher}
+\DoxyCodeLine{\ \ .on('addDir',\ path\ =>\ log(`Directory\ \$\{path\}\ has\ been\ added`))}
+\DoxyCodeLine{\ \ .on('unlinkDir',\ path\ =>\ log(`Directory\ \$\{path\}\ has\ been\ removed`))}
+\DoxyCodeLine{\ \ .on('error',\ error\ =>\ log(`Watcher\ error:\ \$\{error\}`))}
+\DoxyCodeLine{\ \ .on('ready',\ ()\ =>\ log('Initial\ scan\ complete.\ Ready\ for\ changes'))}
+\DoxyCodeLine{\ \ .on('raw',\ (event,\ path,\ details)\ =>\ \{\ //\ internal}
+\DoxyCodeLine{\ \ \ \ log('Raw\ event\ info:',\ event,\ path,\ details);}
+\DoxyCodeLine{\ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ 'add',\ 'addDir'\ and\ 'change'\ events\ also\ receive\ stat()\ results\ as\ second}
+\DoxyCodeLine{//\ argument\ when\ available:\ https://nodejs.org/api/fs.html\#fs\_class\_fs\_stats}
+\DoxyCodeLine{watcher.on('change',\ (path,\ stats)\ =>\ \{}
+\DoxyCodeLine{\ \ if\ (stats)\ console.log(`File\ \$\{path\}\ changed\ size\ to\ \$\{stats.size\}`);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Watch\ new\ files.}
+\DoxyCodeLine{watcher.add('new-\/file');}
+\DoxyCodeLine{watcher.add(['new-\/file-\/2',\ 'new-\/file-\/3',\ '**/other-\/file*']);}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Get\ list\ of\ actual\ paths\ being\ watched\ on\ the\ filesystem}
+\DoxyCodeLine{var\ watchedPaths\ =\ watcher.getWatched();}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Un-\/watch\ some\ files.}
+\DoxyCodeLine{await\ watcher.unwatch('new-\/file*');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Stop\ watching.}
+\DoxyCodeLine{//\ The\ method\ is\ async!}
+\DoxyCodeLine{watcher.close().then(()\ =>\ console.log('closed'));}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Full\ list\ of\ options.\ See\ below\ for\ descriptions.}
+\DoxyCodeLine{//\ Do\ not\ use\ this\ example!}
+\DoxyCodeLine{chokidar.watch('file',\ \{}
+\DoxyCodeLine{\ \ persistent:\ true,}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ignored:\ '*.txt',}
+\DoxyCodeLine{\ \ ignoreInitial:\ false,}
+\DoxyCodeLine{\ \ followSymlinks:\ true,}
+\DoxyCodeLine{\ \ cwd:\ '.',}
+\DoxyCodeLine{\ \ disableGlobbing:\ false,}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ usePolling:\ false,}
+\DoxyCodeLine{\ \ interval:\ 100,}
+\DoxyCodeLine{\ \ binaryInterval:\ 300,}
+\DoxyCodeLine{\ \ alwaysStat:\ false,}
+\DoxyCodeLine{\ \ depth:\ 99,}
+\DoxyCodeLine{\ \ awaitWriteFinish:\ \{}
+\DoxyCodeLine{\ \ \ \ stabilityThreshold:\ 2000,}
+\DoxyCodeLine{\ \ \ \ pollInterval:\ 100}
+\DoxyCodeLine{\ \ \},}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ignorePermissionErrors:\ false,}
+\DoxyCodeLine{\ \ atomic:\ true\ //\ or\ a\ custom\ 'atomicity\ delay',\ in\ milliseconds\ (default\ 100)}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+{\ttfamily chokidar.\+watch(paths, \mbox{[}options\mbox{]})}
+
+
+\begin{DoxyItemize}
+\item {\ttfamily paths} (string or array of strings). Paths to files, dirs to be watched recursively, or glob patterns.
+\begin{DoxyItemize}
+\item Note\+: globs must not contain windows separators ({\ttfamily \textbackslash{}}), because that\textquotesingle{}s how they work by the standard — you\textquotesingle{}ll need to replace them with forward slashes ({\ttfamily /}).
+\item Note 2\+: for additional glob documentation, check out low-\/level library\+: \href{https://github.com/micromatch/picomatch}{\texttt{ picomatch}}.
+\end{DoxyItemize}
+\item {\ttfamily options} (object) Options object as defined below\+:
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md441}{}\doxysubsubsection{\texorpdfstring{Persistence}{Persistence}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md441}
+
+\begin{DoxyItemize}
+\item {\ttfamily persistent} (default\+: {\ttfamily true}). Indicates whether the process should continue to run as long as files are being watched. If set to {\ttfamily false} when using {\ttfamily fsevents} to watch, no more events will be emitted after {\ttfamily ready}, even if the process continues to run.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md442}{}\doxysubsubsection{\texorpdfstring{Path filtering}{Path filtering}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md442}
+
+\begin{DoxyItemize}
+\item {\ttfamily ignored} (\href{https://github.com/es128/anymatch}{\texttt{ anymatch}}-\/compatible definition) Defines files/paths to be ignored. The whole relative or absolute path is tested, not just filename. If a function with two arguments is provided, it gets called twice per path -\/ once with a single argument (the path), second time with two arguments (the path and the \href{https://nodejs.org/api/fs.html\#fs_class_fs_stats}{\texttt{ {\ttfamily fs.\+Stats}}} object of that path).
+\item {\ttfamily ignore\+Initial} (default\+: {\ttfamily false}). If set to {\ttfamily false} then {\ttfamily add}/{\ttfamily add\+Dir} events are also emitted for matching paths while instantiating the watching as chokidar discovers these file paths (before the {\ttfamily ready} event).
+\item {\ttfamily follow\+Symlinks} (default\+: {\ttfamily true}). When {\ttfamily false}, only the symlinks themselves will be watched for changes instead of following the link references and bubbling events through the link\textquotesingle{}s path.
+\item {\ttfamily cwd} (no default). The base directory from which watch {\ttfamily paths} are to be derived. Paths emitted with events will be relative to this.
+\item {\ttfamily disable\+Globbing} (default\+: {\ttfamily false}). If set to {\ttfamily true} then the strings passed to {\ttfamily .watch()} and {\ttfamily .add()} are treated as literal path names, even if they look like globs.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md443}{}\doxysubsubsection{\texorpdfstring{Performance}{Performance}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md443}
+
+\begin{DoxyItemize}
+\item {\ttfamily use\+Polling} (default\+: {\ttfamily false}). Whether to use fs.\+watch\+File (backed by polling), or fs.\+watch. If polling leads to high CPU utilization, consider setting this to {\ttfamily false}. It is typically necessary to {\bfseries{set this to {\ttfamily true} to successfully watch files over a network}}, and it may be necessary to successfully watch files in other non-\/standard situations. Setting to {\ttfamily true} explicitly on Mac\+OS overrides the {\ttfamily use\+Fs\+Events} default. You may also set the CHOKIDAR\+\_\+\+USEPOLLING env variable to true (1) or false (0) in order to override this option.
+\item {\itshape Polling-\/specific settings} (effective when {\ttfamily use\+Polling\+: true})
+\begin{DoxyItemize}
+\item {\ttfamily interval} (default\+: {\ttfamily 100}). Interval of file system polling, in milliseconds. You may also set the CHOKIDAR\+\_\+\+INTERVAL env variable to override this option.
+\item {\ttfamily binary\+Interval} (default\+: {\ttfamily 300}). Interval of file system polling for binary files. (\href{https://github.com/sindresorhus/binary-extensions/blob/master/binary-extensions.json}{\texttt{ see list of binary extensions}})
+\end{DoxyItemize}
+\item {\ttfamily use\+Fs\+Events} (default\+: {\ttfamily true} on Mac\+OS). Whether to use the {\ttfamily fsevents} watching interface if available. When set to {\ttfamily true} explicitly and {\ttfamily fsevents} is available this supercedes the {\ttfamily use\+Polling} setting. When set to {\ttfamily false} on Mac\+OS, {\ttfamily use\+Polling\+: true} becomes the default.
+\item {\ttfamily always\+Stat} (default\+: {\ttfamily false}). If relying upon the \href{https://nodejs.org/api/fs.html\#fs_class_fs_stats}{\texttt{ {\ttfamily fs.\+Stats}}} object that may get passed with {\ttfamily add}, {\ttfamily add\+Dir}, and {\ttfamily change} events, set this to {\ttfamily true} to ensure it is provided even in cases where it wasn\textquotesingle{}t already available from the underlying watch events.
+\item {\ttfamily depth} (default\+: {\ttfamily undefined}). If set, limits how many levels of subdirectories will be traversed.
+\item {\ttfamily await\+Write\+Finish} (default\+: {\ttfamily false}). By default, the {\ttfamily add} event will fire when a file first appears on disk, before the entire file has been written. Furthermore, in some cases some {\ttfamily change} events will be emitted while the file is being written. In some cases, especially when watching for large files there will be a need to wait for the write operation to finish before responding to a file creation or modification. Setting {\ttfamily await\+Write\+Finish} to {\ttfamily true} (or a truthy value) will poll file size, holding its {\ttfamily add} and {\ttfamily change} events until the size does not change for a configurable amount of time. The appropriate duration setting is heavily dependent on the OS and hardware. For accurate detection this parameter should be relatively high, making file watching much less responsive. Use with caution.
+\begin{DoxyItemize}
+\item \texorpdfstring{$\ast$}{*}{\ttfamily options.\+await\+Write\+Finish} can be set to an object in order to adjust timing params\+:\texorpdfstring{$\ast$}{*}
+\item {\ttfamily await\+Write\+Finish.\+stability\+Threshold} (default\+: 2000). Amount of time in milliseconds for a file size to remain constant before emitting its event.
+\item {\ttfamily await\+Write\+Finish.\+poll\+Interval} (default\+: 100). File size polling interval, in milliseconds.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md444}{}\doxysubsubsection{\texorpdfstring{Errors}{Errors}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md444}
+
+\begin{DoxyItemize}
+\item {\ttfamily ignore\+Permission\+Errors} (default\+: {\ttfamily false}). Indicates whether to watch files that don\textquotesingle{}t have read permissions if possible. If watching fails due to {\ttfamily EPERM} or {\ttfamily EACCES} with this set to {\ttfamily true}, the errors will be suppressed silently.
+\item {\ttfamily atomic} (default\+: {\ttfamily true} if {\ttfamily use\+Fs\+Events} and {\ttfamily use\+Polling} are {\ttfamily false}). Automatically filters out artifacts that occur when using editors that use "{}atomic writes"{} instead of writing directly to the source file. If a file is re-\/added within 100 ms of being deleted, Chokidar emits a {\ttfamily change} event rather than {\ttfamily unlink} then {\ttfamily add}. If the default of 100 ms does not work well for you, you can override it by setting {\ttfamily atomic} to a custom value, in milliseconds.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md445}{}\doxysubsection{\texorpdfstring{Methods \& Events}{Methods \& Events}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md445}
+{\ttfamily chokidar.\+watch()} produces an instance of {\ttfamily FSWatcher}. Methods of {\ttfamily FSWatcher}\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily .add(path / paths)}\+: Add files, directories, or glob patterns for tracking. Takes an array of strings or just one string.
+\item {\ttfamily .on(event, callback)}\+: Listen for an FS event. Available events\+: {\ttfamily add}, {\ttfamily add\+Dir}, {\ttfamily change}, {\ttfamily unlink}, {\ttfamily unlink\+Dir}, {\ttfamily ready}, {\ttfamily raw}, {\ttfamily error}. Additionally {\ttfamily all} is available which gets emitted with the underlying event name and path for every event other than {\ttfamily ready}, {\ttfamily raw}, and {\ttfamily error}. {\ttfamily raw} is internal, use it carefully.
+\item {\ttfamily .unwatch(path / paths)}\+: Stop watching files, directories, or glob patterns. Takes an array of strings or just one string.
+\item {\ttfamily .close()}\+: {\bfseries{async}} Removes all listeners from watched files. Asynchronous, returns Promise. Use with {\ttfamily await} to ensure bugs don\textquotesingle{}t happen.
+\item {\ttfamily .get\+Watched()}\+: Returns an object representing all the paths on the file system being watched by this {\ttfamily FSWatcher} instance. The object\textquotesingle{}s keys are all the directories (using absolute paths unless the {\ttfamily cwd} option was used), and the values are arrays of the names of the items contained in each directory.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md446}{}\doxysection{\texorpdfstring{CLI}{CLI}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md446}
+If you need a CLI interface for your file watching, check out \href{https://github.com/open-cli-tools/chokidar-cli}{\texttt{ chokidar-\/cli}}, allowing you to execute a command on each change, or get a stdio stream of change events.\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md447}{}\doxysection{\texorpdfstring{Install Troubleshooting}{Install Troubleshooting}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md447}
+
+\begin{DoxyItemize}
+\item {\ttfamily npm WARN optional dep failed, continuing fsevents@n.\+n.\+n}
+\begin{DoxyItemize}
+\item This message is normal part of how {\ttfamily npm} handles optional dependencies and is not indicative of a problem. Even if accompanied by other related error messages, Chokidar should function properly.
+\end{DoxyItemize}
+\item {\ttfamily Type\+Error\+: fsevents is not a constructor}
+\begin{DoxyItemize}
+\item Update chokidar by doing {\ttfamily rm -\/rf node\+\_\+modules package-\/lock.\+json yarn.\+lock \&\& npm install}, or update your dependency that uses chokidar.
+\end{DoxyItemize}
+\item Chokidar is producing {\ttfamily ENOSP} error on Linux, like this\+:
+\begin{DoxyItemize}
+\item {\ttfamily bash\+: cannot set terminal process group (-\/1)\+: Inappropriate ioctl for device bash\+: no job control in this shell} {\ttfamily Error\+: watch /home/ ENOSPC}
+\item This means Chokidar ran out of file handles and you\textquotesingle{}ll need to increase their count by executing the following command in Terminal\+: {\ttfamily echo fs.\+inotify.\+max\+\_\+user\+\_\+watches=524288 \texorpdfstring{$\vert$}{|} sudo tee -\/a /etc/sysctl.conf \&\& sudo sysctl -\/p}
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md448}{}\doxysection{\texorpdfstring{Changelog}{Changelog}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md448}
+For more detailed changelog, see \`{}full\+\_\+changelog.md\`{}.
+\begin{DoxyItemize}
+\item {\bfseries{v3.\+5 (Jan 6, 2021)\+:}} Support for ARM Macs with Apple Silicon. Fixes for deleted symlinks.
+\item {\bfseries{v3.\+4 (Apr 26, 2020)\+:}} Support for directory-\/based symlinks. Fixes for macos file replacement.
+\item {\bfseries{v3.\+3 (Nov 2, 2019)\+:}} {\ttfamily FSWatcher\#close()} method became async. That fixes IO race conditions related to close method.
+\item {\bfseries{v3.\+2 (Oct 1, 2019)\+:}} Improve Linux RAM usage by 50\%. Race condition fixes. Windows glob fixes. Improve stability by using tight range of dependency versions.
+\item {\bfseries{v3.\+1 (Sep 16, 2019)\+:}} dotfiles are no longer filtered out by default. Use {\ttfamily ignored} option if needed. Improve initial Linux scan time by 50\%.
+\item {\bfseries{v3 (Apr 30, 2019)\+:}} massive CPU \& RAM consumption improvements; reduces deps / package size by a factor of 17x and bumps Node.\+js requirement to v8.\+16 and higher.
+\item {\bfseries{v2 (Dec 29, 2017)\+:}} Globs are now posix-\/style-\/only; without windows support. Tons of bugfixes.
+\item {\bfseries{v1 (Apr 7, 2015)\+:}} Glob support, symlink support, tons of bugfixes. Node 0.\+8+ is supported
+\item {\bfseries{v0.\+1 (Apr 20, 2012)\+:}} Initial release, extracted from \href{https://github.com/brunch/brunch/blob/9847a065aea300da99bd0753f90354cde9de1261/src/helpers.coffee\#L66}{\texttt{ Brunch}}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md449}{}\doxysection{\texorpdfstring{Also}{Also}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md449}
+Why was chokidar named this way? What\textquotesingle{}s the meaning behind it?
+
+\texorpdfstring{$>$}{>}Chowkidar is a transliteration of a Hindi word meaning \textquotesingle{}watchman, gatekeeper\textquotesingle{}, चौकीदार. This ultimately comes from Sanskrit \+\_\+ चतुष्क\+\_\+ (crossway, quadrangle, consisting-\/of-\/four). This word is also used in other languages like Urdu as (چوکیدار) which is widely used in Pakistan and India.\hypertarget{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md450}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2chokidar_2README_autotoc_md450}
+MIT (c) Paul Miller (\href{https://paulmillr.com}{\texttt{ https\+://paulmillr.\+com}}), see \mbox{[}LICENSE\mbox{]}(LICENSE) file. 

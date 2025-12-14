@@ -1,0 +1,65 @@
+\doxysection{Hal/\+Buzzer/\+Buzzer\+\_\+\+Program.c File Reference}
+\hypertarget{Buzzer__Program_8c}{}\label{Buzzer__Program_8c}\index{Hal/Buzzer/Buzzer\_Program.c@{Hal/Buzzer/Buzzer\_Program.c}}
+
+
+Implementation of Buzzer control driver (On, Off, Beep, Alert, and Periodic modes).  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+DIO/\+DIO\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../\+Buzzer/\+Buzzer\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+Timer0/\+TIMER0\+\_\+\+Interface.\+h"{}}\newline
+Include dependency graph for Buzzer\+\_\+\+Program.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Buzzer__Program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Buzzer_ga6b75e04c90a3c65be473f9eba13031cd}{Buzzer\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize buzzer GPIO pin. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_gae044fe5feff64cb88cbe3a0ff41e2d0a}{Buzzer\+\_\+\+On}} (void)
+\begin{DoxyCompactList}\small\item\em Turn buzzer ON. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_ga2440a829dfd95dec323a2655f90399b6}{Buzzer\+\_\+\+Off}} (void)
+\begin{DoxyCompactList}\small\item\em Turn buzzer OFF. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_ga4721b60386c04b37b0bbc5b5d15432e2}{Buzzer\+\_\+\+Beep}} (uint16\+\_\+t duration)
+\begin{DoxyCompactList}\small\item\em Generate a single beep . \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_ga20046e530ca41e2524d346f2a2798b66}{Buzzer\+\_\+\+Alert\+\_\+\+Callback}} (void)
+\begin{DoxyCompactList}\small\item\em Callback function used for repeating the buzzer in alert mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_ga38663e84ededea68df1392bf593fb7fe}{Buzzer\+\_\+\+Periodic\+\_\+\+Callback}} (void)
+\begin{DoxyCompactList}\small\item\em Callback function used for repeating the buzzer in periodic mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_ga15befaa8279a094586f7171a367a38b9}{Buzzer\+\_\+\+Set\+Mode}} (\mbox{\hyperlink{group__Buzzer_gaa6cdd577ceb0600f78bcf96b2ee90811}{Buzzer\+\_\+\+Mode\+\_\+t}} mode)
+\begin{DoxyCompactList}\small\item\em Set buzzer behavior based on system state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{structBuzzer__State__t}{Buzzer\+\_\+\+State\+\_\+t}} \mbox{\hyperlink{Buzzer__Program_8c_a1465879dff57be2236b1df36a4a8ad6a}{buzzer\+\_\+state}} = \{\mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a6fd00a9b64a658134b21162400027a68}{BUZZER\+\_\+\+OFF}}, 0\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of Buzzer control driver (On, Off, Beep, Alert, and Periodic modes). 
+
+This module controls the buzzer connected to the MCU. It provides multiple operating modes\+: ON, OFF, single beep, periodic beep, and alert beep. The buzzer timing is handled using Timer0 delay callbacks. \begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+$<$\+Basma khaled$>$ \href{mailto:basmak55@gmail.com}{\texttt{ basmak55@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{Buzzer__Program_8c_a1465879dff57be2236b1df36a4a8ad6a}\label{Buzzer__Program_8c_a1465879dff57be2236b1df36a4a8ad6a} 
+\index{Buzzer\_Program.c@{Buzzer\_Program.c}!buzzer\_state@{buzzer\_state}}
+\index{buzzer\_state@{buzzer\_state}!Buzzer\_Program.c@{Buzzer\_Program.c}}
+\doxysubsubsection{\texorpdfstring{buzzer\_state}{buzzer\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBuzzer__State__t}{Buzzer\+\_\+\+State\+\_\+t}} buzzer\+\_\+state = \{\mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a6fd00a9b64a658134b21162400027a68}{BUZZER\+\_\+\+OFF}}, 0\}\hspace{0.3cm}{\ttfamily [static]}}
+

@@ -1,0 +1,77 @@
+\doxysection{App/\+Energy\+Logger/\+Energy\+Logger\+\_\+config.h File Reference}
+\hypertarget{EnergyLogger__config_8h}{}\label{EnergyLogger__config_8h}\index{App/EnergyLogger/EnergyLogger\_config.h@{App/EnergyLogger/EnergyLogger\_config.h}}
+
+
+Configuration constants for the Energy Logger module.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EnergyLogger__config_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{EnergyLogger__config_8h_a9bbbdfca111c8048f1d8e611153764b5}{ENERGY\+\_\+\+LOGGER\+\_\+\+RAM\+\_\+\+BUFFER\+\_\+\+SIZE}}~32 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Size of RAM circular buffer \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{EnergyLogger__config_8h_ad14ad0b86c5e36e6aa6b01ef6dd97bbc}{EEPROM\+\_\+\+MAX\+\_\+\+LOGS}}~128 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Maximum number of logs to store in EEPROM \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{EnergyLogger__config_8h_ac2e61ad98b0a19fc320ff02ef8f61ba5}{EEPROM\+\_\+\+LOG\+\_\+\+BASE}}~0x100 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Base EEPROM address for the first log \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{EnergyLogger__config_8h_a1c1030133dd26821498da89d68a39e7a}{N\+\_\+\+SAMPLES\+\_\+\+TO\+\_\+\+EEPROM}}~10 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Number of samples to accumulate before writing to EEPROM \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{EnergyLogger__config_8h_aceb6ab88d83a44c50d26a63283e4436c}{SAMPLE\+\_\+\+INTERVAL\+\_\+\+HOURS}}~(0.\+01f / 3600.\+0f)  /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Sampling interval in hours (converted from seconds) \texorpdfstring{$\ast$}{*}/
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Configuration constants for the Energy Logger module. 
+
+\begin{DoxyAuthor}{Author}
+Developer \+: Basma khaled (\href{mailto:basmak55@gmail.com}{\texttt{ basmak55@gmail.\+com}}) 
+
+Reviewer \+: Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/12-\/4 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{EnergyLogger__config_8h_ac2e61ad98b0a19fc320ff02ef8f61ba5}\label{EnergyLogger__config_8h_ac2e61ad98b0a19fc320ff02ef8f61ba5} 
+\index{EnergyLogger\_config.h@{EnergyLogger\_config.h}!EEPROM\_LOG\_BASE@{EEPROM\_LOG\_BASE}}
+\index{EEPROM\_LOG\_BASE@{EEPROM\_LOG\_BASE}!EnergyLogger\_config.h@{EnergyLogger\_config.h}}
+\doxysubsubsection{\texorpdfstring{EEPROM\_LOG\_BASE}{EEPROM\_LOG\_BASE}}
+{\footnotesize\ttfamily \#define EEPROM\+\_\+\+LOG\+\_\+\+BASE~0x100 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Base EEPROM address for the first log \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{EnergyLogger__config_8h_ad14ad0b86c5e36e6aa6b01ef6dd97bbc}\label{EnergyLogger__config_8h_ad14ad0b86c5e36e6aa6b01ef6dd97bbc} 
+\index{EnergyLogger\_config.h@{EnergyLogger\_config.h}!EEPROM\_MAX\_LOGS@{EEPROM\_MAX\_LOGS}}
+\index{EEPROM\_MAX\_LOGS@{EEPROM\_MAX\_LOGS}!EnergyLogger\_config.h@{EnergyLogger\_config.h}}
+\doxysubsubsection{\texorpdfstring{EEPROM\_MAX\_LOGS}{EEPROM\_MAX\_LOGS}}
+{\footnotesize\ttfamily \#define EEPROM\+\_\+\+MAX\+\_\+\+LOGS~128 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Maximum number of logs to store in EEPROM \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{EnergyLogger__config_8h_a9bbbdfca111c8048f1d8e611153764b5}\label{EnergyLogger__config_8h_a9bbbdfca111c8048f1d8e611153764b5} 
+\index{EnergyLogger\_config.h@{EnergyLogger\_config.h}!ENERGY\_LOGGER\_RAM\_BUFFER\_SIZE@{ENERGY\_LOGGER\_RAM\_BUFFER\_SIZE}}
+\index{ENERGY\_LOGGER\_RAM\_BUFFER\_SIZE@{ENERGY\_LOGGER\_RAM\_BUFFER\_SIZE}!EnergyLogger\_config.h@{EnergyLogger\_config.h}}
+\doxysubsubsection{\texorpdfstring{ENERGY\_LOGGER\_RAM\_BUFFER\_SIZE}{ENERGY\_LOGGER\_RAM\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define ENERGY\+\_\+\+LOGGER\+\_\+\+RAM\+\_\+\+BUFFER\+\_\+\+SIZE~32 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Size of RAM circular buffer \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{EnergyLogger__config_8h_a1c1030133dd26821498da89d68a39e7a}\label{EnergyLogger__config_8h_a1c1030133dd26821498da89d68a39e7a} 
+\index{EnergyLogger\_config.h@{EnergyLogger\_config.h}!N\_SAMPLES\_TO\_EEPROM@{N\_SAMPLES\_TO\_EEPROM}}
+\index{N\_SAMPLES\_TO\_EEPROM@{N\_SAMPLES\_TO\_EEPROM}!EnergyLogger\_config.h@{EnergyLogger\_config.h}}
+\doxysubsubsection{\texorpdfstring{N\_SAMPLES\_TO\_EEPROM}{N\_SAMPLES\_TO\_EEPROM}}
+{\footnotesize\ttfamily \#define N\+\_\+\+SAMPLES\+\_\+\+TO\+\_\+\+EEPROM~10 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Number of samples to accumulate before writing to EEPROM \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{EnergyLogger__config_8h_aceb6ab88d83a44c50d26a63283e4436c}\label{EnergyLogger__config_8h_aceb6ab88d83a44c50d26a63283e4436c} 
+\index{EnergyLogger\_config.h@{EnergyLogger\_config.h}!SAMPLE\_INTERVAL\_HOURS@{SAMPLE\_INTERVAL\_HOURS}}
+\index{SAMPLE\_INTERVAL\_HOURS@{SAMPLE\_INTERVAL\_HOURS}!EnergyLogger\_config.h@{EnergyLogger\_config.h}}
+\doxysubsubsection{\texorpdfstring{SAMPLE\_INTERVAL\_HOURS}{SAMPLE\_INTERVAL\_HOURS}}
+{\footnotesize\ttfamily \#define SAMPLE\+\_\+\+INTERVAL\+\_\+\+HOURS~(0.\+01f / 3600.\+0f)  /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Sampling interval in hours (converted from seconds) \texorpdfstring{$\ast$}{*}/}
+

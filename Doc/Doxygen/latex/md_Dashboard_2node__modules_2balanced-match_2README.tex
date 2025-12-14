@@ -1,0 +1,75 @@
+\chapter{balanced-\/match}
+\hypertarget{md_Dashboard_2node__modules_2balanced-match_2README}{}\label{md_Dashboard_2node__modules_2balanced-match_2README}\index{balanced-\/match@{balanced-\/match}}
+\label{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md207}%
+\Hypertarget{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md207}%
+ Match balanced string pairs, like {\ttfamily \{} and {\ttfamily \}} or {\ttfamily \texorpdfstring{$<$}{<}b\texorpdfstring{$>$}{>}} and {\ttfamily \texorpdfstring{$<$}{<}/b\texorpdfstring{$>$}{>}}. Supports regular expressions as well!
+
+\href{http://travis-ci.org/juliangruber/balanced-match}{\texttt{ }} \href{https://www.npmjs.org/package/balanced-match}{\texttt{ }}
+
+\href{https://ci.testling.com/juliangruber/balanced-match}{\texttt{ }}\hypertarget{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md208}{}\doxysection{\texorpdfstring{Example}{Example}}\label{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md208}
+Get the first matching pair of braces\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ balanced\ =\ require('balanced-\/match');}
+\DoxyCodeLine{}
+\DoxyCodeLine{console.log(balanced('\{',\ '\}',\ 'pre\{in\{nested\}\}post'));}
+\DoxyCodeLine{console.log(balanced('\{',\ '\}',\ 'pre\{first\}between\{second\}post'));}
+\DoxyCodeLine{console.log(balanced(/\(\backslash\)s+\(\backslash\)\{\(\backslash\)s+/,\ /\(\backslash\)s+\(\backslash\)\}\(\backslash\)s+/,\ 'pre\ \ \{\ \ \ in\{nest\}\ \ \ \}\ \ post'));}
+
+\end{DoxyCode}
+
+
+The matches are\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ node\ example.js}
+\DoxyCodeLine{\{\ start:\ 3,\ end:\ 14,\ pre:\ 'pre',\ body:\ 'in\{nested\}',\ post:\ 'post'\ \}}
+\DoxyCodeLine{\{\ start:\ 3,}
+\DoxyCodeLine{\ \ end:\ 9,}
+\DoxyCodeLine{\ \ pre:\ 'pre',}
+\DoxyCodeLine{\ \ body:\ 'first',}
+\DoxyCodeLine{\ \ post:\ 'between\{second\}post'\ \}}
+\DoxyCodeLine{\{\ start:\ 3,\ end:\ 17,\ pre:\ 'pre',\ body:\ 'in\{nest\}',\ post:\ 'post'\ \}}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md209}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md209}
+\hypertarget{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md210}{}\doxysubsection{\texorpdfstring{var m = balanced(a, b, str)}{var m = balanced(a, b, str)}}\label{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md210}
+For the first non-\/nested matching pair of {\ttfamily a} and {\ttfamily b} in {\ttfamily str}, return an object with those keys\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{start}} the index of the first match of {\ttfamily a}
+\item {\bfseries{end}} the index of the matching {\ttfamily b}
+\item {\bfseries{pre}} the preamble, {\ttfamily a} and {\ttfamily b} not included
+\item {\bfseries{body}} the match, {\ttfamily a} and {\ttfamily b} not included
+\item {\bfseries{post}} the postscript, {\ttfamily a} and {\ttfamily b} not included
+\end{DoxyItemize}
+
+If there\textquotesingle{}s no match, {\ttfamily undefined} will be returned.
+
+If the {\ttfamily str} contains more {\ttfamily a} than {\ttfamily b} / there are unmatched pairs, the first match that was closed will be used. For example, {\ttfamily \{\{a\}} will match `\mbox{[}'\{\textquotesingle{}, \textquotesingle{}a\textquotesingle{}, \textquotesingle{}\textquotesingle{}\mbox{]}{\ttfamily and}\{a\}\}{\ttfamily will match}\mbox{[}\textquotesingle{}\textquotesingle{}, \textquotesingle{}a\textquotesingle{}, \textquotesingle{}\}\textquotesingle{}\mbox{]}\`{}.\hypertarget{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md211}{}\doxysubsection{\texorpdfstring{var r = balanced.\+range(a, b, str)}{var r = balanced.range(a, b, str)}}\label{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md211}
+For the first non-\/nested matching pair of {\ttfamily a} and {\ttfamily b} in {\ttfamily str}, return an array with indexes\+: {\ttfamily \mbox{[} \texorpdfstring{$<$}{<}a index\texorpdfstring{$>$}{>}, \texorpdfstring{$<$}{<}b index\texorpdfstring{$>$}{>} \mbox{]}}.
+
+If there\textquotesingle{}s no match, {\ttfamily undefined} will be returned.
+
+If the {\ttfamily str} contains more {\ttfamily a} than {\ttfamily b} / there are unmatched pairs, the first match that was closed will be used. For example, {\ttfamily \{\{a\}} will match {\ttfamily \mbox{[} 1, 3 \mbox{]}} and {\ttfamily \{a\}\}} will match {\ttfamily \mbox{[}0, 2\mbox{]}}.\hypertarget{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md212}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md212}
+With \href{https://npmjs.org}{\texttt{ npm}} do\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ balanced-\/match}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md213}{}\doxysection{\texorpdfstring{Security contact information}{Security contact information}}\label{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md213}
+To report a security vulnerability, please use the \href{https://tidelift.com/security}{\texttt{ Tidelift security contact}}. Tidelift will coordinate the fix and disclosure.\hypertarget{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md214}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2balanced-match_2README_autotoc_md214}
+(MIT)
+
+Copyright (c) 2013 Julian Gruber \texorpdfstring{$<$}{<}\href{mailto:julian@juliangruber.com}{\texttt{ julian@juliangruber.\+com}}\texorpdfstring{$>$}{>}
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "{}\+Software"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "{}\+AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 

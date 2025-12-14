@@ -1,0 +1,81 @@
+\doxysection{Mcal/\+UART/\+UART\+\_\+\+Init.h File Reference}
+\hypertarget{UART__Init_8h}{}\label{UART__Init_8h}\index{Mcal/UART/UART\_Init.h@{Mcal/UART/UART\_Init.h}}
+
+
+UART Initialization configuration and interface for ATmega32.  
+
+
+{\ttfamily \#include "{}../\+UART/\+UART\+\_\+\+Config.\+h"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for UART\+\_\+\+Init.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{UART__Init_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{UART__Init_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structUART__Config__t}{UART\+\_\+\+Config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure holding UART configuration parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__UART_ga2c7ed0283bd6f2f9d791860d6254ef4f}{UART\+\_\+\+BAUDRATE}}~9600\+UL
+\begin{DoxyCompactList}\small\item\em UART Baud Rate configuration (in bits per second). \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__UART_ga6bc437885fd4f211f6af1fb18c5a12b4}{UART\+\_\+\+DATA\+\_\+\+BITS}}~\mbox{\hyperlink{group__UART_ggac03a200b6073e3e3a785425c1851090ca3febd17414ccac951a00349c5c6bac9f}{UART\+\_\+8\+\_\+\+BIT}}
+\begin{DoxyCompactList}\small\item\em Select the number of data bits for UART frame. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__UART_ga5a50a502408c7bea025124b526ca381c}{UART\+\_\+\+STOP\+\_\+\+BITS}}~\mbox{\hyperlink{group__UART_ggaa283de6e98e7d60b53bb9c73397b0012a523769f4ab02da482974f27c63379b35}{UART\+\_\+1\+\_\+\+STOP}}
+\begin{DoxyCompactList}\small\item\em Select number of stop bits. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__UART_ga82edc7fac3f5bbdd56b34f890885bb7b}{UART\+\_\+\+PARITY\+\_\+\+MODE}}~\mbox{\hyperlink{group__UART_ggab67e41a2c4fe0f53ae6ee6e548e51053aa80d2d8ea61454045ebe71d155e85b3d}{UART\+\_\+\+PARITY\+\_\+\+NONE}}
+\begin{DoxyCompactList}\small\item\em Select parity mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{group__UART_gac03a200b6073e3e3a785425c1851090c}{UART\+\_\+\+Data\+Bits\+\_\+t}} \{ \mbox{\hyperlink{group__UART_ggac03a200b6073e3e3a785425c1851090cab3e7d27409d6431532b6dadf50d3f43f}{UART\+\_\+5\+\_\+\+BIT}} = 0x00
+, \mbox{\hyperlink{group__UART_ggac03a200b6073e3e3a785425c1851090cae1371befaf0275a967cd87bfb9888000}{UART\+\_\+6\+\_\+\+BIT}} = 0x02
+, \mbox{\hyperlink{group__UART_ggac03a200b6073e3e3a785425c1851090ca91d07e92746279dc7676b22fb6caeea6}{UART\+\_\+7\+\_\+\+BIT}} = 0x04
+, \mbox{\hyperlink{group__UART_ggac03a200b6073e3e3a785425c1851090ca3febd17414ccac951a00349c5c6bac9f}{UART\+\_\+8\+\_\+\+BIT}} = 0x06
+ \}
+\begin{DoxyCompactList}\small\item\em UART Data Bits configuration. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{group__UART_gaa283de6e98e7d60b53bb9c73397b0012}{UART\+\_\+\+Stop\+Bits\+\_\+t}} \{ \mbox{\hyperlink{group__UART_ggaa283de6e98e7d60b53bb9c73397b0012a523769f4ab02da482974f27c63379b35}{UART\+\_\+1\+\_\+\+STOP}} = 0x00
+, \mbox{\hyperlink{group__UART_ggaa283de6e98e7d60b53bb9c73397b0012a56ccc7d548255e63438219838ba41961}{UART\+\_\+2\+\_\+\+STOP}} = 0x08
+ \}
+\begin{DoxyCompactList}\small\item\em UART Stop Bits configuration. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{group__UART_gab67e41a2c4fe0f53ae6ee6e548e51053}{UART\+\_\+\+Parity\+\_\+t}} \{ \mbox{\hyperlink{group__UART_ggab67e41a2c4fe0f53ae6ee6e548e51053aa80d2d8ea61454045ebe71d155e85b3d}{UART\+\_\+\+PARITY\+\_\+\+NONE}} = 0x00
+, \mbox{\hyperlink{group__UART_ggab67e41a2c4fe0f53ae6ee6e548e51053ad908a637b1dd23f93b149dd2d8bdfdb8}{UART\+\_\+\+PARITY\+\_\+\+EVEN}} = 0x20
+, \mbox{\hyperlink{group__UART_ggab67e41a2c4fe0f53ae6ee6e548e51053ad90cc425f5ba447773a44a75be6593e2}{UART\+\_\+\+PARITY\+\_\+\+ODD}} = 0x30
+ \}
+\begin{DoxyCompactList}\small\item\em UART Parity configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__UART_ga3dea23a936964a88fd7b7930473be925}{m\+UART\+\_\+\+Init}} (const \mbox{\hyperlink{structUART__Config__t}{UART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Config)
+\begin{DoxyCompactList}\small\item\em Initializes UART peripheral with the defined configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+UART Initialization configuration and interface for ATmega32. 
+
+\begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+$<$\+Basma khaled$>$ \href{mailto:basmak55@gmail.com}{\texttt{ basmak55@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/08 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}

@@ -1,0 +1,96 @@
+\doxysection{App/\+Protection\+Manager/\+Protection\+Manager\+\_\+\+Config.h File Reference}
+\hypertarget{ProtectionManager__Config_8h}{}\label{ProtectionManager__Config_8h}\index{App/ProtectionManager/ProtectionManager\_Config.h@{App/ProtectionManager/ProtectionManager\_Config.h}}
+
+
+This File Contains the Protection Manager Configuration Parameters.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ProtectionManager__Config_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ProtectionManager__Config_8h_a8bd147e3c00bcf458661049b91bf62d2}{Vrms\+\_\+\+Threshold}}~250
+\begin{DoxyCompactList}\small\item\em Voltage RMS Threshold which if exceeded System Takes a Protection Action. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ProtectionManager__Config_8h_a78ef6faf2457cd49b8834a1c35a0c9ac}{Irms\+\_\+\+Threshold}}~10
+\begin{DoxyCompactList}\small\item\em Current RMS Threshold which if exceeded System Takes a Protection Action. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ProtectionManager__Config_8h_a1f17591954c8556966ec4e2b580a5a62}{P\+\_\+\+Threshold}}~2500
+\begin{DoxyCompactList}\small\item\em Power Threshold which if exceeded System Takes a Protection Action. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ProtectionManager__Config_8h_a8e14a711e2d84cfb0bb30344f50008a7}{Reset\+\_\+\+BTN\+\_\+\+Group}}~\mbox{\hyperlink{DIO__Private_8h_af9fa1c948e24cdd043e0057908a5fcaf}{GroupD}}
+\begin{DoxyCompactList}\small\item\em Reset Button Group/\+Port. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ProtectionManager__Config_8h_a77ebdee4cda173fc1d56fad488d3cebf}{Reset\+\_\+\+BTN\+\_\+\+Pin}}~\mbox{\hyperlink{DIO__Private_8h_ac4b639acb4bf160a49ff3c0d8fa80fc4}{PIN3}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This File Contains the Protection Manager Configuration Parameters. 
+
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+11-\/11-\/2025 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Developer \+: Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}}) 
+
+Reviewer \+: Mohamed Diaa (\href{mailto:mohammeddiaato@gmail.com}{\texttt{ mohammeddiaato@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ProtectionManager__Config_8h_a78ef6faf2457cd49b8834a1c35a0c9ac}\label{ProtectionManager__Config_8h_a78ef6faf2457cd49b8834a1c35a0c9ac} 
+\index{ProtectionManager\_Config.h@{ProtectionManager\_Config.h}!Irms\_Threshold@{Irms\_Threshold}}
+\index{Irms\_Threshold@{Irms\_Threshold}!ProtectionManager\_Config.h@{ProtectionManager\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Irms\_Threshold}{Irms\_Threshold}}
+{\footnotesize\ttfamily \#define Irms\+\_\+\+Threshold~10}
+
+
+
+Current RMS Threshold which if exceeded System Takes a Protection Action. 
+
+\Hypertarget{ProtectionManager__Config_8h_a1f17591954c8556966ec4e2b580a5a62}\label{ProtectionManager__Config_8h_a1f17591954c8556966ec4e2b580a5a62} 
+\index{ProtectionManager\_Config.h@{ProtectionManager\_Config.h}!P\_Threshold@{P\_Threshold}}
+\index{P\_Threshold@{P\_Threshold}!ProtectionManager\_Config.h@{ProtectionManager\_Config.h}}
+\doxysubsubsection{\texorpdfstring{P\_Threshold}{P\_Threshold}}
+{\footnotesize\ttfamily \#define P\+\_\+\+Threshold~2500}
+
+
+
+Power Threshold which if exceeded System Takes a Protection Action. 
+
+\Hypertarget{ProtectionManager__Config_8h_a8e14a711e2d84cfb0bb30344f50008a7}\label{ProtectionManager__Config_8h_a8e14a711e2d84cfb0bb30344f50008a7} 
+\index{ProtectionManager\_Config.h@{ProtectionManager\_Config.h}!Reset\_BTN\_Group@{Reset\_BTN\_Group}}
+\index{Reset\_BTN\_Group@{Reset\_BTN\_Group}!ProtectionManager\_Config.h@{ProtectionManager\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Reset\_BTN\_Group}{Reset\_BTN\_Group}}
+{\footnotesize\ttfamily \#define Reset\+\_\+\+BTN\+\_\+\+Group~\mbox{\hyperlink{DIO__Private_8h_af9fa1c948e24cdd043e0057908a5fcaf}{GroupD}}}
+
+
+
+Reset Button Group/\+Port. 
+
+Reset Button Pin. \Hypertarget{ProtectionManager__Config_8h_a77ebdee4cda173fc1d56fad488d3cebf}\label{ProtectionManager__Config_8h_a77ebdee4cda173fc1d56fad488d3cebf} 
+\index{ProtectionManager\_Config.h@{ProtectionManager\_Config.h}!Reset\_BTN\_Pin@{Reset\_BTN\_Pin}}
+\index{Reset\_BTN\_Pin@{Reset\_BTN\_Pin}!ProtectionManager\_Config.h@{ProtectionManager\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Reset\_BTN\_Pin}{Reset\_BTN\_Pin}}
+{\footnotesize\ttfamily \#define Reset\+\_\+\+BTN\+\_\+\+Pin~\mbox{\hyperlink{DIO__Private_8h_ac4b639acb4bf160a49ff3c0d8fa80fc4}{PIN3}}}
+
+\Hypertarget{ProtectionManager__Config_8h_a8bd147e3c00bcf458661049b91bf62d2}\label{ProtectionManager__Config_8h_a8bd147e3c00bcf458661049b91bf62d2} 
+\index{ProtectionManager\_Config.h@{ProtectionManager\_Config.h}!Vrms\_Threshold@{Vrms\_Threshold}}
+\index{Vrms\_Threshold@{Vrms\_Threshold}!ProtectionManager\_Config.h@{ProtectionManager\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Vrms\_Threshold}{Vrms\_Threshold}}
+{\footnotesize\ttfamily \#define Vrms\+\_\+\+Threshold~250}
+
+
+
+Voltage RMS Threshold which if exceeded System Takes a Protection Action. 
+

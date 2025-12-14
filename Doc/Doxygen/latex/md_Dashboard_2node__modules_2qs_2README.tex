@@ -1,0 +1,858 @@
+\chapter{README}
+\hypertarget{md_Dashboard_2node__modules_2qs_2README}{}\label{md_Dashboard_2node__modules_2qs_2README}\index{README@{README}}
+
+
+ \hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2234}{}\doxysection{\texorpdfstring{qs $<$sup$>$$<$a href="{}https\+://npmjs.\+org/package/qs"{} $>$$<$img src="{}https\+://versionbadg.\+es/ljharb/qs.\+svg"{} alt="{}\+Version Badge"{}/$>$$<$/a$>$$<$/sup$>$}{qs <sup><a href="https://npmjs.org/package/qs" ><img src="https://versionbadg.es/ljharb/qs.svg" alt="Version Badge"/></a></sup>}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2234}
+\href{https://github.com/ljharb/qs/actions}{\texttt{ }} \href{https://app.codecov.io/gh/ljharb/qs/}{\texttt{ }} \mbox{[}\mbox{]}\mbox{[}license-\/url\mbox{]} \href{https://npm-stat.com/charts.html?package=qs}{\texttt{ }} \href{https://bestpractices.coreinfrastructure.org/projects/9058}{\texttt{ }}
+
+\href{https://npmjs.org/package/qs}{\texttt{ }}
+
+A querystring parsing and stringifying library with some added security.
+
+Lead Maintainer\+: \href{https://github.com/ljharb}{\texttt{ Jordan Harband}}
+
+The {\bfseries{qs}} module was originally created and maintained by \href{https://github.com/visionmedia/node-querystring}{\texttt{ TJ Holowaychuk}}.\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2235}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2235}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ qs\ =\ require('qs');}
+\DoxyCodeLine{var\ assert\ =\ require('assert');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ obj\ =\ qs.parse('a=c');}
+\DoxyCodeLine{assert.deepEqual(obj,\ \{\ a:\ 'c'\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ str\ =\ qs.stringify(obj);}
+\DoxyCodeLine{assert.equal(str,\ 'a=c');}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2236}{}\doxysubsubsection{\texorpdfstring{Parsing Objects}{Parsing Objects}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2236}
+\mbox{[}\mbox{]}(\#prevent\+Eval) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qs.parse(string,\ [options]);}
+
+\end{DoxyCode}
+
+
+{\bfseries{qs}} allows you to create nested objects within your query strings, by surrounding the name of sub-\/keys with square brackets {\ttfamily \mbox{[}\mbox{]}}. For example, the string `\textquotesingle{}foo\mbox{[}bar\mbox{]}=baz'\`{} converts to\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.deepEqual(qs.parse('foo[bar]=baz'),\ \{}
+\DoxyCodeLine{\ \ \ \ foo:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ bar:\ 'baz'}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+When using the {\ttfamily plain\+Objects} option the parsed value is returned as a null object, created via {\ttfamily \{ \+\_\+\+\_\+proto\+\_\+\+\_\+\+: null \}} and as such you should be aware that prototype methods will not exist on it and a user may set those names to whatever value they like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ nullObject\ =\ qs.parse('a[hasOwnProperty]=b',\ \{\ plainObjects:\ true\ \});}
+\DoxyCodeLine{assert.deepEqual(nullObject,\ \{\ a:\ \{\ hasOwnProperty:\ 'b'\ \}\ \});}
+
+\end{DoxyCode}
+
+
+By default parameters that would overwrite properties on the object prototype are ignored, if you wish to keep the data from those fields either use {\ttfamily plain\+Objects} as mentioned above, or set {\ttfamily allow\+Prototypes} to {\ttfamily true} which will allow user input to overwrite those properties. {\itshape WARNING} It is generally a bad idea to enable this option as it can cause problems when attempting to use the properties that have been overwritten. Always be careful with this option.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ protoObject\ =\ qs.parse('a[hasOwnProperty]=b',\ \{\ allowPrototypes:\ true\ \});}
+\DoxyCodeLine{assert.deepEqual(protoObject,\ \{\ a:\ \{\ hasOwnProperty:\ 'b'\ \}\ \});}
+
+\end{DoxyCode}
+
+
+URI encoded strings work too\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.deepEqual(qs.parse('a\%5Bb\%5D=c'),\ \{}
+\DoxyCodeLine{\ \ \ \ a:\ \{\ b:\ 'c'\ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+You can also nest your objects, like `\textquotesingle{}foo\mbox{[}bar\mbox{]}\mbox{[}baz\mbox{]}=foobarbaz'\`{}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.deepEqual(qs.parse('foo[bar][baz]=foobarbaz'),\ \{}
+\DoxyCodeLine{\ \ \ \ foo:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ bar:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ baz:\ 'foobarbaz'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+By default, when nesting objects {\bfseries{qs}} will only parse up to 5 children deep. This means if you attempt to parse a string like `\textquotesingle{}a\mbox{[}b\mbox{]}\mbox{[}c\mbox{]}\mbox{[}d\mbox{]}\mbox{[}e\mbox{]}\mbox{[}f\mbox{]}\mbox{[}g\mbox{]}\mbox{[}h\mbox{]}\mbox{[}i\mbox{]}=j'\`{} your resulting object will be\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ expected\ =\ \{}
+\DoxyCodeLine{\ \ \ \ a:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ b:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ c:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ '[g][h][i]':\ 'j'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{var\ string\ =\ 'a[b][c][d][e][f][g][h][i]=j';}
+\DoxyCodeLine{assert.deepEqual(qs.parse(string),\ expected);}
+
+\end{DoxyCode}
+
+
+This depth can be overridden by passing a {\ttfamily depth} option to {\ttfamily qs.\+parse(string, \mbox{[}options\mbox{]})}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ deep\ =\ qs.parse('a[b][c][d][e][f][g][h][i]=j',\ \{\ depth:\ 1\ \});}
+\DoxyCodeLine{assert.deepEqual(deep,\ \{\ a:\ \{\ b:\ \{\ '[c][d][e][f][g][h][i]':\ 'j'\ \}\ \}\ \});}
+
+\end{DoxyCode}
+
+
+You can configure {\bfseries{qs}} to throw an error when parsing nested input beyond this depth using the {\ttfamily strict\+Depth} option (defaulted to false)\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{try\ \{}
+\DoxyCodeLine{\ \ \ \ qs.parse('a[b][c][d][e][f][g][h][i]=j',\ \{\ depth:\ 1,\ strictDepth:\ true\ \});}
+\DoxyCodeLine{\}\ catch\ (err)\ \{}
+\DoxyCodeLine{\ \ \ \ assert(err\ instanceof\ RangeError);}
+\DoxyCodeLine{\ \ \ \ assert.strictEqual(err.message,\ 'Input\ depth\ exceeded\ depth\ option\ of\ 1\ and\ strictDepth\ is\ true');}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The depth limit helps mitigate abuse when {\bfseries{qs}} is used to parse user input, and it is recommended to keep it a reasonably small number. The strict\+Depth option adds a layer of protection by throwing an error when the limit is exceeded, allowing you to catch and handle such cases.
+
+For similar reasons, by default {\bfseries{qs}} will only parse up to 1000 parameters. This can be overridden by passing a {\ttfamily parameter\+Limit} option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ limited\ =\ qs.parse('a=b\&c=d',\ \{\ parameterLimit:\ 1\ \});}
+\DoxyCodeLine{assert.deepEqual(limited,\ \{\ a:\ 'b'\ \});}
+
+\end{DoxyCode}
+
+
+If you want an error to be thrown whenever the a limit is exceeded (eg, {\ttfamily parameter\+Limit}, {\ttfamily array\+Limit}), set the {\ttfamily throw\+On\+Limit\+Exceeded} option to {\ttfamily true}. This option will generate a descriptive error if the query string exceeds a configured limit. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{try\ \{}
+\DoxyCodeLine{\ \ \ \ qs.parse('a=1\&b=2\&c=3\&d=4',\ \{\ parameterLimit:\ 3,\ throwOnLimitExceeded:\ true\ \});}
+\DoxyCodeLine{\}\ catch\ (err)\ \{}
+\DoxyCodeLine{\ \ \ \ assert(err\ instanceof\ Error);}
+\DoxyCodeLine{\ \ \ \ assert.strictEqual(err.message,\ 'Parameter\ limit\ exceeded.\ Only\ 3\ parameters\ allowed.');}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+When {\ttfamily throw\+On\+Limit\+Exceeded} is set to {\ttfamily false} (default), {\bfseries{qs}} will parse up to the specified {\ttfamily parameter\+Limit} and ignore the rest without throwing an error.
+
+To bypass the leading question mark, use {\ttfamily ignore\+Query\+Prefix}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ prefixed\ =\ qs.parse('?a=b\&c=d',\ \{\ ignoreQueryPrefix:\ true\ \});}
+\DoxyCodeLine{assert.deepEqual(prefixed,\ \{\ a:\ 'b',\ c:\ 'd'\ \});}
+
+\end{DoxyCode}
+
+
+An optional delimiter can also be passed\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ delimited\ =\ qs.parse('a=b;c=d',\ \{\ delimiter:\ ';'\ \});}
+\DoxyCodeLine{assert.deepEqual(delimited,\ \{\ a:\ 'b',\ c:\ 'd'\ \});}
+
+\end{DoxyCode}
+
+
+Delimiters can be a regular expression too\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ regexed\ =\ qs.parse('a=b;c=d,e=f',\ \{\ delimiter:\ /[;,]/\ \});}
+\DoxyCodeLine{assert.deepEqual(regexed,\ \{\ a:\ 'b',\ c:\ 'd',\ e:\ 'f'\ \});}
+
+\end{DoxyCode}
+
+
+Option {\ttfamily allow\+Dots} can be used to enable dot notation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ withDots\ =\ qs.parse('a.b=c',\ \{\ allowDots:\ true\ \});}
+\DoxyCodeLine{assert.deepEqual(withDots,\ \{\ a:\ \{\ b:\ 'c'\ \}\ \});}
+
+\end{DoxyCode}
+
+
+Option {\ttfamily decode\+Dot\+In\+Keys} can be used to decode dots in keys Note\+: it implies {\ttfamily allow\+Dots}, so {\ttfamily parse} will error if you set {\ttfamily decode\+Dot\+In\+Keys} to {\ttfamily true}, and {\ttfamily allow\+Dots} to {\ttfamily false}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ withDots\ =\ qs.parse('name\%252Eobj.first=John\&name\%252Eobj.last=Doe',\ \{\ decodeDotInKeys:\ true\ \});}
+\DoxyCodeLine{assert.deepEqual(withDots,\ \{\ 'name.obj':\ \{\ first:\ 'John',\ last:\ 'Doe'\ \}\});}
+
+\end{DoxyCode}
+
+
+Option {\ttfamily allow\+Empty\+Arrays} can be used to allowing empty array values in object 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ withEmptyArrays\ =\ qs.parse('foo[]\&bar=baz',\ \{\ allowEmptyArrays:\ true\ \});}
+\DoxyCodeLine{assert.deepEqual(withEmptyArrays,\ \{\ foo:\ [],\ bar:\ 'baz'\ \});}
+
+\end{DoxyCode}
+
+
+Option {\ttfamily duplicates} can be used to change the behavior when duplicate keys are encountered 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.deepEqual(qs.parse('foo=bar\&foo=baz'),\ \{\ foo:\ ['bar',\ 'baz']\ \});}
+\DoxyCodeLine{assert.deepEqual(qs.parse('foo=bar\&foo=baz',\ \{\ duplicates:\ 'combine'\ \}),\ \{\ foo:\ ['bar',\ 'baz']\ \});}
+\DoxyCodeLine{assert.deepEqual(qs.parse('foo=bar\&foo=baz',\ \{\ duplicates:\ 'first'\ \}),\ \{\ foo:\ 'bar'\ \});}
+\DoxyCodeLine{assert.deepEqual(qs.parse('foo=bar\&foo=baz',\ \{\ duplicates:\ 'last'\ \}),\ \{\ foo:\ 'baz'\ \});}
+
+\end{DoxyCode}
+
+
+If you have to deal with legacy browsers or services, there\textquotesingle{}s also support for decoding percent-\/encoded octets as iso-\/8859-\/1\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ oldCharset\ =\ qs.parse('a=\%A7',\ \{\ charset:\ 'iso-\/8859-\/1'\ \});}
+\DoxyCodeLine{assert.deepEqual(oldCharset,\ \{\ a:\ '§'\ \});}
+
+\end{DoxyCode}
+
+
+Some services add an initial {\ttfamily utf8=✓} value to forms so that old Internet Explorer versions are more likely to submit the form as utf-\/8. Additionally, the server can check the value against wrong encodings of the checkmark character and detect that a query string or {\ttfamily application/x-\/www-\/form-\/urlencoded} body was {\itshape not} sent as utf-\/8, eg. if the form had an {\ttfamily accept-\/charset} parameter or the containing page had a different character set.
+
+{\bfseries{qs}} supports this mechanism via the {\ttfamily charset\+Sentinel} option. If specified, the {\ttfamily utf8} parameter will be omitted from the returned object. It will be used to switch to {\ttfamily iso-\/8859-\/1}/{\ttfamily utf-\/8} mode depending on how the checkmark is encoded.
+
+{\bfseries{Important}}\+: When you specify both the {\ttfamily charset} option and the {\ttfamily charset\+Sentinel} option, the {\ttfamily charset} will be overridden when the request contains a {\ttfamily utf8} parameter from which the actual charset can be deduced. In that sense the {\ttfamily charset} will behave as the default charset rather than the authoritative charset.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ detectedAsUtf8\ =\ qs.parse('utf8=\%E2\%9C\%93\&a=\%C3\%B8',\ \{}
+\DoxyCodeLine{\ \ \ \ charset:\ 'iso-\/8859-\/1',}
+\DoxyCodeLine{\ \ \ \ charsetSentinel:\ true}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{assert.deepEqual(detectedAsUtf8,\ \{\ a:\ 'ø'\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Browsers\ encode\ the\ checkmark\ as\ \&\#10003;\ when\ submitting\ as\ iso-\/8859-\/1:}
+\DoxyCodeLine{var\ detectedAsIso8859\_1\ =\ qs.parse('utf8=\%26\%2310003\%3B\&a=\%F8',\ \{}
+\DoxyCodeLine{\ \ \ \ charset:\ 'utf-\/8',}
+\DoxyCodeLine{\ \ \ \ charsetSentinel:\ true}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{assert.deepEqual(detectedAsIso8859\_1,\ \{\ a:\ 'ø'\ \});}
+
+\end{DoxyCode}
+
+
+If you want to decode the {\ttfamily \&\#...;} syntax to the actual character, you can specify the {\ttfamily interpret\+Numeric\+Entities} option as well\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ detectedAsIso8859\_1\ =\ qs.parse('a=\%26\%239786\%3B',\ \{}
+\DoxyCodeLine{\ \ \ \ charset:\ 'iso-\/8859-\/1',}
+\DoxyCodeLine{\ \ \ \ interpretNumericEntities:\ true}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{assert.deepEqual(detectedAsIso8859\_1,\ \{\ a:\ '☺'\ \});}
+
+\end{DoxyCode}
+
+
+It also works when the charset has been detected in {\ttfamily charset\+Sentinel} mode.\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2237}{}\doxysubsubsection{\texorpdfstring{Parsing Arrays}{Parsing Arrays}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2237}
+{\bfseries{qs}} can also parse arrays using a similar {\ttfamily \mbox{[}\mbox{]}} notation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ withArray\ =\ qs.parse('a[]=b\&a[]=c');}
+\DoxyCodeLine{assert.deepEqual(withArray,\ \{\ a:\ ['b',\ 'c']\ \});}
+
+\end{DoxyCode}
+
+
+You may specify an index as well\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ withIndexes\ =\ qs.parse('a[1]=c\&a[0]=b');}
+\DoxyCodeLine{assert.deepEqual(withIndexes,\ \{\ a:\ ['b',\ 'c']\ \});}
+
+\end{DoxyCode}
+
+
+Note that the only difference between an index in an array and a key in an object is that the value between the brackets must be a number to create an array. When creating arrays with specific indices, {\bfseries{qs}} will compact a sparse array to only the existing values preserving their order\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ noSparse\ =\ qs.parse('a[1]=b\&a[15]=c');}
+\DoxyCodeLine{assert.deepEqual(noSparse,\ \{\ a:\ ['b',\ 'c']\ \});}
+
+\end{DoxyCode}
+
+
+You may also use {\ttfamily allow\+Sparse} option to parse sparse arrays\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ sparseArray\ =\ qs.parse('a[1]=2\&a[3]=5',\ \{\ allowSparse:\ true\ \});}
+\DoxyCodeLine{assert.deepEqual(sparseArray,\ \{\ a:\ [,\ '2',\ ,\ '5']\ \});}
+
+\end{DoxyCode}
+
+
+Note that an empty string is also a value, and will be preserved\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ withEmptyString\ =\ qs.parse('a[]=\&a[]=b');}
+\DoxyCodeLine{assert.deepEqual(withEmptyString,\ \{\ a:\ ['',\ 'b']\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ withIndexedEmptyString\ =\ qs.parse('a[0]=b\&a[1]=\&a[2]=c');}
+\DoxyCodeLine{assert.deepEqual(withIndexedEmptyString,\ \{\ a:\ ['b',\ '',\ 'c']\ \});}
+
+\end{DoxyCode}
+
+
+{\bfseries{qs}} will also limit specifying indices in an array to a maximum index of {\ttfamily 20}. Any array members with an index of greater than {\ttfamily 20} will instead be converted to an object with the index as the key. This is needed to handle cases when someone sent, for example, {\ttfamily a\mbox{[}999999999\mbox{]}} and it will take significant time to iterate over this huge array.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ withMaxIndex\ =\ qs.parse('a[100]=b');}
+\DoxyCodeLine{assert.deepEqual(withMaxIndex,\ \{\ a:\ \{\ '100':\ 'b'\ \}\ \});}
+
+\end{DoxyCode}
+
+
+This limit can be overridden by passing an {\ttfamily array\+Limit} option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ withArrayLimit\ =\ qs.parse('a[1]=b',\ \{\ arrayLimit:\ 0\ \});}
+\DoxyCodeLine{assert.deepEqual(withArrayLimit,\ \{\ a:\ \{\ '1':\ 'b'\ \}\ \});}
+
+\end{DoxyCode}
+
+
+If you want to throw an error whenever the array limit is exceeded, set the {\ttfamily throw\+On\+Limit\+Exceeded} option to {\ttfamily true}. This option will generate a descriptive error if the query string exceeds a configured limit. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{try\ \{}
+\DoxyCodeLine{\ \ \ \ qs.parse('a[1]=b',\ \{\ arrayLimit:\ 0,\ throwOnLimitExceeded:\ true\ \});}
+\DoxyCodeLine{\}\ catch\ (err)\ \{}
+\DoxyCodeLine{\ \ \ \ assert(err\ instanceof\ Error);}
+\DoxyCodeLine{\ \ \ \ assert.strictEqual(err.message,\ 'Array\ limit\ exceeded.\ Only\ 0\ elements\ allowed\ in\ an\ array.');}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+When {\ttfamily throw\+On\+Limit\+Exceeded} is set to {\ttfamily false} (default), {\bfseries{qs}} will parse up to the specified {\ttfamily array\+Limit} and if the limit is exceeded, the array will instead be converted to an object with the index as the key
+
+To disable array parsing entirely, set {\ttfamily parse\+Arrays} to {\ttfamily false}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ noParsingArrays\ =\ qs.parse('a[]=b',\ \{\ parseArrays:\ false\ \});}
+\DoxyCodeLine{assert.deepEqual(noParsingArrays,\ \{\ a:\ \{\ '0':\ 'b'\ \}\ \});}
+
+\end{DoxyCode}
+
+
+If you mix notations, {\bfseries{qs}} will merge the two items into an object\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ mixedNotation\ =\ qs.parse('a[0]=b\&a[b]=c');}
+\DoxyCodeLine{assert.deepEqual(mixedNotation,\ \{\ a:\ \{\ '0':\ 'b',\ b:\ 'c'\ \}\ \});}
+
+\end{DoxyCode}
+
+
+You can also create arrays of objects\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ arraysOfObjects\ =\ qs.parse('a[][b]=c');}
+\DoxyCodeLine{assert.deepEqual(arraysOfObjects,\ \{\ a:\ [\{\ b:\ 'c'\ \}]\ \});}
+
+\end{DoxyCode}
+
+
+Some people use comma to join array, {\bfseries{qs}} can parse it\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ arraysOfObjects\ =\ qs.parse('a=b,c',\ \{\ comma:\ true\ \})}
+\DoxyCodeLine{assert.deepEqual(arraysOfObjects,\ \{\ a:\ ['b',\ 'c']\ \})}
+
+\end{DoxyCode}
+ ({\itshape this cannot convert nested objects, such as {\ttfamily a=\{b\+:1\},\{c\+:d\}}})\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2238}{}\doxysubsubsection{\texorpdfstring{Parsing primitive/scalar values (numbers, booleans, null, etc)}{Parsing primitive/scalar values (numbers, booleans, null, etc)}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2238}
+By default, all values are parsed as strings. This behavior will not change and is explained in \href{https://github.com/ljharb/qs/issues/91}{\texttt{ issue \#91}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ primitiveValues\ =\ qs.parse('a=15\&b=true\&c=null');}
+\DoxyCodeLine{assert.deepEqual(primitiveValues,\ \{\ a:\ '15',\ b:\ 'true',\ c:\ 'null'\ \});}
+
+\end{DoxyCode}
+
+
+If you wish to auto-\/convert values which look like numbers, booleans, and other values into their primitive counterparts, you can use the \href{https://github.com/xpepermint/query-types}{\texttt{ query-\/types Express JS middleware}} which will auto-\/convert all request query parameters.\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2239}{}\doxysubsubsection{\texorpdfstring{Stringifying}{Stringifying}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2239}
+\mbox{[}\mbox{]}(\#prevent\+Eval) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qs.stringify(object,\ [options]);}
+
+\end{DoxyCode}
+
+
+When stringifying, {\bfseries{qs}} by default URI encodes output. Objects are stringified as you would expect\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ 'b'\ \}),\ 'a=b');}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ \{\ b:\ 'c'\ \}\ \}),\ 'a\%5Bb\%5D=c');}
+
+\end{DoxyCode}
+
+
+This encoding can be disabled by setting the {\ttfamily encode} option to {\ttfamily false}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ unencoded\ =\ qs.stringify(\{\ a:\ \{\ b:\ 'c'\ \}\ \},\ \{\ encode:\ false\ \});}
+\DoxyCodeLine{assert.equal(unencoded,\ 'a[b]=c');}
+
+\end{DoxyCode}
+
+
+Encoding can be disabled for keys by setting the {\ttfamily encode\+Values\+Only} option to {\ttfamily true}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ encodedValues\ =\ qs.stringify(}
+\DoxyCodeLine{\ \ \ \ \{\ a:\ 'b',\ c:\ ['d',\ 'e=f'],\ f:\ [['g'],\ ['h']]\ \},}
+\DoxyCodeLine{\ \ \ \ \{\ encodeValuesOnly:\ true\ \}}
+\DoxyCodeLine{);}
+\DoxyCodeLine{assert.equal(encodedValues,'a=b\&c[0]=d\&c[1]=e\%3Df\&f[0][0]=g\&f[1][0]=h');}
+
+\end{DoxyCode}
+
+
+This encoding can also be replaced by a custom encoding method set as {\ttfamily encoder} option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ encoded\ =\ qs.stringify(\{\ a:\ \{\ b:\ 'c'\ \}\ \},\ \{\ encoder:\ function\ (str)\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Passed\ in\ values\ \`{}a`,\ \`{}b`,\ \`{}c`}
+\DoxyCodeLine{\ \ \ \ return\ //\ Return\ encoded\ string}
+\DoxyCodeLine{\}\})}
+
+\end{DoxyCode}
+
+
+\+\_\+(Note\+: the {\ttfamily encoder} option does not apply if {\ttfamily encode} is {\ttfamily false})\+\_\+
+
+Analogue to the {\ttfamily encoder} there is a {\ttfamily decoder} option for {\ttfamily parse} to override decoding of properties and values\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ decoded\ =\ qs.parse('x=z',\ \{\ decoder:\ function\ (str)\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Passed\ in\ values\ \`{}x`,\ \`{}z`}
+\DoxyCodeLine{\ \ \ \ return\ //\ Return\ decoded\ string}
+\DoxyCodeLine{\}\})}
+
+\end{DoxyCode}
+
+
+You can encode keys and values using different logic by using the type argument provided to the encoder\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ encoded\ =\ qs.stringify(\{\ a:\ \{\ b:\ 'c'\ \}\ \},\ \{\ encoder:\ function\ (str,\ defaultEncoder,\ charset,\ type)\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (type\ ===\ 'key')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ //\ Encoded\ key}
+\DoxyCodeLine{\ \ \ \ \}\ else\ if\ (type\ ===\ 'value')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ //\ Encoded\ value}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}\})}
+
+\end{DoxyCode}
+
+
+The type argument is also provided to the decoder\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ decoded\ =\ qs.parse('x=z',\ \{\ decoder:\ function\ (str,\ defaultDecoder,\ charset,\ type)\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (type\ ===\ 'key')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ //\ Decoded\ key}
+\DoxyCodeLine{\ \ \ \ \}\ else\ if\ (type\ ===\ 'value')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ //\ Decoded\ value}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}\})}
+
+\end{DoxyCode}
+
+
+Examples beyond this point will be shown as though the output is not URI encoded for clarity. Please note that the return values in these cases {\itshape will} be URI encoded during real usage.
+
+When arrays are stringified, they follow the {\ttfamily array\+Format} option, which defaults to {\ttfamily indices}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qs.stringify(\{\ a:\ ['b',\ 'c',\ 'd']\ \});}
+\DoxyCodeLine{//\ 'a[0]=b\&a[1]=c\&a[2]=d'}
+
+\end{DoxyCode}
+
+
+You may override this by setting the {\ttfamily indices} option to {\ttfamily false}, or to be more explicit, the {\ttfamily array\+Format} option to {\ttfamily repeat}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qs.stringify(\{\ a:\ ['b',\ 'c',\ 'd']\ \},\ \{\ indices:\ false\ \});}
+\DoxyCodeLine{//\ 'a=b\&a=c\&a=d'}
+
+\end{DoxyCode}
+
+
+You may use the {\ttfamily array\+Format} option to specify the format of the output array\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qs.stringify(\{\ a:\ ['b',\ 'c']\ \},\ \{\ arrayFormat:\ 'indices'\ \})}
+\DoxyCodeLine{//\ 'a[0]=b\&a[1]=c'}
+\DoxyCodeLine{qs.stringify(\{\ a:\ ['b',\ 'c']\ \},\ \{\ arrayFormat:\ 'brackets'\ \})}
+\DoxyCodeLine{//\ 'a[]=b\&a[]=c'}
+\DoxyCodeLine{qs.stringify(\{\ a:\ ['b',\ 'c']\ \},\ \{\ arrayFormat:\ 'repeat'\ \})}
+\DoxyCodeLine{//\ 'a=b\&a=c'}
+\DoxyCodeLine{qs.stringify(\{\ a:\ ['b',\ 'c']\ \},\ \{\ arrayFormat:\ 'comma'\ \})}
+\DoxyCodeLine{//\ 'a=b,c'}
+
+\end{DoxyCode}
+
+
+Note\+: when using {\ttfamily array\+Format} set to `\textquotesingle{}comma'{\ttfamily , you can also pass the}comma\+Round\+Trip{\ttfamily option set to}true{\ttfamily or}false{\ttfamily , to append}\mbox{[}\mbox{]}\`{} on single-\/item arrays, so that they can round trip through a parse.
+
+When objects are stringified, by default they use bracket notation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qs.stringify(\{\ a:\ \{\ b:\ \{\ c:\ 'd',\ e:\ 'f'\ \}\ \}\ \});}
+\DoxyCodeLine{//\ 'a[b][c]=d\&a[b][e]=f'}
+
+\end{DoxyCode}
+
+
+You may override this to use dot notation by setting the {\ttfamily allow\+Dots} option to {\ttfamily true}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qs.stringify(\{\ a:\ \{\ b:\ \{\ c:\ 'd',\ e:\ 'f'\ \}\ \}\ \},\ \{\ allowDots:\ true\ \});}
+\DoxyCodeLine{//\ 'a.b.c=d\&a.b.e=f'}
+
+\end{DoxyCode}
+
+
+You may encode the dot notation in the keys of object with option {\ttfamily encode\+Dot\+In\+Keys} by setting it to {\ttfamily true}\+: Note\+: it implies {\ttfamily allow\+Dots}, so {\ttfamily stringify} will error if you set {\ttfamily decode\+Dot\+In\+Keys} to {\ttfamily true}, and {\ttfamily allow\+Dots} to {\ttfamily false}. Caveat\+: when {\ttfamily encode\+Values\+Only} is {\ttfamily true} as well as {\ttfamily encode\+Dot\+In\+Keys}, only dots in keys and nothing else will be encoded. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qs.stringify(\{\ "{}name.obj"{}:\ \{\ "{}first"{}:\ "{}John"{},\ "{}last"{}:\ "{}Doe"{}\ \}\ \},\ \{\ allowDots:\ true,\ encodeDotInKeys:\ true\ \})}
+\DoxyCodeLine{//\ 'name\%252Eobj.first=John\&name\%252Eobj.last=Doe'}
+
+\end{DoxyCode}
+
+
+You may allow empty array values by setting the {\ttfamily allow\+Empty\+Arrays} option to {\ttfamily true}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qs.stringify(\{\ foo:\ [],\ bar:\ 'baz'\ \},\ \{\ allowEmptyArrays:\ true\ \});}
+\DoxyCodeLine{//\ 'foo[]\&bar=baz'}
+
+\end{DoxyCode}
+
+
+Empty strings and null values will omit the value, but the equals sign (=) remains in place\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ ''\ \}),\ 'a=');}
+
+\end{DoxyCode}
+
+
+Key with no values (such as an empty object or array) will return nothing\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ []\ \}),\ '');}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ \{\}\ \}),\ '');}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ [\{\}]\ \}),\ '');}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ \{\ b:\ []\}\ \}),\ '');}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ \{\ b:\ \{\}\}\ \}),\ '');}
+
+\end{DoxyCode}
+
+
+Properties that are set to {\ttfamily undefined} will be omitted entirely\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ null,\ b:\ undefined\ \}),\ 'a=');}
+
+\end{DoxyCode}
+
+
+The query string may optionally be prepended with a question mark\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ 'b',\ c:\ 'd'\ \},\ \{\ addQueryPrefix:\ true\ \}),\ '?a=b\&c=d');}
+
+\end{DoxyCode}
+
+
+The delimiter may be overridden with stringify as well\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ 'b',\ c:\ 'd'\ \},\ \{\ delimiter:\ ';'\ \}),\ 'a=b;c=d');}
+
+\end{DoxyCode}
+
+
+If you only want to override the serialization of {\ttfamily Date} objects, you can provide a {\ttfamily serialize\+Date} option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ date\ =\ new\ Date(7);}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ date\ \}),\ 'a=1970-\/01-\/01T00:00:00.007Z'.replace(/:/g,\ '\%3A'));}
+\DoxyCodeLine{assert.equal(}
+\DoxyCodeLine{\ \ \ \ qs.stringify(\{\ a:\ date\ \},\ \{\ serializeDate:\ function\ (d)\ \{\ return\ d.getTime();\ \}\ \}),}
+\DoxyCodeLine{\ \ \ \ 'a=7'}
+\DoxyCodeLine{);}
+
+\end{DoxyCode}
+
+
+You may use the {\ttfamily sort} option to affect the order of parameter keys\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{function\ alphabeticalSort(a,\ b)\ \{}
+\DoxyCodeLine{\ \ \ \ return\ a.localeCompare(b);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ 'c',\ z:\ 'y',\ b\ :\ 'f'\ \},\ \{\ sort:\ alphabeticalSort\ \}),\ 'a=c\&b=f\&z=y');}
+
+\end{DoxyCode}
+
+
+Finally, you can use the {\ttfamily filter} option to restrict which keys will be included in the stringified output. If you pass a function, it will be called for each key to obtain the replacement value. Otherwise, if you pass an array, it will be used to select properties and array indices for stringification\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{function\ filterFunc(prefix,\ value)\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (prefix\ ==\ 'b')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //\ Return\ an\ \`{}undefined`\ value\ to\ omit\ a\ property.}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ if\ (prefix\ ==\ 'e[f]')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ value.getTime();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ if\ (prefix\ ==\ 'e[g][0]')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ value\ *\ 2;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ return\ value;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{qs.stringify(\{\ a:\ 'b',\ c:\ 'd',\ e:\ \{\ f:\ new\ Date(123),\ g:\ [2]\ \}\ \},\ \{\ filter:\ filterFunc\ \});}
+\DoxyCodeLine{//\ 'a=b\&c=d\&e[f]=123\&e[g][0]=4'}
+\DoxyCodeLine{qs.stringify(\{\ a:\ 'b',\ c:\ 'd',\ e:\ 'f'\ \},\ \{\ filter:\ ['a',\ 'e']\ \});}
+\DoxyCodeLine{//\ 'a=b\&e=f'}
+\DoxyCodeLine{qs.stringify(\{\ a:\ ['b',\ 'c',\ 'd'],\ e:\ 'f'\ \},\ \{\ filter:\ ['a',\ 0,\ 2]\ \});}
+\DoxyCodeLine{//\ 'a[0]=b\&a[2]=d'}
+
+\end{DoxyCode}
+
+
+You could also use {\ttfamily filter} to inject custom serialization for user defined types. Consider you\textquotesingle{}re working with some api that expects query strings of the format for ranges\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{https://domain.com/endpoint?range=30...70}
+
+\end{DoxyCode}
+
+
+For which you model as\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{class\ Range\ \{}
+\DoxyCodeLine{\ \ \ \ constructor(from,\ to)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ this.from\ =\ from;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ this.to\ =\ to;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+You could {\itshape inject} a custom serializer to handle values of this type\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qs.stringify(}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ range:\ new\ Range(30,\ 70),}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ filter:\ (prefix,\ value)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ if\ (value\ instanceof\ Range)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ \`{}\$\{value.from\}...\$\{value.to\}`;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ //\ serialize\ the\ usual\ way}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ return\ value;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{);}
+\DoxyCodeLine{//\ range=30...70}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2240}{}\doxysubsubsection{\texorpdfstring{Handling of $<$tt$>$null$<$/tt$>$ values}{Handling of <tt>null</tt> values}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2240}
+By default, {\ttfamily null} values are treated like empty strings\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ withNull\ =\ qs.stringify(\{\ a:\ null,\ b:\ ''\ \});}
+\DoxyCodeLine{assert.equal(withNull,\ 'a=\&b=');}
+
+\end{DoxyCode}
+
+
+Parsing does not distinguish between parameters with and without equal signs. Both are converted to empty strings.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ equalsInsensitive\ =\ qs.parse('a\&b=');}
+\DoxyCodeLine{assert.deepEqual(equalsInsensitive,\ \{\ a:\ '',\ b:\ ''\ \});}
+
+\end{DoxyCode}
+
+
+To distinguish between {\ttfamily null} values and empty strings use the {\ttfamily strict\+Null\+Handling} flag. In the result string the {\ttfamily null} values have no {\ttfamily =} sign\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ strictNull\ =\ qs.stringify(\{\ a:\ null,\ b:\ ''\ \},\ \{\ strictNullHandling:\ true\ \});}
+\DoxyCodeLine{assert.equal(strictNull,\ 'a\&b=');}
+
+\end{DoxyCode}
+
+
+To parse values without {\ttfamily =} back to {\ttfamily null} use the {\ttfamily strict\+Null\+Handling} flag\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ parsedStrictNull\ =\ qs.parse('a\&b=',\ \{\ strictNullHandling:\ true\ \});}
+\DoxyCodeLine{assert.deepEqual(parsedStrictNull,\ \{\ a:\ null,\ b:\ ''\ \});}
+
+\end{DoxyCode}
+
+
+To completely skip rendering keys with {\ttfamily null} values, use the {\ttfamily skip\+Nulls} flag\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ nullsSkipped\ =\ qs.stringify(\{\ a:\ 'b',\ c:\ null\},\ \{\ skipNulls:\ true\ \});}
+\DoxyCodeLine{assert.equal(nullsSkipped,\ 'a=b');}
+
+\end{DoxyCode}
+
+
+If you\textquotesingle{}re communicating with legacy systems, you can switch to {\ttfamily iso-\/8859-\/1} using the {\ttfamily charset} option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ iso\ =\ qs.stringify(\{\ æ:\ 'æ'\ \},\ \{\ charset:\ 'iso-\/8859-\/1'\ \});}
+\DoxyCodeLine{assert.equal(iso,\ '\%E6=\%E6');}
+
+\end{DoxyCode}
+
+
+Characters that don\textquotesingle{}t exist in {\ttfamily iso-\/8859-\/1} will be converted to numeric entities, similar to what browsers do\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ numeric\ =\ qs.stringify(\{\ a:\ '☺'\ \},\ \{\ charset:\ 'iso-\/8859-\/1'\ \});}
+\DoxyCodeLine{assert.equal(numeric,\ 'a=\%26\%239786\%3B');}
+
+\end{DoxyCode}
+
+
+You can use the {\ttfamily charset\+Sentinel} option to announce the character by including an {\ttfamily utf8=✓} parameter with the proper encoding if the checkmark, similar to what Ruby on Rails and others do when submitting forms.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ sentinel\ =\ qs.stringify(\{\ a:\ '☺'\ \},\ \{\ charsetSentinel:\ true\ \});}
+\DoxyCodeLine{assert.equal(sentinel,\ 'utf8=\%E2\%9C\%93\&a=\%E2\%98\%BA');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ isoSentinel\ =\ qs.stringify(\{\ a:\ 'æ'\ \},\ \{\ charsetSentinel:\ true,\ charset:\ 'iso-\/8859-\/1'\ \});}
+\DoxyCodeLine{assert.equal(isoSentinel,\ 'utf8=\%26\%2310003\%3B\&a=\%E6');}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2241}{}\doxysubsubsection{\texorpdfstring{Dealing with special character sets}{Dealing with special character sets}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2241}
+By default the encoding and decoding of characters is done in {\ttfamily utf-\/8}, and {\ttfamily iso-\/8859-\/1} support is also built in via the {\ttfamily charset} parameter.
+
+If you wish to encode querystrings to a different character set (i.\+e. \href{https://en.wikipedia.org/wiki/Shift_JIS}{\texttt{ Shift JIS}}) you can use the \href{https://github.com/martinheidegger/qs-iconv}{\texttt{ {\ttfamily qs-\/iconv}}} library\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ encoder\ =\ require('qs-\/iconv/encoder')('shift\_jis');}
+\DoxyCodeLine{var\ shiftJISEncoded\ =\ qs.stringify(\{\ a:\ 'こんにちは！'\ \},\ \{\ encoder:\ encoder\ \});}
+\DoxyCodeLine{assert.equal(shiftJISEncoded,\ 'a=\%82\%B1\%82\%F1\%82\%C9\%82\%BF\%82\%CD\%81I');}
+
+\end{DoxyCode}
+
+
+This also works for decoding of query strings\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ decoder\ =\ require('qs-\/iconv/decoder')('shift\_jis');}
+\DoxyCodeLine{var\ obj\ =\ qs.parse('a=\%82\%B1\%82\%F1\%82\%C9\%82\%BF\%82\%CD\%81I',\ \{\ decoder:\ decoder\ \});}
+\DoxyCodeLine{assert.deepEqual(obj,\ \{\ a:\ 'こんにちは！'\ \});}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2242}{}\doxysubsubsection{\texorpdfstring{RFC 3986 and RFC 1738 space encoding}{RFC 3986 and RFC 1738 space encoding}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2242}
+RFC3986 used as default option and encodes \textquotesingle{} \textquotesingle{} to {\itshape \%20} which is backward compatible. In the same time, output can be stringified as per RFC1738 with \textquotesingle{} \textquotesingle{} equal to \textquotesingle{}+\textquotesingle{}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ 'b\ c'\ \}),\ 'a=b\%20c');}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ 'b\ c'\ \},\ \{\ format\ :\ 'RFC3986'\ \}),\ 'a=b\%20c');}
+\DoxyCodeLine{assert.equal(qs.stringify(\{\ a:\ 'b\ c'\ \},\ \{\ format\ :\ 'RFC1738'\ \}),\ 'a=b+c');}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2243}{}\doxysubsection{\texorpdfstring{Security}{Security}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2243}
+Please email \href{https://github.com/ljharb}{\texttt{ @ljharb}} or see \href{https://tidelift.com/security}{\texttt{ https\+://tidelift.\+com/security}} if you have a potential security vulnerability to report.\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2244}{}\doxysubsection{\texorpdfstring{qs for enterprise}{qs for enterprise}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2244}
+Available as part of the Tidelift Subscription
+
+The maintainers of qs and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. \href{https://tidelift.com/subscription/pkg/npm-qs?utm_source=npm-qs&utm_medium=referral&utm_campaign=enterprise&utm_term=repo}{\texttt{ Learn more.}}\hypertarget{md_Dashboard_2node__modules_2qs_2README_autotoc_md2245}{}\doxysubsection{\texorpdfstring{Acknowledgements}{Acknowledgements}}\label{md_Dashboard_2node__modules_2qs_2README_autotoc_md2245}
+qs logo by \href{https://github.com/numi-hq/open-design}{\texttt{ NUMI}}\+:
+
+\href{https://numi.tech/?ref=qs}{\texttt{ \texorpdfstring{$<$}{<}img src="{}https\+://raw.\+githubusercontent.\+com/numi-\/hq/open-\/design/main/assets/numi-\/lockup.\+png"{} alt="{}NUMI Logo"{} style="{}width\+: 200px;"{}/\texorpdfstring{$>$}{>}}} 

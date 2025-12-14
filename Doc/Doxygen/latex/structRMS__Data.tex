@@ -1,0 +1,59 @@
+\doxysection{RMS\+\_\+\+Data Struct Reference}
+\hypertarget{structRMS__Data}{}\label{structRMS__Data}\index{RMS\_Data@{RMS\_Data}}
+
+
+Holds intermediate values used to compute RMS current.  
+
+
+
+
+{\ttfamily \#include $<$h\+Current\+\_\+\+Interface.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{structRMS__Data_a86823930e3283d93eacaf30b722fb0d6}{Summing\+\_\+\+Squares}}
+\item 
+float \mbox{\hyperlink{structRMS__Data_a4e6666548dec1811d2d2fa28cbb20ddc}{Current\+\_\+\+RMS\+\_\+\+Value}}
+\item 
+float \mbox{\hyperlink{structRMS__Data_ac0661112658fcfbffdec849ddb16d772}{Previous\+\_\+\+RMS\+\_\+\+Value}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{structRMS__Data_a3567e16bb6187c3bce277f5095098635}{RMS\+\_\+\+Samples\+\_\+\+Num}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Holds intermediate values used to compute RMS current. 
+
+The RMS algorithm accumulates squared current (or ADC) samples, keeps track of the number of samples and computes a root-\/mean-\/square value which is converted to the current RMS reading. 
+
+\doxysubsection{Field Documentation}
+\Hypertarget{structRMS__Data_a4e6666548dec1811d2d2fa28cbb20ddc}\label{structRMS__Data_a4e6666548dec1811d2d2fa28cbb20ddc} 
+\index{RMS\_Data@{RMS\_Data}!Current\_RMS\_Value@{Current\_RMS\_Value}}
+\index{Current\_RMS\_Value@{Current\_RMS\_Value}!RMS\_Data@{RMS\_Data}}
+\doxysubsubsection{\texorpdfstring{Current\_RMS\_Value}{Current\_RMS\_Value}}
+{\footnotesize\ttfamily float RMS\+\_\+\+Data\+::\+Current\+\_\+\+RMS\+\_\+\+Value}
+
+Most recently computed RMS current value (A). \Hypertarget{structRMS__Data_ac0661112658fcfbffdec849ddb16d772}\label{structRMS__Data_ac0661112658fcfbffdec849ddb16d772} 
+\index{RMS\_Data@{RMS\_Data}!Previous\_RMS\_Value@{Previous\_RMS\_Value}}
+\index{Previous\_RMS\_Value@{Previous\_RMS\_Value}!RMS\_Data@{RMS\_Data}}
+\doxysubsubsection{\texorpdfstring{Previous\_RMS\_Value}{Previous\_RMS\_Value}}
+{\footnotesize\ttfamily float RMS\+\_\+\+Data\+::\+Previous\+\_\+\+RMS\+\_\+\+Value}
+
+Previous RMS current value (A), useful for filtering or change detection. \Hypertarget{structRMS__Data_a3567e16bb6187c3bce277f5095098635}\label{structRMS__Data_a3567e16bb6187c3bce277f5095098635} 
+\index{RMS\_Data@{RMS\_Data}!RMS\_Samples\_Num@{RMS\_Samples\_Num}}
+\index{RMS\_Samples\_Num@{RMS\_Samples\_Num}!RMS\_Data@{RMS\_Data}}
+\doxysubsubsection{\texorpdfstring{RMS\_Samples\_Num}{RMS\_Samples\_Num}}
+{\footnotesize\ttfamily uint16\+\_\+t RMS\+\_\+\+Data\+::\+RMS\+\_\+\+Samples\+\_\+\+Num}
+
+Number of samples included in the RMS computation. \Hypertarget{structRMS__Data_a86823930e3283d93eacaf30b722fb0d6}\label{structRMS__Data_a86823930e3283d93eacaf30b722fb0d6} 
+\index{RMS\_Data@{RMS\_Data}!Summing\_Squares@{Summing\_Squares}}
+\index{Summing\_Squares@{Summing\_Squares}!RMS\_Data@{RMS\_Data}}
+\doxysubsubsection{\texorpdfstring{Summing\_Squares}{Summing\_Squares}}
+{\footnotesize\ttfamily float RMS\+\_\+\+Data\+::\+Summing\+\_\+\+Squares}
+
+Sum of squared (zero-\/centered) sample values. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Hal/\+ACS712\+Curnt\+Snsr/\mbox{\hyperlink{hCurrent__Interface_8h}{h\+Current\+\_\+\+Interface.\+h}}\end{DoxyCompactItemize}

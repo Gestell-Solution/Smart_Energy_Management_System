@@ -1,0 +1,137 @@
+\doxysection{Close\+Baton Struct Reference}
+\hypertarget{structCloseBaton}{}\label{structCloseBaton}\index{CloseBaton@{CloseBaton}}
+
+
+{\ttfamily \#include $<$serialport.\+h$>$}
+
+
+
+Inheritance diagram for Close\+Baton\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{structCloseBaton__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Close\+Baton\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structCloseBaton__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structCloseBaton_a6a284e3104d4ad94833b0c4500ce9b45}{Close\+Baton}} (\mbox{\hyperlink{classNapi_1_1Function}{Napi\+::\+Function}} \&callback)
+\item 
+void \mbox{\hyperlink{structCloseBaton_a550d21d176d5adf0b1aaa6220645a22e}{Execute}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structVoidBaton}{Void\+Baton}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structVoidBaton_a005e477dcd3f1e215841aa36a97f96df}{Void\+Baton}} (\mbox{\hyperlink{classNapi_1_1Function}{Napi\+::\+Function}} \&callback, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name)
+\item 
+void \mbox{\hyperlink{structVoidBaton_a4b54862ed4bd6c83d60bc35244468240}{On\+OK}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classNapi_1_1AsyncWorker}{Napi\+::\+Async\+Worker}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classNapi_1_1AsyncWorker_a044e30b193037ccefed62d17bf56ec2b}{\texorpdfstring{$\sim$}{\string~}\+Async\+Worker}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a25b0c2441ea3ff2389143d8c8b6a47a2}{operator napi\+\_\+async\+\_\+work}} () const
+\item 
+\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} \mbox{\hyperlink{classNapi_1_1AsyncWorker_a4cf2a6045fbe67c5d6ad69cc3dc808a0}{Env}} () const
+\item 
+void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a4b349fde4d6e98e48194c00eec753c8c}{Queue}} ()
+\item 
+void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a27f2749ec27ef2a68e1fc492f1eb69cb}{Cancel}} ()
+\item 
+void \mbox{\hyperlink{classNapi_1_1AsyncWorker_ae775cc71dc23cd0159bb4386702f9843}{Suppress\+Destruct}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1ObjectReference}{Object\+Reference}} \& \mbox{\hyperlink{classNapi_1_1AsyncWorker_aa419dbb10e7177cd73563e1c2d34a3c7}{Receiver}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1FunctionReference}{Function\+Reference}} \& \mbox{\hyperlink{classNapi_1_1AsyncWorker_a07206e0f2a4a2ec5a4728615ffe16a19}{Callback}} ()
+\item 
+virtual void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a08ee47980bff84e44b9d11c13060b145}{On\+Execute}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env)
+\item 
+virtual void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a3e31ade603f124d7a03ad11910857feb}{On\+Work\+Complete}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env, napi\+\_\+status status)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Data Fields inherited from \mbox{\hyperlink{structVoidBaton}{Void\+Baton}}}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structVoidBaton_a974b01d65f72d1d2a5ec2adc61dcf6c9}{fd}} = 0
+\item 
+char \mbox{\hyperlink{structVoidBaton_ac6722901940694fd4a88533deba20be6}{error\+String}} \mbox{[}\mbox{\hyperlink{serialport_8h_a2dc0029776b8cfa523fc558c0d80c43e}{ERROR\+\_\+\+STRING\+\_\+\+SIZE}}\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classNapi_1_1AsyncWorker}{Napi\+::\+Async\+Worker}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a36814d1c251f77719477ba401f325ce3}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a6e11873681d402f1d892166ecb182b97}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a81d41a455f3897fec9db1552ec075d78}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name, const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&resource)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a60e37d32427ca588ece0de98eb7168a0}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&receiver, const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a4e4ab491db74d1693cadf0e756e27741}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&receiver, const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_ad888fb4e0e9146be7e64c29825d4acd3}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&receiver, const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name, const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&resource)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a447b48a3fb1116dc5e90f8bb99d75077}{Async\+Worker}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a189b5fc0a5acf619110c711333694b79}{Async\+Worker}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_ad7df47c31c51d0100cb1867f88ca9093}{Async\+Worker}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name, const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&resource)
+\item 
+virtual void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a6e4cb34697cd08606e3b6e9b8886d9a8}{On\+Error}} (const \mbox{\hyperlink{classNapi_1_1Error}{Error}} \&e)
+\item 
+virtual void \mbox{\hyperlink{classNapi_1_1AsyncWorker_ad339e2155f5415488c3cc92dac202b99}{Destroy}} ()
+\item 
+virtual std\+::vector$<$ napi\+\_\+value $>$ \mbox{\hyperlink{classNapi_1_1AsyncWorker_af6429a15ab4a3f49f2b10dba77d5ba80}{Get\+Result}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env)
+\item 
+void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a3ca4cd1913b1b68701c1ed200a0bcb1d}{Set\+Error}} (const std\+::string \&error)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structCloseBaton_a6a284e3104d4ad94833b0c4500ce9b45}\label{structCloseBaton_a6a284e3104d4ad94833b0c4500ce9b45} 
+\index{CloseBaton@{CloseBaton}!CloseBaton@{CloseBaton}}
+\index{CloseBaton@{CloseBaton}!CloseBaton@{CloseBaton}}
+\doxysubsubsection{\texorpdfstring{CloseBaton()}{CloseBaton()}}
+{\footnotesize\ttfamily Close\+Baton\+::\+Close\+Baton (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1Function}{Napi\+::\+Function}} \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structCloseBaton_a550d21d176d5adf0b1aaa6220645a22e}\label{structCloseBaton_a550d21d176d5adf0b1aaa6220645a22e} 
+\index{CloseBaton@{CloseBaton}!Execute@{Execute}}
+\index{Execute@{Execute}!CloseBaton@{CloseBaton}}
+\doxysubsubsection{\texorpdfstring{Execute()}{Execute()}}
+{\footnotesize\ttfamily void Close\+Baton\+::\+Execute (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classNapi_1_1AsyncWorker_a7aa889d484c24717ecc3c33d3ed90624}{Napi\+::\+Async\+Worker}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{structCloseBaton_a550d21d176d5adf0b1aaa6220645a22e_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/\mbox{\hyperlink{serialport_8h}{serialport.\+h}}\item 
+Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/\mbox{\hyperlink{serialport__unix_8cpp}{serialport\+\_\+unix.\+cpp}}\item 
+Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/\mbox{\hyperlink{serialport__win_8cpp}{serialport\+\_\+win.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,144 @@
+\doxysection{Mcal/\+ADC/\+ADC\+\_\+\+Config.h File Reference}
+\hypertarget{ADC__Config_8h}{}\label{ADC__Config_8h}\index{Mcal/ADC/ADC\_Config.h@{Mcal/ADC/ADC\_Config.h}}
+
+
+This file contains the configuration for the ADC (Analog-\/to-\/\+Digital Converter) module.  
+
+
+{\ttfamily \#include "{}ADC\+\_\+\+Private.\+h"{}}\newline
+{\ttfamily \#include "{}../\+Atmega32\+Registers\+Address.\+h"{}}\newline
+Include dependency graph for ADC\+\_\+\+Config.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{ADC__Config_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADC__Config_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ADC__Config_8h_ad342bf3bc2cafccb5ca9ae2be9ce03d9}{ADC\+\_\+\+Mode}}~\mbox{\hyperlink{ADC__Private_8h_a9bd4d1327ee8eee4bb9343146311598e}{Asynchronous\+\_\+\+Mode}}
+\begin{DoxyCompactList}\small\item\em determines whether the adc works in synchronous mode or asynchronous mode \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Config_8h_ab1d0703f6d84b37cbaa587a1a4515dd4}{ADC\+\_\+\+PRESCALER}}~\mbox{\hyperlink{group__ADC_gae13c0d78395f9b270adc3c9daae16b00}{ADC\+\_\+\+Prescaler\+\_\+\+DIV64}}
+\begin{DoxyCompactList}\small\item\em Represents the adc prescaler value. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Config_8h_a62862d7518b2e40d051ee8dd74f6661c}{ADC\+\_\+\+VOLTAGE\+\_\+\+REF}}~\mbox{\hyperlink{ADC__Private_8h_a5e8fd6976455aad9fbd8f509b462c352}{ADC\+\_\+\+AVCC}}
+\begin{DoxyCompactList}\small\item\em Represents the adc voltage reference. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Config_8h_a3f551441721e38984a85906e51c2c335}{ADC\+\_\+\+AUTO\+\_\+\+TRIGGER}}~\mbox{\hyperlink{group__ADC_ga1ba538e781c6840aca20ec9a8ae76959}{ADC\+\_\+\+AUTO\+\_\+\+TRIGGER\+\_\+\+Enable}}
+\begin{DoxyCompactList}\small\item\em Represents the adc auto trigger state. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Config_8h_a15db99adf6875b00aa8ef320ad247f95}{ADC\+\_\+\+INTERRUPT}}~\mbox{\hyperlink{group__ADC_ga208e2668e5c4919010cd7d0db243fba2}{ADC\+\_\+\+INTERRUPT\+\_\+\+Enable}}
+\begin{DoxyCompactList}\small\item\em represents the adc interrupt state \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Config_8h_afc8449135acb090b833a6f85469dfee6}{ADC\+\_\+\+TRIGGER\+\_\+\+SOURCE}}~\mbox{\hyperlink{group__ADC_ga7ada80fbb8418960dcbb5daff83d3bcc}{ADC\+\_\+\+TIMER1\+\_\+\+COMPARE\+\_\+\+MATCH\+\_\+B}}
+\begin{DoxyCompactList}\small\item\em represents the adc trigger source \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Config_8h_a485b185f19d64ec698650e80f0709e70}{ADC\+\_\+\+ENABLE\+\_\+state}}~\mbox{\hyperlink{group__ADC_gaf0f7ac4025d1623cda58f7656fcffade}{ADC\+\_\+\+ENABLE}}
+\begin{DoxyCompactList}\small\item\em determines whether the adc is enabled or disabled \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+
+\doxysubsection{Detailed Description}
+This file contains the configuration for the ADC (Analog-\/to-\/\+Digital Converter) module. 
+
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer \+: Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}}) 
+
+Reviewer \+: 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/11 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ADC__Config_8h_a3f551441721e38984a85906e51c2c335}\label{ADC__Config_8h_a3f551441721e38984a85906e51c2c335} 
+\index{ADC\_Config.h@{ADC\_Config.h}!ADC\_AUTO\_TRIGGER@{ADC\_AUTO\_TRIGGER}}
+\index{ADC\_AUTO\_TRIGGER@{ADC\_AUTO\_TRIGGER}!ADC\_Config.h@{ADC\_Config.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_AUTO\_TRIGGER}{ADC\_AUTO\_TRIGGER}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+AUTO\+\_\+\+TRIGGER~\mbox{\hyperlink{group__ADC_ga1ba538e781c6840aca20ec9a8ae76959}{ADC\+\_\+\+AUTO\+\_\+\+TRIGGER\+\_\+\+Enable}}}
+
+
+
+Represents the adc auto trigger state. 
+
+\Hypertarget{ADC__Config_8h_a485b185f19d64ec698650e80f0709e70}\label{ADC__Config_8h_a485b185f19d64ec698650e80f0709e70} 
+\index{ADC\_Config.h@{ADC\_Config.h}!ADC\_ENABLE\_state@{ADC\_ENABLE\_state}}
+\index{ADC\_ENABLE\_state@{ADC\_ENABLE\_state}!ADC\_Config.h@{ADC\_Config.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_ENABLE\_state}{ADC\_ENABLE\_state}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+ENABLE\+\_\+state~\mbox{\hyperlink{group__ADC_gaf0f7ac4025d1623cda58f7656fcffade}{ADC\+\_\+\+ENABLE}}}
+
+
+
+determines whether the adc is enabled or disabled 
+
+\Hypertarget{ADC__Config_8h_a15db99adf6875b00aa8ef320ad247f95}\label{ADC__Config_8h_a15db99adf6875b00aa8ef320ad247f95} 
+\index{ADC\_Config.h@{ADC\_Config.h}!ADC\_INTERRUPT@{ADC\_INTERRUPT}}
+\index{ADC\_INTERRUPT@{ADC\_INTERRUPT}!ADC\_Config.h@{ADC\_Config.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_INTERRUPT}{ADC\_INTERRUPT}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+INTERRUPT~\mbox{\hyperlink{group__ADC_ga208e2668e5c4919010cd7d0db243fba2}{ADC\+\_\+\+INTERRUPT\+\_\+\+Enable}}}
+
+
+
+represents the adc interrupt state 
+
+\Hypertarget{ADC__Config_8h_ad342bf3bc2cafccb5ca9ae2be9ce03d9}\label{ADC__Config_8h_ad342bf3bc2cafccb5ca9ae2be9ce03d9} 
+\index{ADC\_Config.h@{ADC\_Config.h}!ADC\_Mode@{ADC\_Mode}}
+\index{ADC\_Mode@{ADC\_Mode}!ADC\_Config.h@{ADC\_Config.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_Mode}{ADC\_Mode}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+Mode~\mbox{\hyperlink{ADC__Private_8h_a9bd4d1327ee8eee4bb9343146311598e}{Asynchronous\+\_\+\+Mode}}}
+
+
+
+determines whether the adc works in synchronous mode or asynchronous mode 
+
+\begin{DoxyNote}{Note}
+to see the options for each parameter check \doxylink{ADC__Private_8h}{ADC\+\_\+\+Private.\+h} 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+Make sure to configure these parameters according to your application requirements. 
+
+Asynch Mode only operates on prescaler DIV64 
+\end{DoxyWarning}
+\Hypertarget{ADC__Config_8h_ab1d0703f6d84b37cbaa587a1a4515dd4}\label{ADC__Config_8h_ab1d0703f6d84b37cbaa587a1a4515dd4} 
+\index{ADC\_Config.h@{ADC\_Config.h}!ADC\_PRESCALER@{ADC\_PRESCALER}}
+\index{ADC\_PRESCALER@{ADC\_PRESCALER}!ADC\_Config.h@{ADC\_Config.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_PRESCALER}{ADC\_PRESCALER}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+PRESCALER~\mbox{\hyperlink{group__ADC_gae13c0d78395f9b270adc3c9daae16b00}{ADC\+\_\+\+Prescaler\+\_\+\+DIV64}}}
+
+
+
+Represents the adc prescaler value. 
+
+\Hypertarget{ADC__Config_8h_afc8449135acb090b833a6f85469dfee6}\label{ADC__Config_8h_afc8449135acb090b833a6f85469dfee6} 
+\index{ADC\_Config.h@{ADC\_Config.h}!ADC\_TRIGGER\_SOURCE@{ADC\_TRIGGER\_SOURCE}}
+\index{ADC\_TRIGGER\_SOURCE@{ADC\_TRIGGER\_SOURCE}!ADC\_Config.h@{ADC\_Config.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_TRIGGER\_SOURCE}{ADC\_TRIGGER\_SOURCE}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+TRIGGER\+\_\+\+SOURCE~\mbox{\hyperlink{group__ADC_ga7ada80fbb8418960dcbb5daff83d3bcc}{ADC\+\_\+\+TIMER1\+\_\+\+COMPARE\+\_\+\+MATCH\+\_\+B}}}
+
+
+
+represents the adc trigger source 
+
+\Hypertarget{ADC__Config_8h_a62862d7518b2e40d051ee8dd74f6661c}\label{ADC__Config_8h_a62862d7518b2e40d051ee8dd74f6661c} 
+\index{ADC\_Config.h@{ADC\_Config.h}!ADC\_VOLTAGE\_REF@{ADC\_VOLTAGE\_REF}}
+\index{ADC\_VOLTAGE\_REF@{ADC\_VOLTAGE\_REF}!ADC\_Config.h@{ADC\_Config.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_VOLTAGE\_REF}{ADC\_VOLTAGE\_REF}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+VOLTAGE\+\_\+\+REF~\mbox{\hyperlink{ADC__Private_8h_a5e8fd6976455aad9fbd8f509b462c352}{ADC\+\_\+\+AVCC}}}
+
+
+
+Represents the adc voltage reference. 
+

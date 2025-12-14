@@ -1,0 +1,576 @@
+\chapter{Engine.\+IO\+: the realtime engine}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README}{}\label{md_Dashboard_2node__modules_2engine_8io_2README}\index{Engine.IO: the realtime engine@{Engine.IO: the realtime engine}}
+\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md725}%
+\Hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md725}%
+ \href{https://github.com/socketio/engine.io/actions}{\texttt{ }} \href{http://badge.fury.io/js/engine.io}{\texttt{ }}
+
+{\ttfamily Engine.\+IO} is the implementation of transport-\/based cross-\/browser/cross-\/device bi-\/directional communication layer for \href{http://github.com/socketio/socket.io}{\texttt{ Socket.\+IO}}.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md726}{}\doxysection{\texorpdfstring{How to use}{How to use}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md726}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md727}{}\doxysubsection{\texorpdfstring{Server}{Server}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md727}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md728}{}\doxysubsubsection{\texorpdfstring{(\+A) Listening on a port}{(A) Listening on a port}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md728}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ engine\ =\ require('engine.io');}
+\DoxyCodeLine{const\ server\ =\ engine.listen(80);}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.on('connection',\ socket\ =>\ \{}
+\DoxyCodeLine{\ \ socket.send('utf\ 8\ string');}
+\DoxyCodeLine{\ \ socket.send(Buffer.from([0,\ 1,\ 2,\ 3,\ 4,\ 5]));\ //\ binary\ data}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md729}{}\doxysubsubsection{\texorpdfstring{(\+B) Intercepting requests for a http.\+Server}{(B) Intercepting requests for a http.Server}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md729}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ engine\ =\ require('engine.io');}
+\DoxyCodeLine{const\ http\ =\ require('http').createServer().listen(3000);}
+\DoxyCodeLine{const\ server\ =\ engine.attach(http);}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.on('connection',\ socket\ =>\ \{}
+\DoxyCodeLine{\ \ socket.on('message',\ data\ =>\ \{\ \});}
+\DoxyCodeLine{\ \ socket.on('close',\ ()\ =>\ \{\ \});}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md730}{}\doxysubsubsection{\texorpdfstring{(\+C) Passing in requests}{(C) Passing in requests}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md730}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ engine\ =\ require('engine.io');}
+\DoxyCodeLine{const\ server\ =\ new\ engine.Server();}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.on('connection',\ socket\ =>\ \{}
+\DoxyCodeLine{\ \ socket.send('hi');}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ …}
+\DoxyCodeLine{httpServer.on('upgrade',\ (req,\ socket,\ head)\ =>\ \{}
+\DoxyCodeLine{\ \ server.handleUpgrade(req,\ socket,\ head);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{httpServer.on('request',\ (req,\ res)\ =>\ \{}
+\DoxyCodeLine{\ \ server.handleRequest(req,\ res);}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md731}{}\doxysubsection{\texorpdfstring{Client}{Client}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md731}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<script\ src="{}/path/to/engine.io.js"{}></script>}
+\DoxyCodeLine{<script>}
+\DoxyCodeLine{\ \ const\ socket\ =\ new\ eio.Socket('ws://localhost/');}
+\DoxyCodeLine{\ \ socket.on('open',\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ socket.on('message',\ data\ =>\ \{\});}
+\DoxyCodeLine{\ \ \ \ socket.on('close',\ ()\ =>\ \{\});}
+\DoxyCodeLine{\ \ \});}
+\DoxyCodeLine{</script>}
+
+\end{DoxyCode}
+
+
+For more information on the client refer to the \href{http://github.com/socketio/engine.io-client}{\texttt{ engine-\/client}} repository.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md732}{}\doxysection{\texorpdfstring{What features does it have?}{What features does it have?}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md732}
+
+\begin{DoxyItemize}
+\item {\bfseries{Maximum reliability}}. Connections are established even in the presence of\+:
+\begin{DoxyItemize}
+\item proxies and load balancers.
+\item personal firewall and antivirus software.
+\item for more information refer to {\bfseries{Goals}} and {\bfseries{Architecture}} sections
+\end{DoxyItemize}
+\item {\bfseries{Minimal client size}} aided by\+:
+\begin{DoxyItemize}
+\item lazy loading of flash transports.
+\item lack of redundant transports.
+\end{DoxyItemize}
+\item {\bfseries{Scalable}}
+\begin{DoxyItemize}
+\item load balancer friendly
+\end{DoxyItemize}
+\item {\bfseries{Future proof}}
+\item {\bfseries{100\% Node.\+JS core style}}
+\begin{DoxyItemize}
+\item No API sugar (left for higher level projects)
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md733}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md733}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md734}{}\doxysubsection{\texorpdfstring{Server}{Server}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md734}
+\DoxyHorRuler{0}
+~\newline
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md735}{}\doxysubsubsection{\texorpdfstring{Top-\/level}{Top-level}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md735}
+These are exposed by `require(\textquotesingle{}engine.\+io')\`{}\+:\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md736}{}\doxyparagraph{\texorpdfstring{Events}{Events}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md736}
+
+\begin{DoxyItemize}
+\item {\ttfamily flush}
+\begin{DoxyItemize}
+\item Called when a socket buffer is being flushed.
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily Socket}\+: socket being flushed
+\item {\ttfamily Array}\+: write buffer
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily drain}
+\begin{DoxyItemize}
+\item Called when a socket buffer is drained
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily Socket}\+: socket being flushed
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md737}{}\doxyparagraph{\texorpdfstring{Properties}{Properties}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md737}
+
+\begin{DoxyItemize}
+\item {\ttfamily protocol} \+\_\+(\+Number)\+\_\+\+: protocol revision number
+\item {\ttfamily Server}\+: Server class constructor
+\item {\ttfamily Socket}\+: Socket class constructor
+\item {\ttfamily Transport} \+\_\+(\+Function)\+\_\+\+: transport constructor
+\item {\ttfamily transports} \+\_\+(\+Object)\+\_\+\+: map of available transports
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md738}{}\doxyparagraph{\texorpdfstring{Methods}{Methods}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md738}
+
+\begin{DoxyItemize}
+\item {\ttfamily ()}
+\begin{DoxyItemize}
+\item Returns a new {\ttfamily Server} instance. If the first argument is an {\ttfamily http.\+Server} then the new {\ttfamily Server} instance will be attached to it. Otherwise, the arguments are passed directly to the {\ttfamily Server} constructor.
+\item {\bfseries{Parameters}}
+\begin{DoxyItemize}
+\item {\ttfamily http.\+Server}\+: optional, server to attach to.
+\item {\ttfamily Object}\+: optional, options object (see {\ttfamily Server\#constructor} api docs below)
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The following are identical ways to instantiate a server and then attach it.
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ httpServer;\ //\ previously\ created\ with\ \`{}http.createServer();`\ from\ node.js\ api.}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ create\ a\ server\ first,\ and\ then\ attach}
+\DoxyCodeLine{const\ eioServer\ =\ require('engine.io').Server();}
+\DoxyCodeLine{eioServer.attach(httpServer);}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ or\ call\ the\ module\ as\ a\ function\ to\ get\ \`{}Server`}
+\DoxyCodeLine{const\ eioServer\ =\ require('engine.io')();}
+\DoxyCodeLine{eioServer.attach(httpServer);}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ immediately\ attach}
+\DoxyCodeLine{const\ eioServer\ =\ require('engine.io')(httpServer);}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ with\ custom\ options}
+\DoxyCodeLine{const\ eioServer\ =\ require('engine.io')(httpServer,\ \{}
+\DoxyCodeLine{\ \ maxHttpBufferSize:\ 1e3}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item {\ttfamily listen}
+\begin{DoxyItemize}
+\item Creates an {\ttfamily http.\+Server} which listens on the given port and attaches WS to it. It returns {\ttfamily 501 Not Implemented} for regular http requests.
+\item {\bfseries{Parameters}}
+\begin{DoxyItemize}
+\item {\ttfamily Number}\+: port to listen on.
+\item {\ttfamily Object}\+: optional, options object
+\item {\ttfamily Function}\+: callback for {\ttfamily listen}.
+\end{DoxyItemize}
+\item {\bfseries{Options}}
+\begin{DoxyItemize}
+\item All options from {\ttfamily Server.\+attach} method, documented below.
+\item {\bfseries{Additionally}} See Server {\ttfamily constructor} below for options you can pass for creating the new Server
+\end{DoxyItemize}
+\item {\bfseries{Returns}} {\ttfamily Server}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ engine\ =\ require('engine.io');}
+\DoxyCodeLine{const\ server\ =\ engine.listen(3000,\ \{}
+\DoxyCodeLine{\ \ pingTimeout:\ 2000,}
+\DoxyCodeLine{\ \ pingInterval:\ 10000}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.on('connection',\ /*\ ...\ */);}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item {\ttfamily attach}
+\begin{DoxyItemize}
+\item Captures {\ttfamily upgrade} requests for a {\ttfamily http.\+Server}. In other words, makes a regular http.\+Server Web\+Socket-\/compatible.
+\item {\bfseries{Parameters}}
+\begin{DoxyItemize}
+\item {\ttfamily http.\+Server}\+: server to attach to.
+\item {\ttfamily Object}\+: optional, options object
+\end{DoxyItemize}
+\item {\bfseries{Options}}
+\begin{DoxyItemize}
+\item All options from {\ttfamily Server.\+attach} method, documented below.
+\item {\bfseries{Additionally}} See Server {\ttfamily constructor} below for options you can pass for creating the new Server
+\end{DoxyItemize}
+\item {\bfseries{Returns}} {\ttfamily Server} a new Server instance.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ engine\ =\ require('engine.io');}
+\DoxyCodeLine{const\ httpServer\ =\ require('http').createServer().listen(3000);}
+\DoxyCodeLine{const\ server\ =\ engine.attach(httpServer,\ \{}
+\DoxyCodeLine{\ \ wsEngine:\ require('eiows').Server\ //\ requires\ having\ eiows\ as\ dependency}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.on('connection',\ /*\ ...\ */);}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md739}{}\doxysubsubsection{\texorpdfstring{Server}{Server}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md739}
+The main server/manager. {\itshape Inherits from Event\+Emitter}.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md740}{}\doxyparagraph{\texorpdfstring{Events}{Events}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md740}
+
+\begin{DoxyItemize}
+\item {\ttfamily connection}
+\begin{DoxyItemize}
+\item Fired when a new connection is established.
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily Socket}\+: a Socket object
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily initial\+\_\+headers}
+\begin{DoxyItemize}
+\item Fired on the first request of the connection, before writing the response headers
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily headers} ({\ttfamily Object})\+: a hash of headers
+\item {\ttfamily req} ({\ttfamily http.\+Incoming\+Message})\+: the request
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily headers}
+\begin{DoxyItemize}
+\item Fired on the all requests of the connection, before writing the response headers
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily headers} ({\ttfamily Object})\+: a hash of headers
+\item {\ttfamily req} ({\ttfamily http.\+Incoming\+Message})\+: the request
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily connection\+\_\+error}
+\begin{DoxyItemize}
+\item Fired when an error occurs when establishing the connection.
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily error}\+: an object with following properties\+:
+\begin{DoxyItemize}
+\item {\ttfamily req} ({\ttfamily http.\+Incoming\+Message})\+: the request that was dropped
+\item {\ttfamily code} ({\ttfamily Number})\+: one of {\ttfamily Server.\+errors}
+\item {\ttfamily message} ({\ttfamily string})\+: one of {\ttfamily Server.\+error\+Messages}
+\item {\ttfamily context} ({\ttfamily Object})\+: extra info about the error
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Code   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Message    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Code   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Message    }\\\cline{1-2}
+\endhead
+0   &"{}\+Transport unknown"{}    \\\cline{1-2}
+1   &"{}\+Session ID unknown"{}    \\\cline{1-2}
+2   &"{}\+Bad handshake method"{}    \\\cline{1-2}
+3   &"{}\+Bad request"{}    \\\cline{1-2}
+4   &"{}\+Forbidden"{}    \\\cline{1-2}
+5   &"{}\+Unsupported protocol version"{}   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md741}{}\doxyparagraph{\texorpdfstring{Properties}{Properties}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md741}
+{\bfseries{Important}}\+: if you plan to use Engine.\+IO in a scalable way, please keep in mind the properties below will only reflect the clients connected to a single process.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily clients} \+\_\+(\+Object)\+\_\+\+: hash of connected clients by id.
+\item {\ttfamily clients\+Count} \+\_\+(\+Number)\+\_\+\+: number of connected clients.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md742}{}\doxyparagraph{\texorpdfstring{Methods}{Methods}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md742}
+
+\begin{DoxyItemize}
+\item {\bfseries{constructor}}
+\begin{DoxyItemize}
+\item Initializes the server
+\item {\bfseries{Parameters}}
+\begin{DoxyItemize}
+\item {\ttfamily Object}\+: optional, options object
+\end{DoxyItemize}
+\item {\bfseries{Options}}
+\begin{DoxyItemize}
+\item {\ttfamily ping\+Timeout} ({\ttfamily Number})\+: how many ms without a pong packet to consider the connection closed ({\ttfamily 20000})
+\item {\ttfamily ping\+Interval} ({\ttfamily Number})\+: how many ms before sending a new ping packet ({\ttfamily 25000})
+\item {\ttfamily upgrade\+Timeout} ({\ttfamily Number})\+: how many ms before an uncompleted transport upgrade is cancelled ({\ttfamily 10000})
+\item {\ttfamily max\+Http\+Buffer\+Size} ({\ttfamily Number})\+: how many bytes or characters a message can be, before closing the session (to avoid DoS). Default value is {\ttfamily 1E6}.
+\item {\ttfamily allow\+Request} ({\ttfamily Function})\+: A function that receives a given handshake or upgrade request as its first parameter, and can decide whether to continue or not. The second argument is a function that needs to be called with the decided information\+: {\ttfamily fn(err, success)}, where {\ttfamily success} is a boolean value where false means that the request is rejected, and err is an error code.
+\item {\ttfamily transports} ({\ttfamily \texorpdfstring{$<$}{<}Array\texorpdfstring{$>$}{>} String})\+: transports to allow connections to (`\mbox{[}\textquotesingle{}polling', \textquotesingle{}websocket\textquotesingle{}\mbox{]}{\ttfamily ) -\/}allow\+Upgrades{\ttfamily (}Boolean{\ttfamily )\+: whether to allow transport upgrades (}true{\ttfamily ) -\/}per\+Message\+Deflate{\ttfamily (}Object\texorpdfstring{$\vert$}{|}\+Boolean{\ttfamily )\+: parameters of the Web\+Socket permessage-\/deflate extension (see \mbox{[}ws module\mbox{]}(\href{https://github.com/einaros/ws}{\texttt{ https\+://github.\+com/einaros/ws}}) api docs). Set to}true{\ttfamily to enable. (defaults to}false{\ttfamily ) -\/}threshold{\ttfamily (}Number{\ttfamily )\+: data is compressed only if the byte size is above this value (}1024{\ttfamily ) -\/}http\+Compression{\ttfamily (}Object\texorpdfstring{$\vert$}{|}\+Boolean{\ttfamily )\+: parameters of the http compression for the polling transports (see \mbox{[}zlib\mbox{]}(\href{http://nodejs.org/api/zlib.html}{\texttt{ http\+://nodejs.\+org/api/zlib.\+html}}\#zlib\+\_\+options) api docs). Set to}false{\ttfamily to disable. (}true{\ttfamily ) -\/}threshold{\ttfamily (}Number{\ttfamily )\+: data is compressed only if the byte size is above this value (}1024{\ttfamily ) -\/}cookie{\ttfamily (}Object\texorpdfstring{$\vert$}{|}\+Boolean{\ttfamily )\+: configuration of the cookie that contains the client sid to send as part of handshake response headers. This cookie might be used for sticky-\/session. Defaults to not sending any cookie (}false{\ttfamily ). See \mbox{[}here\mbox{]}(\href{https://github.com/jshttp/cookie}{\texttt{ https\+://github.\+com/jshttp/cookie}}\#options-\/1) for all supported options. -\/}ws\+Engine{\ttfamily (}Function{\ttfamily )\+: what Web\+Socket server implementation to use. Specified module must conform to the}ws{\ttfamily interface (see \mbox{[}ws module api docs\mbox{]}(\href{https://github.com/websockets/ws/blob/master/doc/ws.md}{\texttt{ https\+://github.\+com/websockets/ws/blob/master/doc/ws.\+md}})). Default value is}ws{\ttfamily . An alternative c++ addon is also available by installing}eiows{\ttfamily module. -\/}cors{\ttfamily (}Object{\ttfamily )\+: the options that will be forwarded to the cors module. See \mbox{[}there\mbox{]}(\href{https://github.com/expressjs/cors}{\texttt{ https\+://github.\+com/expressjs/cors}}\#configuration-\/options) for all available options. Defaults to no CORS allowed. -\/}initial\+Packet{\ttfamily (}Object{\ttfamily )\+: an optional packet which will be concatenated to the handshake packet emitted by Engine.\+IO. -\/}allow\+EIO3{\ttfamily (}Boolean{\ttfamily )\+: whether to support v3 Engine.\+IO clients (defaults to}false{\ttfamily ) -\/}close{\ttfamily }
+\end{DoxyItemize}
+\item {\ttfamily Closes all clients}
+\item {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+Returns\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}Server{\ttfamily for chaining -\/}handle\+Request{\ttfamily }
+\item {\ttfamily Called internally when a}Engine{\ttfamily request is intercepted.}
+\item {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+Parameters\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} -\/}http.\+Incoming\+Message{\ttfamily \+: a node request object -\/}http.\+Server\+Response{\ttfamily \+: a node response object}
+\item {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+Returns\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}Server{\ttfamily for chaining -\/}handle\+Upgrade{\ttfamily }
+\item {\ttfamily Called internally when a}Engine{\ttfamily ws upgrade is intercepted.}
+\item {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+Parameters\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} (same as}upgrade{\ttfamily event) -\/}http.\+Incoming\+Message{\ttfamily \+: a node request object -\/}net.\+Stream{\ttfamily \+: TCP socket for the request -\/}Buffer{\ttfamily \+: legacy tail bytes}
+\item {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+Returns\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}Server{\ttfamily for chaining -\/}attach{\ttfamily }
+\item {\ttfamily Attach this Server instance to an}http.\+Server{\ttfamily }
+\item {\ttfamily Captures}upgrade{\ttfamily requests for a}http.\+Server{\ttfamily . In other words, makes a regular http.\+Server Web\+Socket-\/compatible.}
+\item {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+Parameters\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} -\/}http.\+Server{\ttfamily \+: server to attach to. -\/}Object{\ttfamily \+: optional, options object}
+\item {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+Options\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} -\/}path{\ttfamily (}String{\ttfamily )\+: name of the path to capture (}/engine.io{\ttfamily ). -\/}destroy\+Upgrade{\ttfamily (}Boolean{\ttfamily )\+: destroy unhandled upgrade requests (}true{\ttfamily ) -\/}destroy\+Upgrade\+Timeout{\ttfamily (}Number{\ttfamily )\+: milliseconds after which unhandled requests are ended (}1000{\ttfamily ) -\/}generate\+Id{\ttfamily }
+\item {\ttfamily Generate a socket id.}
+\item {\ttfamily Overwrite this method to generate your custom socket id.}
+\item {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+Parameters\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} -\/}http.\+Incoming\+Message\`{}\+: a node request object
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+{\bfseries{Returns}} A socket id for connected client.
+
+\DoxyHorRuler{0}
+~\newline
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md743}{}\doxysubsubsection{\texorpdfstring{Socket}{Socket}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md743}
+A representation of a client. {\itshape Inherits from Event\+Emitter}.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md744}{}\doxyparagraph{\texorpdfstring{Events}{Events}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md744}
+
+\begin{DoxyItemize}
+\item {\ttfamily close}
+\begin{DoxyItemize}
+\item Fired when the client is disconnected.
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily String}\+: reason for closing
+\item {\ttfamily Object}\+: description object (optional)
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily message}
+\begin{DoxyItemize}
+\item Fired when the client sends a message.
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily String} or {\ttfamily Buffer}\+: Unicode string or Buffer with binary contents
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily error}
+\begin{DoxyItemize}
+\item Fired when an error occurs.
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily Error}\+: error object
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily upgrading}
+\begin{DoxyItemize}
+\item Fired when the client starts the upgrade to a better transport like Web\+Socket.
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily Object}\+: the transport
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily upgrade}
+\begin{DoxyItemize}
+\item Fired when the client completes the upgrade to a better transport like Web\+Socket.
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily Object}\+: the transport
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily flush}
+\begin{DoxyItemize}
+\item Called when the write buffer is being flushed.
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily Array}\+: write buffer
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily drain}
+\begin{DoxyItemize}
+\item Called when the write buffer is drained
+\end{DoxyItemize}
+\item {\ttfamily packet}
+\begin{DoxyItemize}
+\item Called when a socket received a packet ({\ttfamily message}, {\ttfamily ping})
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily type}\+: packet type
+\item {\ttfamily data}\+: packet data (if type is message)
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily packet\+Create}
+\begin{DoxyItemize}
+\item Called before a socket sends a packet ({\ttfamily message}, {\ttfamily ping})
+\item {\bfseries{Arguments}}
+\begin{DoxyItemize}
+\item {\ttfamily type}\+: packet type
+\item {\ttfamily data}\+: packet data (if type is message)
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily heartbeat}
+\begin{DoxyItemize}
+\item Called when {\ttfamily ping} or {\ttfamily pong} packed is received (depends of client version)
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md745}{}\doxyparagraph{\texorpdfstring{Properties}{Properties}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md745}
+
+\begin{DoxyItemize}
+\item {\ttfamily id} \+\_\+(\+String)\+\_\+\+: unique identifier
+\item {\ttfamily server} \+\_\+(\+Server)\+\_\+\+: engine parent reference
+\item {\ttfamily request} \+\_\+(http.\+Incoming\+Message)\+\_\+\+: request that originated the Socket
+\item {\ttfamily upgraded} \+\_\+(\+Boolean)\+\_\+\+: whether the transport has been upgraded
+\item {\ttfamily ready\+State} \+\_\+(\+String)\+\_\+\+: opening\texorpdfstring{$\vert$}{|}open\texorpdfstring{$\vert$}{|}closing\texorpdfstring{$\vert$}{|}closed
+\item {\ttfamily transport} \+\_\+(\+Transport)\+\_\+\+: transport reference
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md746}{}\doxyparagraph{\texorpdfstring{Methods}{Methods}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md746}
+
+\begin{DoxyItemize}
+\item {\ttfamily send}\+:
+\begin{DoxyItemize}
+\item Sends a message, performing {\ttfamily message = to\+String(arguments\mbox{[}0\mbox{]})} unless sending binary data, which is sent as is.
+\item {\bfseries{Parameters}}
+\begin{DoxyItemize}
+\item {\ttfamily String} \texorpdfstring{$\vert$}{|} {\ttfamily Buffer} \texorpdfstring{$\vert$}{|} {\ttfamily Array\+Buffer} \texorpdfstring{$\vert$}{|} {\ttfamily Array\+Buffer\+View}\+: a string or any object implementing {\ttfamily to\+String()}, with outgoing data, or a Buffer or Array\+Buffer with binary data. Also any Array\+Buffer\+View can be sent as is.
+\item {\ttfamily Object}\+: optional, options object
+\item {\ttfamily Function}\+: optional, a callback executed when the message gets flushed out by the transport
+\end{DoxyItemize}
+\item {\bfseries{Options}}
+\begin{DoxyItemize}
+\item {\ttfamily compress} ({\ttfamily Boolean})\+: whether to compress sending data. This option might be ignored and forced to be {\ttfamily true} when using polling. ({\ttfamily true})
+\end{DoxyItemize}
+\item {\bfseries{Returns}} {\ttfamily Socket} for chaining
+\end{DoxyItemize}
+\item {\ttfamily close}
+\begin{DoxyItemize}
+\item Disconnects the client
+\item {\bfseries{Returns}} {\ttfamily Socket} for chaining
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md747}{}\doxysubsection{\texorpdfstring{Client}{Client}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md747}
+\DoxyHorRuler{0}
+~\newline
+
+
+Exposed in the {\ttfamily eio} global namespace (in the browser), or by `require(\textquotesingle{}engine.\+io-\/client')\`{} (in Node.\+JS).
+
+For the client API refer to the \href{http://github.com/learnboost/engine.io-client}{\texttt{ engine-\/client}} repository.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md748}{}\doxysection{\texorpdfstring{Debug / logging}{Debug / logging}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md748}
+Engine.\+IO is powered by \href{http://github.com/visionmedia/debug}{\texttt{ debug}}. In order to see all the debug output, run your app with the environment variable {\ttfamily DEBUG} including the desired scope.
+
+To see the output from all of Engine.\+IO\textquotesingle{}s debugging scopes you can use\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{DEBUG=engine*\ node\ myapp}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md749}{}\doxysection{\texorpdfstring{Transports}{Transports}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md749}
+
+\begin{DoxyItemize}
+\item {\ttfamily polling}\+: XHR / JSONP polling transport.
+\item {\ttfamily websocket}\+: Web\+Socket transport.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md750}{}\doxysection{\texorpdfstring{Plugins}{Plugins}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md750}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/EugenDueck/engine.io-conflation}{\texttt{ engine.\+io-\/conflation}}\+: Makes {\bfseries{conflation and aggregation}} of messages straightforward.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md751}{}\doxysection{\texorpdfstring{Support}{Support}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md751}
+The support channels for {\ttfamily engine.\+io} are the same as {\ttfamily socket.\+io}\+:
+\begin{DoxyItemize}
+\item irc.\+freenode.\+net \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\#socket.\+io\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
+\item \href{http://groups.google.com/group/socket_io}{\texttt{ Google Groups}}
+\item \href{http://socket.io}{\texttt{ Website}}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md752}{}\doxysection{\texorpdfstring{Development}{Development}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md752}
+To contribute patches, run tests or benchmarks, make sure to clone the repository\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ clone\ git://github.com/LearnBoost/engine.io.git}
+
+\end{DoxyCode}
+
+
+Then\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd\ engine.io}
+\DoxyCodeLine{npm\ install}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md753}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md753}
+Tests run with {\ttfamily npm test}. It runs the server tests that are aided by the usage of {\ttfamily engine.\+io-\/client}.
+
+Make sure {\ttfamily npm install} is run first.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md754}{}\doxysection{\texorpdfstring{Goals}{Goals}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md754}
+The main goal of {\ttfamily Engine} is ensuring the most reliable realtime communication. Unlike the previous Socket.\+IO core, it always establishes a long-\/polling connection first, then tries to upgrade to better transports that are "{}tested"{} on the side.
+
+During the lifetime of the Socket.\+IO projects, we\textquotesingle{}ve found countless drawbacks to relying on {\ttfamily HTML5 Web\+Socket} or {\ttfamily Flash Socket} as the first connection mechanisms.
+
+Both are clearly the {\itshape right way} of establishing a bidirectional communication, with HTML5 Web\+Socket being the way of the future. However, to answer most business needs, alternative traditional HTTP 1.\+1 mechanisms are just as good as delivering the same solution.
+
+Web\+Socket based connections have two fundamental benefits\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Better server performance}}
+\begin{DoxyItemize}
+\item {\itshape A\+: Load balancers}~\newline
+ Load balancing a long polling connection poses a serious architectural nightmare since requests can come from any number of open sockets by the user agent, but they all need to be routed to the process and computer that owns the {\ttfamily Engine} connection. This negatively impacts RAM and CPU usage.
+\item {\itshape B\+: Network traffic}~\newline
+ Web\+Socket is designed around the premise that each message frame has to be surrounded by the least amount of data. In HTTP 1.\+1 transports, each message frame is surrounded by HTTP headers and chunked encoding frames. If you try to send the message \+\_\+"{}\+Hello world"{}\+\_\+ with xhr-\/polling, the message ultimately becomes larger than if you were to send it with Web\+Socket.
+\item {\itshape C\+: Lightweight parser}~\newline
+ As an effect of {\bfseries{B}}, the server has to do a lot more work to parse the network data and figure out the message when traditional HTTP requests are used (as in long polling). This means that another advantage of Web\+Socket is less server CPU usage.
+\end{DoxyItemize}
+\item {\bfseries{Better user experience}}
+
+Due to the reasons stated in point {\bfseries{1}}, the most important effect of being able to establish a Web\+Socket connection is raw data transfer speed, which translates in {\itshape some} cases in better user experience.
+
+Applications with heavy realtime interaction (such as games) will benefit greatly, whereas applications like realtime chat (Gmail/\+Facebook), newsfeeds (Facebook) or timelines (Twitter) will have negligible user experience improvements.
+\end{DoxyEnumerate}
+
+Having said this, attempting to establish a Web\+Socket connection directly so far has proven problematic\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Proxies}}~\newline
+ Many corporate proxies block Web\+Socket traffic.
+\item {\bfseries{Personal firewall and antivirus software}}~\newline
+ As a result of our research, we\textquotesingle{}ve found that at least 3 personal security applications block Web\+Socket traffic.
+\item {\bfseries{Cloud application platforms}}~\newline
+ Platforms like Heroku or No.\+de have had trouble keeping up with the fast-\/paced nature of the evolution of the Web\+Socket protocol. Applications therefore end up inevitably using long polling, but the seamless installation experience of Socket.\+IO we strive for (\+\_\+"{}require() it and it just works"{}\+\_\+) disappears.
+\end{DoxyEnumerate}
+
+Some of these problems have solutions. In the case of proxies and personal programs, however, the solutions many times involve upgrading software. Experience has shown that relying on client software upgrades to deliver a business solution is fruitless\+: the very existence of this project has to do with a fragmented panorama of user agent distribution, with clients connecting with latest versions of the most modern user agents (Chrome, Firefox and Safari), but others with versions as low as IE 5.\+5.
+
+From the user perspective, an unsuccessful Web\+Socket connection can translate in up to at least 10 seconds of waiting for the realtime application to begin exchanging data. This {\bfseries{perceptively}} hurts user experience.
+
+To summarize, {\bfseries{Engine}} focuses on reliability and user experience first, marginal potential UX improvements and increased server performance second. {\ttfamily Engine} is the result of all the lessons learned with Web\+Socket in the wild.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md755}{}\doxysection{\texorpdfstring{Architecture}{Architecture}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md755}
+The main premise of {\ttfamily Engine}, and the core of its existence, is the ability to swap transports on the fly. A connection starts as xhr-\/polling, but it can switch to Web\+Socket.
+
+The central problem this poses is\+: how do we switch transports without losing messages?
+
+{\ttfamily Engine} only switches from polling to another transport in between polling cycles. Since the server closes the connection after a certain timeout when there\textquotesingle{}s no activity, and the polling transport implementation buffers messages in between connections, this ensures no message loss and optimal performance.
+
+Another benefit of this design is that we workaround almost all the limitations of {\bfseries{Flash Socket}}, such as slow connection times, increased file size (we can safely lazy load it without hurting user experience), etc.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md756}{}\doxysection{\texorpdfstring{FAQ}{FAQ}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md756}
+\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md757}{}\doxysubsection{\texorpdfstring{Can I use engine without Socket.\+IO ?}{Can I use engine without Socket.IO ?}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md757}
+Absolutely. Although the recommended framework for building realtime applications is Socket.\+IO, since it provides fundamental features for real-\/world applications such as multiplexing, reconnection support, etc.
+
+{\ttfamily Engine} is to Socket.\+IO what Connect is to Express. An essential piece for building realtime frameworks, but something you {\itshape probably} won\textquotesingle{}t be using for building actual applications.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md758}{}\doxysubsection{\texorpdfstring{Does the server serve the client?}{Does the server serve the client?}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md758}
+No. The main reason is that {\ttfamily Engine} is meant to be bundled with frameworks. Socket.\+IO includes {\ttfamily Engine}, therefore serving two clients is not necessary. If you use Socket.\+IO, including
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<script\ src="{}/socket.io/socket.io.js"{}>}
+
+\end{DoxyCode}
+
+
+has you covered.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md759}{}\doxysubsection{\texorpdfstring{Can I implement $<$tt$>$\+Engine$<$/tt$>$ in other languages?}{Can I implement <tt>Engine</tt> in other languages?}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md759}
+Absolutely. The \href{https://github.com/socketio/engine.io-protocol}{\texttt{ engine.\+io-\/protocol}} repository contains the most up-\/to-\/date description of the specification at all times.\hypertarget{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md760}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2engine_8io_2README_autotoc_md760}
+(The MIT License)
+
+Copyright (c) 2014 Guillermo Rauch \texorpdfstring{$<$}{<}\href{mailto:guillermo@learnboost.com}{\texttt{ guillermo@learnboost.\+com}}\texorpdfstring{$>$}{>}
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \textquotesingle{}Software\textquotesingle{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \textquotesingle{}AS IS\textquotesingle{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 

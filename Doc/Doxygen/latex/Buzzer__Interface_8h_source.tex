@@ -1,0 +1,40 @@
+\doxysection{Buzzer\+\_\+\+Interface.\+h}
+\hypertarget{Buzzer__Interface_8h_source}{}\label{Buzzer__Interface_8h_source}\index{Hal/Buzzer/Buzzer\_Interface.h@{Hal/Buzzer/Buzzer\_Interface.h}}
+\mbox{\hyperlink{Buzzer__Interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ BUZZER\_INTERFACE\_H\_}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ BUZZER\_INTERFACE\_H\_}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include"{}../Buzzer/Buzzer\_Config.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include"{}../Buzzer/Buzzer\_Private.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include"{}../../Common/Macros.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{00028\ \{\ \ \ \mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a6fd00a9b64a658134b21162400027a68}{BUZZER\_OFF}},}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a5435ccab40fb29ad3420e7ffdecac65c}{BUZZER\_ON}},}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811af17ff5ea83f7863ede482388463a1f40}{BUZZER\_BEEP\_ONCE}},}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811aa32245a51bffe845da2250c59658a1b5}{BUZZER\_BEEP\_PERIODIC}},}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a4e50caadfb5dbd532be9024f5306680d}{BUZZER\_ALERT}}}
+\DoxyCodeLine{00033\ \}\ \mbox{\hyperlink{group__Buzzer_gaa6cdd577ceb0600f78bcf96b2ee90811}{Buzzer\_Mode\_t}};}
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{group__Buzzer_gaa6cdd577ceb0600f78bcf96b2ee90811}{Buzzer\_Mode\_t}}\ \mbox{\hyperlink{structBuzzer__State__t_ae3e76e2df9e8185db154e34f38341757}{mode}};\ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structBuzzer__State__t_a9b098323c310e614c88de064ae76e1e6}{is\_on}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \}\ \mbox{\hyperlink{structBuzzer__State__t}{Buzzer\_State\_t}};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Buzzer_ga6b75e04c90a3c65be473f9eba13031cd}{Buzzer\_Init}}(\textcolor{keywordtype}{void});\ }
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Buzzer_gae044fe5feff64cb88cbe3a0ff41e2d0a}{Buzzer\_On}}(\textcolor{keywordtype}{void});\ }
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Buzzer_ga2440a829dfd95dec323a2655f90399b6}{Buzzer\_Off}}(\textcolor{keywordtype}{void});\ }
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Buzzer_ga4721b60386c04b37b0bbc5b5d15432e2}{Buzzer\_Beep}}(uint16\_t\ duration);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Buzzer_ga15befaa8279a094586f7171a367a38b9}{Buzzer\_SetMode}}(\mbox{\hyperlink{group__Buzzer_gaa6cdd577ceb0600f78bcf96b2ee90811}{Buzzer\_Mode\_t}}\ mode);\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Buzzer_ga20046e530ca41e2524d346f2a2798b66}{Buzzer\_Alert\_Callback}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Buzzer_ga38663e84ededea68df1392bf593fb7fe}{Buzzer\_Periodic\_Callback}}(\textcolor{keywordtype}{void})\ ;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ BUZZER\_INTERFACE\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

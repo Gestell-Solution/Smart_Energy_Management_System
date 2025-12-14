@@ -13,6 +13,14 @@
 
 #ifndef _APP_COMM_MANAGER_H
 #define _APP_COMM_MANAGER_H
+
+/**
+ * @addtogroup App
+ * @{
+ * @addtogroup Communication_Manager
+ * @{
+ */
+
 #include <stdint.h>
 
 typedef enum
@@ -168,5 +176,11 @@ void App_CommManager_ReceiveHandler();
 void App_CommManager_ProcessCommand(uint8_t *frame);
 
 uint8_t Accesslength();
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif

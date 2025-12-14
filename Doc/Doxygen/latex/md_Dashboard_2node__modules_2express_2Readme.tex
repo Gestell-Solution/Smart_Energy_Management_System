@@ -1,0 +1,234 @@
+\chapter{Readme}
+\hypertarget{md_Dashboard_2node__modules_2express_2Readme}{}\label{md_Dashboard_2node__modules_2express_2Readme}\index{Readme@{Readme}}
+\href{http://expressjs.com/}{\texttt{ }}
+
+{\bfseries{Fast, unopinionated, minimalist web framework for \href{http://nodejs.org}{\texttt{ Node.\+js}}.}}
+
+{\bfseries{This project has a \href{https://github.com/expressjs/express/blob/master/Code-Of-Conduct.md}{\texttt{ Code of Conduct}}.}}\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1110}{}\doxysubsection{\texorpdfstring{Table of contents}{Table of contents}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1110}
+
+\begin{DoxyItemize}
+\item Installation
+\item Features
+\item Docs \& Community
+\item Quick Start
+\item Running Tests
+\item Philosophy
+\item Examples
+\item Contributing to Express
+\item TC (Technical Committee)
+\item Triagers
+\item \doxylink{md_Dashboard_2node__modules_2node-addon-api_2README_license}{License}
+\end{DoxyItemize}
+
+\href{https://npmjs.org/package/express}{\texttt{ }} \href{https://packagephobia.com/result?p=express}{\texttt{ }} \href{https://npmcharts.com/compare/express?minimal=true}{\texttt{ }} \href{https://ossf.github.io/scorecard-visualizer/\#/projects/github.com/expressjs/express}{\texttt{ }}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ express\ =\ require('express')}
+\DoxyCodeLine{const\ app\ =\ express()}
+\DoxyCodeLine{}
+\DoxyCodeLine{app.get('/',\ function\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ res.send('Hello\ World')}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{app.listen(3000)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1111}{}\doxysubsection{\texorpdfstring{Installation}{Installation}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1111}
+This is a \href{https://nodejs.org/en/}{\texttt{ Node.\+js}} module available through the \href{https://www.npmjs.com/}{\texttt{ npm registry}}.
+
+Before installing, \href{https://nodejs.org/en/download/}{\texttt{ download and install Node.\+js}}. Node.\+js 0.\+10 or higher is required.
+
+If this is a brand new project, make sure to create a {\ttfamily package.\+json} first with the \href{https://docs.npmjs.com/creating-a-package-json-file}{\texttt{ {\ttfamily npm init} command}}.
+
+Installation is done using the \href{https://docs.npmjs.com/getting-started/installing-npm-packages-locally}{\texttt{ {\ttfamily npm install} command}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ express}
+
+\end{DoxyCode}
+
+
+Follow \href{http://expressjs.com/en/starter/installing.html}{\texttt{ our installing guide}} for more information.\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1112}{}\doxysubsection{\texorpdfstring{Features}{Features}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1112}
+
+\begin{DoxyItemize}
+\item Robust routing
+\item Focus on high performance
+\item Super-\/high test coverage
+\item HTTP helpers (redirection, caching, etc)
+\item View system supporting 14+ template engines
+\item Content negotiation
+\item Executable for generating applications quickly
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1113}{}\doxysubsection{\texorpdfstring{Docs \& Community}{Docs \& Community}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1113}
+
+\begin{DoxyItemize}
+\item \href{http://expressjs.com/}{\texttt{ Website and Documentation}} -\/ \mbox{[}\href{https://github.com/expressjs/expressjs.com}{\texttt{ website repo}}\mbox{]}
+\item \href{https://web.libera.chat/\#express}{\texttt{ \#express}} on \href{https://libera.chat}{\texttt{ Libera Chat}} IRC
+\item \href{https://github.com/expressjs}{\texttt{ Git\+Hub Organization}} for Official Middleware \& Modules
+\item Visit the \href{https://github.com/expressjs/express/wiki}{\texttt{ Wiki}}
+\item \href{https://groups.google.com/group/express-js}{\texttt{ Google Group}} for discussion
+\item \href{https://gitter.im/expressjs/express}{\texttt{ Gitter}} for support and discussion
+\end{DoxyItemize}
+
+{\bfseries{PROTIP}} Be sure to read \href{https://github.com/expressjs/express/wiki/Migrating-from-3.x-to-4.x}{\texttt{ Migrating from 3.\+x to 4.\+x}} as well as \href{https://github.com/expressjs/express/wiki/New-features-in-4.x}{\texttt{ New features in 4.\+x}}.\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1114}{}\doxysubsection{\texorpdfstring{Quick Start}{Quick Start}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1114}
+The quickest way to get started with express is to utilize the executable \href{https://github.com/expressjs/generator}{\texttt{ {\ttfamily express(1)}}} to generate an application as shown below\+:
+
+Install the executable. The executable\textquotesingle{}s major version will match Express\textquotesingle{}s\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ -\/g\ express-\/generator@4}
+
+\end{DoxyCode}
+
+
+Create the app\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ express\ /tmp/foo\ \&\&\ cd\ /tmp/foo}
+
+\end{DoxyCode}
+
+
+Install dependencies\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install}
+
+\end{DoxyCode}
+
+
+Start the server\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ start}
+
+\end{DoxyCode}
+
+
+View the website at\+: \href{http://localhost:3000}{\texttt{ http\+://localhost\+:3000}}\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1115}{}\doxysubsection{\texorpdfstring{Philosophy}{Philosophy}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1115}
+The Express philosophy is to provide small, robust tooling for HTTP servers, making it a great solution for single page applications, websites, hybrids, or public HTTP APIs.
+
+Express does not force you to use any specific ORM or template engine. With support for over 14 template engines via \href{https://github.com/tj/consolidate.js}{\texttt{ Consolidate.\+js}}, you can quickly craft your perfect framework.\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1116}{}\doxysubsection{\texorpdfstring{Examples}{Examples}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1116}
+To view the examples, clone the Express repo and install the dependencies\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ git\ clone\ https://github.com/expressjs/express.git\ -\/-\/depth\ 1}
+\DoxyCodeLine{\$\ cd\ express}
+\DoxyCodeLine{\$\ npm\ install}
+
+\end{DoxyCode}
+
+
+Then run whichever example you want\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ node\ examples/content-\/negotiation}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1117}{}\doxysubsection{\texorpdfstring{Contributing}{Contributing}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1117}
+\href{https://github.com/expressjs/express/actions/workflows/ci.yml}{\texttt{ }} \href{https://ci.appveyor.com/project/dougwilson/express}{\texttt{ }} \href{https://coveralls.io/r/expressjs/express?branch=master}{\texttt{ }}
+
+The Express.\+js project welcomes all constructive contributions. Contributions take many forms, from code for bug fixes and enhancements, to additions and fixes to documentation, additional tests, triaging incoming pull requests and issues, and more!
+
+See the Contributing Guide for more technical details on contributing.\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1118}{}\doxysubsubsection{\texorpdfstring{Security Issues}{Security Issues}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1118}
+If you discover a security vulnerability in Express, please see Security Policies and Procedures.\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1119}{}\doxysubsubsection{\texorpdfstring{Running Tests}{Running Tests}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1119}
+To run the test suite, first install the dependencies, then run {\ttfamily npm test}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install}
+\DoxyCodeLine{\$\ npm\ test}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1120}{}\doxysubsection{\texorpdfstring{People}{People}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1120}
+The original author of Express is \href{https://github.com/tj}{\texttt{ TJ Holowaychuk}}
+
+\href{https://github.com/expressjs/express/graphs/contributors}{\texttt{ List of all contributors}}\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1121}{}\doxysubsubsection{\texorpdfstring{TC (\+Technical Committee)}{TC (Technical Committee)}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1121}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/UlisesGascon}{\texttt{ Ulises\+Gascon}} -\/ {\bfseries{Ulises Gascón}} (he/him)
+\item \href{https://github.com/jonchurch}{\texttt{ jonchurch}} -\/ {\bfseries{Jon Church}}
+\item \href{https://github.com/wesleytodd}{\texttt{ wesleytodd}} -\/ {\bfseries{Wes Todd}}
+\item \href{https://github.com/LinusU}{\texttt{ LinusU}} -\/ {\bfseries{Linus Unnebäck}}
+\item \href{https://github.com/blakeembrey}{\texttt{ blakeembrey}} -\/ {\bfseries{Blake Embrey}}
+\item \href{https://github.com/sheplu}{\texttt{ sheplu}} -\/ {\bfseries{Jean Burellier}}
+\item \href{https://github.com/crandmck}{\texttt{ crandmck}} -\/ {\bfseries{Rand Mc\+Kinney}}
+\item \href{https://github.com/ctcpip}{\texttt{ ctcpip}} -\/ {\bfseries{Chris de Almeida}}
+\end{DoxyItemize}
+
+
+
+{\bfseries{TC emeriti members}}\begin{adjustwidth}{1em}{0em}
+
+
+\end{adjustwidth}
+\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1122}{}\doxyparagraph{\texorpdfstring{TC emeriti members}{TC emeriti members}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1122}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/dougwilson}{\texttt{ dougwilson}} -\/ {\bfseries{Douglas Wilson}}
+\item \href{https://github.com/hacksparrow}{\texttt{ hacksparrow}} -\/ {\bfseries{Hage Yaapa}}
+\item \href{https://github.com/jonathanong}{\texttt{ jonathanong}} -\/ {\bfseries{jongleberry}}
+\item \href{https://github.com/niftylettuce}{\texttt{ niftylettuce}} -\/ {\bfseries{niftylettuce}}
+\item \href{https://github.com/troygoode}{\texttt{ troygoode}} -\/ {\bfseries{Troy Goode}} 
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1123}{}\doxysubsubsection{\texorpdfstring{Triagers}{Triagers}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1123}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/aravindvnair99}{\texttt{ aravindvnair99}} -\/ {\bfseries{Aravind Nair}}
+\item \href{https://github.com/carpasse}{\texttt{ carpasse}} -\/ {\bfseries{Carlos Serrano}}
+\item \href{https://github.com/CBID2}{\texttt{ CBID2}} -\/ {\bfseries{Christine Belzie}}
+\item \href{https://github.com/enyoghasim}{\texttt{ enyoghasim}} -\/ {\bfseries{David Enyoghasim}}
+\item \href{https://github.com/UlisesGascon}{\texttt{ Ulises\+Gascon}} -\/ {\bfseries{Ulises Gascón}} (he/him)
+\item \href{https://github.com/mertcanaltin}{\texttt{ mertcanaltin}} -\/ {\bfseries{Mert Can Altin}}
+\item \href{https://github.com/0ss}{\texttt{ 0ss}} -\/ {\bfseries{Salah}}
+\item \href{https://github.com/import-brain}{\texttt{ import-\/brain}} -\/ {\bfseries{Eric Cheng}} (he/him)
+\item \href{https://github.com/3imed-jaberi}{\texttt{ 3imed-\/jaberi}} -\/ {\bfseries{Imed Jaberi}}
+\item \href{https://github.com/dakshkhetan}{\texttt{ dakshkhetan}} -\/ {\bfseries{Daksh Khetan}} (he/him)
+\item \href{https://github.com/lucasraziel}{\texttt{ lucasraziel}} -\/ {\bfseries{Lucas Soares Do Rego}}
+\item \href{https://github.com/IamLizu}{\texttt{ Iam\+Lizu}} -\/ {\bfseries{S M Mahmudul Hasan}} (he/him)
+\item \href{https://github.com/Sushmeet}{\texttt{ Sushmeet}} -\/ {\bfseries{Sushmeet Sunger}}
+\end{DoxyItemize}
+
+
+
+{\bfseries{Triagers emeriti members}}\begin{adjustwidth}{1em}{0em}
+
+
+\end{adjustwidth}
+\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1124}{}\doxyparagraph{\texorpdfstring{Emeritus Triagers}{Emeritus Triagers}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1124}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/AuggieH}{\texttt{ AuggieH}} -\/ {\bfseries{Auggie Hudak}}
+\item \href{https://github.com/G-Rath}{\texttt{ G-\/\+Rath}} -\/ {\bfseries{Gareth Jones}}
+\item \href{https://github.com/MohammadXroid}{\texttt{ Mohammad\+Xroid}} -\/ {\bfseries{Mohammad Ayashi}}
+\item \href{https://github.com/NawafSwe}{\texttt{ Nawaf\+Swe}} -\/ {\bfseries{Nawaf Alsharqi}}
+\item \href{https://github.com/NotMoni}{\texttt{ Not\+Moni}} -\/ {\bfseries{Moni}}
+\item \href{https://github.com/VigneshMurugan}{\texttt{ Vignesh\+Murugan}} -\/ {\bfseries{Vignesh Murugan}}
+\item \href{https://github.com/davidmashe}{\texttt{ davidmashe}} -\/ {\bfseries{David Ashe}}
+\item \href{https://github.com/digitaIfabric}{\texttt{ digita\+Ifabric}} -\/ {\bfseries{David}}
+\item \href{https://github.com/e-l-i-s-e}{\texttt{ e-\/l-\/i-\/s-\/e}} -\/ {\bfseries{Elise Bonner}}
+\item \href{https://github.com/fed135}{\texttt{ fed135}} -\/ {\bfseries{Frederic Charette}}
+\item \href{https://github.com/firmanJS}{\texttt{ firman\+JS}} -\/ {\bfseries{Firman Abdul Hakim}}
+\item \href{https://github.com/getspooky}{\texttt{ getspooky}} -\/ {\bfseries{Yasser Ameur}}
+\item \href{https://github.com/ghinks}{\texttt{ ghinks}} -\/ {\bfseries{Glenn}}
+\item \href{https://github.com/ghousemohamed}{\texttt{ ghousemohamed}} -\/ {\bfseries{Ghouse Mohamed}}
+\item \href{https://github.com/gireeshpunathil}{\texttt{ gireeshpunathil}} -\/ {\bfseries{Gireesh Punathil}}
+\item \href{https://github.com/jake32321}{\texttt{ jake32321}} -\/ {\bfseries{Jake Reed}}
+\item \href{https://github.com/jonchurch}{\texttt{ jonchurch}} -\/ {\bfseries{Jon Church}}
+\item \href{https://github.com/lekanikotun}{\texttt{ lekanikotun}} -\/ {\bfseries{Troy Goode}}
+\item \href{https://github.com/marsonya}{\texttt{ marsonya}} -\/ {\bfseries{Lekan Ikotun}}
+\item \href{https://github.com/mastermatt}{\texttt{ mastermatt}} -\/ {\bfseries{Matt R. Wilson}}
+\item \href{https://github.com/maxakuru}{\texttt{ maxakuru}} -\/ {\bfseries{Max Edell}}
+\item \href{https://github.com/mlrawlings}{\texttt{ mlrawlings}} -\/ {\bfseries{Michael Rawlings}}
+\item \href{https://github.com/rodion-arr}{\texttt{ rodion-\/arr}} -\/ {\bfseries{Rodion Abdurakhimov}}
+\item \href{https://github.com/sheplu}{\texttt{ sheplu}} -\/ {\bfseries{Jean Burellier}}
+\item \href{https://github.com/tarunyadav1}{\texttt{ tarunyadav1}} -\/ {\bfseries{Tarun yadav}}
+\item \href{https://github.com/tunniclm}{\texttt{ tunniclm}} -\/ {\bfseries{Mike Tunnicliffe}} 
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1125}{}\doxysubsection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2express_2Readme_autotoc_md1125}
+\mbox{[}MIT\mbox{]}(LICENSE) 

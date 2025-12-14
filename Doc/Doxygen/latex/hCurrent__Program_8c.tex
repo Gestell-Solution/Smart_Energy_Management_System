@@ -1,0 +1,148 @@
+\doxysection{Hal/\+ACS712\+Curnt\+Snsr/h\+Current\+\_\+\+Program.c File Reference}
+\hypertarget{hCurrent__Program_8c}{}\label{hCurrent__Program_8c}\index{Hal/ACS712CurntSnsr/hCurrent\_Program.c@{Hal/ACS712CurntSnsr/hCurrent\_Program.c}}
+{\ttfamily \#include "{}../../\+Mcal/\+DIO/\+DIO\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+ADC/\+ADC\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}h\+Current\+\_\+\+Config.\+h"{}}\newline
+{\ttfamily \#include "{}h\+Current\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}h\+Current\+\_\+\+Private.\+h"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for h\+Current\+\_\+\+Program.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hCurrent__Program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{hCurrent__Program_8c_ae53cde6eaee20a47922400b3233e43cb}{hcurrent\+\_\+\+Call\+Back}} (uint16\+\_\+t dummy)
+\begin{DoxyCompactList}\small\item\em ADC interrupt callback for the ACS712 current sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Current__Sensor_gab55545994a9eac0cc732317acaec80d5}{h\+Current\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the ACS712 current sensor driver. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{group__Current__Sensor_ga99b5f2367402e2035a32454ef447c759}{h\+Current\+\_\+\+Read\+Instant}} (void)
+\begin{DoxyCompactList}\small\item\em Reads the instantaneous current from the ACS712 sensor. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{group__Current__Sensor_ga12f26ab9c37f083a4b0d9e92d06c1887}{h\+Current\+\_\+\+Read\+RMS}} ()
+\begin{DoxyCompactList}\small\item\em Calculates the RMS current over a number of samples. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Current__Sensor_ga968a6abe3dd47bf101f701cfb116c602}{h\+Current\+\_\+\+Calibrate}} (void)
+\begin{DoxyCompactList}\small\item\em Calibrates the zero-\/current offset of the ACS712 sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile uint8\+\_\+t \mbox{\hyperlink{hCurrent__Program_8c_ab9b8c94306a63e4c0dad02261bd6f792}{New\+\_\+\+Current\+\_\+\+Sample\+\_\+\+Flag}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{hCurrent__Program_8c_aec66df66cfe63618851528592bb536e8}{is\+ADC\+\_\+\+Initialized}}
+\begin{DoxyCompactList}\small\item\em Tracks whether the ADC module has been initialized. \end{DoxyCompactList}\item 
+static float \mbox{\hyperlink{hCurrent__Program_8c_ab60b735025ae995ec64c27d6ad6b7354}{ACS712\+\_\+\+ZERO\+\_\+\+OFFSET}} = \mbox{\hyperlink{hCurrent__Config_8h_a93e5d1f36266102487be4ca2fe81399e}{ACS712\+\_\+\+Initial\+\_\+\+ZERO\+\_\+\+OFFSET}}
+\begin{DoxyCompactList}\small\item\em Stores the zero-\/current voltage offset for the ACS712 sensor. \end{DoxyCompactList}\item 
+static float \mbox{\hyperlink{hCurrent__Program_8c_a794ed8b2e519a85d17f01989625c0925}{ADC\+\_\+\+Current\+\_\+\+Value}} = 0
+\begin{DoxyCompactList}\small\item\em Last ADC-\/derived current value / accumulator used for RMS calculations. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structRMS__Data}{RMS\+\_\+\+Data}} \mbox{\hyperlink{hCurrent__Program_8c_a6df7c25b266a51522ef77b5c013bbf03}{RMS\+\_\+\+Actions}} = \{0, 0, 0, 0\}
+\begin{DoxyCompactList}\small\item\em Container for RMS-\/related accumulators and results. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structCalibration__Data}{Calibration\+\_\+\+Data}} \mbox{\hyperlink{hCurrent__Program_8c_ae1daac8924c24e879b4073ef1f5ac716}{Calibration\+\_\+\+Actions}} = \{0, 0, 0, 0\}
+\begin{DoxyCompactList}\small\item\em Calibration parameters and state for current measurement conversion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{hCurrent__Program_8c_ae53cde6eaee20a47922400b3233e43cb}\label{hCurrent__Program_8c_ae53cde6eaee20a47922400b3233e43cb} 
+\index{hCurrent\_Program.c@{hCurrent\_Program.c}!hcurrent\_CallBack@{hcurrent\_CallBack}}
+\index{hcurrent\_CallBack@{hcurrent\_CallBack}!hCurrent\_Program.c@{hCurrent\_Program.c}}
+\doxysubsubsection{\texorpdfstring{hcurrent\_CallBack()}{hcurrent\_CallBack()}}
+{\footnotesize\ttfamily void hcurrent\+\_\+\+Call\+Back (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{dummy }\end{DoxyParamCaption})}
+
+
+
+ADC interrupt callback for the ACS712 current sensor. 
+
+Invoked from the ADC ISR to notify the current-\/sensing layer of a new ADC conversion or to act as a simple conversion-\/complete signal. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em dummy} & 16-\/bit ADC sample. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+This function runs in interrupt context. 
+\end{DoxyWarning}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hCurrent__Program_8c_ae53cde6eaee20a47922400b3233e43cb_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{hCurrent__Program_8c_ab60b735025ae995ec64c27d6ad6b7354}\label{hCurrent__Program_8c_ab60b735025ae995ec64c27d6ad6b7354} 
+\index{hCurrent\_Program.c@{hCurrent\_Program.c}!ACS712\_ZERO\_OFFSET@{ACS712\_ZERO\_OFFSET}}
+\index{ACS712\_ZERO\_OFFSET@{ACS712\_ZERO\_OFFSET}!hCurrent\_Program.c@{hCurrent\_Program.c}}
+\doxysubsubsection{\texorpdfstring{ACS712\_ZERO\_OFFSET}{ACS712\_ZERO\_OFFSET}}
+{\footnotesize\ttfamily ACS712\+\_\+\+ZERO\+\_\+\+OFFSET = \mbox{\hyperlink{hCurrent__Config_8h_a93e5d1f36266102487be4ca2fe81399e}{ACS712\+\_\+\+Initial\+\_\+\+ZERO\+\_\+\+OFFSET}}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Stores the zero-\/current voltage offset for the ACS712 sensor. 
+
+Initialized to a default value and updated during calibration to improve accuracy. \Hypertarget{hCurrent__Program_8c_a794ed8b2e519a85d17f01989625c0925}\label{hCurrent__Program_8c_a794ed8b2e519a85d17f01989625c0925} 
+\index{hCurrent\_Program.c@{hCurrent\_Program.c}!ADC\_Current\_Value@{ADC\_Current\_Value}}
+\index{ADC\_Current\_Value@{ADC\_Current\_Value}!hCurrent\_Program.c@{hCurrent\_Program.c}}
+\doxysubsubsection{\texorpdfstring{ADC\_Current\_Value}{ADC\_Current\_Value}}
+{\footnotesize\ttfamily ADC\+\_\+\+Current\+\_\+\+Value = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Last ADC-\/derived current value / accumulator used for RMS calculations. 
+
+File-\/scope (static) floating-\/point value initialized to 0.\+0f. Holds the most recent ADC measurement or an accumulated/summed value that is consumed by the RMS and calibration routines. The physical meaning (raw ADC counts vs. converted amperes) depends on the active calibration parameters stored in Calibration\+\_\+\+Actions. \begin{DoxyNote}{Note}
+This variable has static linkage (visible only within the defining compilation unit). If it is accessed from multiple execution contexts (e.\+g., main code and an ISR), access must be synchronized to avoid data races. 
+\end{DoxyNote}
+\Hypertarget{hCurrent__Program_8c_ae1daac8924c24e879b4073ef1f5ac716}\label{hCurrent__Program_8c_ae1daac8924c24e879b4073ef1f5ac716} 
+\index{hCurrent\_Program.c@{hCurrent\_Program.c}!Calibration\_Actions@{Calibration\_Actions}}
+\index{Calibration\_Actions@{Calibration\_Actions}!hCurrent\_Program.c@{hCurrent\_Program.c}}
+\doxysubsubsection{\texorpdfstring{Calibration\_Actions}{Calibration\_Actions}}
+{\footnotesize\ttfamily Calibration\+\_\+\+Actions = \{0, 0, 0, 0\}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Calibration parameters and state for current measurement conversion. 
+
+Stores calibration data such as offsets, scale factors and any runtime state required to convert raw ADC readings into physical units (e.\+g., amperes) or to correct systematic measurement errors. Initialized to zeros. See the \doxylink{structCalibration__Data}{Calibration\+\_\+\+Data} type for the exact field layout and semantics. \begin{DoxyNote}{Note}
+As a static file-\/scope object, access should be synchronized when modified or read from multiple contexts to ensure consistency. 
+\end{DoxyNote}
+\Hypertarget{hCurrent__Program_8c_aec66df66cfe63618851528592bb536e8}\label{hCurrent__Program_8c_aec66df66cfe63618851528592bb536e8} 
+\index{hCurrent\_Program.c@{hCurrent\_Program.c}!isADC\_Initialized@{isADC\_Initialized}}
+\index{isADC\_Initialized@{isADC\_Initialized}!hCurrent\_Program.c@{hCurrent\_Program.c}}
+\doxysubsubsection{\texorpdfstring{isADC\_Initialized}{isADC\_Initialized}}
+{\footnotesize\ttfamily is\+ADC\+\_\+\+Initialized\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Tracks whether the ADC module has been initialized. 
+
+File Inclusion ~\newline
+
+
+Used to prevent redundant initialization of the ADC hardware.
+
+Tracks whether the ADC module has been initialized. \Hypertarget{hCurrent__Program_8c_ab9b8c94306a63e4c0dad02261bd6f792}\label{hCurrent__Program_8c_ab9b8c94306a63e4c0dad02261bd6f792} 
+\index{hCurrent\_Program.c@{hCurrent\_Program.c}!New\_Current\_Sample\_Flag@{New\_Current\_Sample\_Flag}}
+\index{New\_Current\_Sample\_Flag@{New\_Current\_Sample\_Flag}!hCurrent\_Program.c@{hCurrent\_Program.c}}
+\doxysubsubsection{\texorpdfstring{New\_Current\_Sample\_Flag}{New\_Current\_Sample\_Flag}}
+{\footnotesize\ttfamily volatile uint8\+\_\+t New\+\_\+\+Current\+\_\+\+Sample\+\_\+\+Flag = 0}
+
+File Inclusion ~\newline
+ \Hypertarget{hCurrent__Program_8c_a6df7c25b266a51522ef77b5c013bbf03}\label{hCurrent__Program_8c_a6df7c25b266a51522ef77b5c013bbf03} 
+\index{hCurrent\_Program.c@{hCurrent\_Program.c}!RMS\_Actions@{RMS\_Actions}}
+\index{RMS\_Actions@{RMS\_Actions}!hCurrent\_Program.c@{hCurrent\_Program.c}}
+\doxysubsubsection{\texorpdfstring{RMS\_Actions}{RMS\_Actions}}
+{\footnotesize\ttfamily RMS\+\_\+\+Actions = \{0, 0, 0, 0\}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Container for RMS-\/related accumulators and results. 
+
+Holds the data used to compute root-\/mean-\/square (RMS) values for the current measurement channel. Typically includes accumulators, sample counts and the computed RMS result. Initialized to zeros. The exact fields and semantics are defined by the \doxylink{structRMS__Data}{RMS\+\_\+\+Data} type. \begin{DoxyNote}{Note}
+This variable is file-\/scoped (static) and persists for the lifetime of the program. Concurrent access must be protected if used across threads/interrupts. 
+\end{DoxyNote}

@@ -14,6 +14,14 @@
 
 #ifndef Voltage_Interface_H
 #define Voltage_Interface_H
+
+/**
+ * @addtogroup Hal
+ * @{
+ * @addtogroup Voltage_Sensor
+ * @{
+ */
+
 #include "Voltage_Config.h"
 #include "Voltage_Private.h"
 #include "../../Mcal/ADC/ADC_Interface.h"
@@ -68,5 +76,11 @@ void hVoltage_Calibrate(float ref); // Calibrate scaling factor
 void hVoltage_Callback(uint16_t dummy);
 
 /** @} */
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif

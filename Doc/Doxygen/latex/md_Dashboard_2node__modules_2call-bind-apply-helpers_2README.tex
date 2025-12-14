@@ -1,0 +1,39 @@
+\chapter{call-\/bind-\/apply-\/helpers \texorpdfstring{$<$}{<}sup\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}a href="{}https\+://npmjs.\+org/package/call-\/bind-\/apply-\/helpers"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://versionbadg.\+es/ljharb/call-\/bind-\/apply-\/helpers.\+svg"{} alt="{}\+Version Badge"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/sup\texorpdfstring{$>$}{>}}
+\hypertarget{md_Dashboard_2node__modules_2call-bind-apply-helpers_2README}{}\label{md_Dashboard_2node__modules_2call-bind-apply-helpers_2README}\index{call-\/bind-\/apply-\/helpers $<$sup$>$$<$a href="{}https://npmjs.org/package/call-\/bind-\/apply-\/helpers"{} $>$$<$img src="{}https://versionbadg.es/ljharb/call-\/bind-\/apply-\/helpers.svg"{} alt="{}Version Badge"{}/$>$$<$/a$>$$<$/sup$>$@{call-\/bind-\/apply-\/helpers $<$sup$>$$<$a href=""https://npmjs.org/package/call-\/bind-\/apply-\/helpers"" $>$$<$img src=""https://versionbadg.es/ljharb/call-\/bind-\/apply-\/helpers.svg"" alt=""Version Badge""/$>$$<$/a$>$$<$/sup$>$}}
+\label{md_Dashboard_2node__modules_2call-bind-apply-helpers_2README_autotoc_md419}%
+\Hypertarget{md_Dashboard_2node__modules_2call-bind-apply-helpers_2README_autotoc_md419}%
+ \href{https://github.com/ljharb/call-bind-apply-helpers/actions}{\texttt{ }} \href{https://app.codecov.io/gh/ljharb/call-bind-apply-helpers/}{\texttt{ }} \href{https://david-dm.org/ljharb/call-bind-apply-helpers}{\texttt{ }} \href{https://david-dm.org/ljharb/call-bind-apply-helpers\#info=devDependencies}{\texttt{ }} \mbox{[}\mbox{]}\mbox{[}license-\/url\mbox{]} \href{https://npm-stat.com/charts.html?package=call-bind-apply-helpers}{\texttt{ }}
+
+\href{https://npmjs.org/package/call-bind-apply-helpers}{\texttt{ }}
+
+Helper functions around Function call/apply/bind, for use in {\ttfamily call-\/bind}.
+
+The only packages that should likely ever use this package directly are {\ttfamily call-\/bind} and {\ttfamily get-\/intrinsic}. Please use {\ttfamily call-\/bind} unless you have a very good reason not to.\hypertarget{md_Dashboard_2node__modules_2call-bind-apply-helpers_2README_autotoc_md420}{}\doxysection{\texorpdfstring{Getting started}{Getting started}}\label{md_Dashboard_2node__modules_2call-bind-apply-helpers_2README_autotoc_md420}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ call-\/bind-\/apply-\/helpers}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2call-bind-apply-helpers_2README_autotoc_md421}{}\doxysection{\texorpdfstring{Usage/\+Examples}{Usage/Examples}}\label{md_Dashboard_2node__modules_2call-bind-apply-helpers_2README_autotoc_md421}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ assert\ =\ require('assert');}
+\DoxyCodeLine{const\ callBindBasic\ =\ require('call-\/bind-\/apply-\/helpers');}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ f(a,\ b)\ \{}
+\DoxyCodeLine{\ \ \ \ assert.equal(this,\ 1);}
+\DoxyCodeLine{\ \ \ \ assert.equal(a,\ 2);}
+\DoxyCodeLine{\ \ \ \ assert.equal(b,\ 3);}
+\DoxyCodeLine{\ \ \ \ assert.equal(arguments.length,\ 2);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ fBound\ =\ callBindBasic([f,\ 1]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{delete\ Function.prototype.call;}
+\DoxyCodeLine{delete\ Function.prototype.bind;}
+\DoxyCodeLine{}
+\DoxyCodeLine{fBound(2,\ 3);}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2call-bind-apply-helpers_2README_autotoc_md422}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{md_Dashboard_2node__modules_2call-bind-apply-helpers_2README_autotoc_md422}
+Clone the repo, {\ttfamily npm install}, and run {\ttfamily npm test} 

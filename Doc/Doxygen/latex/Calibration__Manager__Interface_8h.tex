@@ -1,0 +1,59 @@
+\doxysection{App/\+Calibration\+\_\+\+Manager/\+Calibration\+\_\+\+Manager\+\_\+\+Interface.h File Reference}
+\hypertarget{Calibration__Manager__Interface_8h}{}\label{Calibration__Manager__Interface_8h}\index{App/Calibration\_Manager/Calibration\_Manager\_Interface.h@{App/Calibration\_Manager/Calibration\_Manager\_Interface.h}}
+
+
+Interface for the Calibration Manager module.  
+
+
+{\ttfamily \#include "{}Calibration\+\_\+\+Manager\+\_\+\+Config.\+h"{}}\newline
+{\ttfamily \#include "{}Calibration\+\_\+\+Manager\+\_\+\+Private.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Hal/\+ACS712\+Curnt\+Snsr/h\+Current\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Hal/\+Voltage/\+Voltage\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+EEPROM/\+EEPROM\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Hal/\+LCD/\+LCD\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Hal/\+HC05/\+HC05\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+Timer1/\+TIMER1\+\_\+\+Interface.\+h"{}}\newline
+Include dependency graph for Calibration\+\_\+\+Manager\+\_\+\+Interface.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Calibration__Manager__Interface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Calibration__Manager__Interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Calibration__Manager_gacede63d7ddbd59a6c2856ffb6e2c62c5}{App\+\_\+\+Calibration\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes The Calibration Manager Module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Calibration__Manager_gada991782f1a8c4fa1332d92c3e7c9c74}{App\+\_\+\+Calibration\+\_\+\+Remote}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}cmd\+Data)
+\item 
+void \mbox{\hyperlink{group__Calibration__Manager_ga872a82c52e55b470e4f970d57b404def}{App\+\_\+\+Calibration\+\_\+\+Apply}} (void)
+\begin{DoxyCompactList}\small\item\em Applies the Calibration Settings. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface for the Calibration Manager module. 
+
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer \+: Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}}) 
+
+Reviewer \+: Mohamed Diaa (\href{mailto:mohammediaato@gmail.com}{\texttt{ mohammediaato@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/12-\/04 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025, Gestell Company 
+\end{DoxyCopyright}

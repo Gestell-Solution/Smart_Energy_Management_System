@@ -1,0 +1,189 @@
+\doxysubsection{LCD\+\_\+\+Display}
+\hypertarget{group__LCD__Display}{}\label{group__LCD__Display}\index{LCD\_Display@{LCD\_Display}}
+Collaboration diagram for LCD\+\_\+\+Display\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{group__LCD__Display}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__LCD__Display_ga06f4a1b4bd505926d61c8d4c6f529236}{h\+LCD\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the LCD in the configured interface mode (e.\+g. 4-\/bit). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__LCD__Display_ga75cc4490ed0659540b88d98cbe7f371a}{h\+LCD\+\_\+\+Clear}} (uint8\+\_\+t Clear\+Line)
+\item 
+void \mbox{\hyperlink{group__LCD__Display_ga18a0bdd6effa3d67c6c3a66380a1b7a3}{h\+LCD\+\_\+\+Set\+Cursor}} (uint8\+\_\+t Line, uint8\+\_\+t Digits)
+\item 
+void \mbox{\hyperlink{group__LCD__Display_ga047fa233b0c19bbc62246327ee6527fb}{h\+LCD\+\_\+\+Write\+Char}} (char Character)
+\item 
+void \mbox{\hyperlink{group__LCD__Display_gafdf51e82367f918b43a19c15cf32185f}{h\+LCD\+\_\+\+Write\+String}} (const char \texorpdfstring{$\ast$}{*}str)
+\item 
+void \mbox{\hyperlink{group__LCD__Display_ga4c633e7faf6f133cf88bd9dc3329e98a}{h\+LCD\+\_\+\+Write\+Number}} (int32\+\_\+t Number)
+\item 
+void \mbox{\hyperlink{group__LCD__Display_ga9b0c929126d978f4051b5227813fefd4}{h\+LCD\+\_\+\+Send\+Command}} (uint8\+\_\+t Command)
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+\doxysubsubsection{Function Documentation}
+\Hypertarget{group__LCD__Display_ga75cc4490ed0659540b88d98cbe7f371a}\label{group__LCD__Display_ga75cc4490ed0659540b88d98cbe7f371a} 
+\index{LCD\_Display@{LCD\_Display}!hLCD\_Clear@{hLCD\_Clear}}
+\index{hLCD\_Clear@{hLCD\_Clear}!LCD\_Display@{LCD\_Display}}
+\doxysubsubsubsection{\texorpdfstring{hLCD\_Clear()}{hLCD\_Clear()}}
+{\footnotesize\ttfamily void h\+LCD\+\_\+\+Clear (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Clear\+Line }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_ga75cc4490ed0659540b88d98cbe7f371a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__LCD__Display_ga06f4a1b4bd505926d61c8d4c6f529236}\label{group__LCD__Display_ga06f4a1b4bd505926d61c8d4c6f529236} 
+\index{LCD\_Display@{LCD\_Display}!hLCD\_Init@{hLCD\_Init}}
+\index{hLCD\_Init@{hLCD\_Init}!LCD\_Display@{LCD\_Display}}
+\doxysubsubsubsection{\texorpdfstring{hLCD\_Init()}{hLCD\_Init()}}
+{\footnotesize\ttfamily h\+LCD\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialize the LCD in the configured interface mode (e.\+g. 4-\/bit). 
+
+Performs the required power-\/up and initialization sequence for the LCD controller (function set, display on/off, clear display, entry mode set). Should be called once before any other LCD API. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Timing delays required by the LCD controller are handled inside this function. Do not call other LCD functions until initialization completes. 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_ga06f4a1b4bd505926d61c8d4c6f529236_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_ga06f4a1b4bd505926d61c8d4c6f529236_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__LCD__Display_ga9b0c929126d978f4051b5227813fefd4}\label{group__LCD__Display_ga9b0c929126d978f4051b5227813fefd4} 
+\index{LCD\_Display@{LCD\_Display}!hLCD\_SendCommand@{hLCD\_SendCommand}}
+\index{hLCD\_SendCommand@{hLCD\_SendCommand}!LCD\_Display@{LCD\_Display}}
+\doxysubsubsubsection{\texorpdfstring{hLCD\_SendCommand()}{hLCD\_SendCommand()}}
+{\footnotesize\ttfamily void h\+LCD\+\_\+\+Send\+Command (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Command }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{group__LCD__Display_ga9b0c929126d978f4051b5227813fefd4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_ga9b0c929126d978f4051b5227813fefd4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__LCD__Display_ga18a0bdd6effa3d67c6c3a66380a1b7a3}\label{group__LCD__Display_ga18a0bdd6effa3d67c6c3a66380a1b7a3} 
+\index{LCD\_Display@{LCD\_Display}!hLCD\_SetCursor@{hLCD\_SetCursor}}
+\index{hLCD\_SetCursor@{hLCD\_SetCursor}!LCD\_Display@{LCD\_Display}}
+\doxysubsubsubsection{\texorpdfstring{hLCD\_SetCursor()}{hLCD\_SetCursor()}}
+{\footnotesize\ttfamily void h\+LCD\+\_\+\+Set\+Cursor (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Line,  }\item[{uint8\+\_\+t}]{Digits }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_ga18a0bdd6effa3d67c6c3a66380a1b7a3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_ga18a0bdd6effa3d67c6c3a66380a1b7a3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__LCD__Display_ga047fa233b0c19bbc62246327ee6527fb}\label{group__LCD__Display_ga047fa233b0c19bbc62246327ee6527fb} 
+\index{LCD\_Display@{LCD\_Display}!hLCD\_WriteChar@{hLCD\_WriteChar}}
+\index{hLCD\_WriteChar@{hLCD\_WriteChar}!LCD\_Display@{LCD\_Display}}
+\doxysubsubsubsection{\texorpdfstring{hLCD\_WriteChar()}{hLCD\_WriteChar()}}
+{\footnotesize\ttfamily void h\+LCD\+\_\+\+Write\+Char (\begin{DoxyParamCaption}\item[{char}]{Character }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{group__LCD__Display_ga047fa233b0c19bbc62246327ee6527fb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_ga047fa233b0c19bbc62246327ee6527fb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__LCD__Display_ga4c633e7faf6f133cf88bd9dc3329e98a}\label{group__LCD__Display_ga4c633e7faf6f133cf88bd9dc3329e98a} 
+\index{LCD\_Display@{LCD\_Display}!hLCD\_WriteNumber@{hLCD\_WriteNumber}}
+\index{hLCD\_WriteNumber@{hLCD\_WriteNumber}!LCD\_Display@{LCD\_Display}}
+\doxysubsubsubsection{\texorpdfstring{hLCD\_WriteNumber()}{hLCD\_WriteNumber()}}
+{\footnotesize\ttfamily void h\+LCD\+\_\+\+Write\+Number (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{Number }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_ga4c633e7faf6f133cf88bd9dc3329e98a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_ga4c633e7faf6f133cf88bd9dc3329e98a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__LCD__Display_gafdf51e82367f918b43a19c15cf32185f}\label{group__LCD__Display_gafdf51e82367f918b43a19c15cf32185f} 
+\index{LCD\_Display@{LCD\_Display}!hLCD\_WriteString@{hLCD\_WriteString}}
+\index{hLCD\_WriteString@{hLCD\_WriteString}!LCD\_Display@{LCD\_Display}}
+\doxysubsubsubsection{\texorpdfstring{hLCD\_WriteString()}{hLCD\_WriteString()}}
+{\footnotesize\ttfamily void h\+LCD\+\_\+\+Write\+String (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_gafdf51e82367f918b43a19c15cf32185f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__LCD__Display_gafdf51e82367f918b43a19c15cf32185f_icgraph}
+\end{center}
+\end{figure}

@@ -12,6 +12,14 @@
  */
 #ifndef _TIMER1_INTERFACE_H_
 #define _TIMER1_INTERFACE_H_
+
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup Timer1
+ * @{
+ */
+
 #include <stdint.h>
 #include "TIMER1_Config.h"
 
@@ -57,5 +65,11 @@ void mTIMER1_Stop(void);
  */
 void mTIMER1_RegisterCallback(void (*callback)(void));
 
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif

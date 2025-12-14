@@ -1,0 +1,74 @@
+\doxysection{darwin\+\_\+list.\+h}
+\hypertarget{darwin__list_8h_source}{}\label{darwin__list_8h_source}\index{Dashboard/node\_modules/"@serialport/bindings-\/cpp/src/darwin\_list.h@{Dashboard/node\_modules/"@serialport/bindings-\/cpp/src/darwin\_list.h}}
+\mbox{\hyperlink{darwin__list_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PACKAGES\_SERIALPORT\_SRC\_DARWIN\_LIST\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PACKAGES\_SERIALPORT\_SRC\_DARWIN\_LIST\_H\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <sys/param.h>}\ \ \textcolor{comment}{//\ For\ MAXPATHLEN}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{napi_8h}{napi.h}}>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <uv.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ ERROR\_STRING\_SIZE\ 1088}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \mbox{\hyperlink{classNapi_1_1Value}{Napi::Value}}\ \mbox{\hyperlink{darwin__list_8h_a5aa9387d4467b83ddad1cadbd43a514f}{List}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi::CallbackInfo}}\&\ info);}
+\DoxyCodeLine{00012\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{darwin__list_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}{setIfNotEmpty}}(\mbox{\hyperlink{classNapi_1_1Object}{Napi::Object}}\ item,\ std::string\ key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value);}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structListResultItem}{ListResultItem}}\ \{}
+\DoxyCodeLine{00015\ \ \ std::string\ \mbox{\hyperlink{structListResultItem_a6734208f39bd26628ae3cca53b3bdadf}{path}};}
+\DoxyCodeLine{00016\ \ \ std::string\ \mbox{\hyperlink{structListResultItem_a7aabc1a5b800a36cb2c01b5dae460ae3}{manufacturer}};}
+\DoxyCodeLine{00017\ \ \ std::string\ \mbox{\hyperlink{structListResultItem_a7b2f8419e18c00069d5236abb80d32b3}{serialNumber}};}
+\DoxyCodeLine{00018\ \ \ std::string\ \mbox{\hyperlink{structListResultItem_a19d0d2f0d0165b59d77656fcb6d82bd8}{pnpId}};}
+\DoxyCodeLine{00019\ \ \ std::string\ \mbox{\hyperlink{structListResultItem_a198da7197d7aab3b395bea8c03b30ee3}{locationId}};}
+\DoxyCodeLine{00020\ \ \ std::string\ \mbox{\hyperlink{structListResultItem_a9332af1777a37fbac683b01d31a71512}{vendorId}};}
+\DoxyCodeLine{00021\ \ \ std::string\ \mbox{\hyperlink{structListResultItem_adcbee614008423b4f50768223bb7d6b2}{productId}};}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structListBaton}{ListBaton}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classNapi_1_1AsyncWorker}{Napi::AsyncWorker}}\ \{}
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{structListBaton_ac19a565983ce344a1d552ef33bd786ff}{ListBaton}}(\mbox{\hyperlink{classNapi_1_1Function}{Napi::Function}}\&\ callback)\ :\ \mbox{\hyperlink{namespaceNapi}{Napi}}::\mbox{\hyperlink{classNapi_1_1AsyncWorker_a36814d1c251f77719477ba401f325ce3}{AsyncWorker}}(callback,\ \textcolor{stringliteral}{"{}node-\/serialport:ListBaton"{}}),\ }
+\DoxyCodeLine{00026\ \ \ \mbox{\hyperlink{structListBaton_a999d6025a774f7f70a1d6d236f8f6da0}{errorString}}()\ \{\}}
+\DoxyCodeLine{00027\ \ \ std::list<ListResultItem*>\ \mbox{\hyperlink{structListBaton_aa122ebe3168758b2adde2324c80e3294}{results}};}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structListBaton_a999d6025a774f7f70a1d6d236f8f6da0}{errorString}}[\mbox{\hyperlink{serialport__win_8h_a2dc0029776b8cfa523fc558c0d80c43e}{ERROR\_STRING\_SIZE}}];}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structListBaton_a67544d9a160f0f2212b5e903bbecb9bf}{Execute}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structListBaton_a91cd74330511aa0bfb676de435aa2652}{OnOK}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classNapi_1_1Env}{Napi::Env}}\ env\ =\ \mbox{\hyperlink{classNapi_1_1AsyncWorker_a4cf2a6045fbe67c5d6ad69cc3dc808a0}{Env}}();}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classNapi_1_1HandleScope}{Napi::HandleScope}}\ scope(env);}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classNapi_1_1Array}{Napi::Array}}\ result\ =\ \mbox{\hyperlink{classNapi_1_1Array_a3c1450a2cf09961e56073b8686a4706e}{Napi::Array::New}}(env);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ 0;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::list<ListResultItem*>::iterator\ it\ =\ \mbox{\hyperlink{structListBaton_aa122ebe3168758b2adde2324c80e3294}{results}}.begin();\ it\ !=\ \mbox{\hyperlink{structListBaton_aa122ebe3168758b2adde2324c80e3294}{results}}.end();\ ++it,\ i++)\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \mbox{\hyperlink{classNapi_1_1Object}{Napi::Object}}\ item\ =\ \mbox{\hyperlink{classNapi_1_1Object_aa92b5f3a7c5b1735312133993d6d1a9b}{Napi::Object::New}}(env);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \mbox{\hyperlink{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}{setIfNotEmpty}}(item,\ \textcolor{stringliteral}{"{}path"{}},\ (*it)-\/>path.c\_str());}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \mbox{\hyperlink{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}{setIfNotEmpty}}(item,\ \textcolor{stringliteral}{"{}manufacturer"{}},\ (*it)-\/>manufacturer.c\_str());}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \mbox{\hyperlink{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}{setIfNotEmpty}}(item,\ \textcolor{stringliteral}{"{}serialNumber"{}},\ (*it)-\/>serialNumber.c\_str());}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \mbox{\hyperlink{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}{setIfNotEmpty}}(item,\ \textcolor{stringliteral}{"{}pnpId"{}},\ (*it)-\/>pnpId.c\_str());}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \mbox{\hyperlink{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}{setIfNotEmpty}}(item,\ \textcolor{stringliteral}{"{}locationId"{}},\ (*it)-\/>locationId.c\_str());}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \mbox{\hyperlink{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}{setIfNotEmpty}}(item,\ \textcolor{stringliteral}{"{}vendorId"{}},\ (*it)-\/>vendorId.c\_str());}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \mbox{\hyperlink{serialport__win_8h_a4a1c3dcc7b7ba1f707f36ef1da703cbf}{setIfNotEmpty}}(item,\ \textcolor{stringliteral}{"{}productId"{}},\ (*it)-\/>productId.c\_str());}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ (result).\mbox{\hyperlink{serialport_8cpp_a57a51ab4f3f5baff0973aa7c63d66d3b}{Set}}(i,\ item);}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classNapi_1_1AsyncWorker_a07206e0f2a4a2ec5a4728615ffe16a19}{Callback}}().\mbox{\hyperlink{classNapi_1_1FunctionReference_a85c93009d363fe6548318b4a73135ae3}{Call}}(\{env.\mbox{\hyperlink{classNapi_1_1Env_a410a8ef1c496cafe1a767f3f09810f9c}{Null}}(),\ result\});}
+\DoxyCodeLine{00050\ \ \ \}}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSerialDevice}{SerialDevice}}\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structSerialDevice_a028e21fca2eb223906667bd9a0161b79}{port}}[MAXPATHLEN];}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structSerialDevice_a688b1a62995ab364ebba6084a976d7bd}{locationId}}[MAXPATHLEN];}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structSerialDevice_ab241be4a76e5937c99ff09e1f7f2cf72}{vendorId}}[MAXPATHLEN];}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structSerialDevice_a083c41c955cd3826715d34438cc798e4}{productId}}[MAXPATHLEN];}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structSerialDevice_af01b728018c3bfe2942f05b60ff56429}{manufacturer}}[MAXPATHLEN];}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structSerialDevice_aa646765dc159d7ecaef091efc6868347}{serialNumber}}[MAXPATHLEN];}
+\DoxyCodeLine{00060\ \}\ \mbox{\hyperlink{darwin__list_8h_a544e397f3f8b18eec2ba7079ba853fae}{stSerialDevice}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structDeviceListItem}{DeviceListItem}}\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSerialDevice}{SerialDevice}}\ \mbox{\hyperlink{structDeviceListItem_a9c025c29c5f7b91c40bda925b07732f1}{value}};}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structDeviceListItem}{DeviceListItem}}\ *\mbox{\hyperlink{structDeviceListItem_a66d4461bc0643baa69cae5554b0b741a}{next}};}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{structDeviceListItem_a8fbfbaea55ed7c0565bd723b8225815f}{length}};}
+\DoxyCodeLine{00066\ \}\ \mbox{\hyperlink{darwin__list_8h_a4a0aeafffe08caf4c8a76898ba7ee295}{stDeviceListItem}};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ PACKAGES\_SERIALPORT\_SRC\_DARWIN\_LIST\_H\_}}
+
+\end{DoxyCode}

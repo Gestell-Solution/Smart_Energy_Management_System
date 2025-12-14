@@ -1,0 +1,224 @@
+\doxysubsubsection{HC05 Bluetooth Driver}
+\hypertarget{group__HC05__Driver}{}\label{group__HC05__Driver}\index{HC05 Bluetooth Driver@{HC05 Bluetooth Driver}}
+
+
+APIs for controlling and communicating with the HC-\/05 Bluetooth module.  
+
+
+Collaboration diagram for HC05 Bluetooth Driver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{group__HC05__Driver}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__HC05__Driver_ga26197d37bb18bc533e23ceecfb7b4411}{h\+BT\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the HC-\/05 Bluetooth module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__HC05__Driver_ga3b44cbb66c372466ba85e763b3a32e4a}{h\+BT\+\_\+\+Send\+String}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}string)
+\begin{DoxyCompactList}\small\item\em Sends a null-\/terminated string via the HC-\/05 Bluetooth module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__HC05__Driver_ga50ec3645244f5b6ad53f2ff9e4618199}{h\+BT\+\_\+\+Send\+Buffer}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint16\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Sends a raw data buffer to the HC-\/05 module. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__HC05__Driver_ga8c70278c2a069e5eda0a432278699753}{h\+BT\+\_\+\+Read\+Byte}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Reads a single byte from the HC-\/05 receive buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__HC05__Driver_ga54174e8b5a65483bbc82d6103c93cd86}{h\+BT\+\_\+\+Read\+String}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}string)
+\begin{DoxyCompactList}\small\item\em Reads a null-\/terminated string from the HC-\/05 module (non-\/blocking). \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{group__HC05__Driver_gab901efab4cd849dffffe9b1c77600974}{h\+BT\+\_\+\+Read\+Buffer}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint16\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Reads multiple bytes from the HC-\/05 receive buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsection{Detailed Description}
+APIs for controlling and communicating with the HC-\/05 Bluetooth module. 
+
+This group provides the main interface functions used by the application to send and receive data via Bluetooth using the HC-\/05 module. 
+
+\doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__HC05__Driver_ga26197d37bb18bc533e23ceecfb7b4411}\label{group__HC05__Driver_ga26197d37bb18bc533e23ceecfb7b4411} 
+\index{HC05 Bluetooth Driver@{HC05 Bluetooth Driver}!hBT\_Init@{hBT\_Init}}
+\index{hBT\_Init@{hBT\_Init}!HC05 Bluetooth Driver@{HC05 Bluetooth Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{hBT\_Init()}{hBT\_Init()}}
+{\footnotesize\ttfamily void h\+BT\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the HC-\/05 Bluetooth module. 
+
+Configures the UART peripheral with predefined settings to establish communication with the HC-\/05 module. \begin{DoxyNote}{Note}
+This function must be called once before any other HC-\/05 function. 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__HC05__Driver_ga26197d37bb18bc533e23ceecfb7b4411_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__HC05__Driver_ga26197d37bb18bc533e23ceecfb7b4411_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__HC05__Driver_gab901efab4cd849dffffe9b1c77600974}\label{group__HC05__Driver_gab901efab4cd849dffffe9b1c77600974} 
+\index{HC05 Bluetooth Driver@{HC05 Bluetooth Driver}!hBT\_ReadBuffer@{hBT\_ReadBuffer}}
+\index{hBT\_ReadBuffer@{hBT\_ReadBuffer}!HC05 Bluetooth Driver@{HC05 Bluetooth Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{hBT\_ReadBuffer()}{hBT\_ReadBuffer()}}
+{\footnotesize\ttfamily void h\+BT\+\_\+\+Read\+Buffer (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint16\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Reads multiple bytes from the HC-\/05 receive buffer. 
+
+Receives a defined number of bytes from UART and stores them in the provided buffer. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em data} & Pointer to buffer where the received data will be stored. \\
+\hline
+\mbox{\texttt{ in}}  & {\em len} & Number of bytes to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Ensure the receive buffer size is sufficient for the requested length. 
+\end{DoxyWarning}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__HC05__Driver_gab901efab4cd849dffffe9b1c77600974_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__HC05__Driver_ga8c70278c2a069e5eda0a432278699753}\label{group__HC05__Driver_ga8c70278c2a069e5eda0a432278699753} 
+\index{HC05 Bluetooth Driver@{HC05 Bluetooth Driver}!hBT\_ReadByte@{hBT\_ReadByte}}
+\index{hBT\_ReadByte@{hBT\_ReadByte}!HC05 Bluetooth Driver@{HC05 Bluetooth Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{hBT\_ReadByte()}{hBT\_ReadByte()}}
+{\footnotesize\ttfamily uint8\+\_\+t h\+BT\+\_\+\+Read\+Byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Reads a single byte from the HC-\/05 receive buffer. 
+
+Waits until a byte is available in the UART RX buffer, then stores it in the provided pointer variable. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em data} & Pointer to variable where the received byte will be stored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t Returns 1 if data was received successfully, or 0 if no data is available. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+This function should be called periodically when expecting incoming data. 
+\end{DoxyWarning}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__HC05__Driver_ga8c70278c2a069e5eda0a432278699753_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__HC05__Driver_ga8c70278c2a069e5eda0a432278699753_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__HC05__Driver_ga54174e8b5a65483bbc82d6103c93cd86}\label{group__HC05__Driver_ga54174e8b5a65483bbc82d6103c93cd86} 
+\index{HC05 Bluetooth Driver@{HC05 Bluetooth Driver}!hBT\_ReadString@{hBT\_ReadString}}
+\index{hBT\_ReadString@{hBT\_ReadString}!HC05 Bluetooth Driver@{HC05 Bluetooth Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{hBT\_ReadString()}{hBT\_ReadString()}}
+{\footnotesize\ttfamily uint8\+\_\+t h\+BT\+\_\+\+Read\+String (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{string }\end{DoxyParamCaption})}
+
+
+
+Reads a null-\/terminated string from the HC-\/05 module (non-\/blocking). 
+
+Receives characters over UART until a newline (`'~\newline
+\textquotesingle{}\`{}) is detected or the internal buffer limit is reached. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em string} & Pointer to buffer where the received string will be stored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t Status of the receive operation (0\+: Success, 1\+: Timeout/\+Error). 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The buffer size should be large enough to store the expected string. 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__HC05__Driver_ga54174e8b5a65483bbc82d6103c93cd86_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__HC05__Driver_ga50ec3645244f5b6ad53f2ff9e4618199}\label{group__HC05__Driver_ga50ec3645244f5b6ad53f2ff9e4618199} 
+\index{HC05 Bluetooth Driver@{HC05 Bluetooth Driver}!hBT\_SendBuffer@{hBT\_SendBuffer}}
+\index{hBT\_SendBuffer@{hBT\_SendBuffer}!HC05 Bluetooth Driver@{HC05 Bluetooth Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{hBT\_SendBuffer()}{hBT\_SendBuffer()}}
+{\footnotesize\ttfamily void h\+BT\+\_\+\+Send\+Buffer (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint16\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Sends a raw data buffer to the HC-\/05 module. 
+
+Transmits a specific number of bytes from a given data buffer via UART. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em data} & Pointer to the buffer containing data to send. \\
+\hline
+\mbox{\texttt{ in}}  & {\em len} & Number of bytes to send from the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This function does not automatically append a null terminator. 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__HC05__Driver_ga50ec3645244f5b6ad53f2ff9e4618199_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__HC05__Driver_ga50ec3645244f5b6ad53f2ff9e4618199_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__HC05__Driver_ga3b44cbb66c372466ba85e763b3a32e4a}\label{group__HC05__Driver_ga3b44cbb66c372466ba85e763b3a32e4a} 
+\index{HC05 Bluetooth Driver@{HC05 Bluetooth Driver}!hBT\_SendString@{hBT\_SendString}}
+\index{hBT\_SendString@{hBT\_SendString}!HC05 Bluetooth Driver@{HC05 Bluetooth Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{hBT\_SendString()}{hBT\_SendString()}}
+{\footnotesize\ttfamily void h\+BT\+\_\+\+Send\+String (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{string }\end{DoxyParamCaption})}
+
+
+
+Sends a null-\/terminated string via the HC-\/05 Bluetooth module. 
+
+Transmits ASCII characters from the provided string until the null terminator (`'\textbackslash{}0\textquotesingle{}\`{}) is reached. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em string} & Pointer to the null-\/terminated string to be transmitted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Ensure Bluetooth pairing is complete before calling this function. 
+\end{DoxyWarning}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__HC05__Driver_ga3b44cbb66c372466ba85e763b3a32e4a_cgraph}
+\end{center}
+\end{figure}

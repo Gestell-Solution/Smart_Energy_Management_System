@@ -14,6 +14,11 @@
 #define _MACROS_H_
 
 /**
+ * @addtogroup Common
+ * @{
+ */
+
+/**
  * @defgroup  Common Functions Macros
  * @brief     This section contains commonly used macros for various operations.
  * @details   The macros defined in this section are intended to simplify common tasks and improve code readability.
@@ -119,5 +124,9 @@
 
 /*****************************************************************************************************************************************************/
 
+
+/**
+ * @}
+ */
 
 #endif /* _MACROS_H_ */

@@ -1,0 +1,104 @@
+\doxysubsubsection{Queue\+\_\+circular\+\_\+\+Buffer}
+\hypertarget{group__Queue__circular__Buffer}{}\label{group__Queue__circular__Buffer}\index{Queue\_circular\_Buffer@{Queue\_circular\_Buffer}}
+
+
+This is for defining circular array to handle the data of the recieved Action.  
+
+
+Collaboration diagram for Queue\+\_\+circular\+\_\+\+Buffer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Queue__circular__Buffer}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__Queue__circular__Buffer_gaedb812f43d28cafa22a6632b38d3de6b}{Rear\+Of\+Queue}}~(\mbox{\hyperlink{group__Queue__circular__Buffer_gab52d8057d53c426217877ad12b28feb0}{Comm\+\_\+\+Rear}} \% \mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}})
+\begin{DoxyCompactList}\small\item\em Queue. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__Queue__circular__Buffer_gaab05451ec7bd9f7e999ea27343862924}{Front\+Of\+Queue}}~(\mbox{\hyperlink{group__Queue__circular__Buffer_ga168988907af163d411d2329469cb876c}{Comm\+\_\+\+Front}} \% \mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}})
+\begin{DoxyCompactList}\small\item\em Queue. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__Queue__circular__Buffer_ga3af5b4556db577bab24ab8e4d23158ce}{Update\+\_\+\+Rear\+Of\+Queue}}~\mbox{\hyperlink{group__Queue__circular__Buffer_gab52d8057d53c426217877ad12b28feb0}{Comm\+\_\+\+Rear}} = ((\mbox{\hyperlink{group__Queue__circular__Buffer_gab52d8057d53c426217877ad12b28feb0}{Comm\+\_\+\+Rear}} + 1) \% \mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}})
+\begin{DoxyCompactList}\small\item\em Queue. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__Queue__circular__Buffer_gaabfde38fc23024c92899467273827b77}{Update\+\_\+\+Front\+Of\+Queue}}~\mbox{\hyperlink{group__Queue__circular__Buffer_ga168988907af163d411d2329469cb876c}{Comm\+\_\+\+Front}} = ((\mbox{\hyperlink{group__Queue__circular__Buffer_ga168988907af163d411d2329469cb876c}{Comm\+\_\+\+Front}} + 1) \% \mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}})
+\begin{DoxyCompactList}\small\item\em Queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{group__Queue__circular__Buffer_ga168988907af163d411d2329469cb876c}{Comm\+\_\+\+Front}}
+\begin{DoxyCompactList}\small\item\em External Read index for the circular buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__Queue__circular__Buffer_gab52d8057d53c426217877ad12b28feb0}{Comm\+\_\+\+Rear}}
+\begin{DoxyCompactList}\small\item\em External Write index for the circular buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsection{Detailed Description}
+This is for defining circular array to handle the data of the recieved Action. 
+
+
+
+\doxysubsubsubsection{Macro Definition Documentation}
+\Hypertarget{group__Queue__circular__Buffer_gaab05451ec7bd9f7e999ea27343862924}\label{group__Queue__circular__Buffer_gaab05451ec7bd9f7e999ea27343862924} 
+\index{Queue\_circular\_Buffer@{Queue\_circular\_Buffer}!FrontOfQueue@{FrontOfQueue}}
+\index{FrontOfQueue@{FrontOfQueue}!Queue\_circular\_Buffer@{Queue\_circular\_Buffer}}
+\doxysubsubsubsubsection{\texorpdfstring{FrontOfQueue}{FrontOfQueue}}
+{\footnotesize\ttfamily \#define Front\+Of\+Queue~(\mbox{\hyperlink{group__Queue__circular__Buffer_ga168988907af163d411d2329469cb876c}{Comm\+\_\+\+Front}} \% \mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}})}
+
+
+
+Queue. 
+
+\Hypertarget{group__Queue__circular__Buffer_gaedb812f43d28cafa22a6632b38d3de6b}\label{group__Queue__circular__Buffer_gaedb812f43d28cafa22a6632b38d3de6b} 
+\index{Queue\_circular\_Buffer@{Queue\_circular\_Buffer}!RearOfQueue@{RearOfQueue}}
+\index{RearOfQueue@{RearOfQueue}!Queue\_circular\_Buffer@{Queue\_circular\_Buffer}}
+\doxysubsubsubsubsection{\texorpdfstring{RearOfQueue}{RearOfQueue}}
+{\footnotesize\ttfamily \#define Rear\+Of\+Queue~(\mbox{\hyperlink{group__Queue__circular__Buffer_gab52d8057d53c426217877ad12b28feb0}{Comm\+\_\+\+Rear}} \% \mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}})}
+
+
+
+Queue. 
+
+\Hypertarget{group__Queue__circular__Buffer_gaabfde38fc23024c92899467273827b77}\label{group__Queue__circular__Buffer_gaabfde38fc23024c92899467273827b77} 
+\index{Queue\_circular\_Buffer@{Queue\_circular\_Buffer}!Update\_FrontOfQueue@{Update\_FrontOfQueue}}
+\index{Update\_FrontOfQueue@{Update\_FrontOfQueue}!Queue\_circular\_Buffer@{Queue\_circular\_Buffer}}
+\doxysubsubsubsubsection{\texorpdfstring{Update\_FrontOfQueue}{Update\_FrontOfQueue}}
+{\footnotesize\ttfamily \#define Update\+\_\+\+Front\+Of\+Queue~\mbox{\hyperlink{group__Queue__circular__Buffer_ga168988907af163d411d2329469cb876c}{Comm\+\_\+\+Front}} = ((\mbox{\hyperlink{group__Queue__circular__Buffer_ga168988907af163d411d2329469cb876c}{Comm\+\_\+\+Front}} + 1) \% \mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}})}
+
+
+
+Queue. 
+
+\Hypertarget{group__Queue__circular__Buffer_ga3af5b4556db577bab24ab8e4d23158ce}\label{group__Queue__circular__Buffer_ga3af5b4556db577bab24ab8e4d23158ce} 
+\index{Queue\_circular\_Buffer@{Queue\_circular\_Buffer}!Update\_RearOfQueue@{Update\_RearOfQueue}}
+\index{Update\_RearOfQueue@{Update\_RearOfQueue}!Queue\_circular\_Buffer@{Queue\_circular\_Buffer}}
+\doxysubsubsubsubsection{\texorpdfstring{Update\_RearOfQueue}{Update\_RearOfQueue}}
+{\footnotesize\ttfamily \#define Update\+\_\+\+Rear\+Of\+Queue~\mbox{\hyperlink{group__Queue__circular__Buffer_gab52d8057d53c426217877ad12b28feb0}{Comm\+\_\+\+Rear}} = ((\mbox{\hyperlink{group__Queue__circular__Buffer_gab52d8057d53c426217877ad12b28feb0}{Comm\+\_\+\+Rear}} + 1) \% \mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}})}
+
+
+
+Queue. 
+
+
+
+\doxysubsubsubsection{Variable Documentation}
+\Hypertarget{group__Queue__circular__Buffer_ga168988907af163d411d2329469cb876c}\label{group__Queue__circular__Buffer_ga168988907af163d411d2329469cb876c} 
+\index{Queue\_circular\_Buffer@{Queue\_circular\_Buffer}!Comm\_Front@{Comm\_Front}}
+\index{Comm\_Front@{Comm\_Front}!Queue\_circular\_Buffer@{Queue\_circular\_Buffer}}
+\doxysubsubsubsubsection{\texorpdfstring{Comm\_Front}{Comm\_Front}}
+{\footnotesize\ttfamily uint8\+\_\+t Comm\+\_\+\+Front}
+
+
+
+External Read index for the circular buffer. 
+
+\Hypertarget{group__Queue__circular__Buffer_gab52d8057d53c426217877ad12b28feb0}\label{group__Queue__circular__Buffer_gab52d8057d53c426217877ad12b28feb0} 
+\index{Queue\_circular\_Buffer@{Queue\_circular\_Buffer}!Comm\_Rear@{Comm\_Rear}}
+\index{Comm\_Rear@{Comm\_Rear}!Queue\_circular\_Buffer@{Queue\_circular\_Buffer}}
+\doxysubsubsubsubsection{\texorpdfstring{Comm\_Rear}{Comm\_Rear}}
+{\footnotesize\ttfamily uint8\+\_\+t Comm\+\_\+\+Rear}
+
+
+
+External Write index for the circular buffer. 
+

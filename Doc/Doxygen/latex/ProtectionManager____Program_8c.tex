@@ -1,0 +1,76 @@
+\doxysection{App/\+Protection\+Manager/\+Protection\+Manager\+\_\+\+\_\+\+Program.c File Reference}
+\hypertarget{ProtectionManager____Program_8c}{}\label{ProtectionManager____Program_8c}\index{App/ProtectionManager/ProtectionManager\_\_Program.c@{App/ProtectionManager/ProtectionManager\_\_Program.c}}
+{\ttfamily \#include "{}../../\+Common/\+Config.\+h"{}}\newline
+{\ttfamily \#include "{}Protection\+Manager\+\_\+\+Interface.\+h"{}}\newline
+Include dependency graph for Protection\+Manager\+\_\+\+\_\+\+Program.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ProtectionManager____Program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Protection__Manager_gad456b5b15a33838a41f2c4e9b237287f}{PM\+\_\+\+Init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the Protection Manager. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Protection__Manager_ga6cd0ecaa346b98c7876c62ae86a9cbfa}{PM\+\_\+\+Update}} ()
+\begin{DoxyCompactList}\small\item\em Periodically checks system parameters against safety thresholds. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__Protection__Manager_ga2626db0f8a299b1a9b129dea4589efaa}{PM\+\_\+\+Is\+Tripped}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current protection status. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Protection__Manager_gaad7eded3e2a8fd5644c37c2663a65619}{PM\+\_\+\+Reset}} ()
+\begin{DoxyCompactList}\small\item\em Callback function to reset the protection state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structSystemData__t}{System\+Data\+\_\+t}} \mbox{\hyperlink{ProtectionManager____Program_8c_aaa8c13d13ee69ee7da085a0836a6fad0}{g\+\_\+\+System\+Data}}
+\begin{DoxyCompactList}\small\item\em Global system data structure (External). \end{DoxyCompactList}\item 
+static uint8\+\_\+t \mbox{\hyperlink{ProtectionManager____Program_8c_a90203a773909e3fe8a21e52ff98c0b32}{Protection\+\_\+\+State}} = \mbox{\hyperlink{ProtectionManager__Private_8h_a575aea1d49f318c1cdc4df128772ac86}{Safe}}
+\begin{DoxyCompactList}\small\item\em Current protection state of the system. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \mbox{\hyperlink{ProtectionManager____Program_8c_ac659c203aa36cb2d86c34d3d33d38656}{Fix\+\_\+\+Check}} = 0
+\begin{DoxyCompactList}\small\item\em Fix check status flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{ProtectionManager____Program_8c_ac659c203aa36cb2d86c34d3d33d38656}\label{ProtectionManager____Program_8c_ac659c203aa36cb2d86c34d3d33d38656} 
+\index{ProtectionManager\_\_Program.c@{ProtectionManager\_\_Program.c}!Fix\_Check@{Fix\_Check}}
+\index{Fix\_Check@{Fix\_Check}!ProtectionManager\_\_Program.c@{ProtectionManager\_\_Program.c}}
+\doxysubsubsection{\texorpdfstring{Fix\_Check}{Fix\_Check}}
+{\footnotesize\ttfamily uint8\+\_\+t Fix\+\_\+\+Check = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Fix check status flag. 
+
+Used to manage the state transition from Fault -\/\texorpdfstring{$>$}{>} Fixed -\/\texorpdfstring{$>$}{>} Safe.
+\begin{DoxyItemize}
+\item {\ttfamily 0}\+: Initial state / Normal.
+\item {\ttfamily 1}\+: Fault active (Trip).
+\item {\ttfamily Fixed}\+: User has acknowledged or condition is cleared (ready to reset).
+\item {\ttfamily Not\+\_\+\+Fixed}\+: Fault persists or reset not yet requested. 
+\end{DoxyItemize}\Hypertarget{ProtectionManager____Program_8c_aaa8c13d13ee69ee7da085a0836a6fad0}\label{ProtectionManager____Program_8c_aaa8c13d13ee69ee7da085a0836a6fad0} 
+\index{ProtectionManager\_\_Program.c@{ProtectionManager\_\_Program.c}!g\_SystemData@{g\_SystemData}}
+\index{g\_SystemData@{g\_SystemData}!ProtectionManager\_\_Program.c@{ProtectionManager\_\_Program.c}}
+\doxysubsubsection{\texorpdfstring{g\_SystemData}{g\_SystemData}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structSystemData__t}{System\+Data\+\_\+t}} g\+\_\+\+System\+Data\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Global system data structure (External). 
+
+Used to update the latest fault values (Voltage, Current, Power) when a trip occurs. \Hypertarget{ProtectionManager____Program_8c_a90203a773909e3fe8a21e52ff98c0b32}\label{ProtectionManager____Program_8c_a90203a773909e3fe8a21e52ff98c0b32} 
+\index{ProtectionManager\_\_Program.c@{ProtectionManager\_\_Program.c}!Protection\_State@{Protection\_State}}
+\index{Protection\_State@{Protection\_State}!ProtectionManager\_\_Program.c@{ProtectionManager\_\_Program.c}}
+\doxysubsubsection{\texorpdfstring{Protection\_State}{Protection\_State}}
+{\footnotesize\ttfamily uint8\+\_\+t Protection\+\_\+\+State = \mbox{\hyperlink{ProtectionManager__Private_8h_a575aea1d49f318c1cdc4df128772ac86}{Safe}}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Current protection state of the system. 
+
+
+\begin{DoxyItemize}
+\item {\ttfamily Safe} (0)\+: Normal operation.
+\item {\ttfamily Danger} (1)\+: A fault condition is active. 
+\end{DoxyItemize}

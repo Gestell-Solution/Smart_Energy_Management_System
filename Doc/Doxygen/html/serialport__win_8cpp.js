@@ -1,0 +1,25 @@
+var serialport__win_8cpp =
+[
+    [ "ARRAY_SIZE", "serialport__win_8cpp.html#a3c7c6a69f690fc8d2abf0e385280a532", null ],
+    [ "MAX_BUFFER_SIZE", "serialport__win_8cpp.html#ad4d796b98c583d49e83adabd74a63bf6", null ],
+    [ "MAX_REGISTRY_KEY_SIZE", "serialport__win_8cpp.html#a70a2a0fc201636e21395c65e53cd6a45", null ],
+    [ "CancelIoExType", "serialport__win_8cpp.html#afbc96dfa600c127f8267574294e060f8", null ],
+    [ "AsyncCloseCallback", "serialport__win_8cpp.html#a87eab9bebc85b8bc64814039eadebf02", null ],
+    [ "copySubstring", "serialport__win_8cpp.html#ac54c1107cc0b9257698844bb0f69ebf8", null ],
+    [ "EIO_AfterRead", "serialport__win_8cpp.html#aeb2b8f6e40b56e88028e221580969297", null ],
+    [ "EIO_AfterWrite", "serialport__win_8cpp.html#a15c03a6e673a3acaa87e72d827f6a260", null ],
+    [ "ErrorCodeToString", "serialport__win_8cpp.html#a195ff57230c47ba1585632b5a05cd7d4", null ],
+    [ "ErrorCodeToString", "serialport__win_8cpp.html#ac520b929767fb9db740598cf60a215e8", null ],
+    [ "getSerialNumber", "serialport__win_8cpp.html#a94ea094d44adbe3c5805ae78be84531c", null ],
+    [ "IsClosingHandle", "serialport__win_8cpp.html#a42c9e3c151fe6064d0c7ed06c74a7888", null ],
+    [ "List", "serialport__win_8cpp.html#a5aa9387d4467b83ddad1cadbd43a514f", null ],
+    [ "Read", "serialport__win_8cpp.html#ad24d28ef6e014464e7d49f78e0edabcf", null ],
+    [ "ReadIOCompletion", "serialport__win_8cpp.html#a683d23dd970ef6e168746ca62b611b83", null ],
+    [ "ReadThread", "serialport__win_8cpp.html#ad0ca9f28bc078c2303ce63360336f96e", null ],
+    [ "setIfNotEmpty", "serialport__win_8cpp.html#a4a1c3dcc7b7ba1f707f36ef1da703cbf", null ],
+    [ "setIfNotEmpty", "serialport__win_8cpp.html#adfcf3cbc5f0d84abae9d2dc6c7211710", null ],
+    [ "Write", "serialport__win_8cpp.html#a9812016efbb231982cff8df9e341634b", null ],
+    [ "WriteIOCompletion", "serialport__win_8cpp.html#ac6b7793ea5da38dd2d7d834e3d5fb058", null ],
+    [ "WriteThread", "serialport__win_8cpp.html#a21a5c1616d70272af8917163fe73b64b", null ],
+    [ "g_closingHandles", "serialport__win_8cpp.html#a3f203d5e5089fab0480b6ef3a6ccb097", null ]
+];

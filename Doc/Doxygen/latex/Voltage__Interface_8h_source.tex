@@ -1,0 +1,25 @@
+\doxysection{Voltage\+\_\+\+Interface.\+h}
+\hypertarget{Voltage__Interface_8h_source}{}\label{Voltage__Interface_8h_source}\index{Hal/Voltage/Voltage\_Interface.h@{Hal/Voltage/Voltage\_Interface.h}}
+\mbox{\hyperlink{Voltage__Interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ Voltage\_Interface\_H}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ Voltage\_Interface\_H}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Voltage__Config_8h}{Voltage\_Config.h}}"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Voltage__Private_8h}{Voltage\_Private.h}}"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}../../Mcal/ADC/ADC\_Interface.h"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}../../Mcal/DIO/DIO\_Interface.h"{}}}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Voltage_gab5083e254fc6090bf64e2ae245efd3ec}{hVoltage\_Init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{group__Voltage_ga9bb23944586c4dfa010b2d3807f20b08}{hVoltage\_ReadInstant}}(\textcolor{keywordtype}{void});\ \textcolor{comment}{//\ Instantaneous\ voltage\ (V)}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{group__Voltage_ga6bad716151d943b05a9aef027725fea3}{hVoltage\_ReadRMS}}();\ \textcolor{comment}{//\ RMS\ voltage\ (V)\ over\ N\ samples}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Voltage_ga620b978ad822332f33a93bef9188777d}{hVoltage\_Calibrate}}(\textcolor{keywordtype}{float}\ ref);\ \textcolor{comment}{//\ Calibrate\ scaling\ factor}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__Voltage_ga16ae18bec85337570e1d5e7e6ee06166}{hVoltage\_Callback}}(uint16\_t\ dummy);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

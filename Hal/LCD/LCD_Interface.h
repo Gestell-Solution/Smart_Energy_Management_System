@@ -12,6 +12,14 @@
  */
 #ifndef _LCD_INTERFACE_H_
 #define _LCD_INTERFACE_H_
+
+/**
+ * @addtogroup Hal
+ * @{
+ * @addtogroup LCD_Display
+ * @{
+ */
+
 #include <stdint.h>
 #include "LCD_Config.h"
 #include "LCD_Private.h"
@@ -113,5 +121,11 @@ void hLCD_WriteNumber(int32_t Number);
  * @note   Call hLCD_Init() before using this function.
  */
 void hLCD_SendCommand(uint8_t Command);
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif

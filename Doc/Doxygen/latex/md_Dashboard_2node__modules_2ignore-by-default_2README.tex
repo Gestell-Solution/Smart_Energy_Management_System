@@ -1,0 +1,24 @@
+\chapter{ignore-\/by-\/default}
+\hypertarget{md_Dashboard_2node__modules_2ignore-by-default_2README}{}\label{md_Dashboard_2node__modules_2ignore-by-default_2README}\index{ignore-\/by-\/default@{ignore-\/by-\/default}}
+\label{md_Dashboard_2node__modules_2ignore-by-default_2README_autotoc_md1445}%
+\Hypertarget{md_Dashboard_2node__modules_2ignore-by-default_2README_autotoc_md1445}%
+ This is a package aimed at Node.\+js development tools. It provides a list of directories that should probably be ignored by such tools, e.\+g. when watching for file changes.
+
+It\textquotesingle{}s used by \href{https://www.npmjs.com/package/ava}{\texttt{ AVA}} and \href{https://www.npmjs.com/package/nodemon}{\texttt{ nodemon}}.
+
+\doxylink{CONTRIBUTING_8md}{Please contribute!}\hypertarget{md_Dashboard_2node__modules_2ignore-by-default_2README_autotoc_md1446}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_Dashboard_2node__modules_2ignore-by-default_2README_autotoc_md1446}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ ignore-\/by-\/default}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2ignore-by-default_2README_autotoc_md1447}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_Dashboard_2node__modules_2ignore-by-default_2README_autotoc_md1447}
+The {\ttfamily ignore-\/by-\/default} module exports a {\ttfamily directories()} function, which will return an array of directory names. These are the ones you should ignore.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ ['.git',\ '.sass\_cache',\ …]}
+\DoxyCodeLine{var\ ignoredDirectories\ =\ require('ignore-\/by-\/default').directories()}
+
+\end{DoxyCode}
+ 

@@ -1,0 +1,47 @@
+\chapter{simple-\/update-\/notifier \texorpdfstring{$<$}{<}a href="{}https\+://github.\+com/alexbrazier/simple-\/update-\/notifier/stargazers"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://img.\+shields.\+io/github/stars/alexbrazier/simple-\/update-\/notifier?label=\+Star\%20\+Project\&style=social"{} alt="{}\+Git\+Hub stars"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>}}
+\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README}{}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README}\index{simple-\/update-\/notifier $<$a href="{}https://github.com/alexbrazier/simple-\/update-\/notifier/stargazers"{} $>$$<$img src="{}https://img.shields.io/github/stars/alexbrazier/simple-\/update-\/notifier?label=Star\%20Project\&style=social"{} alt="{}GitHub stars"{}/$>$$<$/a$>$@{simple-\/update-\/notifier $<$a href=""https://github.com/alexbrazier/simple-\/update-\/notifier/stargazers"" $>$$<$img src=""https://img.shields.io/github/stars/alexbrazier/simple-\/update-\/notifier?label=Star\%20Project\&style=social"" alt=""GitHub stars""/$>$$<$/a$>$}}
+\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2861}%
+\Hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2861}%
+ \href{https://github.com/alexbrazier/simple-update-notifier/actions}{\texttt{ }} \href{https://www.npmjs.com/package/simple-update-notifier?activeTab=dependencies}{\texttt{ }} \href{https://www.npmjs.com/package/simple-update-notifier}{\texttt{ }} \href{https://bundlephobia.com/result?p=simple-update-notifier}{\texttt{ }} \href{https://www.npmjs.com/package/simple-update-notifier}{\texttt{ }} \href{./LICENSE}{\texttt{ }}
+
+Simple update notifier to check for npm updates for cli applications.
+
+
+
+Checks for updates for an npm module and outputs to the command line if there is one available. The result is cached for the specified time so it doesn\textquotesingle{}t check every time the app runs.\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2862}{}\doxysection{\texorpdfstring{Install}{Install}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2862}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ simple-\/update-\/notifier}
+\DoxyCodeLine{OR}
+\DoxyCodeLine{yarn\ add\ simple-\/update-\/notifier}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2863}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2863}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ updateNotifier\ from\ 'simple-\/update-\/notifier';}
+\DoxyCodeLine{import\ packageJson\ from\ './package.json'\ assert\ \{\ type:\ 'json'\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{updateNotifier(\{\ pkg:\ packageJson\ \});}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2864}{}\doxysubsection{\texorpdfstring{Options}{Options}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2864}
+\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2865}{}\doxysubsubsection{\texorpdfstring{pkg}{pkg}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2865}
+Type\+: {\ttfamily object}\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2866}{}\doxyparagraph{\texorpdfstring{name}{name}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2866}
+{\itshape Required}\textbackslash{} Type\+: {\ttfamily string}\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2867}{}\doxyparagraph{\texorpdfstring{version}{version}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2867}
+{\itshape Required}\textbackslash{} Type\+: {\ttfamily string}\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2868}{}\doxysubsubsection{\texorpdfstring{update\+Check\+Interval}{updateCheckInterval}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2868}
+Type\+: {\ttfamily number}\textbackslash{} Default\+: {\ttfamily 1000 \texorpdfstring{$\ast$}{*} 60 \texorpdfstring{$\ast$}{*} 60 \texorpdfstring{$\ast$}{*} 24} \+\_\+(1 day)\+\_\+
+
+How often to check for updates.\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2869}{}\doxysubsubsection{\texorpdfstring{should\+Notify\+In\+Npm\+Script}{shouldNotifyInNpmScript}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2869}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+Allows notification to be shown when running as an npm script.\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2870}{}\doxysubsubsection{\texorpdfstring{dist\+Tag}{distTag}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2870}
+Type\+: {\ttfamily string}\textbackslash{} Default\+: `\textquotesingle{}latest'\`{}
+
+Which \href{https://docs.npmjs.com/adding-dist-tags-to-packages}{\texttt{ dist-\/tag}} to use to find the latest version.\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2871}{}\doxysubsubsection{\texorpdfstring{always\+Run}{alwaysRun}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2871}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+When set, {\ttfamily update\+Check\+Interval} will not be respected and a check for an update will always be performed.\hypertarget{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2872}{}\doxysubsubsection{\texorpdfstring{debug}{debug}}\label{md_Dashboard_2node__modules_2simple-update-notifier_2README_autotoc_md2872}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+When set, logs explaining the decision will be output to {\ttfamily stderr} whenever the module opts to not print an update notification 

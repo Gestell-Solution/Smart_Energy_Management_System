@@ -1,0 +1,285 @@
+\doxysection{Open\+Baton Struct Reference}
+\hypertarget{structOpenBaton}{}\label{structOpenBaton}\index{OpenBaton@{OpenBaton}}
+
+
+{\ttfamily \#include $<$serialport.\+h$>$}
+
+
+
+Inheritance diagram for Open\+Baton\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{structOpenBaton__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Open\+Baton\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structOpenBaton__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structOpenBaton_a48f8ee7224431186bd4ac107707a0749}{Open\+Baton}} (\mbox{\hyperlink{classNapi_1_1Function}{Napi\+::\+Function}} \&callback)
+\item 
+void \mbox{\hyperlink{structOpenBaton_a5a069880b9505b3a09c9966a79aa5b78}{Execute}} () override
+\item 
+void \mbox{\hyperlink{structOpenBaton_aa184d964f6845b91d473fed014339c2b}{On\+OK}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classNapi_1_1AsyncWorker}{Napi\+::\+Async\+Worker}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classNapi_1_1AsyncWorker_a044e30b193037ccefed62d17bf56ec2b}{\texorpdfstring{$\sim$}{\string~}\+Async\+Worker}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a25b0c2441ea3ff2389143d8c8b6a47a2}{operator napi\+\_\+async\+\_\+work}} () const
+\item 
+\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} \mbox{\hyperlink{classNapi_1_1AsyncWorker_a4cf2a6045fbe67c5d6ad69cc3dc808a0}{Env}} () const
+\item 
+void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a4b349fde4d6e98e48194c00eec753c8c}{Queue}} ()
+\item 
+void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a27f2749ec27ef2a68e1fc492f1eb69cb}{Cancel}} ()
+\item 
+void \mbox{\hyperlink{classNapi_1_1AsyncWorker_ae775cc71dc23cd0159bb4386702f9843}{Suppress\+Destruct}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1ObjectReference}{Object\+Reference}} \& \mbox{\hyperlink{classNapi_1_1AsyncWorker_aa419dbb10e7177cd73563e1c2d34a3c7}{Receiver}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1FunctionReference}{Function\+Reference}} \& \mbox{\hyperlink{classNapi_1_1AsyncWorker_a07206e0f2a4a2ec5a4728615ffe16a19}{Callback}} ()
+\item 
+virtual void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a08ee47980bff84e44b9d11c13060b145}{On\+Execute}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env)
+\item 
+virtual void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a3e31ade603f124d7a03ad11910857feb}{On\+Work\+Complete}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env, napi\+\_\+status status)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{structOpenBaton_af5f2973ad13adc4e017a4c0c2246f5b5}{error\+String}} \mbox{[}\mbox{\hyperlink{serialport_8h_a2dc0029776b8cfa523fc558c0d80c43e}{ERROR\+\_\+\+STRING\+\_\+\+SIZE}}\mbox{]}
+\item 
+char \mbox{\hyperlink{structOpenBaton_a72fac63a5186c88eeb8ac506fb7cb58f}{path}} \mbox{[}1024\mbox{]}
+\item 
+int \mbox{\hyperlink{structOpenBaton_a75a42e9f2d57905279ca1085b4872a66}{fd}} = 0
+\item 
+int \mbox{\hyperlink{structOpenBaton_a586c28ff7e3f79466f54f7390296ecd6}{result}} = 0
+\item 
+int \mbox{\hyperlink{structOpenBaton_a0bb78cc3c9aa4d9880f1330c603bcb75}{baud\+Rate}} = 0
+\item 
+int \mbox{\hyperlink{structOpenBaton_ac4736cdc870a8ee29f08e34c806cbdaa}{data\+Bits}} = 0
+\item 
+bool \mbox{\hyperlink{structOpenBaton_a49fe9356efc0c394393d975f9ea4e52c}{rtscts}} = false
+\item 
+bool \mbox{\hyperlink{structOpenBaton_a9c32e7648937139471e28836403bf38c}{xon}} = false
+\item 
+bool \mbox{\hyperlink{structOpenBaton_ae010981b7abec9325ae8681f14f9e717}{xoff}} = false
+\item 
+bool \mbox{\hyperlink{structOpenBaton_a7b7b7de6211a1940f21bc2afe83ad6f3}{xany}} = false
+\item 
+bool \mbox{\hyperlink{structOpenBaton_a1458603907219a834e73e10f25156b8d}{hupcl}} = false
+\item 
+bool \mbox{\hyperlink{structOpenBaton_a8b4e17217616794c8a82670d4f1a2fc5}{lock}} = false
+\item 
+\mbox{\hyperlink{serialport_8h_a41b88e4b7485e4aac3815884683bbbae}{Serial\+Port\+Parity}} \mbox{\hyperlink{structOpenBaton_a435a7d4cd3d8fcbd514a7429efd7bd42}{parity}}
+\item 
+\mbox{\hyperlink{serialport_8h_a8e786fbd354c22710c1a8b0b7e6b7ef9}{Serial\+Port\+Stop\+Bits}} \mbox{\hyperlink{structOpenBaton_afa00344db771c3d599095fa3c1011755}{stop\+Bits}}
+\item 
+\mbox{\hyperlink{serialport_8h_ad05ca936664ace6c025dec1fb7ca3045}{Serial\+Port\+Rts\+Mode}} \mbox{\hyperlink{structOpenBaton_a91ec4bafafde317e33a4a0f317fdefa9}{rts\+Mode}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structOpenBaton_ae9c30970af63b1b5f6a41d543b669687}{vmin}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structOpenBaton_a868cfd6dbc9837b05d3db1c0c6046f24}{vtime}} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classNapi_1_1AsyncWorker}{Napi\+::\+Async\+Worker}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a36814d1c251f77719477ba401f325ce3}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a6e11873681d402f1d892166ecb182b97}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a81d41a455f3897fec9db1552ec075d78}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name, const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&resource)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a60e37d32427ca588ece0de98eb7168a0}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&receiver, const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a4e4ab491db74d1693cadf0e756e27741}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&receiver, const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_ad888fb4e0e9146be7e64c29825d4acd3}{Async\+Worker}} (const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&receiver, const \mbox{\hyperlink{classNapi_1_1Function}{Function}} \&callback, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name, const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&resource)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a447b48a3fb1116dc5e90f8bb99d75077}{Async\+Worker}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_a189b5fc0a5acf619110c711333694b79}{Async\+Worker}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncWorker_ad7df47c31c51d0100cb1867f88ca9093}{Async\+Worker}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name, const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&resource)
+\item 
+virtual void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a6e4cb34697cd08606e3b6e9b8886d9a8}{On\+Error}} (const \mbox{\hyperlink{classNapi_1_1Error}{Error}} \&e)
+\item 
+virtual void \mbox{\hyperlink{classNapi_1_1AsyncWorker_ad339e2155f5415488c3cc92dac202b99}{Destroy}} ()
+\item 
+virtual std\+::vector$<$ napi\+\_\+value $>$ \mbox{\hyperlink{classNapi_1_1AsyncWorker_af6429a15ab4a3f49f2b10dba77d5ba80}{Get\+Result}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env)
+\item 
+void \mbox{\hyperlink{classNapi_1_1AsyncWorker_a3ca4cd1913b1b68701c1ed200a0bcb1d}{Set\+Error}} (const std\+::string \&error)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structOpenBaton_a48f8ee7224431186bd4ac107707a0749}\label{structOpenBaton_a48f8ee7224431186bd4ac107707a0749} 
+\index{OpenBaton@{OpenBaton}!OpenBaton@{OpenBaton}}
+\index{OpenBaton@{OpenBaton}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{OpenBaton()}{OpenBaton()}}
+{\footnotesize\ttfamily Open\+Baton\+::\+Open\+Baton (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1Function}{Napi\+::\+Function}} \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structOpenBaton_a5a069880b9505b3a09c9966a79aa5b78}\label{structOpenBaton_a5a069880b9505b3a09c9966a79aa5b78} 
+\index{OpenBaton@{OpenBaton}!Execute@{Execute}}
+\index{Execute@{Execute}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{Execute()}{Execute()}}
+{\footnotesize\ttfamily void Open\+Baton\+::\+Execute (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classNapi_1_1AsyncWorker_a7aa889d484c24717ecc3c33d3ed90624}{Napi\+::\+Async\+Worker}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structOpenBaton_a5a069880b9505b3a09c9966a79aa5b78_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structOpenBaton_aa184d964f6845b91d473fed014339c2b}\label{structOpenBaton_aa184d964f6845b91d473fed014339c2b} 
+\index{OpenBaton@{OpenBaton}!OnOK@{OnOK}}
+\index{OnOK@{OnOK}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{OnOK()}{OnOK()}}
+{\footnotesize\ttfamily void Open\+Baton\+::\+On\+OK (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classNapi_1_1AsyncWorker_a069efdba97c6207866ef42f8a9085b18}{Napi\+::\+Async\+Worker}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structOpenBaton_aa184d964f6845b91d473fed014339c2b_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{structOpenBaton_a0bb78cc3c9aa4d9880f1330c603bcb75}\label{structOpenBaton_a0bb78cc3c9aa4d9880f1330c603bcb75} 
+\index{OpenBaton@{OpenBaton}!baudRate@{baudRate}}
+\index{baudRate@{baudRate}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{baudRate}{baudRate}}
+{\footnotesize\ttfamily int Open\+Baton\+::baud\+Rate = 0}
+
+\Hypertarget{structOpenBaton_ac4736cdc870a8ee29f08e34c806cbdaa}\label{structOpenBaton_ac4736cdc870a8ee29f08e34c806cbdaa} 
+\index{OpenBaton@{OpenBaton}!dataBits@{dataBits}}
+\index{dataBits@{dataBits}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{dataBits}{dataBits}}
+{\footnotesize\ttfamily int Open\+Baton\+::data\+Bits = 0}
+
+\Hypertarget{structOpenBaton_af5f2973ad13adc4e017a4c0c2246f5b5}\label{structOpenBaton_af5f2973ad13adc4e017a4c0c2246f5b5} 
+\index{OpenBaton@{OpenBaton}!errorString@{errorString}}
+\index{errorString@{errorString}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{errorString}{errorString}}
+{\footnotesize\ttfamily char Open\+Baton\+::error\+String\mbox{[}\mbox{\hyperlink{serialport_8h_a2dc0029776b8cfa523fc558c0d80c43e}{ERROR\+\_\+\+STRING\+\_\+\+SIZE}}\mbox{]}}
+
+\Hypertarget{structOpenBaton_a75a42e9f2d57905279ca1085b4872a66}\label{structOpenBaton_a75a42e9f2d57905279ca1085b4872a66} 
+\index{OpenBaton@{OpenBaton}!fd@{fd}}
+\index{fd@{fd}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{fd}{fd}}
+{\footnotesize\ttfamily int Open\+Baton\+::fd = 0}
+
+\Hypertarget{structOpenBaton_a1458603907219a834e73e10f25156b8d}\label{structOpenBaton_a1458603907219a834e73e10f25156b8d} 
+\index{OpenBaton@{OpenBaton}!hupcl@{hupcl}}
+\index{hupcl@{hupcl}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{hupcl}{hupcl}}
+{\footnotesize\ttfamily bool Open\+Baton\+::hupcl = false}
+
+\Hypertarget{structOpenBaton_a8b4e17217616794c8a82670d4f1a2fc5}\label{structOpenBaton_a8b4e17217616794c8a82670d4f1a2fc5} 
+\index{OpenBaton@{OpenBaton}!lock@{lock}}
+\index{lock@{lock}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{lock}{lock}}
+{\footnotesize\ttfamily bool Open\+Baton\+::lock = false}
+
+\Hypertarget{structOpenBaton_a435a7d4cd3d8fcbd514a7429efd7bd42}\label{structOpenBaton_a435a7d4cd3d8fcbd514a7429efd7bd42} 
+\index{OpenBaton@{OpenBaton}!parity@{parity}}
+\index{parity@{parity}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{parity}{parity}}
+{\footnotesize\ttfamily \mbox{\hyperlink{serialport_8h_a41b88e4b7485e4aac3815884683bbbae}{Serial\+Port\+Parity}} Open\+Baton\+::parity}
+
+\Hypertarget{structOpenBaton_a72fac63a5186c88eeb8ac506fb7cb58f}\label{structOpenBaton_a72fac63a5186c88eeb8ac506fb7cb58f} 
+\index{OpenBaton@{OpenBaton}!path@{path}}
+\index{path@{path}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily char Open\+Baton\+::path\mbox{[}1024\mbox{]}}
+
+\Hypertarget{structOpenBaton_a586c28ff7e3f79466f54f7390296ecd6}\label{structOpenBaton_a586c28ff7e3f79466f54f7390296ecd6} 
+\index{OpenBaton@{OpenBaton}!result@{result}}
+\index{result@{result}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{result}{result}}
+{\footnotesize\ttfamily int Open\+Baton\+::result = 0}
+
+\Hypertarget{structOpenBaton_a49fe9356efc0c394393d975f9ea4e52c}\label{structOpenBaton_a49fe9356efc0c394393d975f9ea4e52c} 
+\index{OpenBaton@{OpenBaton}!rtscts@{rtscts}}
+\index{rtscts@{rtscts}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{rtscts}{rtscts}}
+{\footnotesize\ttfamily bool Open\+Baton\+::rtscts = false}
+
+\Hypertarget{structOpenBaton_a91ec4bafafde317e33a4a0f317fdefa9}\label{structOpenBaton_a91ec4bafafde317e33a4a0f317fdefa9} 
+\index{OpenBaton@{OpenBaton}!rtsMode@{rtsMode}}
+\index{rtsMode@{rtsMode}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{rtsMode}{rtsMode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{serialport_8h_ad05ca936664ace6c025dec1fb7ca3045}{Serial\+Port\+Rts\+Mode}} Open\+Baton\+::rts\+Mode}
+
+\Hypertarget{structOpenBaton_afa00344db771c3d599095fa3c1011755}\label{structOpenBaton_afa00344db771c3d599095fa3c1011755} 
+\index{OpenBaton@{OpenBaton}!stopBits@{stopBits}}
+\index{stopBits@{stopBits}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{stopBits}{stopBits}}
+{\footnotesize\ttfamily \mbox{\hyperlink{serialport_8h_a8e786fbd354c22710c1a8b0b7e6b7ef9}{Serial\+Port\+Stop\+Bits}} Open\+Baton\+::stop\+Bits}
+
+\Hypertarget{structOpenBaton_ae9c30970af63b1b5f6a41d543b669687}\label{structOpenBaton_ae9c30970af63b1b5f6a41d543b669687} 
+\index{OpenBaton@{OpenBaton}!vmin@{vmin}}
+\index{vmin@{vmin}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{vmin}{vmin}}
+{\footnotesize\ttfamily uint8\+\_\+t Open\+Baton\+::vmin = 0}
+
+\Hypertarget{structOpenBaton_a868cfd6dbc9837b05d3db1c0c6046f24}\label{structOpenBaton_a868cfd6dbc9837b05d3db1c0c6046f24} 
+\index{OpenBaton@{OpenBaton}!vtime@{vtime}}
+\index{vtime@{vtime}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{vtime}{vtime}}
+{\footnotesize\ttfamily uint8\+\_\+t Open\+Baton\+::vtime = 0}
+
+\Hypertarget{structOpenBaton_a7b7b7de6211a1940f21bc2afe83ad6f3}\label{structOpenBaton_a7b7b7de6211a1940f21bc2afe83ad6f3} 
+\index{OpenBaton@{OpenBaton}!xany@{xany}}
+\index{xany@{xany}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{xany}{xany}}
+{\footnotesize\ttfamily bool Open\+Baton\+::xany = false}
+
+\Hypertarget{structOpenBaton_ae010981b7abec9325ae8681f14f9e717}\label{structOpenBaton_ae010981b7abec9325ae8681f14f9e717} 
+\index{OpenBaton@{OpenBaton}!xoff@{xoff}}
+\index{xoff@{xoff}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{xoff}{xoff}}
+{\footnotesize\ttfamily bool Open\+Baton\+::xoff = false}
+
+\Hypertarget{structOpenBaton_a9c32e7648937139471e28836403bf38c}\label{structOpenBaton_a9c32e7648937139471e28836403bf38c} 
+\index{OpenBaton@{OpenBaton}!xon@{xon}}
+\index{xon@{xon}!OpenBaton@{OpenBaton}}
+\doxysubsubsection{\texorpdfstring{xon}{xon}}
+{\footnotesize\ttfamily bool Open\+Baton\+::xon = false}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/\mbox{\hyperlink{serialport_8h}{serialport.\+h}}\item 
+Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/\mbox{\hyperlink{serialport__unix_8cpp}{serialport\+\_\+unix.\+cpp}}\item 
+Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/\mbox{\hyperlink{serialport__win_8cpp}{serialport\+\_\+win.\+cpp}}\end{DoxyCompactItemize}

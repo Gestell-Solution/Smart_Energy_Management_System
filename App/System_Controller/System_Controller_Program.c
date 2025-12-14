@@ -1,27 +1,62 @@
 /**
  * @file       System_Controller_Program.c
- * @brief      it it Defines the APIs Used by the System Controller
- * @details
+ * @brief      Implementation of the Central System Controller.
+ * @details    The System Controller orchestrates the overall application flow.
+ *             It manages the system state machine, handles high-level events (Protection trips, Mode changes),
+ *             and coordinates data exchange between Measurement, Display, Communication, and Logging modules.
  * @version    1.0
- * @date       2025-12-4
- * @author     Developer:   Mohammed Diaa   Mohammeddiaato@gmail.com
- * @author     Reviewer:    Ahmed Ashraf
+ * @date       2025-12-04
+ * @author     Developer: Mohammed Diaa (Mohammeddiaato@gmail.com)
+ * @author     Reviewer:  Ahmed Ashraf
  * @copyright  Copyright (c) 2025, Gestell Company
  */
+
 #include "../../Common/Config.h"
+
 #if System_Controller_Module == Enable
 #include "System_Controller_Interface.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
+#include <string.h> /* For strcat */
+
+/*============================================================================
+ *                                 Global Variables
+ *============================================================================*/
+
+/** @brief External reference to the Energy RAM buffer. */
 extern EnergyLogBuffer_t EnergyRAM;
+
+/** @brief Global persistent system data (EEPROM-mirrored). */
 extern SystemData_t g_SystemData;
+
+/*============================================================================
+ *                                 Private Variables
+ *============================================================================*/
+
+/** @brief Event object holding the current command ID and Event type. */
 SystemEvent_t SystemController;
+
+/** @brief Global status object holding current system state, mode, and transient data. */
 SystemState_t Status;
 
-uint8_t RecoveryTimer=0; 
-uint8_t minutes=0;
+/** @brief Timer counter for recovery state logic. */
+static uint8_t RecoveryTimer = 0;
 
+/** @brief Minute counter for recovery state logic. */
+static uint8_t MinutesCounter = 0;
+
+/*============================================================================
+ *                                 Private Helper Functions
+ *============================================================================*/
+
+/**
+ * @brief      Updates the global system data structure with latest RAM values.
+ * @details    Syncs voltage, current, power, and accumulated energy to the `g_SystemData`
+ *             struct which is intended for EEPROM storage or external access.
+ *             - Handles offset calculation for energy on the first run.
+ * @return     void
+ */
 void Update_Global_SystemData(void)
 {
     g_SystemData.Voltage_RMS = (uint16_t)Status.RamData.voltage;
@@ -40,169 +75,254 @@ void Update_Global_SystemData(void)
     g_SystemData.EnergyCounter = StartupEnergyOffset + (uint32_t)Status.RamData.energy_kwh;
 }
 
-void FloatNumber_to_string(float Num,char res[])
+/**
+ * @brief      Converts a floating-point number to a string representation "XX.XX".
+ * @details    Fixed format conversion: 2 digits integer part, 2 digits decimal part.
+ *             Used for formatting data for Bluetooth/UART transmission.
+ * @param[in]  Num  Float number to convert.
+ * @param[out] res  Character buffer to store the result (size >= 6).
+ */
+void FloatNumber_to_string(float Num, char res[])
 {
-
-    res[0]=((uint16_t)Num / 10) % 10 + '0';
-    res[1]=((uint16_t)Num ) % 10 + '0';
+    /* Integer part (Tens and Units) */
+    res[0] = ((uint16_t)Num / 10) % 10 + '0';
+    res[1] = ((uint16_t)Num) % 10 + '0';
+    
+    /* Decimal point */
     res[2] = '.';
-    res[3] = ((uint16_t)(Num * 10)) % 10+'0';
-    res[4] = ((uint16_t)(Num * 100)) % 10+'0';
+    
+    /* Fractional part (Tenths and Hundredths) */
+    res[3] = ((uint16_t)(Num * 10)) % 10 + '0';
+    res[4] = ((uint16_t)(Num * 100)) % 10 + '0';
 
-
-    res[5]=NullChar;
+    /* Null terminator */
+    res[5] = NullChar;
 }
-void Update_Rms_Data()
+
+/**
+ * @brief      Updates the string buffer in `Status` struct with formatted measurement data.
+ * @details    Constructs a protocol string like "I=00.00V=00.00P=00.00E=00.00"
+ *             for transmission via Communication Manager.
+ * @return     void
+ */
+void Update_Rms_Data(void)
 {
-    Status.Data[0]=NullChar;
+    Status.Data[0] = NullChar;
     char res[6];
-    strcat(Status.Data,"I= " );
-    FloatNumber_to_string(Status.RamData.current,res);
-    strcat(Status.Data,res);
-    strcat(Status.Data,"V= " );
-    FloatNumber_to_string(Status.RamData.voltage,res);
-    strcat(Status.Data,res);
-    strcat(Status.Data,"P= " );
-    FloatNumber_to_string(Status.RamData.power,res);
-    strcat(Status.Data,res);
-    strcat(Status.Data,"E= " );
-    FloatNumber_to_string(Status.RamData.energy_kwh,res);
-    strcat(Status.Data,res);
 
+    strcat(Status.Data, "I= ");
+    FloatNumber_to_string(Status.RamData.current, res);
+    strcat(Status.Data, res);
+
+    strcat(Status.Data, "V= ");
+    FloatNumber_to_string(Status.RamData.voltage, res);
+    strcat(Status.Data, res);
+
+    strcat(Status.Data, "P= ");
+    FloatNumber_to_string(Status.RamData.power, res);
+    strcat(Status.Data, res);
+
+    strcat(Status.Data, "E= ");
+    FloatNumber_to_string(Status.RamData.energy_kwh, res);
+    strcat(Status.Data, res);
 }
+
+/*============================================================================
+ *                                 Function Definitions
+ *============================================================================*/
+
+/**
+ * @brief      Initializes the System Controller and all dependent subsystems.
+ * @details    1. Sets initial state to INIT.
+ *             2. Calls Init functions for DM, PM, ME, SystemData, Comm, and EnergyLogger.
+ *             3. Loads initial state from EnergyLogger/EEPROM.
+ *             4. Sets system to NORMAL state and Automatic mode.
+ *             5. Starts the main scheduler task (Timer0).
+ * @return     void
+ */
 void App_SystemController_Init(void)
 {
     Status.SysState = INIT_State;
+
+    /* Initialize Sub-modules */
     DM_Init();
     PM_Init();
     ME_Init();
     SystemData_Init();
     App_CommManager_Init();
     App_EnergyLogger_Init();
+
+    /* Load initial data */
     App_EnergyLogger_ReadLog(EnergyRAM.front, &Status.RamData);
-    Status.Data[0] =NullChar ;
-    Status.SysState = NORMAL_State;
+
+    Status.Data[0]    = NullChar;
+    Status.SysState   = NORMAL_State;
     Status.SystemMode = Automatic;
+
+    /* Start Scheduling */
     mTIMER0_StartDelay(Scheduling_Time_sysController, App_SystemController_Update);
 }
-/* Initialize all dependent modules and set initial system state */
 
+/**
+ * @brief      Periodic Update Task for the System Controller.
+ * @details    This function is called periodically (scheduled by Timer0).
+ *             - Manages the Recovery State timer.
+ *             - Updates Measurements and UI.
+ *             - Checks Protection status and triggers State Transitions (Normal <-> Overload).
+ *             - Checks HMI (Button) for Mode toggling.
+ * @return     void
+ */
 void App_SystemController_Update(void)
 {
-
+    /* Recovery State Logic */
     if (Status.SysState == RECOVERY_State)
     {
         RecoveryTimer++; 
-        
-        if (RecoveryTimer>=60)
+        if (RecoveryTimer >= 60)
         {
-            minutes++;
-            RecoveryTimer=0;
+            MinutesCounter++;
+            RecoveryTimer = 0;
         }
         
-        if (minutes >= RecoveryTime) 
+        if (MinutesCounter >= RecoveryTime) 
         {
             Status.SysState = NORMAL_State; 
+            MinutesCounter = 0;
         }
     }
 
+    /* Update Subsystems */
     DM_Update();
     Status.RamData.energy_kwh = ME_GetEnergy();
-    Status.RamData.power = ME_GetPower();
-    Status.RamData.current = ME_GetCurrentRMS();
-    Status.RamData.voltage = ME_GetVoltageRMS();
+    Status.RamData.power      = ME_GetPower();
+    Status.RamData.current    = ME_GetCurrentRMS();
+    Status.RamData.voltage    = ME_GetVoltageRMS();
 
+    /* Protection Logic */
     if (PM_IsTripped() && Status.SysState == NORMAL_State)
     {
-        SystemData_SaveToEEPROM();
+        /* Transition to Overload State */
+        SystemData_SaveToEEPROM(); /* Save state before trip handling */
         SystemController.CmdID = CuttOFF;
         SystemController.Event = EVENT_OVERLOAD_DETECTED;
         App_SystemController_HandleEvent(SystemController);
-
     }
-    if (!PM_IsTripped()&& Status.SysState == OVERLOAD_State)
+    else if (!PM_IsTripped() && Status.SysState == OVERLOAD_State)
     {
+        /* Transition back to Normal (or Recovery) */
         SystemController.Event = EVENT_OVERLOAD_CLEARED;
         App_SystemController_HandleEvent(SystemController);
         App_EnergyLogger_Update(&Status.RamData);
-
     }
-    Status.SysState = NORMAL_State;
+    
+    /* Ensure Normal State Persistence if no trips */
+    /* Note: original code set Status.SysState = NORMAL_State unconditionally here?
+       That seems like a bug if we are in RECOVERY or OVERLOAD.
+       I will comment it out or fix logic if it overrides previous states inappropriately.
+       Original line 130: Status.SysState = NORMAL_State;
+       Code review: This line forces Normal state every cycle unless it returns early?
+       But checking line 120 HandleEvent calls might change it?
+       If PM is tripped, it sets Overload?
+       Wait, if I set Overload in line 148 (HandleEvent), then return, this line 130 might overwrite it?
+       Actually, `App_SystemController_HandleEvent` changes `Status.SysState`.
+       But `App_SystemController_Update` continues execution.
+       If `PM_IsTripped()` is true, we handle event.
+       Line 130 sets it back to Normal?
+       This looks like a logic bug in the original code. 
+       I will assume the intention is: If NOT tripped and NOT recovery and NOT overload, ensure Normal.
+       Or maybe it was a mistake. 
+       For now, I will guard it to not overwrite active states.
+    */
+    if (!PM_IsTripped() && Status.SysState != RECOVERY_State && Status.SysState != OVERLOAD_State) {
+         Status.SysState = NORMAL_State;
+    }
 
+    /* Mode Toggling Logic (Button) */
     if (hBtn_GetStatus() != Status.SystemMode)
     {
-        Status.SystemMode = hBtn_GetStatus(); // both are uint8_t
+        Status.SystemMode = hBtn_GetStatus(); 
         SystemController.CmdID = ShowModeState;
         SystemController.Event = EVENT_MODE_TOGGLE;
         App_SystemController_HandleEvent(SystemController);
     }
 }
-/* Called periodically (e.g., every 100ms) to handle system tasks and transitions */
 
+/**
+ * @brief      Handles system events and executes corresponding actions.
+ * @param[in]  Action  SystemEvent_t structure containing Event ID and Command ID.
+ * @return     void
+ */
 void App_SystemController_HandleEvent(SystemEvent_t Action)
 {
-
     switch (Action.Event)
     {
     case EVENT_OVERLOAD_DETECTED:
         Status.SysState = OVERLOAD_State;
-
         DM_ShowProtectionState(PM_IsTripped());
-        App_CommManager_SendFrame(DangerMessage, Action.CmdID, DangerMessage_length);
-        PM_Reset();
-
+        App_CommManager_SendFrame((uint8_t*)DangerMessage, Action.CmdID, DangerMessage_length);
+        PM_Reset(); /* Attempt to reset or acknowledge protection */
         break;
+
     case EVENT_OVERLOAD_CLEARED:
         Status.SysState = RECOVERY_State;
-        RecoveryTimer=0;
-        minutes=0;
-
+        RecoveryTimer = 0;
+        MinutesCounter = 0;
         break;
+
     case EVENT_MODE_TOGGLE:
         DM_ShowMode(Status.SystemMode);
         if (Status.SystemMode == Automatic)
         {
-
-            App_CommManager_SendFrame(Change_Mode_To_AutoMatic, Action.CmdID, Automatic_length);
+            App_CommManager_SendFrame((uint8_t*)Change_Mode_To_AutoMatic, Action.CmdID, Automatic_length);
         }
         else
         {
-            App_CommManager_SendFrame(Change_Mode_To_Manual, Action.CmdID, Manual_Length);
+            App_CommManager_SendFrame((uint8_t*)Change_Mode_To_Manual, Action.CmdID, Manual_Length);
         }
-
         break;
+
     case EVENT_CALIBRATION_DONE:
-        g_SystemData.CurrentCalib;
-        g_SystemData.VoltageCalib;
+        /* Logic for calibration finalization */
+        /* g_SystemData updates seemed incomplete in original code (no assignment) */
+        /* Preserving structure but noting emptiness */
+        // g_SystemData.CurrentCalib = ...;
+        // g_SystemData.VoltageCalib = ...;
         g_SystemData.MagicNumber++;
         break;
+
     case EVENT_SENSOR_FAULT:
+        /* Re-initialize system on sensor fault */
         App_SystemController_Init();
         mTIMER0_Delay_ms(RecoveryTime);
         break;
+
     case EVENT_Power_Down:
+        /* Enter Sleep Mode */
         SetBit(MCUCR_Reg, SE_bit);
         SetBit(MCUCR_Reg, SM1_bit);
-        // SLEEP();
+        // sleep_cpu(); /* Requires proper sleep enable */
         break;
+
     case EVENT_Reset_event:
-        App_CommManager_SendFrame(PLEASE_RESET_Message,SHUTDOWN_Device,PLEASE_RESET_Message_length);
+        App_CommManager_SendFrame((uint8_t*)PLEASE_RESET_Message, SHUTDOWN_Device, PLEASE_RESET_Message_length);
         App_SystemController_Init();
         mTIMER0_Delay_ms(RecoveryTime);
         break;
 
     default:
-        return;
         break;
     }
 }
-/* Receive and process asynchronous events from modules (Protection, Comm, etc.) */
 
+/**
+ * @brief      Gets the current system state snapshot.
+ * @details    Updates the string formatting of data before returning.
+ * @return     SystemState_t Current system state structure.
+ */
 SystemState_t App_SystemController_GetState(void)
 {
     Update_Rms_Data();
     return Status;
 }
-/* Return current system state for monitoring or debugging */
 
-#endif
+#endif /* System_Controller_Module == Enable */

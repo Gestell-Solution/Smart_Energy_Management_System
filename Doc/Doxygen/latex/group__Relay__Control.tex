@@ -1,0 +1,219 @@
+\doxysubsection{Relay\+\_\+\+Control}
+\hypertarget{group__Relay__Control}{}\label{group__Relay__Control}\index{Relay\_Control@{Relay\_Control}}
+Collaboration diagram for Relay\+\_\+\+Control\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{group__Relay__Control}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Relay__Control_gaba96e6db89011e91a27a77906e8a4b11}{h\+Relay\+\_\+\+Init}} (uint8\+\_\+t relay\+Id)
+\begin{DoxyCompactList}\small\item\em Initializes the specified relay. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Relay__Control_gaf8e747a107ff73001fd84503cf89800d}{h\+Relay\+\_\+\+On}} (uint8\+\_\+t relay\+Id)
+\begin{DoxyCompactList}\small\item\em Turns ON the specified relay. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Relay__Control_ga2a6c34486b77fdff2204672b2a5d3e5d}{h\+Relay\+\_\+\+Off}} (uint8\+\_\+t relay\+Id)
+\begin{DoxyCompactList}\small\item\em Turns OFF the specified relay. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Relay__Control_ga89b6c2b8833d26d44d911576e9fceb09}{h\+Relay\+\_\+\+Toggle}} (uint8\+\_\+t relay\+Id)
+\begin{DoxyCompactList}\small\item\em Toggles the current state of the specified relay. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__Relay__Control_ga8daa747148431a7cbfa17b1e71276fc3}{h\+Relay\+\_\+\+Get\+Status}} (uint8\+\_\+t relay\+Id)
+\begin{DoxyCompactList}\small\item\em Returns the current logical state of the specified relay. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+\doxysubsubsection{Function Documentation}
+\Hypertarget{group__Relay__Control_ga8daa747148431a7cbfa17b1e71276fc3}\label{group__Relay__Control_ga8daa747148431a7cbfa17b1e71276fc3} 
+\index{Relay\_Control@{Relay\_Control}!hRelay\_GetStatus@{hRelay\_GetStatus}}
+\index{hRelay\_GetStatus@{hRelay\_GetStatus}!Relay\_Control@{Relay\_Control}}
+\doxysubsubsubsection{\texorpdfstring{hRelay\_GetStatus()}{hRelay\_GetStatus()}}
+{\footnotesize\ttfamily uint8\+\_\+t h\+Relay\+\_\+\+Get\+Status (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{relay\+Id }\end{DoxyParamCaption})}
+
+
+
+Returns the current logical state of the specified relay. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em relay\+Id} & Relay identifier (h\+RELAY\+\_\+0 → h\+RELAY\+\_\+3).\\
+\hline
+\end{DoxyParams}
+This function reads the relay pin state and returns its logical representation (ON/\+OFF). \begin{DoxyReturn}{Returns}
+uint8\+\_\+t Relay state (0 = OFF, 1 = ON)
+\end{DoxyReturn}
+Returns the current logical state of the specified relay.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em relay\+Id} & Relay ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t \doxylink{group__Common_ga68f42665fedc51c04b731eec0473e676}{Low(0)} or \doxylink{group__Common_ga2776e4f1175686b9d5045c535e1c499d}{High(1)}. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=299pt]{group__Relay__Control_ga8daa747148431a7cbfa17b1e71276fc3_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Relay__Control_gaba96e6db89011e91a27a77906e8a4b11}\label{group__Relay__Control_gaba96e6db89011e91a27a77906e8a4b11} 
+\index{Relay\_Control@{Relay\_Control}!hRelay\_Init@{hRelay\_Init}}
+\index{hRelay\_Init@{hRelay\_Init}!Relay\_Control@{Relay\_Control}}
+\doxysubsubsubsection{\texorpdfstring{hRelay\_Init()}{hRelay\_Init()}}
+{\footnotesize\ttfamily void h\+Relay\+\_\+\+Init (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{relay\+Id }\end{DoxyParamCaption})}
+
+
+
+Initializes the specified relay. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em relay\+Id} & Relay identifier (h\+RELAY\+\_\+0 → h\+RELAY\+\_\+3).\\
+\hline
+\end{DoxyParams}
+This function configures the corresponding relay pin as output and sets its initial state as defined in \doxylink{RELAY__Config_8h}{RELAY\+\_\+\+Config.\+h}.
+
+Sets the direction of the relay pin to OUTPUT and writes the initial state. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em relay\+Id} & Legacy ID of the relay (h\+RELAY\+\_\+0 ... h\+RELAY\+\_\+3). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=313pt]{group__Relay__Control_gaba96e6db89011e91a27a77906e8a4b11_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Relay__Control_ga2a6c34486b77fdff2204672b2a5d3e5d}\label{group__Relay__Control_ga2a6c34486b77fdff2204672b2a5d3e5d} 
+\index{Relay\_Control@{Relay\_Control}!hRelay\_Off@{hRelay\_Off}}
+\index{hRelay\_Off@{hRelay\_Off}!Relay\_Control@{Relay\_Control}}
+\doxysubsubsubsection{\texorpdfstring{hRelay\_Off()}{hRelay\_Off()}}
+{\footnotesize\ttfamily void h\+Relay\+\_\+\+Off (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{relay\+Id }\end{DoxyParamCaption})}
+
+
+
+Turns OFF the specified relay. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em relay\+Id} & Relay identifier (h\+RELAY\+\_\+0 → h\+RELAY\+\_\+3).\\
+\hline
+\end{DoxyParams}
+Deactivates the relay according to its active state (HIGH or LOW) defined in \doxylink{RELAY__Config_8h}{RELAY\+\_\+\+Config.\+h}.
+
+Turns OFF the specified relay.
+
+Restores the relay pin to its Initial (Inactive) state. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em relay\+Id} & Relay ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{group__Relay__Control_ga2a6c34486b77fdff2204672b2a5d3e5d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{group__Relay__Control_ga2a6c34486b77fdff2204672b2a5d3e5d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Relay__Control_gaf8e747a107ff73001fd84503cf89800d}\label{group__Relay__Control_gaf8e747a107ff73001fd84503cf89800d} 
+\index{Relay\_Control@{Relay\_Control}!hRelay\_On@{hRelay\_On}}
+\index{hRelay\_On@{hRelay\_On}!Relay\_Control@{Relay\_Control}}
+\doxysubsubsubsection{\texorpdfstring{hRelay\_On()}{hRelay\_On()}}
+{\footnotesize\ttfamily void h\+Relay\+\_\+\+On (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{relay\+Id }\end{DoxyParamCaption})}
+
+
+
+Turns ON the specified relay. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em relay\+Id} & Relay identifier (h\+RELAY\+\_\+0 → h\+RELAY\+\_\+3).\\
+\hline
+\end{DoxyParams}
+Activates the relay according to its active state (HIGH or LOW) defined in \doxylink{RELAY__Config_8h}{RELAY\+\_\+\+Config.\+h}.
+
+Turns ON the specified relay.
+
+Writes the ACTIVE state (inverse of INIT if INIT is OFF, or typically High/\+Low depending on circuit). Logic assumes \textquotesingle{}!\textquotesingle{} initial state is ON, or needs explicit Active State config. Here, it toggles from Init State. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em relay\+Id} & Relay ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{group__Relay__Control_gaf8e747a107ff73001fd84503cf89800d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Relay__Control_gaf8e747a107ff73001fd84503cf89800d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Relay__Control_ga89b6c2b8833d26d44d911576e9fceb09}\label{group__Relay__Control_ga89b6c2b8833d26d44d911576e9fceb09} 
+\index{Relay\_Control@{Relay\_Control}!hRelay\_Toggle@{hRelay\_Toggle}}
+\index{hRelay\_Toggle@{hRelay\_Toggle}!Relay\_Control@{Relay\_Control}}
+\doxysubsubsubsection{\texorpdfstring{hRelay\_Toggle()}{hRelay\_Toggle()}}
+{\footnotesize\ttfamily void h\+Relay\+\_\+\+Toggle (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{relay\+Id }\end{DoxyParamCaption})}
+
+
+
+Toggles the current state of the specified relay. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em relay\+Id} & Relay identifier (h\+RELAY\+\_\+0 → h\+RELAY\+\_\+3).\\
+\hline
+\end{DoxyParams}
+If the relay is ON, it will turn OFF and vice versa.
+
+Toggles the current state of the specified relay.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em relay\+Id} & Relay ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{group__Relay__Control_ga89b6c2b8833d26d44d911576e9fceb09_cgraph}
+\end{center}
+\end{figure}

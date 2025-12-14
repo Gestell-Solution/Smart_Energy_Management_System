@@ -1,0 +1,11 @@
+\chapter{base64id}
+\hypertarget{md_Dashboard_2node__modules_2base64id_2README}{}\label{md_Dashboard_2node__modules_2base64id_2README}\index{base64id@{base64id}}
+Node.\+js module that generates a base64 id.
+
+Uses crypto.\+random\+Bytes when available, falls back to unsafe methods for node.\+js \texorpdfstring{$<$}{<}= 0.\+4.
+
+To increase performance, random bytes are buffered to minimize the number of synchronous calls to crypto.\+random\+Bytes.\hypertarget{md_Dashboard_2node__modules_2base64id_2README_autotoc_md218}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_Dashboard_2node__modules_2base64id_2README_autotoc_md218}
+\$ npm install base64id\hypertarget{md_Dashboard_2node__modules_2base64id_2README_autotoc_md219}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_Dashboard_2node__modules_2base64id_2README_autotoc_md219}
+var base64id = require(\textquotesingle{}base64id\textquotesingle{});
+
+var id = base64id.\+generate\+Id(); 

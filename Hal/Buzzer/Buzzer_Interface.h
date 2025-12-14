@@ -7,6 +7,14 @@
  */
 #ifndef BUZZER_INTERFACE_H_
 #define BUZZER_INTERFACE_H_
+
+/**
+ * @addtogroup Hal
+ * @{
+ * @addtogroup Buzzer
+ * @{
+ */
+
 #include"../Buzzer/Buzzer_Config.h"
 #include"../Buzzer/Buzzer_Private.h"
 #include"../../Common/Macros.h"
@@ -76,5 +84,11 @@ void Buzzer_Alert_Callback(void);
  */
 void Buzzer_Periodic_Callback(void) ;
 
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /* BUZZER_INTERFACE_H_ */

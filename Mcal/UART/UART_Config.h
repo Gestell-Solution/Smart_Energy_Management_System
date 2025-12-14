@@ -13,6 +13,14 @@
 #ifndef UART_CONFIG_H_
 #define UART_CONFIG_H_
 
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup UART
+ * @{
+ */
+
+
 #include"../UART/UART_Private.h"
 #include <stdint.h>
 #include"../Atmega32RegistersAddress.h"
@@ -162,6 +170,12 @@ static inline bool UART_Buffer_Get(UART_Buffer_t *buf, uint8_t *data)
         return true;
     }
 }
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /* UART_CONFIG_H_ */
 

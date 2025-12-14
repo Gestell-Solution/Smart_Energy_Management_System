@@ -1,0 +1,59 @@
+\doxysection{Calibration\+\_\+\+Data Struct Reference}
+\hypertarget{structCalibration__Data}{}\label{structCalibration__Data}\index{Calibration\_Data@{Calibration\_Data}}
+
+
+Holds running data used to compute the ADC zero offset (calibration).  
+
+
+
+
+{\ttfamily \#include $<$h\+Current\+\_\+\+Interface.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{structCalibration__Data_a3273eb72bfa82d2e6a011e69e1c32f42}{Previous\+\_\+\+ADC\+\_\+\+Avrg\+\_\+\+Value}}
+\item 
+float \mbox{\hyperlink{structCalibration__Data_a21f7accd9bb3d2a3a69b7518c33cc414}{Current\+\_\+\+ADC\+\_\+\+Avrg\+\_\+\+Value}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{structCalibration__Data_aaf9fc7a2e8e6966148f34b665ed8ae4c}{Callibration\+\_\+\+Samples\+\_\+\+Num}}
+\item 
+float \mbox{\hyperlink{structCalibration__Data_a0351dd42a5dc4063895493611d6c3ff7}{ADC\+\_\+\+Readings\+\_\+\+Sum}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Holds running data used to compute the ADC zero offset (calibration). 
+
+Used when calibrating the ACS712 sensor to determine the baseline ADC value when no current is flowing. The driver accumulates ADC readings and computes an average which is stored in this structure. 
+
+\doxysubsection{Field Documentation}
+\Hypertarget{structCalibration__Data_a0351dd42a5dc4063895493611d6c3ff7}\label{structCalibration__Data_a0351dd42a5dc4063895493611d6c3ff7} 
+\index{Calibration\_Data@{Calibration\_Data}!ADC\_Readings\_Sum@{ADC\_Readings\_Sum}}
+\index{ADC\_Readings\_Sum@{ADC\_Readings\_Sum}!Calibration\_Data@{Calibration\_Data}}
+\doxysubsubsection{\texorpdfstring{ADC\_Readings\_Sum}{ADC\_Readings\_Sum}}
+{\footnotesize\ttfamily float Calibration\+\_\+\+Data\+::\+ADC\+\_\+\+Readings\+\_\+\+Sum}
+
+Running sum of ADC readings used to compute the average. \Hypertarget{structCalibration__Data_aaf9fc7a2e8e6966148f34b665ed8ae4c}\label{structCalibration__Data_aaf9fc7a2e8e6966148f34b665ed8ae4c} 
+\index{Calibration\_Data@{Calibration\_Data}!Callibration\_Samples\_Num@{Callibration\_Samples\_Num}}
+\index{Callibration\_Samples\_Num@{Callibration\_Samples\_Num}!Calibration\_Data@{Calibration\_Data}}
+\doxysubsubsection{\texorpdfstring{Callibration\_Samples\_Num}{Callibration\_Samples\_Num}}
+{\footnotesize\ttfamily uint16\+\_\+t Calibration\+\_\+\+Data\+::\+Callibration\+\_\+\+Samples\+\_\+\+Num}
+
+Number of samples used for calibration averaging. \Hypertarget{structCalibration__Data_a21f7accd9bb3d2a3a69b7518c33cc414}\label{structCalibration__Data_a21f7accd9bb3d2a3a69b7518c33cc414} 
+\index{Calibration\_Data@{Calibration\_Data}!Current\_ADC\_Avrg\_Value@{Current\_ADC\_Avrg\_Value}}
+\index{Current\_ADC\_Avrg\_Value@{Current\_ADC\_Avrg\_Value}!Calibration\_Data@{Calibration\_Data}}
+\doxysubsubsection{\texorpdfstring{Current\_ADC\_Avrg\_Value}{Current\_ADC\_Avrg\_Value}}
+{\footnotesize\ttfamily float Calibration\+\_\+\+Data\+::\+Current\+\_\+\+ADC\+\_\+\+Avrg\+\_\+\+Value}
+
+Current averaged ADC value being accumulated. \Hypertarget{structCalibration__Data_a3273eb72bfa82d2e6a011e69e1c32f42}\label{structCalibration__Data_a3273eb72bfa82d2e6a011e69e1c32f42} 
+\index{Calibration\_Data@{Calibration\_Data}!Previous\_ADC\_Avrg\_Value@{Previous\_ADC\_Avrg\_Value}}
+\index{Previous\_ADC\_Avrg\_Value@{Previous\_ADC\_Avrg\_Value}!Calibration\_Data@{Calibration\_Data}}
+\doxysubsubsection{\texorpdfstring{Previous\_ADC\_Avrg\_Value}{Previous\_ADC\_Avrg\_Value}}
+{\footnotesize\ttfamily float Calibration\+\_\+\+Data\+::\+Previous\+\_\+\+ADC\+\_\+\+Avrg\+\_\+\+Value}
+
+Previous averaged ADC value from calibration. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Hal/\+ACS712\+Curnt\+Snsr/\mbox{\hyperlink{hCurrent__Interface_8h}{h\+Current\+\_\+\+Interface.\+h}}\end{DoxyCompactItemize}

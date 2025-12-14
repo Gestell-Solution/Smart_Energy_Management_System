@@ -12,6 +12,11 @@
 
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
+
+/**
+ * @addtogroup Common
+ * @{
+ */
 #include "Macros.h"
 
 /**
@@ -61,4 +66,8 @@
 #define ERROR_STATE         Enable   /**< Enable or Disable the Error State Module */
 #define SystemDataManager   Enable   /**< Enable or Disable the System Data Manager Module */
 #define ProtectionManager   Enable   /**< Enable or Disable The Protection Manager Module */
+/**
+ * @}
+ */
+
 #endif /* _COMFIG_H_*/

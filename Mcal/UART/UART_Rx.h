@@ -13,6 +13,14 @@
 #ifndef UART_RX_H_
 #define UART_RX_H_
 
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup UART
+ * @{
+ */
+
+
 #include "../UART/UART_Config.h"
 /**
  * @fn   UART_Rx_Init
@@ -55,5 +63,11 @@ uint8_t mUART_ReceiveString(char *str, uint16_t maxLength, char terminator);
  * @param LocalPtr Pointer to a user function that takes a received byte as argument.
  */
 void UART_Rx_SetCallback(void (*LocalPtr)(uint8_t));
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /* UART_RX_H_ */

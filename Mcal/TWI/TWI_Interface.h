@@ -16,6 +16,14 @@
 #ifndef   _TWI_INTERFACE_H_
 #define   _TWI_INTERFACE_H_
 
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup TWI
+ * @{
+ */
+
+
 /* ==================================================================================== */
 /* ==============================      Initialization       ============================ */
 /* ==================================================================================== */
@@ -112,5 +120,11 @@ void mTWI_SetSlaveRxCallback(void (*cb)(uint8_t *data, uint8_t len));
  *        uint8_t myProvider(uint8_t *buf, uint8_t maxLen)
  */
 void mTWI_SetSlaveTxProvider(uint8_t (*provider)(uint8_t *buf, uint8_t maxLen));
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /*_TWI_INTERFACE_H_*/

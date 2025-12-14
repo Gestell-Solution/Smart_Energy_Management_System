@@ -1,0 +1,62 @@
+\doxysection{Hal/\+LCD/\+LCD\+\_\+\+Interface.h File Reference}
+\hypertarget{LCD__Interface_8h}{}\label{LCD__Interface_8h}\index{Hal/LCD/LCD\_Interface.h@{Hal/LCD/LCD\_Interface.h}}
+
+
+Public API for the LCD hardware abstraction layer.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}LCD\+\_\+\+Config.\+h"{}}\newline
+{\ttfamily \#include "{}LCD\+\_\+\+Private.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+DIO/\+DIO\+\_\+\+Interface.\+h"{}}\newline
+Include dependency graph for LCD\+\_\+\+Interface.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LCD__Interface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LCD__Interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__LCD__Display_ga06f4a1b4bd505926d61c8d4c6f529236}{h\+LCD\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the LCD in the configured interface mode (e.\+g. 4-\/bit). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__LCD__Display_ga75cc4490ed0659540b88d98cbe7f371a}{h\+LCD\+\_\+\+Clear}} (uint8\+\_\+t Clear\+Line)
+\item 
+void \mbox{\hyperlink{group__LCD__Display_ga18a0bdd6effa3d67c6c3a66380a1b7a3}{h\+LCD\+\_\+\+Set\+Cursor}} (uint8\+\_\+t Line, uint8\+\_\+t Digits)
+\item 
+void \mbox{\hyperlink{group__LCD__Display_ga047fa233b0c19bbc62246327ee6527fb}{h\+LCD\+\_\+\+Write\+Char}} (char Character)
+\item 
+void \mbox{\hyperlink{group__LCD__Display_gafdf51e82367f918b43a19c15cf32185f}{h\+LCD\+\_\+\+Write\+String}} (const char \texorpdfstring{$\ast$}{*}str)
+\item 
+void \mbox{\hyperlink{group__LCD__Display_ga4c633e7faf6f133cf88bd9dc3329e98a}{h\+LCD\+\_\+\+Write\+Number}} (int32\+\_\+t Number)
+\item 
+void \mbox{\hyperlink{group__LCD__Display_ga9b0c929126d978f4051b5227813fefd4}{h\+LCD\+\_\+\+Send\+Command}} (uint8\+\_\+t Command)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public API for the LCD hardware abstraction layer. 
+
+Declares the functions, types and configuration structures that application code uses to initialize the LCD, write text, control cursor and backlight, and perform higher-\/level display operations. Keep only stable, public-\/facing declarations in this header. \begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Mohammed Diaa \href{mailto:mohammeddiaato@gmail.com}{\texttt{ mohammeddiaato@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/21 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}

@@ -1,0 +1,45 @@
+\doxysection{Macros.\+h}
+\hypertarget{Macros_8h_source}{}\label{Macros_8h_source}\index{Common/Macros.h@{Common/Macros.h}}
+\mbox{\hyperlink{Macros_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ \_MACROS\_H\_}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ \_MACROS\_H\_}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ SetBit(Reg,Bit)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((Reg)|=(1<<(Bit)))}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ClearBit(Reg,Bit)\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((Reg)\&=\string~(1<<(Bit)))}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ ToggleBit(Reg,Bit)\ \ \ \ \ \ \ \ \ \ \ \ ((Reg)\string^=(1<<(Bit)))}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ GetBit(Reg,Bit)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (((Reg)>>(Bit))\&0x01)}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ClearFlag(Reg,FlagBit)\ \ \ \ \ \ \ \ \ SetBit(Reg,FlagBit)}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ \ ReadFlag(Reg,FlagBit)\ \ \ \ \ \ \ \ \ GetBit(Reg,FlagBit)\ \ }}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*****************************************************************************************************************************************************/}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ Null\ \ \ \ \ \ \ \ (void*)0}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ NullChar\ \ \ \ '\(\backslash\)0'}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ Input\ \ \ \ 0\ }}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ Output\ \ \ 1}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ Low\ \ \ \ \ \ 0\ }}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ High\ \ \ \ \ 1}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ FlagDown\ \ \ 0\ }}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ FlagUp\ \ \ \ \ 1}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ Disable\ \ \ \ 0\ }}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ Enable\ \ \ \ \ 1}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00125\ \textcolor{comment}{/*****************************************************************************************************************************************************/}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_MACROS\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

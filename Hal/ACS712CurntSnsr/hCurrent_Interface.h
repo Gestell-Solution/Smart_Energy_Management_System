@@ -9,6 +9,14 @@
  */
 #ifndef _H_CURRENT_INTERFACE_H_
 #define _H_CURRENT_INTERFACE_H_
+
+/**
+ * @addtogroup Hal
+ * @{
+ * @addtogroup Current_Sensor
+ * @{
+ */
+
 #include <stdint.h>
 #include "hCurrent_Config.h"
 #include "hCurrent_Private.h"
@@ -81,5 +89,11 @@ float hCurrent_ReadRMS();
  * @note This function should be called once during setup or when environmental conditions change.
  */
 void hCurrent_Calibrate(void);
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif

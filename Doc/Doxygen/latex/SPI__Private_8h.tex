@@ -1,0 +1,427 @@
+\doxysection{Mcal/\+SPI/\+SPI\+\_\+\+Private.h File Reference}
+\hypertarget{SPI__Private_8h}{}\label{SPI__Private_8h}\index{Mcal/SPI/SPI\_Private.h@{Mcal/SPI/SPI\_Private.h}}
+
+
+Private definitions and internal macros for the SPI driver.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+Atmega32\+Registers\+Address.\+h"{}}\newline
+Include dependency graph for SPI\+\_\+\+Private.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SPI__Private_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{SPI__Private_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_a45db79ee1d43bc6e2e107368549d8f4e}{SPCR\+\_\+\+REG}}~(\texorpdfstring{$\ast$}{*}(volatile uint8\+\_\+t\texorpdfstring{$\ast$}{*})0x2D)
+\begin{DoxyCompactList}\small\item\em SPI Control Register. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_a44db3667ce8d5b35d7ce42443e2e4ccb}{SPSR\+\_\+\+REG}}~(\texorpdfstring{$\ast$}{*}(volatile uint8\+\_\+t\texorpdfstring{$\ast$}{*})0x2E)
+\begin{DoxyCompactList}\small\item\em SPI Status Register. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_a254b6294d8aea38d2d59c5b08b546d95}{SPDR\+\_\+\+REG}}~(\texorpdfstring{$\ast$}{*}(volatile uint8\+\_\+t\texorpdfstring{$\ast$}{*})0x2F)
+\begin{DoxyCompactList}\small\item\em SPI Data Register. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_a3c2ed3a5959b031c2bd0d8f9feabe2d3}{SS\+\_\+\+GROUP}}~\mbox{\hyperlink{DIO__Private_8h_ab2211668ae1f7909172f4d4e48d043c2}{GroupB}}
+\begin{DoxyCompactList}\small\item\em SPI pin mapping (as per ATmega32 hardware). \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_ae11ea27a413b4ed1aab22c11ee23245d}{MOSI\+\_\+\+GROUP}}~\mbox{\hyperlink{DIO__Private_8h_ab2211668ae1f7909172f4d4e48d043c2}{GroupB}}
+\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_a14d0547d22f53c91a1b31924c2211c3f}{MISO\+\_\+\+GROUP}}~\mbox{\hyperlink{DIO__Private_8h_ab2211668ae1f7909172f4d4e48d043c2}{GroupB}}
+\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_afcafc47f7a1ed262c743a48283fcbe5b}{SCK\+\_\+\+GROUP}}~\mbox{\hyperlink{DIO__Private_8h_ab2211668ae1f7909172f4d4e48d043c2}{GroupB}}
+\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_a86fac98c9b4c98a3e50fc45440878391}{SS\+\_\+\+PIN}}~\mbox{\hyperlink{DIO__Private_8h_aa3a35a41c5285c9c632aa626ac6761cb}{PIN4}}
+\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_a11338fccf824b29757c2b23edb0f690f}{MOSI\+\_\+\+PIN}}~\mbox{\hyperlink{DIO__Private_8h_ace14987760ea9b01a7ce6d947768e313}{PIN5}}
+\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_aecb75580e6d96b71a64123aee5bd3929}{MISO\+\_\+\+PIN}}~\mbox{\hyperlink{DIO__Private_8h_ab34b29d3af96065538a6ffb40dbc0ae5}{PIN6}}
+\item 
+\#define \mbox{\hyperlink{SPI__Private_8h_a01153037fca70cfac03c8d67f17d766a}{SCK\+\_\+\+PIN}}~\mbox{\hyperlink{DIO__Private_8h_af4d3f80395907ab4999773479f1aecf1}{PIN7}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21b}{SPCR\+\_\+\+Bits\+\_\+t}} \{ \newline
+\mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba90290b81377114b168c18f5f3f40f2ee}{SPCR0\+\_\+\+Bit0}} = 0
+, \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baa0099a65ec9650cf3d6cc93e0b6addaa}{SPCR1\+\_\+\+Bit1}}
+, \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21bae65750b8c6a2c88eb80e694d29c0c984}{CPHA\+\_\+\+Bit2}}
+, \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba17a79abdbddf73cb8f9d9fcbd7f2de5a}{CPOL\+\_\+\+Bit3}}
+, \newline
+\mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baf084cdf8caf67b64eb286f6e3b28b6a1}{MSTR\+\_\+\+Bit4}}
+, \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba1890499c120325fa4afe918a278fa9ed}{DORD\+\_\+\+Bit5}}
+, \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba492b4fcb07a25ca82a872e875c3712bb}{SPE\+\_\+\+Bit6}}
+, \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baa731e1e11275c49253d744b27ed18364}{SPIE\+\_\+\+Bit7}}
+ \}
+\begin{DoxyCompactList}\small\item\em Bit positions for the SPI Control Register (SPCR). \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6}{SPSR\+\_\+\+Bits\+\_\+t}} \{ \mbox{\hyperlink{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6aa57a3726d960a0afa89a85230ac285e8}{SPI2x\+\_\+\+Bit0}} = 0
+, \mbox{\hyperlink{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6a352d0cc93162c63d428667a24d33c48e}{WCOL\+\_\+\+Bit6}} = 6
+, \mbox{\hyperlink{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6a83d76ff732d8e1b8255327a8904bfe2b}{SPIF\+\_\+\+Bit7}} = 7
+ \}
+\begin{DoxyCompactList}\small\item\em Bit positions for the SPI Status Register (SPSR). \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610d}{SPI\+\_\+\+Mode\+\_\+t}} \{ \mbox{\hyperlink{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610da5005ea26b83625dced9072a237a315ab}{Slave\+\_\+\+Mode}}
+, \mbox{\hyperlink{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610daeb85d5f51f7628f0c731332722c81625}{Master\+\_\+\+Mode}}
+ \}
+\begin{DoxyCompactList}\small\item\em Selects SPI operating mode (Master/\+Slave). \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6b}{SPI\+\_\+\+Data\+Order\+\_\+t}} \{ \mbox{\hyperlink{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6ba12776579bf58c1f8d4b45bebe48b5019}{MSB\+\_\+\+First}} = 0
+, \mbox{\hyperlink{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6ba595eb2ff7fd8a2e33f1a264794e8fbf4}{LSB\+\_\+\+First}} = 1
+ \}
+\begin{DoxyCompactList}\small\item\em Selects MSB-\/first or LSB-\/first data order. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498}{SPI\+\_\+\+Clock\+Mode\+\_\+t}} \{ \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a2c0f658aaa47794a69ab96fcce520a08}{SPI\+\_\+\+Mode0}} = 0
+, \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498acaa9b7baaeee5c99982837d5dd1a4a21}{SPI\+\_\+\+Mode1}}
+, \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a5f08ad50ed799ce5722ff5229da356a4}{SPI\+\_\+\+Mode2}}
+, \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a5af761d85c00c257cd7eb7ec0ae09a04}{SPI\+\_\+\+Mode3}}
+ \}
+\begin{DoxyCompactList}\small\item\em Clock polarity and phase configuration (SPI Modes 0–3). \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6d}{SPI\+\_\+\+Clock\+Rate\+\_\+t}} \{ \newline
+\mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6daf575a9efb8eb08952a8e86bae10fe6f4}{F\+\_\+\+CPU\+\_\+4}} = 0
+, \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da41108b7b1632084e94b8ddcea0fa7137}{F\+\_\+\+CPU\+\_\+16}}
+, \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dab1d3cbae6653cd64639cf51e75da0502}{F\+\_\+\+CPU\+\_\+64}}
+, \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da64a2bc87a8f604c636796e8f3521e76e}{F\+\_\+\+CPU\+\_\+128}}
+, \newline
+\mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dad029b58bdd0dac5568cd3e67389f716e}{F\+\_\+\+CPU\+\_\+2}}
+, \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dac0cd58472d0a161dc569b1b3dcbb75d2}{F\+\_\+\+CPU\+\_\+8}}
+, \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da81ed19e991e568d9b9e368adac0feb3d}{F\+\_\+\+CPU\+\_\+32}}
+ \}
+\begin{DoxyCompactList}\small\item\em Clock prescaler selection. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2}{SPI\+\_\+\+Interrupt\+\_\+t}} \{ \mbox{\hyperlink{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2ab06d5ee626cbabb6a75b94aa749cb038}{Disable\+\_\+\+SPI\+\_\+\+Interrupt}} = 0
+, \mbox{\hyperlink{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2abfad65376f434412b5a4a90e718c0a4c}{Enable\+\_\+\+SPI\+\_\+\+Interrupt}} = 1
+ \}
+\begin{DoxyCompactList}\small\item\em Enable or disable SPI interrupt functionality. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaff}{SPI\+\_\+\+State\+\_\+t}} \{ \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaffa2bd994f65055168349dca121498cf257}{SPI\+\_\+\+State\+\_\+\+Idle}} = 0
+, \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaffa943e3a14ff4217f007a7142a180ba676}{SPI\+\_\+\+State\+\_\+\+Busy}}
+ \}
+\begin{DoxyCompactList}\small\item\em Represents the internal SPI driver state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Private definitions and internal macros for the SPI driver. 
+
+This file contains register definitions, bit positions, enumerations, and internal configurations used by the SPI driver. These elements are not exposed to the user and should only be accessed by the SPI driver implementation. \begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/12-\/05
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Developer\+: Ahmed Twap (\href{mailto:ahmedtwap2@gmail.com}{\texttt{ ahmedtwap2@gmail.\+com}}) 
+
+Reviewer\+: ENG.\+Bassma Khaled 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025, Gestell 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{SPI__Private_8h_a14d0547d22f53c91a1b31924c2211c3f}\label{SPI__Private_8h_a14d0547d22f53c91a1b31924c2211c3f} 
+\index{SPI\_Private.h@{SPI\_Private.h}!MISO\_GROUP@{MISO\_GROUP}}
+\index{MISO\_GROUP@{MISO\_GROUP}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{MISO\_GROUP}{MISO\_GROUP}}
+{\footnotesize\ttfamily \#define MISO\+\_\+\+GROUP~\mbox{\hyperlink{DIO__Private_8h_ab2211668ae1f7909172f4d4e48d043c2}{GroupB}}}
+
+\Hypertarget{SPI__Private_8h_aecb75580e6d96b71a64123aee5bd3929}\label{SPI__Private_8h_aecb75580e6d96b71a64123aee5bd3929} 
+\index{SPI\_Private.h@{SPI\_Private.h}!MISO\_PIN@{MISO\_PIN}}
+\index{MISO\_PIN@{MISO\_PIN}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{MISO\_PIN}{MISO\_PIN}}
+{\footnotesize\ttfamily \#define MISO\+\_\+\+PIN~\mbox{\hyperlink{DIO__Private_8h_ab34b29d3af96065538a6ffb40dbc0ae5}{PIN6}}}
+
+\Hypertarget{SPI__Private_8h_ae11ea27a413b4ed1aab22c11ee23245d}\label{SPI__Private_8h_ae11ea27a413b4ed1aab22c11ee23245d} 
+\index{SPI\_Private.h@{SPI\_Private.h}!MOSI\_GROUP@{MOSI\_GROUP}}
+\index{MOSI\_GROUP@{MOSI\_GROUP}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{MOSI\_GROUP}{MOSI\_GROUP}}
+{\footnotesize\ttfamily \#define MOSI\+\_\+\+GROUP~\mbox{\hyperlink{DIO__Private_8h_ab2211668ae1f7909172f4d4e48d043c2}{GroupB}}}
+
+\Hypertarget{SPI__Private_8h_a11338fccf824b29757c2b23edb0f690f}\label{SPI__Private_8h_a11338fccf824b29757c2b23edb0f690f} 
+\index{SPI\_Private.h@{SPI\_Private.h}!MOSI\_PIN@{MOSI\_PIN}}
+\index{MOSI\_PIN@{MOSI\_PIN}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{MOSI\_PIN}{MOSI\_PIN}}
+{\footnotesize\ttfamily \#define MOSI\+\_\+\+PIN~\mbox{\hyperlink{DIO__Private_8h_ace14987760ea9b01a7ce6d947768e313}{PIN5}}}
+
+\Hypertarget{SPI__Private_8h_afcafc47f7a1ed262c743a48283fcbe5b}\label{SPI__Private_8h_afcafc47f7a1ed262c743a48283fcbe5b} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SCK\_GROUP@{SCK\_GROUP}}
+\index{SCK\_GROUP@{SCK\_GROUP}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SCK\_GROUP}{SCK\_GROUP}}
+{\footnotesize\ttfamily \#define SCK\+\_\+\+GROUP~\mbox{\hyperlink{DIO__Private_8h_ab2211668ae1f7909172f4d4e48d043c2}{GroupB}}}
+
+\Hypertarget{SPI__Private_8h_a01153037fca70cfac03c8d67f17d766a}\label{SPI__Private_8h_a01153037fca70cfac03c8d67f17d766a} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SCK\_PIN@{SCK\_PIN}}
+\index{SCK\_PIN@{SCK\_PIN}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SCK\_PIN}{SCK\_PIN}}
+{\footnotesize\ttfamily \#define SCK\+\_\+\+PIN~\mbox{\hyperlink{DIO__Private_8h_af4d3f80395907ab4999773479f1aecf1}{PIN7}}}
+
+\Hypertarget{SPI__Private_8h_a45db79ee1d43bc6e2e107368549d8f4e}\label{SPI__Private_8h_a45db79ee1d43bc6e2e107368549d8f4e} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPCR\_REG@{SPCR\_REG}}
+\index{SPCR\_REG@{SPCR\_REG}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPCR\_REG}{SPCR\_REG}}
+{\footnotesize\ttfamily \#define SPCR\+\_\+\+REG~(\texorpdfstring{$\ast$}{*}(volatile uint8\+\_\+t\texorpdfstring{$\ast$}{*})0x2D)}
+
+
+
+SPI Control Register. 
+
+\Hypertarget{SPI__Private_8h_a254b6294d8aea38d2d59c5b08b546d95}\label{SPI__Private_8h_a254b6294d8aea38d2d59c5b08b546d95} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPDR\_REG@{SPDR\_REG}}
+\index{SPDR\_REG@{SPDR\_REG}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPDR\_REG}{SPDR\_REG}}
+{\footnotesize\ttfamily \#define SPDR\+\_\+\+REG~(\texorpdfstring{$\ast$}{*}(volatile uint8\+\_\+t\texorpdfstring{$\ast$}{*})0x2F)}
+
+
+
+SPI Data Register. 
+
+\Hypertarget{SPI__Private_8h_a44db3667ce8d5b35d7ce42443e2e4ccb}\label{SPI__Private_8h_a44db3667ce8d5b35d7ce42443e2e4ccb} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPSR\_REG@{SPSR\_REG}}
+\index{SPSR\_REG@{SPSR\_REG}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPSR\_REG}{SPSR\_REG}}
+{\footnotesize\ttfamily \#define SPSR\+\_\+\+REG~(\texorpdfstring{$\ast$}{*}(volatile uint8\+\_\+t\texorpdfstring{$\ast$}{*})0x2E)}
+
+
+
+SPI Status Register. 
+
+\Hypertarget{SPI__Private_8h_a3c2ed3a5959b031c2bd0d8f9feabe2d3}\label{SPI__Private_8h_a3c2ed3a5959b031c2bd0d8f9feabe2d3} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SS\_GROUP@{SS\_GROUP}}
+\index{SS\_GROUP@{SS\_GROUP}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SS\_GROUP}{SS\_GROUP}}
+{\footnotesize\ttfamily \#define SS\+\_\+\+GROUP~\mbox{\hyperlink{DIO__Private_8h_ab2211668ae1f7909172f4d4e48d043c2}{GroupB}}}
+
+
+
+SPI pin mapping (as per ATmega32 hardware). 
+
+\Hypertarget{SPI__Private_8h_a86fac98c9b4c98a3e50fc45440878391}\label{SPI__Private_8h_a86fac98c9b4c98a3e50fc45440878391} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SS\_PIN@{SS\_PIN}}
+\index{SS\_PIN@{SS\_PIN}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SS\_PIN}{SS\_PIN}}
+{\footnotesize\ttfamily \#define SS\+\_\+\+PIN~\mbox{\hyperlink{DIO__Private_8h_aa3a35a41c5285c9c632aa626ac6761cb}{PIN4}}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21b}\label{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21b} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPCR\_Bits\_t@{SPCR\_Bits\_t}}
+\index{SPCR\_Bits\_t@{SPCR\_Bits\_t}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPCR\_Bits\_t}{SPCR\_Bits\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21b}{SPCR\+\_\+\+Bits\+\_\+t}}}
+
+
+
+Bit positions for the SPI Control Register (SPCR). 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPCR0\_Bit0@{SPCR0\_Bit0}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPCR0\_Bit0@{SPCR0\_Bit0}}}\Hypertarget{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba90290b81377114b168c18f5f3f40f2ee}\label{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba90290b81377114b168c18f5f3f40f2ee} 
+SPCR0\+\_\+\+Bit0&Clock rate bit 0. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPCR1\_Bit1@{SPCR1\_Bit1}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPCR1\_Bit1@{SPCR1\_Bit1}}}\Hypertarget{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baa0099a65ec9650cf3d6cc93e0b6addaa}\label{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baa0099a65ec9650cf3d6cc93e0b6addaa} 
+SPCR1\+\_\+\+Bit1&Clock rate bit 1. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CPHA\_Bit2@{CPHA\_Bit2}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!CPHA\_Bit2@{CPHA\_Bit2}}}\Hypertarget{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21bae65750b8c6a2c88eb80e694d29c0c984}\label{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21bae65750b8c6a2c88eb80e694d29c0c984} 
+CPHA\+\_\+\+Bit2&Clock phase select. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CPOL\_Bit3@{CPOL\_Bit3}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!CPOL\_Bit3@{CPOL\_Bit3}}}\Hypertarget{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba17a79abdbddf73cb8f9d9fcbd7f2de5a}\label{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba17a79abdbddf73cb8f9d9fcbd7f2de5a} 
+CPOL\+\_\+\+Bit3&Clock polarity select. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTR\_Bit4@{MSTR\_Bit4}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!MSTR\_Bit4@{MSTR\_Bit4}}}\Hypertarget{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baf084cdf8caf67b64eb286f6e3b28b6a1}\label{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baf084cdf8caf67b64eb286f6e3b28b6a1} 
+MSTR\+\_\+\+Bit4&Master/\+Slave mode select. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DORD\_Bit5@{DORD\_Bit5}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!DORD\_Bit5@{DORD\_Bit5}}}\Hypertarget{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba1890499c120325fa4afe918a278fa9ed}\label{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba1890499c120325fa4afe918a278fa9ed} 
+DORD\+\_\+\+Bit5&Data order (MSB/\+LSB first). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPE\_Bit6@{SPE\_Bit6}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPE\_Bit6@{SPE\_Bit6}}}\Hypertarget{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba492b4fcb07a25ca82a872e875c3712bb}\label{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba492b4fcb07a25ca82a872e875c3712bb} 
+SPE\+\_\+\+Bit6&SPI enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPIE\_Bit7@{SPIE\_Bit7}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPIE\_Bit7@{SPIE\_Bit7}}}\Hypertarget{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baa731e1e11275c49253d744b27ed18364}\label{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baa731e1e11275c49253d744b27ed18364} 
+SPIE\+\_\+\+Bit7&SPI interrupt enable. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498}\label{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_ClockMode\_t@{SPI\_ClockMode\_t}}
+\index{SPI\_ClockMode\_t@{SPI\_ClockMode\_t}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_ClockMode\_t}{SPI\_ClockMode\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498}{SPI\+\_\+\+Clock\+Mode\+\_\+t}}}
+
+
+
+Clock polarity and phase configuration (SPI Modes 0–3). 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_Mode0@{SPI\_Mode0}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_Mode0@{SPI\_Mode0}}}\Hypertarget{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a2c0f658aaa47794a69ab96fcce520a08}\label{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a2c0f658aaa47794a69ab96fcce520a08} 
+SPI\+\_\+\+Mode0&CPOL=0, CPHA=0 (Idle Low, Sample Leading). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_Mode1@{SPI\_Mode1}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_Mode1@{SPI\_Mode1}}}\Hypertarget{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498acaa9b7baaeee5c99982837d5dd1a4a21}\label{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498acaa9b7baaeee5c99982837d5dd1a4a21} 
+SPI\+\_\+\+Mode1&CPOL=0, CPHA=1 (Idle Low, Sample Trailing). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_Mode2@{SPI\_Mode2}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_Mode2@{SPI\_Mode2}}}\Hypertarget{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a5f08ad50ed799ce5722ff5229da356a4}\label{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a5f08ad50ed799ce5722ff5229da356a4} 
+SPI\+\_\+\+Mode2&CPOL=1, CPHA=0 (Idle High, Sample Leading). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_Mode3@{SPI\_Mode3}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_Mode3@{SPI\_Mode3}}}\Hypertarget{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a5af761d85c00c257cd7eb7ec0ae09a04}\label{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a5af761d85c00c257cd7eb7ec0ae09a04} 
+SPI\+\_\+\+Mode3&CPOL=1, CPHA=1 (Idle High, Sample Trailing). \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6d}\label{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6d} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_ClockRate\_t@{SPI\_ClockRate\_t}}
+\index{SPI\_ClockRate\_t@{SPI\_ClockRate\_t}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_ClockRate\_t}{SPI\_ClockRate\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6d}{SPI\+\_\+\+Clock\+Rate\+\_\+t}}}
+
+
+
+Clock prescaler selection. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F\_CPU\_4@{F\_CPU\_4}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!F\_CPU\_4@{F\_CPU\_4}}}\Hypertarget{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6daf575a9efb8eb08952a8e86bae10fe6f4}\label{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6daf575a9efb8eb08952a8e86bae10fe6f4} 
+F\+\_\+\+CPU\+\_\+4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F\_CPU\_16@{F\_CPU\_16}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!F\_CPU\_16@{F\_CPU\_16}}}\Hypertarget{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da41108b7b1632084e94b8ddcea0fa7137}\label{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da41108b7b1632084e94b8ddcea0fa7137} 
+F\+\_\+\+CPU\+\_\+16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F\_CPU\_64@{F\_CPU\_64}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!F\_CPU\_64@{F\_CPU\_64}}}\Hypertarget{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dab1d3cbae6653cd64639cf51e75da0502}\label{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dab1d3cbae6653cd64639cf51e75da0502} 
+F\+\_\+\+CPU\+\_\+64&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F\_CPU\_128@{F\_CPU\_128}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!F\_CPU\_128@{F\_CPU\_128}}}\Hypertarget{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da64a2bc87a8f604c636796e8f3521e76e}\label{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da64a2bc87a8f604c636796e8f3521e76e} 
+F\+\_\+\+CPU\+\_\+128&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F\_CPU\_2@{F\_CPU\_2}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!F\_CPU\_2@{F\_CPU\_2}}}\Hypertarget{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dad029b58bdd0dac5568cd3e67389f716e}\label{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dad029b58bdd0dac5568cd3e67389f716e} 
+F\+\_\+\+CPU\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F\_CPU\_8@{F\_CPU\_8}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!F\_CPU\_8@{F\_CPU\_8}}}\Hypertarget{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dac0cd58472d0a161dc569b1b3dcbb75d2}\label{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dac0cd58472d0a161dc569b1b3dcbb75d2} 
+F\+\_\+\+CPU\+\_\+8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F\_CPU\_32@{F\_CPU\_32}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!F\_CPU\_32@{F\_CPU\_32}}}\Hypertarget{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da81ed19e991e568d9b9e368adac0feb3d}\label{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da81ed19e991e568d9b9e368adac0feb3d} 
+F\+\_\+\+CPU\+\_\+32&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6b}\label{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6b} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_DataOrder\_t@{SPI\_DataOrder\_t}}
+\index{SPI\_DataOrder\_t@{SPI\_DataOrder\_t}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_DataOrder\_t}{SPI\_DataOrder\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6b}{SPI\+\_\+\+Data\+Order\+\_\+t}}}
+
+
+
+Selects MSB-\/first or LSB-\/first data order. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSB\_First@{MSB\_First}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!MSB\_First@{MSB\_First}}}\Hypertarget{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6ba12776579bf58c1f8d4b45bebe48b5019}\label{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6ba12776579bf58c1f8d4b45bebe48b5019} 
+MSB\+\_\+\+First&Most Significant Bit first. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LSB\_First@{LSB\_First}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!LSB\_First@{LSB\_First}}}\Hypertarget{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6ba595eb2ff7fd8a2e33f1a264794e8fbf4}\label{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6ba595eb2ff7fd8a2e33f1a264794e8fbf4} 
+LSB\+\_\+\+First&Least Significant Bit first. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2}\label{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_Interrupt\_t@{SPI\_Interrupt\_t}}
+\index{SPI\_Interrupt\_t@{SPI\_Interrupt\_t}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_Interrupt\_t}{SPI\_Interrupt\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2}{SPI\+\_\+\+Interrupt\+\_\+t}}}
+
+
+
+Enable or disable SPI interrupt functionality. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Disable\_SPI\_Interrupt@{Disable\_SPI\_Interrupt}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!Disable\_SPI\_Interrupt@{Disable\_SPI\_Interrupt}}}\Hypertarget{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2ab06d5ee626cbabb6a75b94aa749cb038}\label{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2ab06d5ee626cbabb6a75b94aa749cb038} 
+Disable\+\_\+\+SPI\+\_\+\+Interrupt&Disable interrupt. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Enable\_SPI\_Interrupt@{Enable\_SPI\_Interrupt}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!Enable\_SPI\_Interrupt@{Enable\_SPI\_Interrupt}}}\Hypertarget{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2abfad65376f434412b5a4a90e718c0a4c}\label{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2abfad65376f434412b5a4a90e718c0a4c} 
+Enable\+\_\+\+SPI\+\_\+\+Interrupt&Enable interrupt. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610d}\label{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610d} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_Mode\_t@{SPI\_Mode\_t}}
+\index{SPI\_Mode\_t@{SPI\_Mode\_t}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_Mode\_t}{SPI\_Mode\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610d}{SPI\+\_\+\+Mode\+\_\+t}}}
+
+
+
+Selects SPI operating mode (Master/\+Slave). 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Slave\_Mode@{Slave\_Mode}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!Slave\_Mode@{Slave\_Mode}}}\Hypertarget{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610da5005ea26b83625dced9072a237a315ab}\label{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610da5005ea26b83625dced9072a237a315ab} 
+Slave\+\_\+\+Mode&SPI operates as Slave. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Master\_Mode@{Master\_Mode}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!Master\_Mode@{Master\_Mode}}}\Hypertarget{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610daeb85d5f51f7628f0c731332722c81625}\label{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610daeb85d5f51f7628f0c731332722c81625} 
+Master\+\_\+\+Mode&SPI operates as Master. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaff}\label{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaff} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_State\_t@{SPI\_State\_t}}
+\index{SPI\_State\_t@{SPI\_State\_t}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_State\_t}{SPI\_State\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaff}{SPI\+\_\+\+State\+\_\+t}}}
+
+
+
+Represents the internal SPI driver state. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_State\_Idle@{SPI\_State\_Idle}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_State\_Idle@{SPI\_State\_Idle}}}\Hypertarget{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaffa2bd994f65055168349dca121498cf257}\label{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaffa2bd994f65055168349dca121498cf257} 
+SPI\+\_\+\+State\+\_\+\+Idle&No transmission is active. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_State\_Busy@{SPI\_State\_Busy}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPI\_State\_Busy@{SPI\_State\_Busy}}}\Hypertarget{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaffa943e3a14ff4217f007a7142a180ba676}\label{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaffa943e3a14ff4217f007a7142a180ba676} 
+SPI\+\_\+\+State\+\_\+\+Busy&SPI is currently transmitting or receiving. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6}\label{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6} 
+\index{SPI\_Private.h@{SPI\_Private.h}!SPSR\_Bits\_t@{SPSR\_Bits\_t}}
+\index{SPSR\_Bits\_t@{SPSR\_Bits\_t}!SPI\_Private.h@{SPI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{SPSR\_Bits\_t}{SPSR\_Bits\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6}{SPSR\+\_\+\+Bits\+\_\+t}}}
+
+
+
+Bit positions for the SPI Status Register (SPSR). 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI2x\_Bit0@{SPI2x\_Bit0}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPI2x\_Bit0@{SPI2x\_Bit0}}}\Hypertarget{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6aa57a3726d960a0afa89a85230ac285e8}\label{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6aa57a3726d960a0afa89a85230ac285e8} 
+SPI2x\+\_\+\+Bit0&Double SPI speed. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WCOL\_Bit6@{WCOL\_Bit6}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!WCOL\_Bit6@{WCOL\_Bit6}}}\Hypertarget{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6a352d0cc93162c63d428667a24d33c48e}\label{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6a352d0cc93162c63d428667a24d33c48e} 
+WCOL\+\_\+\+Bit6&Write collision flag. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPIF\_Bit7@{SPIF\_Bit7}!SPI\_Private.h@{SPI\_Private.h}}\index{SPI\_Private.h@{SPI\_Private.h}!SPIF\_Bit7@{SPIF\_Bit7}}}\Hypertarget{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6a83d76ff732d8e1b8255327a8904bfe2b}\label{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6a83d76ff732d8e1b8255327a8904bfe2b} 
+SPIF\+\_\+\+Bit7&SPI interrupt flag. \\
+\hline
+
+\end{DoxyEnumFields}

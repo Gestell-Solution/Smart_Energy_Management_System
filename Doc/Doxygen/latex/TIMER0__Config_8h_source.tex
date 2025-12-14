@@ -1,0 +1,35 @@
+\doxysection{TIMER0\+\_\+\+Config.\+h}
+\hypertarget{TIMER0__Config_8h_source}{}\label{TIMER0__Config_8h_source}\index{Mcal/Timer0/TIMER0\_Config.h@{Mcal/Timer0/TIMER0\_Config.h}}
+\mbox{\hyperlink{TIMER0__Config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ \_TIMER0\_CONFIG\_H\_}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ \_TIMER0\_CONFIG\_H\_}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}../../Common/Macros.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}../Atmega32RegistersAddress.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{TIMER0__Private_8h}{TIMER0\_Private.h}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}../../Common/ProjectCfg.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ CompareMatch\_InterruptEnable\ SetBit(TIMSK\_Reg,\ OCIE0\_Bit)}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ Timer0\_Prescaller\ T0\_ClkPrescalling\_64}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ Timer0\_PrescallerValue\ 64}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ Timer0\_WaveGenMode\ T0\_CTC}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ Timer0\_CompareOutputMode\ T0\_NormalPort}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ Timer0\_Resoultion\ T0\_MilliSecond}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ IsCOM\_FlagSet\ GetBit(TIFR\_Reg,\ OCF0\_Bit)}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ T0\_ClkTime\ ((float)Timer0\_PrescallerValue\ /\ F\_CPU)}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ CompareMatchValue\ ((T0\_MilliSecond\ /\ ((T0\_ClkTime)\ *\ T0\_NUMBER\_OF\_CTC))\ )\ -\/1}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ T0\_ScheduledTasksNum\ 3}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{comment}{//\ \#define\ T0\_ScheduledTasksDefinintions\ \ \{\};}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,92 @@
+\chapter{Smart Energy Management System – Calibration Guide}
+\hypertarget{md_Doc_2CALIBRATION}{}\label{md_Doc_2CALIBRATION}\index{Smart Energy Management System – Calibration Guide@{Smart Energy Management System – Calibration Guide}}
+\label{md_Doc_2CALIBRATION_autotoc_md3175}%
+\Hypertarget{md_Doc_2CALIBRATION_autotoc_md3175}%
+ This document explains how to calibrate the {\bfseries{ACS712 current sensor}} and the {\bfseries{voltage divider circuit}} to ensure accurate measurements.
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2CALIBRATION_autotoc_md3177}{}\doxysection{\texorpdfstring{1. ACS712 Current Sensor Calibration}{1. ACS712 Current Sensor Calibration}}\label{md_Doc_2CALIBRATION_autotoc_md3177}
+\hypertarget{md_Doc_2CALIBRATION_autotoc_md3178}{}\doxysubsection{\texorpdfstring{1.\+1 Zero-\/\+Current Offset Calibration}{1.1 Zero-Current Offset Calibration}}\label{md_Doc_2CALIBRATION_autotoc_md3178}
+
+\begin{DoxyItemize}
+\item The ACS712 output at {\bfseries{0A}} is ideally {\bfseries{Vcc/2}} (≈ 2.\+5V at 5V supply). ~\newline
+
+\item Due to manufacturing tolerances, the actual zero-\/current voltage may vary. ~\newline
+
+\item {\bfseries{Procedure\+:}}
+\begin{DoxyEnumerate}
+\item Power up the system with {\bfseries{no load connected}}.
+\item Read multiple ADC samples from the ACS712 input (e.\+g., 100 samples).
+\item Compute the average value → this is the {\bfseries{offset}}.
+\item Store this offset in firmware ({\ttfamily offset\+\_\+adc\+\_\+value}) and subtract it from every measurement.
+\end{DoxyEnumerate}
+\end{DoxyItemize}\hypertarget{md_Doc_2CALIBRATION_autotoc_md3179}{}\doxysubsection{\texorpdfstring{1.\+2 Sensitivity Calibration}{1.2 Sensitivity Calibration}}\label{md_Doc_2CALIBRATION_autotoc_md3179}
+
+\begin{DoxyItemize}
+\item Datasheet sensitivity for ACS712-\/30A = {\bfseries{66 m\+V/A}}. ~\newline
+
+\item Actual sensitivity may vary. ~\newline
+
+\item {\bfseries{Procedure\+:}}
+\begin{DoxyEnumerate}
+\item Connect a known resistive load (e.\+g., a heater or incandescent bulb) with a {\bfseries{known current}} (measured by a calibrated multimeter).
+\item Record the ADC readings and calculate the measured current.
+\item Compare with the multimeter value.
+\item Adjust the {\bfseries{scaling factor}} in firmware until the readings match.
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2CALIBRATION_autotoc_md3181}{}\doxysection{\texorpdfstring{2. Voltage Divider Calibration}{2. Voltage Divider Calibration}}\label{md_Doc_2CALIBRATION_autotoc_md3181}
+\hypertarget{md_Doc_2CALIBRATION_autotoc_md3182}{}\doxysubsection{\texorpdfstring{2.\+1 Divider Design}{2.1 Divider Design}}\label{md_Doc_2CALIBRATION_autotoc_md3182}
+
+\begin{DoxyItemize}
+\item Voltage divider reduces {\bfseries{220VAC RMS (≈311V peak)}} to a safe ADC input range (\texorpdfstring{$<$}{<}5V). ~\newline
+
+\item Use {\bfseries{high-\/voltage resistors}} with proper power rating. ~\newline
+
+\item Example\+: ~\newline
+
+\begin{DoxyItemize}
+\item R1 = 330kΩ, R2 = 4.\+7kΩ → Scale factor ≈ 70\+:1. ~\newline
+
+\item Output voltage at 220VAC RMS ≈ 3.\+14V peak (safe for 5V ADC).
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_Doc_2CALIBRATION_autotoc_md3183}{}\doxysubsection{\texorpdfstring{2.\+2 Calibration Procedure}{2.2 Calibration Procedure}}\label{md_Doc_2CALIBRATION_autotoc_md3183}
+
+\begin{DoxyEnumerate}
+\item Apply a known AC mains voltage (e.\+g., 220VAC measured with a multimeter). ~\newline
+
+\item Capture multiple ADC samples from the voltage divider. ~\newline
+
+\item Calculate RMS voltage using firmware. ~\newline
+
+\item Compare firmware value with multimeter reading. ~\newline
+
+\item Adjust the {\bfseries{scaling factor}} in firmware ({\ttfamily V\+\_\+\+SCALE}) until the two values match.
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2CALIBRATION_autotoc_md3185}{}\doxysection{\texorpdfstring{3. Recommended Calibration Steps for the Team}{3. Recommended Calibration Steps for the Team}}\label{md_Doc_2CALIBRATION_autotoc_md3185}
+
+\begin{DoxyEnumerate}
+\item Perform {\bfseries{offset calibration}} for ACS712 on every power-\/up (auto-\/calibration). ~\newline
+
+\item Perform {\bfseries{sensitivity calibration}} once and store the factor in code or EEPROM. ~\newline
+
+\item Perform {\bfseries{voltage calibration}} once and confirm with at least two different AC levels (e.\+g., 200VAC and 240VAC). ~\newline
+
+\item Document the final scaling factors in the code for reproducibility.
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Doc_2CALIBRATION_autotoc_md3187}{}\doxysection{\texorpdfstring{4. Notes}{4. Notes}}\label{md_Doc_2CALIBRATION_autotoc_md3187}
+
+\begin{DoxyItemize}
+\item Always use isolation equipment when dealing with mains voltage. ~\newline
+
+\item Use a calibrated multimeter as the reference for both current and voltage calibration. ~\newline
+
+\item Repeat calibration if the hardware is changed (different sensor, new resistors, etc.). ~\newline
+ 
+\end{DoxyItemize}

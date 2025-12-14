@@ -1,0 +1,26 @@
+var namespaceNapi_1_1details =
+[
+    [ "AccessorCallbackData", "structNapi_1_1details_1_1AccessorCallbackData.html", "structNapi_1_1details_1_1AccessorCallbackData" ],
+    [ "CallbackData", "structNapi_1_1details_1_1CallbackData.html", "structNapi_1_1details_1_1CallbackData" ],
+    [ "CallbackData< Callable, void >", "structNapi_1_1details_1_1CallbackData_3_01Callable_00_01void_01_4.html", "structNapi_1_1details_1_1CallbackData_3_01Callable_00_01void_01_4" ],
+    [ "can_make_string", "structNapi_1_1details_1_1can__make__string.html", null ],
+    [ "disjunction", "structNapi_1_1details_1_1disjunction.html", null ],
+    [ "disjunction< B >", "structNapi_1_1details_1_1disjunction_3_01B_01_4.html", null ],
+    [ "disjunction< B, Bs... >", "structNapi_1_1details_1_1disjunction_3_01B_00_01Bs_8_8_8_01_4.html", null ],
+    [ "FinalizeData", "structNapi_1_1details_1_1FinalizeData.html", "structNapi_1_1details_1_1FinalizeData" ],
+    [ "vf_fallback", "structNapi_1_1details_1_1vf__fallback.html", "structNapi_1_1details_1_1vf__fallback" ],
+    [ "vf_number", "structNapi_1_1details_1_1vf__number.html", "structNapi_1_1details_1_1vf__number" ],
+    [ "vf_number< bool >", "structNapi_1_1details_1_1vf__number_3_01bool_01_4.html", "structNapi_1_1details_1_1vf__number_3_01bool_01_4" ],
+    [ "vf_utf16_charp", "structNapi_1_1details_1_1vf__utf16__charp.html", "structNapi_1_1details_1_1vf__utf16__charp" ],
+    [ "vf_utf16_string", "structNapi_1_1details_1_1vf__utf16__string.html", "structNapi_1_1details_1_1vf__utf16__string" ],
+    [ "vf_utf8_charp", "structNapi_1_1details_1_1vf__utf8__charp.html", "structNapi_1_1details_1_1vf__utf8__charp" ],
+    [ "vf_utf8_string", "structNapi_1_1details_1_1vf__utf8__string.html", "structNapi_1_1details_1_1vf__utf8__string" ],
+    [ "AttachData", "namespaceNapi_1_1details.html#ae8d3b8bf05a5a55f5cdf2104ee095b02", null ],
+    [ "TemplatedCallback", "namespaceNapi_1_1details.html#a32d741b379db2e6e3ac8dbe1d5fb2968", null ],
+    [ "TemplatedInstanceCallback", "namespaceNapi_1_1details.html#af616a966dd94b3cb1272bc7864623eba", null ],
+    [ "TemplatedInstanceVoidCallback", "namespaceNapi_1_1details.html#aa75f927fdfd3fcb5ca56c8fdc83b3017", null ],
+    [ "TemplatedVoidCallback", "namespaceNapi_1_1details.html#a17cfac33705c623011cfd42ba52de380", null ],
+    [ "WrapCallback", "namespaceNapi_1_1details.html#ad7dfc06e482555ea99ae09b2e55bc79d", null ],
+    [ "WrapVoidCallback", "namespaceNapi_1_1details.html#a3b92109504231e15075d3c7d93bfc8bb", null ],
+    [ "napi_no_external_buffers_allowed", "namespaceNapi_1_1details.html#a176173100099bf0be393d0c388c0b8cf", null ]
+];

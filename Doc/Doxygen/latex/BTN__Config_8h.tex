@@ -1,0 +1,99 @@
+\doxysection{Hal/\+Push\+Button/\+BTN\+\_\+\+Config.h File Reference}
+\hypertarget{BTN__Config_8h}{}\label{BTN__Config_8h}\index{Hal/PushButton/BTN\_Config.h@{Hal/PushButton/BTN\_Config.h}}
+
+
+This file contains Config for Push Button Module. ~\newline
+  
+
+
+{\ttfamily \#include "{}../../\+Mcal/\+EXTI/\+EXTI\+\_\+\+Private.\+h"{}}\newline
+Include dependency graph for BTN\+\_\+\+Config.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{BTN__Config_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{BTN__Config_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{BTN__Config_8h_a9a0ef1e200a29c3e7742468a021faee9}{BTN\+\_\+\+Sense\+\_\+\+Control}}~\mbox{\hyperlink{EXTI__Private_8h_a32a0eb2d721e43a5cea337dd02c1878f}{EXT\+\_\+\+FALLING\+\_\+\+EDGE}}
+\begin{DoxyCompactList}\small\item\em Defines the EXTI trigger mode for button input (PD2 → EXTI0). \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{BTN__Config_8h_a0bb404398f813b41eb2dd2e8ef010402}{BTN\+\_\+\+Debounce\+Enable}}~\mbox{\hyperlink{group__Common_gad8d4471f3f3d14ff352de34a29877b58}{Enable}}
+\begin{DoxyCompactList}\small\item\em Enables or disables software debounce filtering. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{BTN__Config_8h_aac5133118c57d0c5a9a6fbf877d60f06}{BTN\+\_\+\+Debounce\+Delay}}~50
+\begin{DoxyCompactList}\small\item\em Defines the debounce delay time in milliseconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains Config for Push Button Module. ~\newline
+ 
+
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer \+: Mohamed Abdelgaber (\href{mailto:mohamedabdelgaber247@gmail.com}{\texttt{ mohamedabdelgaber247@gmail.\+com}}) 
+
+Reviewer \+: Eng -\/Mohamed Diaa ( ) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/19 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{BTN__Config_8h_aac5133118c57d0c5a9a6fbf877d60f06}\label{BTN__Config_8h_aac5133118c57d0c5a9a6fbf877d60f06} 
+\index{BTN\_Config.h@{BTN\_Config.h}!BTN\_DebounceDelay@{BTN\_DebounceDelay}}
+\index{BTN\_DebounceDelay@{BTN\_DebounceDelay}!BTN\_Config.h@{BTN\_Config.h}}
+\doxysubsubsection{\texorpdfstring{BTN\_DebounceDelay}{BTN\_DebounceDelay}}
+{\footnotesize\ttfamily \#define BTN\+\_\+\+Debounce\+Delay~50}
+
+
+
+Defines the debounce delay time in milliseconds. 
+
+\begin{DoxyNote}{Note}
+Used only if {\ttfamily BTN\+\_\+\+Debounce\+Enable} is set to {\ttfamily Enable}. 
+\end{DoxyNote}
+\Hypertarget{BTN__Config_8h_a0bb404398f813b41eb2dd2e8ef010402}\label{BTN__Config_8h_a0bb404398f813b41eb2dd2e8ef010402} 
+\index{BTN\_Config.h@{BTN\_Config.h}!BTN\_DebounceEnable@{BTN\_DebounceEnable}}
+\index{BTN\_DebounceEnable@{BTN\_DebounceEnable}!BTN\_Config.h@{BTN\_Config.h}}
+\doxysubsubsection{\texorpdfstring{BTN\_DebounceEnable}{BTN\_DebounceEnable}}
+{\footnotesize\ttfamily \#define BTN\+\_\+\+Debounce\+Enable~\mbox{\hyperlink{group__Common_gad8d4471f3f3d14ff352de34a29877b58}{Enable}}}
+
+
+
+Enables or disables software debounce filtering. 
+
+Mechanical buttons can generate multiple interrupts due to contact vibration. ~\newline
+ Debouncing adds a short delay to filter false triggers.
+
+{\bfseries{Options\+:}}
+\begin{DoxyItemize}
+\item {\ttfamily Enable} → Activate software debounce. ~\newline
+
+\item {\ttfamily Disable} → No debounce filtering. 
+\end{DoxyItemize}\Hypertarget{BTN__Config_8h_a9a0ef1e200a29c3e7742468a021faee9}\label{BTN__Config_8h_a9a0ef1e200a29c3e7742468a021faee9} 
+\index{BTN\_Config.h@{BTN\_Config.h}!BTN\_Sense\_Control@{BTN\_Sense\_Control}}
+\index{BTN\_Sense\_Control@{BTN\_Sense\_Control}!BTN\_Config.h@{BTN\_Config.h}}
+\doxysubsubsection{\texorpdfstring{BTN\_Sense\_Control}{BTN\_Sense\_Control}}
+{\footnotesize\ttfamily \#define BTN\+\_\+\+Sense\+\_\+\+Control~\mbox{\hyperlink{EXTI__Private_8h_a32a0eb2d721e43a5cea337dd02c1878f}{EXT\+\_\+\+FALLING\+\_\+\+EDGE}}}
+
+
+
+Defines the EXTI trigger mode for button input (PD2 → EXTI0). 
+
+The button interrupt will trigger only on the falling edge. 

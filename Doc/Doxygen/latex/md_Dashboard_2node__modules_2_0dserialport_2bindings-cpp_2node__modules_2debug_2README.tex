@@ -1,0 +1,378 @@
+\chapter{debug}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README}{}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README}\index{debug@{debug}}
+\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md35}%
+\Hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md35}%
+\href{https://travis-ci.org/debug-js/debug}{\texttt{ }} \href{https://coveralls.io/github/debug-js/debug?branch=master}{\texttt{ }} \href{https://visionmedia-community-slackin.now.sh/}{\texttt{ }} !\mbox{[}Open\+Collective\mbox{]}(https\+://opencollective.com/debug/backers/badge.svg) !\mbox{[}Open\+Collective\mbox{]}(https\+://opencollective.com/debug/sponsors/badge.svg)
+
+
+
+A tiny Java\+Script debugging utility modelled after Node.\+js core\textquotesingle{}s debugging technique. Works in Node.\+js and web browsers.\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md36}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md36}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ debug}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md37}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md37}
+{\ttfamily debug} exposes a function; simply pass this function the name of your module, and it will return a decorated version of {\ttfamily console.\+error} for you to pass debug statements to. This will allow you to toggle the debug output for different parts of your module as well as the module as a whole.
+
+Example \href{./examples/node/app.js}{\texttt{ {\itshape app.\+js}}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ debug\ =\ require('debug')('http')}
+\DoxyCodeLine{\ \ ,\ http\ =\ require('http')}
+\DoxyCodeLine{\ \ ,\ name\ =\ 'My\ App';}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ fake\ app}
+\DoxyCodeLine{}
+\DoxyCodeLine{debug('booting\ \%o',\ name);}
+\DoxyCodeLine{}
+\DoxyCodeLine{http.createServer(function(req,\ res)\{}
+\DoxyCodeLine{\ \ debug(req.method\ +\ '\ '\ +\ req.url);}
+\DoxyCodeLine{\ \ res.end('hello\(\backslash\)n');}
+\DoxyCodeLine{\}).listen(3000,\ function()\{}
+\DoxyCodeLine{\ \ debug('listening');}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ fake\ worker\ of\ some\ kind}
+\DoxyCodeLine{}
+\DoxyCodeLine{require('./worker');}
+
+\end{DoxyCode}
+
+
+Example \href{./examples/node/worker.js}{\texttt{ {\itshape worker.\+js}}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ a\ =\ require('debug')('worker:a')}
+\DoxyCodeLine{\ \ ,\ b\ =\ require('debug')('worker:b');}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ work()\ \{}
+\DoxyCodeLine{\ \ a('doing\ lots\ of\ uninteresting\ work');}
+\DoxyCodeLine{\ \ setTimeout(work,\ Math.random()\ *\ 1000);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{work();}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ workb()\ \{}
+\DoxyCodeLine{\ \ b('doing\ some\ work');}
+\DoxyCodeLine{\ \ setTimeout(workb,\ Math.random()\ *\ 2000);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{workb();}
+
+\end{DoxyCode}
+
+
+The {\ttfamily DEBUG} environment variable is then used to enable these based on space or comma-\/delimited names.
+
+Here are some examples\+:
+
+  \hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md38}{}\doxysubsubsection{\texorpdfstring{Windows command prompt notes}{Windows command prompt notes}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md38}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md39}{}\doxyparagraph{\texorpdfstring{CMD}{CMD}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md39}
+On Windows the environment variable is set using the {\ttfamily set} command.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{set\ DEBUG=*,-\/not\_this}
+
+\end{DoxyCode}
+
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{set\ DEBUG=*\ \&\ node\ app.js}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md40}{}\doxyparagraph{\texorpdfstring{Power\+Shell (\+VS Code default)}{PowerShell (VS Code default)}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md40}
+Power\+Shell uses different syntax to set environment variables.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$env:DEBUG\ =\ "{}*,-\/not\_this"{}}
+
+\end{DoxyCode}
+
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$env:DEBUG='app';node\ app.js}
+
+\end{DoxyCode}
+
+
+Then, run the program to be debugged as usual.
+
+npm script example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{"{}windowsDebug"{}:\ "{}@powershell\ -\/Command\ \$env:DEBUG='*';node\ app.js"{},}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md41}{}\doxysection{\texorpdfstring{Namespace Colors}{Namespace Colors}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md41}
+Every debug instance has a color generated for it based on its namespace name. This helps when visually parsing the debug output to identify which debug instance a debug line belongs to.\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md42}{}\doxysubsubsection{\texorpdfstring{Node.\+js}{Node.js}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md42}
+In Node.\+js, colors are enabled when stderr is a TTY. You also {\itshape should} install the \href{https://npmjs.org/supports-color}{\texttt{ {\ttfamily supports-\/color}}} module alongside debug, otherwise debug will only use a small handful of basic colors.
+
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md43}{}\doxysubsubsection{\texorpdfstring{Web Browser}{Web Browser}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md43}
+Colors are also enabled on "{}\+Web Inspectors"{} that understand the {\ttfamily c} formatting option. These are Web\+Kit web inspectors, Firefox (\href{https://hacks.mozilla.org/2014/05/editable-box-model-multiple-selection-sublime-text-keys-much-more-firefox-developer-tools-episode-31/}{\texttt{ since version 31}}) and the Firebug plugin for Firefox (any version).
+
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md44}{}\doxysection{\texorpdfstring{Millisecond diff}{Millisecond diff}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md44}
+When actively developing an application it can be useful to see when the time spent between one {\ttfamily debug()} call and the next. Suppose for example you invoke {\ttfamily debug()} before requesting a resource, and after as well, the "{}+\+NNNms"{} will show you how much time was spent between calls.
+
+
+
+When stdout is not a TTY, {\ttfamily Date\#to\+ISOString()} is used, making it more useful for logging the debug information as shown below\+:
+
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md45}{}\doxysection{\texorpdfstring{Conventions}{Conventions}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md45}
+If you\textquotesingle{}re using this in one or more of your libraries, you {\itshape should} use the name of your library so that developers may toggle debugging as desired without guessing names. If you have more than one debuggers you {\itshape should} prefix them with your library name and use "{}\+:"{} to separate features. For example "{}body\+Parser"{} from Connect would then be "{}connect\+:body\+Parser"{}. If you append a "{}\texorpdfstring{$\ast$}{*}"{} to the end of your name, it will always be enabled regardless of the setting of the DEBUG environment variable. You can then use it for normal output as well as debug output.\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md46}{}\doxysection{\texorpdfstring{Wildcards}{Wildcards}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md46}
+The {\ttfamily \texorpdfstring{$\ast$}{*}} character may be used as a wildcard. Suppose for example your library has debuggers named "{}connect\+:body\+Parser"{}, "{}connect\+:compress"{}, "{}connect\+:session"{}, instead of listing all three with {\ttfamily DEBUG=connect\+:body\+Parser,connect\+:compress,connect\+:session}, you may simply do {\ttfamily DEBUG=connect\+:\texorpdfstring{$\ast$}{*}}, or to run everything using this module simply use {\ttfamily DEBUG=\texorpdfstring{$\ast$}{*}}.
+
+You can also exclude specific debuggers by prefixing them with a "{}-\/"{} character. For example, {\ttfamily DEBUG=\texorpdfstring{$\ast$}{*},-\/connect\+:\texorpdfstring{$\ast$}{*}} would include all debuggers except those starting with "{}connect\+:"{}.\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md47}{}\doxysection{\texorpdfstring{Environment Variables}{Environment Variables}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md47}
+When running through Node.\+js, you can set a few environment variables that will change the behavior of the debug logging\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Purpose    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Purpose    }\\\cline{1-2}
+\endhead
+{\ttfamily DEBUG}   &Enables/disables specific debugging namespaces.    \\\cline{1-2}
+{\ttfamily DEBUG\+\_\+\+HIDE\+\_\+\+DATE}   &Hide date from debug output (non-\/\+TTY).    \\\cline{1-2}
+{\ttfamily DEBUG\+\_\+\+COLORS}   &Whether or not to use colors in the debug output.    \\\cline{1-2}
+{\ttfamily DEBUG\+\_\+\+DEPTH}   &Object inspection depth.    \\\cline{1-2}
+{\ttfamily DEBUG\+\_\+\+SHOW\+\_\+\+HIDDEN}   &Shows hidden properties on inspected objects.   \\\cline{1-2}
+\end{longtabu}
+
+
+{\bfseries{Note\+:}} The environment variables beginning with {\ttfamily DEBUG\+\_\+} end up being converted into an Options object that gets used with {\ttfamily o}/{\ttfamily O} formatters. See the Node.\+js documentation for \href{https://nodejs.org/api/util.html\#util_util_inspect_object_options}{\texttt{ {\ttfamily util.\+inspect()}}} for the complete list.\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md48}{}\doxysection{\texorpdfstring{Formatters}{Formatters}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md48}
+Debug uses \href{https://wikipedia.org/wiki/Printf_format_string}{\texttt{ printf-\/style}} formatting. Below are the officially supported formatters\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Formatter   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Representation    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Formatter   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Representation    }\\\cline{1-2}
+\endhead
+{\ttfamily O}   &Pretty-\/print an Object on multiple lines.    \\\cline{1-2}
+{\ttfamily o}   &Pretty-\/print an Object all on a single line.    \\\cline{1-2}
+{\ttfamily s}   &String.    \\\cline{1-2}
+{\ttfamily d}   &Number (both integer and float).    \\\cline{1-2}
+{\ttfamily j}   &JSON. Replaced with the string \textquotesingle{}\mbox{[}Circular\mbox{]}\textquotesingle{} if the argument contains circular references.    \\\cline{1-2}
+{\ttfamily \%\%}   &Single percent sign (\textquotesingle{}\textquotesingle{}). This does not consume an argument.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md49}{}\doxysubsection{\texorpdfstring{Custom formatters}{Custom formatters}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md49}
+You can add custom formatters by extending the {\ttfamily debug.\+formatters} object. For example, if you wanted to add support for rendering a Buffer as hex with {\ttfamily h}, you could do something like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ createDebug\ =\ require('debug')}
+\DoxyCodeLine{createDebug.formatters.h\ =\ (v)\ =>\ \{}
+\DoxyCodeLine{\ \ return\ v.toString('hex')}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ …elsewhere}
+\DoxyCodeLine{const\ debug\ =\ createDebug('foo')}
+\DoxyCodeLine{debug('this\ is\ hex:\ \%h',\ new\ Buffer('hello\ world'))}
+\DoxyCodeLine{//\ \ \ foo\ this\ is\ hex:\ 68656c6c6f20776f726c6421\ +0ms}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md50}{}\doxysection{\texorpdfstring{Browser Support}{Browser Support}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md50}
+You can build a browser-\/ready script using \href{https://github.com/substack/node-browserify}{\texttt{ browserify}}, or just use the \href{https://wzrd.in/}{\texttt{ browserify-\/as-\/a-\/service}} \href{https://wzrd.in/standalone/debug@latest}{\texttt{ build}}, if you don\textquotesingle{}t want to build it yourself.
+
+Debug\textquotesingle{}s enable state is currently persisted by {\ttfamily local\+Storage}. Consider the situation shown below where you have {\ttfamily worker\+:a} and {\ttfamily worker\+:b}, and wish to debug both. You can enable this using {\ttfamily local\+Storage.\+debug}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{localStorage.debug\ =\ 'worker:*'}
+
+\end{DoxyCode}
+
+
+And then refresh the page.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{a\ =\ debug('worker:a');}
+\DoxyCodeLine{b\ =\ debug('worker:b');}
+\DoxyCodeLine{}
+\DoxyCodeLine{setInterval(function()\{}
+\DoxyCodeLine{\ \ a('doing\ some\ work');}
+\DoxyCodeLine{\},\ 1000);}
+\DoxyCodeLine{}
+\DoxyCodeLine{setInterval(function()\{}
+\DoxyCodeLine{\ \ b('doing\ some\ work');}
+\DoxyCodeLine{\},\ 1200);}
+
+\end{DoxyCode}
+
+
+In Chromium-\/based web browsers (e.\+g. Brave, Chrome, and Electron), the Java\+Script console will—by default—only show messages logged by {\ttfamily debug} if the "{}\+Verbose"{} log level is {\itshape enabled}.
+
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md51}{}\doxysection{\texorpdfstring{Output streams}{Output streams}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md51}
+By default {\ttfamily debug} will log to stderr, however this can be configured per-\/namespace by overriding the {\ttfamily log} method\+:
+
+Example \href{./examples/node/stdout.js}{\texttt{ {\itshape stdout.\+js}}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ debug\ =\ require('debug');}
+\DoxyCodeLine{var\ error\ =\ debug('app:error');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ by\ default\ stderr\ is\ used}
+\DoxyCodeLine{error('goes\ to\ stderr!');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ log\ =\ debug('app:log');}
+\DoxyCodeLine{//\ set\ this\ namespace\ to\ log\ via\ console.log}
+\DoxyCodeLine{log.log\ =\ console.log.bind(console);\ //\ don't\ forget\ to\ bind\ to\ console!}
+\DoxyCodeLine{log('goes\ to\ stdout');}
+\DoxyCodeLine{error('still\ goes\ to\ stderr!');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ set\ all\ output\ to\ go\ via\ console.info}
+\DoxyCodeLine{//\ overrides\ all\ per-\/namespace\ log\ settings}
+\DoxyCodeLine{debug.log\ =\ console.info.bind(console);}
+\DoxyCodeLine{error('now\ goes\ to\ stdout\ via\ console.info');}
+\DoxyCodeLine{log('still\ goes\ to\ stdout,\ but\ via\ console.info\ now');}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md52}{}\doxysection{\texorpdfstring{Extend}{Extend}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md52}
+You can simply extend debugger 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ log\ =\ require('debug')('auth');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//creates\ new\ debug\ instance\ with\ extended\ namespace}
+\DoxyCodeLine{const\ logSign\ =\ log.extend('sign');}
+\DoxyCodeLine{const\ logLogin\ =\ log.extend('login');}
+\DoxyCodeLine{}
+\DoxyCodeLine{log('hello');\ //\ auth\ hello}
+\DoxyCodeLine{logSign('hello');\ //auth:sign\ hello}
+\DoxyCodeLine{logLogin('hello');\ //auth:login\ hello}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md53}{}\doxysection{\texorpdfstring{Set dynamically}{Set dynamically}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md53}
+You can also enable debug dynamically by calling the {\ttfamily enable()} method \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{let\ debug\ =\ require('debug');}
+\DoxyCodeLine{}
+\DoxyCodeLine{console.log(1,\ debug.enabled('test'));}
+\DoxyCodeLine{}
+\DoxyCodeLine{debug.enable('test');}
+\DoxyCodeLine{console.log(2,\ debug.enabled('test'));}
+\DoxyCodeLine{}
+\DoxyCodeLine{debug.disable();}
+\DoxyCodeLine{console.log(3,\ debug.enabled('test'));}
+
+\end{DoxyCode}
+
+
+print \+: ~\newline
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1\ false}
+\DoxyCodeLine{2\ true}
+\DoxyCodeLine{3\ false}
+
+\end{DoxyCode}
+
+
+Usage \+: ~\newline
+ {\ttfamily enable(namespaces)} ~\newline
+ {\ttfamily namespaces} can include modes separated by a colon and wildcards.
+
+Note that calling {\ttfamily enable()} completely overrides previously set DEBUG variable \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ DEBUG=foo\ node\ -\/e\ 'var\ dbg\ =\ require("{}debug"{});\ dbg.enable("{}bar"{});\ console.log(dbg.enabled("{}foo"{}))'}
+\DoxyCodeLine{=>\ false}
+
+\end{DoxyCode}
+
+
+{\ttfamily disable()}
+
+Will disable all namespaces. The functions returns the namespaces currently enabled (and skipped). This can be useful if you want to disable debugging temporarily without knowing what was enabled to begin with.
+
+For example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{let\ debug\ =\ require('debug');}
+\DoxyCodeLine{debug.enable('foo:*,-\/foo:bar');}
+\DoxyCodeLine{let\ namespaces\ =\ debug.disable();}
+\DoxyCodeLine{debug.enable(namespaces);}
+
+\end{DoxyCode}
+
+
+Note\+: There is no guarantee that the string will be identical to the initial enable string, but semantically they will be identical.\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md54}{}\doxysection{\texorpdfstring{Checking whether a debug target is enabled}{Checking whether a debug target is enabled}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md54}
+After you\textquotesingle{}ve created a debug instance, you can determine whether or not it is enabled by checking the {\ttfamily enabled} property\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ debug\ =\ require('debug')('http');}
+\DoxyCodeLine{}
+\DoxyCodeLine{if\ (debug.enabled)\ \{}
+\DoxyCodeLine{\ \ //\ do\ stuff...}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+You can also manually toggle this property to force the debug instance to be enabled or disabled.\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md55}{}\doxysection{\texorpdfstring{Usage in child processes}{Usage in child processes}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md55}
+Due to the way {\ttfamily debug} detects if the output is a TTY or not, colors are not shown in child processes when {\ttfamily stderr} is piped. A solution is to pass the {\ttfamily DEBUG\+\_\+\+COLORS=1} environment variable to the child process. ~\newline
+ For example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{worker\ =\ fork(WORKER\_WRAP\_PATH,\ [workerPath],\ \{}
+\DoxyCodeLine{\ \ stdio:\ [}
+\DoxyCodeLine{\ \ \ \ /*\ stdin:\ */\ 0,}
+\DoxyCodeLine{\ \ \ \ /*\ stdout:\ */\ 'pipe',}
+\DoxyCodeLine{\ \ \ \ /*\ stderr:\ */\ 'pipe',}
+\DoxyCodeLine{\ \ \ \ 'ipc',}
+\DoxyCodeLine{\ \ ],}
+\DoxyCodeLine{\ \ env:\ Object.assign(\{\},\ process.env,\ \{}
+\DoxyCodeLine{\ \ \ \ DEBUG\_COLORS:\ 1\ //\ without\ this\ settings,\ colors\ won't\ be\ shown}
+\DoxyCodeLine{\ \ \}),}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{worker.stderr.pipe(process.stderr,\ \{\ end:\ false\ \});}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md56}{}\doxysection{\texorpdfstring{Authors}{Authors}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md56}
+
+\begin{DoxyItemize}
+\item TJ Holowaychuk
+\item Nathan Rajlich
+\item Andrew Rhyne
+\item Josh Junon
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md57}{}\doxysection{\texorpdfstring{Backers}{Backers}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md57}
+Support us with a monthly donation and help us continue our activities. \mbox{[}\href{https://opencollective.com/debug\#backer}{\texttt{ Become a backer}}\mbox{]}
+
+\href{https://opencollective.com/debug/backer/0/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/1/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/2/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/3/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/4/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/5/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/6/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/7/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/8/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/9/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/10/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/11/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/12/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/13/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/14/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/15/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/16/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/17/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/18/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/19/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/20/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/21/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/22/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/23/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/24/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/25/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/26/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/27/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/28/website}{\texttt{ }} \href{https://opencollective.com/debug/backer/29/website}{\texttt{ }}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md58}{}\doxysection{\texorpdfstring{Sponsors}{Sponsors}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md58}
+Become a sponsor and get your logo on our README on Github with a link to your site. \mbox{[}\href{https://opencollective.com/debug\#sponsor}{\texttt{ Become a sponsor}}\mbox{]}
+
+\href{https://opencollective.com/debug/sponsor/0/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/1/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/2/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/3/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/4/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/5/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/6/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/7/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/8/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/9/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/10/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/11/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/12/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/13/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/14/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/15/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/16/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/17/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/18/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/19/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/20/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/21/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/22/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/23/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/24/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/25/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/26/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/27/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/28/website}{\texttt{ }} \href{https://opencollective.com/debug/sponsor/29/website}{\texttt{ }}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md59}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2debug_2README_autotoc_md59}
+(The MIT License)
+
+Copyright (c) 2014-\/2017 TJ Holowaychuk \texorpdfstring{$<$}{<}\href{mailto:tj@vision-media.ca}{\texttt{ tj@vision-\/media.\+ca}}\texorpdfstring{$>$}{>} Copyright (c) 2018-\/2021 Josh Junon
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \textquotesingle{}Software\textquotesingle{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \textquotesingle{}AS IS\textquotesingle{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 

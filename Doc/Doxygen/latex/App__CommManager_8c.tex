@@ -1,0 +1,167 @@
+\doxysection{App/\+Communication\+Manager/\+App\+\_\+\+Comm\+Manager.c File Reference}
+\hypertarget{App__CommManager_8c}{}\label{App__CommManager_8c}\index{App/CommunicationManager/App\_CommManager.c@{App/CommunicationManager/App\_CommManager.c}}
+
+
+Implementation of the Communication Manager Module.  
+
+
+{\ttfamily \#include "{}App\+\_\+\+Comm\+Manager.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+Timer0/\+TIMER0\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../\+System\+\_\+\+Controller/\+System\+\_\+\+Controller\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Hal/\+HC05/\+HC05\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+DIO/\+DIO\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+UART/\+UART\+\_\+\+Rx.\+h"{}}\newline
+Include dependency graph for App\+\_\+\+Comm\+Manager.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{App__CommManager_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{App__CommManager_8c_a6070b75aace99d6db996d48d3c36d55c}{stringto\+Number}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}Frame)
+\begin{DoxyCompactList}\small\item\em Converts a string payload into a 16-\/bit integer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Communication__Manager_gacbe9519cd35b948524ef1a76e7ee0e22}{App\+\_\+\+Comm\+Manager\+\_\+\+Init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the Communication Manager. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Communication__Manager_ga4eeaf4f2d31541c712542c908a0ca84b}{App\+\_\+\+Comm\+Manager\+\_\+\+Task}} (void)
+\begin{DoxyCompactList}\small\item\em Periodic task for fetching data from the hardware buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Communication__Manager_ga49febd29b2c845b874f2234f42f5d70e}{App\+\_\+\+Comm\+Manager\+\_\+\+Send\+Frame}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t Command, uint16\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Sends a formatted frame via Bluetooth. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Communication__Manager_ga3b8ba07d2d655903a4281aaa85bb1e00}{App\+\_\+\+Comm\+Manager\+\_\+\+Receive\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em Parses received data from the circular buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Communication__Manager_ga3e651ff89e53e00bc7c782032dcea67f}{App\+\_\+\+Comm\+Manager\+\_\+\+Process\+Command}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}frame)
+\begin{DoxyCompactList}\small\item\em Executes actions based on the received command ID. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__Communication__Manager_ga75a44e0263b93e1ef19ee5beb312799d}{Accesslength}} ()
+\begin{DoxyCompactList}\small\item\em Helper to peek at the next byte in the queue (Debug/\+Test). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{App__CommManager_8c_a09523524ff6256581c31f93bc102b7a5}{Datareceived}} \mbox{[}\mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Circular buffer for received raw bytes. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__Queue__circular__Buffer_ga168988907af163d411d2329469cb876c}{Comm\+\_\+\+Front}}
+\begin{DoxyCompactList}\small\item\em External Read index for the circular buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__Queue__circular__Buffer_gab52d8057d53c426217877ad12b28feb0}{Comm\+\_\+\+Rear}}
+\begin{DoxyCompactList}\small\item\em External Write index for the circular buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{App__CommManager_8c_aa3498d0ba3ceafc5d88f1b6bda9fa6e2}{Current\+Sizeof\+Buffer}} = 0
+\begin{DoxyCompactList}\small\item\em Current count of bytes in the buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{App__CommManager_8c_acd094d9d61f1c38f050a32fa245c93c3}{Ishandling}} = 0
+\begin{DoxyCompactList}\small\item\em Flag indicating if the receive handler is currently processing a frame. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structSystemEvent__t}{System\+Event\+\_\+t}} \mbox{\hyperlink{App__CommManager_8c_a58e4444327acefc4e46e80b4797ad8c4}{System\+Controller}}
+\begin{DoxyCompactList}\small\item\em External System Controller Event Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structSystemState__t}{System\+State\+\_\+t}} \mbox{\hyperlink{App__CommManager_8c_a542be85889cfab2afe57c92cfa3c8d1e}{Status}}
+\begin{DoxyCompactList}\small\item\em External System State Object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the Communication Manager Module. 
+
+This module handles the reception, decoding, and transmission of data frames over the communication interface (UART/\+Bluetooth). It implements a custom framing protocol to ensure data integrity and synchronization.
+
+{\bfseries{Frame Structure\+:}} {\ttfamily \mbox{[}HEADER\mbox{]} \mbox{[}LENGTH\mbox{]} \mbox{[}COMMAND\mbox{]} \mbox{[}PAYLOAD...\mbox{]}}
+\begin{DoxyItemize}
+\item {\bfseries{HEADER}}\+: Start of Frame byte (0x\+AA).
+\item {\bfseries{LENGTH}}\+: Total length of the frame payload (Command + Data).
+\item {\bfseries{COMMAND}}\+: ID of the command or response type.
+\item {\bfseries{PAYLOAD}}\+: Variable length data bytes.
+\end{DoxyItemize}
+
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/11-\/13 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Developer\+: Mohammed Diaa (\href{mailto:mohammeddiaato@gmail.com}{\texttt{ mohammeddiaato@gmail.\+com}}) 
+
+Reviewer\+: Ahmed Ashraf 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025, Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{App__CommManager_8c_a6070b75aace99d6db996d48d3c36d55c}\label{App__CommManager_8c_a6070b75aace99d6db996d48d3c36d55c} 
+\index{App\_CommManager.c@{App\_CommManager.c}!stringtoNumber@{stringtoNumber}}
+\index{stringtoNumber@{stringtoNumber}!App\_CommManager.c@{App\_CommManager.c}}
+\doxysubsubsection{\texorpdfstring{stringtoNumber()}{stringtoNumber()}}
+{\footnotesize\ttfamily uint16\+\_\+t stringto\+Number (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Frame }\end{DoxyParamCaption})}
+
+
+
+Converts a string payload into a 16-\/bit integer. 
+
+Parses bytes from the frame buffer starting at offset 2 (Payload). Assumes ASCII digits or raw byte reconstruction depending on protocol. (Note\+: The implementation below suggests ASCII-\/like multiplication or simple decimal parsing). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em Frame} & Pointer to the frame buffer (where Frame\mbox{[}0\mbox{]} is Length?). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint16\+\_\+t Parsed integer value. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{App__CommManager_8c_a6070b75aace99d6db996d48d3c36d55c_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{App__CommManager_8c_aa3498d0ba3ceafc5d88f1b6bda9fa6e2}\label{App__CommManager_8c_aa3498d0ba3ceafc5d88f1b6bda9fa6e2} 
+\index{App\_CommManager.c@{App\_CommManager.c}!CurrentSizeofBuffer@{CurrentSizeofBuffer}}
+\index{CurrentSizeofBuffer@{CurrentSizeofBuffer}!App\_CommManager.c@{App\_CommManager.c}}
+\doxysubsubsection{\texorpdfstring{CurrentSizeofBuffer}{CurrentSizeofBuffer}}
+{\footnotesize\ttfamily uint8\+\_\+t Current\+Sizeof\+Buffer = 0}
+
+
+
+Current count of bytes in the buffer. 
+
+\Hypertarget{App__CommManager_8c_a09523524ff6256581c31f93bc102b7a5}\label{App__CommManager_8c_a09523524ff6256581c31f93bc102b7a5} 
+\index{App\_CommManager.c@{App\_CommManager.c}!Datareceived@{Datareceived}}
+\index{Datareceived@{Datareceived}!App\_CommManager.c@{App\_CommManager.c}}
+\doxysubsubsection{\texorpdfstring{Datareceived}{Datareceived}}
+{\footnotesize\ttfamily uint8\+\_\+t Datareceived\mbox{[}\mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}}\mbox{]}}
+
+
+
+Circular buffer for received raw bytes. 
+
+\Hypertarget{App__CommManager_8c_acd094d9d61f1c38f050a32fa245c93c3}\label{App__CommManager_8c_acd094d9d61f1c38f050a32fa245c93c3} 
+\index{App\_CommManager.c@{App\_CommManager.c}!Ishandling@{Ishandling}}
+\index{Ishandling@{Ishandling}!App\_CommManager.c@{App\_CommManager.c}}
+\doxysubsubsection{\texorpdfstring{Ishandling}{Ishandling}}
+{\footnotesize\ttfamily uint8\+\_\+t Ishandling = 0}
+
+
+
+Flag indicating if the receive handler is currently processing a frame. 
+
+\Hypertarget{App__CommManager_8c_a542be85889cfab2afe57c92cfa3c8d1e}\label{App__CommManager_8c_a542be85889cfab2afe57c92cfa3c8d1e} 
+\index{App\_CommManager.c@{App\_CommManager.c}!Status@{Status}}
+\index{Status@{Status}!App\_CommManager.c@{App\_CommManager.c}}
+\doxysubsubsection{\texorpdfstring{Status}{Status}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structSystemState__t}{System\+State\+\_\+t}} Status\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+External System State Object. 
+
+External System State Object. \Hypertarget{App__CommManager_8c_a58e4444327acefc4e46e80b4797ad8c4}\label{App__CommManager_8c_a58e4444327acefc4e46e80b4797ad8c4} 
+\index{App\_CommManager.c@{App\_CommManager.c}!SystemController@{SystemController}}
+\index{SystemController@{SystemController}!App\_CommManager.c@{App\_CommManager.c}}
+\doxysubsubsection{\texorpdfstring{SystemController}{SystemController}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structSystemEvent__t}{System\+Event\+\_\+t}} System\+Controller\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+External System Controller Event Object. 
+
+External System Controller Event Object. 

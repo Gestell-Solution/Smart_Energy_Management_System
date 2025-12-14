@@ -1,0 +1,120 @@
+\doxysection{SPI\+\_\+\+Private.\+h}
+\hypertarget{SPI__Private_8h_source}{}\label{SPI__Private_8h_source}\index{Mcal/SPI/SPI\_Private.h@{Mcal/SPI/SPI\_Private.h}}
+\mbox{\hyperlink{SPI__Private_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ SPI\_PRIVATE\_H}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ SPI\_PRIVATE\_H}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{/*==============================================================================}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Includes}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *============================================================================*/}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}../../Common/Macros.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}../../Mcal/Atmega32RegistersAddress.h"{}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{/*==============================================================================}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SPI\ Register\ Definitions}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *============================================================================*/}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ SPCR\_REG\ \ \ (*(volatile\ uint8\_t*)0x2D)}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ SPSR\_REG\ \ \ (*(volatile\ uint8\_t*)0x2E)}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ SPDR\_REG\ \ \ (*(volatile\ uint8\_t*)0x2F)}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{/*==============================================================================}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SPI\ Control\ Register\ Bit\ Definitions}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *============================================================================*/}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00054\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba90290b81377114b168c18f5f3f40f2ee}{SPCR0\_Bit0}}\ =\ 0,\ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baa0099a65ec9650cf3d6cc93e0b6addaa}{SPCR1\_Bit1}},\ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21bae65750b8c6a2c88eb80e694d29c0c984}{CPHA\_Bit2}},\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba17a79abdbddf73cb8f9d9fcbd7f2de5a}{CPOL\_Bit3}},\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baf084cdf8caf67b64eb286f6e3b28b6a1}{MSTR\_Bit4}},\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba1890499c120325fa4afe918a278fa9ed}{DORD\_Bit5}},\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21ba492b4fcb07a25ca82a872e875c3712bb}{SPE\_Bit6}},\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21baa731e1e11275c49253d744b27ed18364}{SPIE\_Bit7}}\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00063\ \}\ \mbox{\hyperlink{SPI__Private_8h_ab9a28e1ba37ce9818615e58595bfc21b}{SPCR\_Bits\_t}};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*==============================================================================}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SPI\ Status\ Register\ Bit\ Definitions}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *============================================================================*/}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6aa57a3726d960a0afa89a85230ac285e8}{SPI2x\_Bit0}}\ =\ 0,\ \ }
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6a352d0cc93162c63d428667a24d33c48e}{WCOL\_Bit6}}\ =\ 6,\ \ \ }
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6a83d76ff732d8e1b8255327a8904bfe2b}{SPIF\_Bit7}}\ =\ 7\ \ \ \ }
+\DoxyCodeLine{00078\ \}\ \mbox{\hyperlink{SPI__Private_8h_a70d0e51fa4b31e3e6508419bc6e099d6}{SPSR\_Bits\_t}};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{/*==============================================================================}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SPI\ Configuration\ Enumerations}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *============================================================================*/}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00089\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610da5005ea26b83625dced9072a237a315ab}{Slave\_Mode}},\ \ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610daeb85d5f51f7628f0c731332722c81625}{Master\_Mode}}\ \ \ \ }
+\DoxyCodeLine{00092\ \}\ \mbox{\hyperlink{SPI__Private_8h_af7f50e71bd6a06e32909cef3ba77610d}{SPI\_Mode\_t}};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00099\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6ba12776579bf58c1f8d4b45bebe48b5019}{MSB\_First}}\ =\ 0,\ }
+\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6ba595eb2ff7fd8a2e33f1a264794e8fbf4}{LSB\_First}}\ =\ 1\ \ }
+\DoxyCodeLine{00102\ \}\ \mbox{\hyperlink{SPI__Private_8h_ae81f57db53c7bbc0b8d9402abd213f6b}{SPI\_DataOrder\_t}};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00108\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00109\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a2c0f658aaa47794a69ab96fcce520a08}{SPI\_Mode0}}\ =\ 0,\ }
+\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498acaa9b7baaeee5c99982837d5dd1a4a21}{SPI\_Mode1}},\ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a5f08ad50ed799ce5722ff5229da356a4}{SPI\_Mode2}},\ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498a5af761d85c00c257cd7eb7ec0ae09a04}{SPI\_Mode3}}\ \ \ \ \ \ }
+\DoxyCodeLine{00114\ \}\ \mbox{\hyperlink{SPI__Private_8h_ab75e3a74da2837a679371b98febf4498}{SPI\_ClockMode\_t}};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00120\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00121\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6daf575a9efb8eb08952a8e86bae10fe6f4}{F\_CPU\_4}}\ =\ 0,}
+\DoxyCodeLine{00123\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da41108b7b1632084e94b8ddcea0fa7137}{F\_CPU\_16}},}
+\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dab1d3cbae6653cd64639cf51e75da0502}{F\_CPU\_64}},}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da64a2bc87a8f604c636796e8f3521e76e}{F\_CPU\_128}},}
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dad029b58bdd0dac5568cd3e67389f716e}{F\_CPU\_2}},}
+\DoxyCodeLine{00127\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6dac0cd58472d0a161dc569b1b3dcbb75d2}{F\_CPU\_8}},}
+\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6da81ed19e991e568d9b9e368adac0feb3d}{F\_CPU\_32}}}
+\DoxyCodeLine{00129\ \}\ \mbox{\hyperlink{SPI__Private_8h_a0e63723c559bfe87fe8f4d5c94a0ba6d}{SPI\_ClockRate\_t}};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00136\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2ab06d5ee626cbabb6a75b94aa749cb038}{Disable\_SPI\_Interrupt}}\ =\ 0,\ \ }
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2abfad65376f434412b5a4a90e718c0a4c}{Enable\_SPI\_Interrupt}}\ \ =\ 1\ \ \ }
+\DoxyCodeLine{00139\ \}\ \mbox{\hyperlink{SPI__Private_8h_ad00092ec69b40fac425612ec2fec85b2}{SPI\_Interrupt\_t}};}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{comment}{/*==============================================================================}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SPI\ Pin\ Definitions}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ *============================================================================*/}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ SS\_GROUP\ \ \ \ \ GroupB}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ MOSI\_GROUP\ \ \ GroupB}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ MISO\_GROUP\ \ \ GroupB}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ SCK\_GROUP\ \ \ \ GroupB}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ SS\_PIN\ \ \ \ \ \ \ PIN4}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ MOSI\_PIN\ \ \ \ \ PIN5}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ MISO\_PIN\ \ \ \ \ PIN6}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ SCK\_PIN\ \ \ \ \ \ PIN7}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{comment}{/*==============================================================================}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SPI\ State\ Machine}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ *============================================================================*/}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00166\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00167\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaffa2bd994f65055168349dca121498cf257}{SPI\_State\_Idle}}\ =\ 0,\ }
+\DoxyCodeLine{00169\ \ \ \ \ \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaffa943e3a14ff4217f007a7142a180ba676}{SPI\_State\_Busy}}\ \ \ \ \ \ }
+\DoxyCodeLine{00170\ \}\ \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaff}{SPI\_State\_t}};}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SPI\_PRIVATE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

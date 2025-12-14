@@ -1,0 +1,50 @@
+\doxysection{System\+\_\+\+Controller\+\_\+\+Interface.\+h}
+\hypertarget{System__Controller__Interface_8h_source}{}\label{System__Controller__Interface_8h_source}\index{App/System\_Controller/System\_Controller\_Interface.h@{App/System\_Controller/System\_Controller\_Interface.h}}
+\mbox{\hyperlink{System__Controller__Interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ SYSTEM\_CONTROLLER\_INTERFACE\_H}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ SYSTEM\_CONTROLLER\_INTERFACE\_H}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{System__Controller__Config_8h}{System\_Controller\_Config.h}}"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}../DM\_Driver/DisplayManager\_Interface.h"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}../MeasurementEngine/MeasurementEngine\_Interface.h"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}../Calibration\_Manager/Calibration\_Manager\_Interface.h"{}}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}../ProtectionManager/ProtectionManager\_Interface.h"{}}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}../EnergyLogger/EnergyLogger\_Interface.h"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}../CommunicationManager/App\_CommManager.h"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}../../Common/SystemDataManager/SystemDataManager.h"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}../../Mcal/Timer0/TIMER0\_Interface.h"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}../../Mcal/EXTI/EXTI\_Interface.h"{}}}
+\DoxyCodeLine{00050\ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{volatile}\ uint8\_t\ \ \ \ \ \ \mbox{\hyperlink{structSystemState__t_ad29c2eaaade9e20e943ba63b3d02b155}{SysState}};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{volatile}\ \mbox{\hyperlink{structEnergyLog__t}{EnergyLog\_t}}\ \ \mbox{\hyperlink{structSystemState__t_ab7b198725bc6c5b7cb7b79bec3489d63}{RamData}};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ Data[40];}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{volatile}\ uint8\_t\ \ \ \ \mbox{\hyperlink{structSystemState__t_ad2a12eef2aae9fc9bf53bdf8fe84a3e4}{SystemMode}};}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00057\ \}\ \mbox{\hyperlink{structSystemState__t}{SystemState\_t}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00060\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{volatile}\ uint8\_t\ \mbox{\hyperlink{structSystemEvent__t_a8846a73143afcda5d4f561464c45da17}{CmdID}};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{volatile}\ uint8\_t\ \mbox{\hyperlink{structSystemEvent__t_aa218bece14143b8e5e7acd2ee54049d0}{Event}};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \}\ \mbox{\hyperlink{structSystemEvent__t}{SystemEvent\_t}};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__System__Controller_ga4b41755353c1ba49225f623bd2f46006}{App\_SystemController\_Init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00070\ \textcolor{comment}{/*\ Initialize\ all\ dependent\ modules\ and\ set\ initial\ system\ state\ */}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__System__Controller_ga2cdb26a8874f832e8e53e68d2cea901d}{App\_SystemController\_Update}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00073\ \textcolor{comment}{/*\ Called\ periodically\ (e.g.,\ every\ 100ms)\ to\ handle\ system\ tasks\ and\ transitions\ */}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__System__Controller_ga26d1fa89b824d5ac6b73958242885fbe}{App\_SystemController\_HandleEvent}}(\mbox{\hyperlink{structSystemEvent__t}{SystemEvent\_t}}\ Action);}
+\DoxyCodeLine{00076\ \textcolor{comment}{/*\ Receive\ and\ process\ asynchronous\ events\ from\ modules\ (Protection,\ Comm,\ etc.)\ */}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \mbox{\hyperlink{structSystemState__t}{SystemState\_t}}\ \mbox{\hyperlink{group__System__Controller_gafcac341ea279787102859d84cbef2dd8}{App\_SystemController\_GetState}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00079\ \textcolor{comment}{/*\ Return\ current\ system\ state\ for\ monitoring\ or\ debugging\ */}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

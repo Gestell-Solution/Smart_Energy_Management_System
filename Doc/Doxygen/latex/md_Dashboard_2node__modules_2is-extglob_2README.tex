@@ -1,0 +1,110 @@
+\chapter{is-\/extglob \texorpdfstring{$<$}{<}a href="{}https\+://www.\+npmjs.\+com/package/is-\/extglob"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://img.\+shields.\+io/npm/v/is-\/extglob.\+svg?style=flat"{} alt="{}\+NPM version"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>} \texorpdfstring{$<$}{<}a href="{}https\+://npmjs.\+org/package/is-\/extglob"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://img.\+shields.\+io/npm/dm/is-\/extglob.\+svg?style=flat"{} alt="{}\+NPM downloads"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>} \texorpdfstring{$<$}{<}a href="{}https\+://travis-\/ci.\+org/jonschlinkert/is-\/extglob"{} \texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}img src="{}https\+://img.\+shields.\+io/travis/jonschlinkert/is-\/extglob.\+svg?style=flat"{} alt="{}\+Build Status"{}/\texorpdfstring{$>$}{>}\texorpdfstring{$<$}{<}/a\texorpdfstring{$>$}{>}}
+\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README}{}\label{md_Dashboard_2node__modules_2is-extglob_2README}\index{is-\/extglob $<$a href="{}https://www.npmjs.com/package/is-\/extglob"{} $>$$<$img src="{}https://img.shields.io/npm/v/is-\/extglob.svg?style=flat"{} alt="{}NPM version"{}/$>$$<$/a$>$ $<$a href="{}https://npmjs.org/package/is-\/extglob"{} $>$$<$img src="{}https://img.shields.io/npm/dm/is-\/extglob.svg?style=flat"{} alt="{}NPM downloads"{}/$>$$<$/a$>$ $<$a href="{}https://travis-\/ci.org/jonschlinkert/is-\/extglob"{} $>$$<$img src="{}https://img.shields.io/travis/jonschlinkert/is-\/extglob.svg?style=flat"{} alt="{}Build Status"{}/$>$$<$/a$>$@{is-\/extglob $<$a href=""https://www.npmjs.com/package/is-\/extglob"" $>$$<$img src=""https://img.shields.io/npm/v/is-\/extglob.svg?style=flat"" alt=""NPM version""/$>$$<$/a$>$ $<$a href=""https://npmjs.org/package/is-\/extglob"" $>$$<$img src=""https://img.shields.io/npm/dm/is-\/extglob.svg?style=flat"" alt=""NPM downloads""/$>$$<$/a$>$ $<$a href=""https://travis-\/ci.org/jonschlinkert/is-\/extglob"" $>$$<$img src=""https://img.shields.io/travis/jonschlinkert/is-\/extglob.svg?style=flat"" alt=""Build Status""/$>$$<$/a$>$}}
+\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1464}%
+\Hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1464}%
+ \begin{quote}
+Returns true if a string has an extglob. \end{quote}
+\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1465}{}\doxysection{\texorpdfstring{Install}{Install}}\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1465}
+Install with \href{https://www.npmjs.com/}{\texttt{ npm}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ -\/-\/save\ is-\/extglob}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1466}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1466}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ isExtglob\ =\ require('is-\/extglob');}
+
+\end{DoxyCode}
+
+
+{\bfseries{True}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{isExtglob('?(abc)');}
+\DoxyCodeLine{isExtglob('@(abc)');}
+\DoxyCodeLine{isExtglob('!(abc)');}
+\DoxyCodeLine{isExtglob('*(abc)');}
+\DoxyCodeLine{isExtglob('+(abc)');}
+
+\end{DoxyCode}
+
+
+{\bfseries{False}}
+
+Escaped extglobs\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{isExtglob('\(\backslash\)\(\backslash\)?(abc)');}
+\DoxyCodeLine{isExtglob('\(\backslash\)\(\backslash\)@(abc)');}
+\DoxyCodeLine{isExtglob('\(\backslash\)\(\backslash\)!(abc)');}
+\DoxyCodeLine{isExtglob('\(\backslash\)\(\backslash\)*(abc)');}
+\DoxyCodeLine{isExtglob('\(\backslash\)\(\backslash\)+(abc)');}
+
+\end{DoxyCode}
+
+
+Everything else...
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{isExtglob('foo.js');}
+\DoxyCodeLine{isExtglob('!foo.js');}
+\DoxyCodeLine{isExtglob('*.js');}
+\DoxyCodeLine{isExtglob('**/abc.js');}
+\DoxyCodeLine{isExtglob('abc/*.js');}
+\DoxyCodeLine{isExtglob('abc/(aaa|bbb).js');}
+\DoxyCodeLine{isExtglob('abc/[a-\/z].js');}
+\DoxyCodeLine{isExtglob('abc/\{a,b\}.js');}
+\DoxyCodeLine{isExtglob('abc/?.js');}
+\DoxyCodeLine{isExtglob('abc.js');}
+\DoxyCodeLine{isExtglob('abc/def/ghi.js');}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1467}{}\doxysection{\texorpdfstring{History}{History}}\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1467}
+{\bfseries{v2.\+0}}
+
+Adds support for escaping. Escaped exglobs no longer return true.\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1468}{}\doxysection{\texorpdfstring{About}{About}}\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1468}
+\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1469}{}\doxysubsection{\texorpdfstring{Related projects}{Related projects}}\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1469}
+
+\begin{DoxyItemize}
+\item \href{https://www.npmjs.com/package/has-glob}{\texttt{ has-\/glob}}\+: Returns {\ttfamily true} if an array has a glob pattern. \texorpdfstring{$\vert$}{|} \href{https://github.com/jonschlinkert/has-glob}{\texttt{ homepage}}
+\item \href{https://www.npmjs.com/package/is-glob}{\texttt{ is-\/glob}}\+: Returns {\ttfamily true} if the given string looks like a glob pattern or an extglob pattern… \href{https://github.com/jonschlinkert/is-glob}{\texttt{ more}} \texorpdfstring{$\vert$}{|} \href{https://github.com/jonschlinkert/is-glob}{\texttt{ homepage}}
+\item \href{https://www.npmjs.com/package/micromatch}{\texttt{ micromatch}}\+: Glob matching for javascript/node.\+js. A drop-\/in replacement and faster alternative to minimatch and multimatch. \texorpdfstring{$\vert$}{|} \href{https://github.com/jonschlinkert/micromatch}{\texttt{ homepage}}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1470}{}\doxysubsection{\texorpdfstring{Contributing}{Contributing}}\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1470}
+Pull requests and stars are always welcome. For bugs and feature requests, \href{../../issues/new}{\texttt{ please create an issue}}.\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1471}{}\doxysubsection{\texorpdfstring{Building docs}{Building docs}}\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1471}
+\+\_\+(This document was generated by \href{https://github.com/verbose/verb-generate-readme}{\texttt{ verb-\/generate-\/readme}} (a \href{https://github.com/verbose/verb}{\texttt{ verb}} generator), please don\textquotesingle{}t edit the readme directly. Any changes to the readme must be made in .verb.md.)\+\_\+
+
+To generate the readme and API documentation with \href{https://github.com/verbose/verb}{\texttt{ verb}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ -\/g\ verb\ verb-\/generate-\/readme\ \&\&\ verb}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1472}{}\doxysubsection{\texorpdfstring{Running tests}{Running tests}}\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1472}
+Install dev dependencies\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ -\/d\ \&\&\ npm\ test}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1473}{}\doxysubsection{\texorpdfstring{Author}{Author}}\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1473}
+{\bfseries{Jon Schlinkert}}
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/jonschlinkert}{\texttt{ github/jonschlinkert}}
+\item \href{http://twitter.com/jonschlinkert}{\texttt{ twitter/jonschlinkert}}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1474}{}\doxysubsection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2is-extglob_2README_autotoc_md1474}
+Copyright © 2016, \href{https://github.com/jonschlinkert}{\texttt{ Jon Schlinkert}}. Released under the \href{https://github.com/jonschlinkert/is-extglob/blob/master/LICENSE}{\texttt{ MIT license}}.
+
+\DoxyHorRuler{0}
+
+
+{\itshape This file was generated by \href{https://github.com/verbose/verb-generate-readme}{\texttt{ verb-\/generate-\/readme}}, v0.\+1.\+31, on October 12, 2016.} 

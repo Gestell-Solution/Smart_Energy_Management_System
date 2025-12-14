@@ -1,0 +1,74 @@
+\chapter{@serialport/bindings-\/cpp}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README}{}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README}\index{"@serialport/bindings-\/cpp@{"@serialport/bindings-\/cpp}}
+\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md67}%
+\Hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md67}%
+ !\mbox{[}Backers on Open Collective\mbox{]}(https\+://opencollective.com/serialport/backers/badge.svg) !\mbox{[}Sponsors on Open Collective\mbox{]}(https\+://opencollective.com/serialport/sponsors/badge.svg) \href{https://codecov.io/gh/serialport/bindings-cpp}{\texttt{ }} \href{https://github.com/serialport/bindings-cpp/actions/workflows/test.yml}{\texttt{ }}
+
+Access serial ports with Java\+Script. Linux, OSX and Windows. Welcome your robotic Java\+Script overlords. Better yet, program them!
+
+\begin{quote}
+Go to \href{https://serialport.io/}{\texttt{ https\+://serialport.\+io/}} to learn more, find guides and api documentation. \end{quote}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md68}{}\doxysection{\texorpdfstring{Quick Links}{Quick Links}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md68}
+
+\begin{DoxyItemize}
+\item 📚 \href{https://serialport.io/docs/}{\texttt{ {\bfseries{Guides}}}}
+\item \href{https://serialport.io/docs/api-serialport}{\texttt{ {\bfseries{API Docs}}}}
+\item \href{https://www.npmjs.com/package/@serialport/bindings-cpp}{\texttt{ {\ttfamily @serialport/bindings-\/cpp}}}
+\item 🐛 \href{https://github.com/serialport/node-serialport/issues/new/choose}{\texttt{ Help and Bugs}} All serialport issues are pointed to the main serialport repo.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md69}{}\doxysubsection{\texorpdfstring{Bindings}{Bindings}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md69}
+The Bindings provide a low level interface to work with your serialport. It is possible to use them alone but it\textquotesingle{}s usually easier to use them with an interface.
+
+
+\begin{DoxyItemize}
+\item \href{https://serialport.io/docs/api-bindings-cpp}{\texttt{ {\ttfamily @serialport/bindings-\/cpp}}} bindings for Linux, Mac and Windows
+\item \href{https://serialport.io/docs/api-bindings-interface}{\texttt{ {\ttfamily @serialport/binding-\/interface}}} as an interface to use if you\textquotesingle{}re making your own bindings
+\item \href{https://serialport.io/docs/api-binding-mock}{\texttt{ {\ttfamily @serialport/binding-\/mock}}} for a mock binding package for testing
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md70}{}\doxysection{\texorpdfstring{Developing}{Developing}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md70}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md71}{}\doxysubsection{\texorpdfstring{Developing node serialport projects}{Developing node serialport projects}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md71}
+
+\begin{DoxyEnumerate}
+\item Clone this repo {\ttfamily git clone git@github.\+com\+:serialport/bindings-\/cpp.\+git}
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Run {\ttfamily npm install} to setup local package dependencies (run this any time you depend on a package local to this repo)
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Run {\ttfamily npm test} to ensure everything is working properly
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item If you have a serial loopback device (TX to RX) you can run run {\ttfamily TEST\+\_\+\+PORT=/path/to/port npm test} for a more comprehensive test suite. (Defaults to 115200 baud customize with the TEST\+\_\+\+BAUD env.) You can use an arduino with the {\ttfamily test/arduino-\/echo} sketch.
+\end{DoxyEnumerate}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md72}{}\doxysubsection{\texorpdfstring{Developing Docs}{Developing Docs}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md72}
+See \href{https://github.com/serialport/website}{\texttt{ https\+://github.\+com/serialport/website}}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md73}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md73}
+Serial\+Port packages are all \mbox{[}MIT licensed\mbox{]}(LICENSE) and all it\textquotesingle{}s dependencies are MIT licensed.\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md74}{}\doxysection{\texorpdfstring{Code of Conduct}{Code of Conduct}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md74}
+Serial\+Port follows the \href{http://nodebots.io/conduct.html}{\texttt{ Nodebots Code of Conduct}}. While the code is MIT licensed participation in the community has some rules to make this a good place to work and learn.\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md75}{}\doxysubsection{\texorpdfstring{TLDR}{TLDR}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md75}
+
+\begin{DoxyItemize}
+\item Be respectful.
+\item Abusive behavior is never tolerated.
+\item Data published to Node\+Bots is hosted at the discretion of the service administrators, and may be removed.
+\item Don\textquotesingle{}t build evil robots.
+\item Violations of this code may result in swift and permanent expulsion from the Node\+Bots community.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md76}{}\doxysection{\texorpdfstring{Governance and Community}{Governance and Community}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md76}
+Serial\+Port is currently employees a \href{https://medium.com/the-node-js-collection/healthy-open-source-967fa8be7951}{\texttt{ governance}} with a group of maintainers, committers and contributors, all fixing bugs and adding features and improving documentation. You need not apply to work on Serial\+Port, all are welcome to join, build, and maintain this project.
+
+
+\begin{DoxyItemize}
+\item A Contributor is any individual creating or commenting on an issue or pull request. By participating, this is you.
+\item Committers are contributors who have been given write access to the repository. They can review and merge pull requests.
+\item Maintainers are committers representing the required technical expertise to resolve rare disputes.
+\end{DoxyItemize}
+
+If you have a PR that improves the project people in any or all of the above people will help you land it.
+
+{\bfseries{Maintainers}}
+
+
+\begin{DoxyItemize}
+\item \href{https://twitter.com/reconbot}{\texttt{ Francis Gulotta}} \texorpdfstring{$\vert$}{|} \href{https://github.com/reconbot}{\texttt{ reconbot}}
+\item \href{https://twitter.com/hipsterbrown}{\texttt{ Nick Hehr}} \texorpdfstring{$\vert$}{|} \href{https://github.com/hipsterbrown}{\texttt{ hipsterbrown}}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md77}{}\doxysubsection{\texorpdfstring{Contributors}{Contributors}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md77}
+This project exists thanks to all the people who contribute. \mbox{[}\doxylink{CONTRIBUTING_8md}{Contribute}\mbox{]}. \href{https://github.com/serialport/node-serialport/graphs/contributors}{\texttt{ }}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md78}{}\doxysubsection{\texorpdfstring{Backers}{Backers}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md78}
+Thank you to all our backers! 🙏 \mbox{[}\href{https://opencollective.com/serialport\#backer}{\texttt{ Become a backer}}\mbox{]}
+
+\href{https://opencollective.com/serialport\#backers}{\texttt{ }}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md79}{}\doxysubsection{\texorpdfstring{Sponsors}{Sponsors}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2README_autotoc_md79}
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. \mbox{[}\href{https://opencollective.com/serialport\#sponsor}{\texttt{ Become a sponsor}}\mbox{]} 

@@ -1,0 +1,27 @@
+\chapter{cookie-\/signature}
+\hypertarget{md_Dashboard_2node__modules_2cookie-signature_2Readme}{}\label{md_Dashboard_2node__modules_2cookie-signature_2Readme}\index{cookie-\/signature@{cookie-\/signature}}
+\label{md_Dashboard_2node__modules_2cookie-signature_2Readme_autotoc_md501}%
+\Hypertarget{md_Dashboard_2node__modules_2cookie-signature_2Readme_autotoc_md501}%
+ Sign and unsign cookies.\hypertarget{md_Dashboard_2node__modules_2cookie-signature_2Readme_autotoc_md502}{}\doxysection{\texorpdfstring{Example}{Example}}\label{md_Dashboard_2node__modules_2cookie-signature_2Readme_autotoc_md502}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ cookie\ =\ require('cookie-\/signature');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ val\ =\ cookie.sign('hello',\ 'tobiiscool');}
+\DoxyCodeLine{val.should.equal('hello.DGDUkGlIkCzPz+C0B064FNgHdEjox7ch8tOBGslZ5QI');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ val\ =\ cookie.sign('hello',\ 'tobiiscool');}
+\DoxyCodeLine{cookie.unsign(val,\ 'tobiiscool').should.equal('hello');}
+\DoxyCodeLine{cookie.unsign(val,\ 'luna').should.be.false;}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2cookie-signature_2Readme_autotoc_md503}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2cookie-signature_2Readme_autotoc_md503}
+(The MIT License)
+
+Copyright (c) 2012 Learn\+Boost \texorpdfstring{$<$}{<}\href{mailto:tj@learnboost.com}{\texttt{ tj@learnboost.\+com}}\texorpdfstring{$>$}{>}
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \textquotesingle{}Software\textquotesingle{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \textquotesingle{}AS IS\textquotesingle{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 

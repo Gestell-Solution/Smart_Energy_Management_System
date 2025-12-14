@@ -1,0 +1,56 @@
+\doxysection{Mcal/\+TWI/\+TWI\+\_\+\+Interface.h File Reference}
+\hypertarget{TWI__Interface_8h}{}\label{TWI__Interface_8h}\index{Mcal/TWI/TWI\_Interface.h@{Mcal/TWI/TWI\_Interface.h}}
+
+
+This file contains Interface for Master/\+Slave (I2C) TWI driver. ~\newline
+  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}../\+Atmega32\+Registers\+Address.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+Include dependency graph for TWI\+\_\+\+Interface.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TWI__Interface_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__TWI_gab1f125ba17d6c533d59fb38eef43c6f9}{m\+TWI\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the TWI (I2C) peripheral as Master and/or Slave. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__TWI_ga8c598f5e9ac5142c0c33e10a957694a0}{m\+TWI\+\_\+\+Master\+Send\+Request}} (uint8\+\_\+t addr, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t len)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{group__TWI_gac8ab24dc9732cc9bd083e7b839200f9f}{m\+TWI\+\_\+\+Master\+Read\+Response}} (uint8\+\_\+t addr, uint8\+\_\+t len)
+\item 
+void \mbox{\hyperlink{group__TWI_ga63446a2a6e323e756ede5a34d05714bb}{m\+TWI\+\_\+\+Enable\+Slave}} (uint8\+\_\+t slave\+Addr)
+\item 
+void \mbox{\hyperlink{group__TWI_gaaac151955f562e3a41ee5bee3815a56a}{m\+TWI\+\_\+\+Disable\+Slave}} (void)
+\begin{DoxyCompactList}\small\item\em Disables Slave operation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__TWI_ga1bd435f5fbaf7588e854079ca16abe34}{m\+TWI\+\_\+\+Set\+Slave\+Rx\+Callback}} (void(\texorpdfstring{$\ast$}{*}cb)(uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t len))
+\item 
+void \mbox{\hyperlink{group__TWI_ga2199595777fd25999c425893024ea332}{m\+TWI\+\_\+\+Set\+Slave\+Tx\+Provider}} (uint8\+\_\+t(\texorpdfstring{$\ast$}{*}provider)(uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, uint8\+\_\+t max\+Len))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains Interface for Master/\+Slave (I2C) TWI driver. ~\newline
+ 
+
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer \+: Mohamed Abdelgaber (\href{mailto:mohamedabdelgaber247@gmail.com}{\texttt{ mohamedabdelgaber247@gmail.\+com}}) 
+
+Reviewer \+: Eng/\+Basma 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/12-\/3 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}

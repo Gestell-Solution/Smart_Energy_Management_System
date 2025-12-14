@@ -12,6 +12,14 @@
 
 #ifndef SYSTEM_CONTROLLER_INTERFACE_H
 #define SYSTEM_CONTROLLER_INTERFACE_H
+
+/**
+ * @addtogroup App
+ * @{
+ * @addtogroup System_Controller
+ * @{
+ */
+
 /**
  * @defgroup File_Inclusion
  * @brief    File Inclusion Section
@@ -69,5 +77,11 @@ void App_SystemController_HandleEvent(SystemEvent_t Action);
 
 SystemState_t App_SystemController_GetState(void);
 /* Return current system state for monitoring or debugging */
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif

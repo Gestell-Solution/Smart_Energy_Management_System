@@ -1,0 +1,58 @@
+\chapter{node-\/gyp-\/build}
+\hypertarget{md_Dashboard_2node__modules_2node-gyp-build_2README}{}\label{md_Dashboard_2node__modules_2node-gyp-build_2README}\index{node-\/gyp-\/build@{node-\/gyp-\/build}}
+\label{md_Dashboard_2node__modules_2node-gyp-build_2README_autotoc_md1830}%
+\Hypertarget{md_Dashboard_2node__modules_2node-gyp-build_2README_autotoc_md1830}%
+ \begin{quote}
+Build tool and bindings loader for \href{https://www.npmjs.com/package/node-gyp}{\texttt{ {\ttfamily node-\/gyp}}} that supports prebuilds. \end{quote}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ node-\/gyp-\/build}
+
+\end{DoxyCode}
+
+
+\href{https://github.com/prebuild/node-gyp-build/actions/workflows/test.yml}{\texttt{ }}
+
+Use together with \href{https://github.com/prebuild/prebuildify}{\texttt{ {\ttfamily prebuildify}}} to easily support prebuilds for your native modules.\hypertarget{md_Dashboard_2node__modules_2node-gyp-build_2README_autotoc_md1831}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_Dashboard_2node__modules_2node-gyp-build_2README_autotoc_md1831}
+\begin{quote}
+{\bfseries{Note.}} Prebuild names have changed in \href{https://github.com/prebuild/prebuildify}{\texttt{ {\ttfamily prebuildify@3}}} and {\ttfamily node-\/gyp-\/build@4}. Please see the documentation below. \end{quote}
+{\ttfamily node-\/gyp-\/build} works similar to \href{https://www.npmjs.com/package/node-gyp}{\texttt{ {\ttfamily node-\/gyp build}}} except that it will check if a build or prebuild is present before rebuilding your project.
+
+It\textquotesingle{}s main intended use is as an npm install script and bindings loader for native modules that bundle prebuilds using \href{https://github.com/prebuild/prebuildify}{\texttt{ {\ttfamily prebuildify}}}.
+
+First add {\ttfamily node-\/gyp-\/build} as an install script to your native project
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ js}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ "{}scripts"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ "{}install"{}:\ "{}node-\/gyp-\/build"{}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Then in your {\ttfamily index.\+js}, instead of using the \href{https://www.npmjs.com/package/bindings}{\texttt{ {\ttfamily bindings}}} module use {\ttfamily node-\/gyp-\/build} to load your binding.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ js}
+\DoxyCodeLine{var\ binding\ =\ require('node-\/gyp-\/build')(\_\_dirname)}
+
+\end{DoxyCode}
+
+
+If you do these two things and bundle prebuilds with \href{https://github.com/prebuild/prebuildify}{\texttt{ {\ttfamily prebuildify}}} your native module will work for most platforms without having to compile on install time AND will work in both node and electron without the need to recompile between usage.
+
+Users can override {\ttfamily node-\/gyp-\/build} and force compiling by doing {\ttfamily npm install -\/-\/build-\/from-\/source}.
+
+Prebuilds will be attempted loaded from {\ttfamily MODULE\+\_\+\+PATH/prebuilds/...} and then next {\ttfamily EXEC\+\_\+\+PATH/prebuilds/...} (the latter allowing use with {\ttfamily zeit/pkg})\hypertarget{md_Dashboard_2node__modules_2node-gyp-build_2README_autotoc_md1832}{}\doxysection{\texorpdfstring{Supported prebuild names}{Supported prebuild names}}\label{md_Dashboard_2node__modules_2node-gyp-build_2README_autotoc_md1832}
+If so desired you can bundle more specific flavors, for example {\ttfamily musl} builds to support Alpine, or targeting a numbered ARM architecture version.
+
+These prebuilds can be bundled in addition to generic prebuilds; {\ttfamily node-\/gyp-\/build} will try to find the most specific flavor first. Prebuild filenames are composed of {\itshape tags}. The runtime tag takes precedence, as does an {\ttfamily abi} tag over {\ttfamily napi}. For more details on tags, please see \href{https://github.com/prebuild/prebuildify}{\texttt{ {\ttfamily prebuildify}}}.
+
+Values for the {\ttfamily libc} and {\ttfamily armv} tags are auto-\/detected but can be overridden through the {\ttfamily LIBC} and {\ttfamily ARM\+\_\+\+VERSION} environment variables, respectively.\hypertarget{md_Dashboard_2node__modules_2node-gyp-build_2README_autotoc_md1833}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2node-gyp-build_2README_autotoc_md1833}
+MIT 

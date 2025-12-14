@@ -1,0 +1,90 @@
+\doxysection{Mcal/\+EEPROM/\+EEPROM\+\_\+\+Private.h File Reference}
+\hypertarget{EEPROM__Private_8h}{}\label{EEPROM__Private_8h}\index{Mcal/EEPROM/EEPROM\_Private.h@{Mcal/EEPROM/EEPROM\_Private.h}}
+
+
+This file contains the private definitions for the EEPROM module.  
+
+
+{\ttfamily \#include "{}../../\+Common/\+Config.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for EEPROM\+\_\+\+Private.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{EEPROM__Private_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EEPROM__Private_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__EEPROM_gae097056caec73a990b8f1b3ee5775fd3}{EERE\+\_\+\+Bit}}~0
+\item 
+\#define \mbox{\hyperlink{group__EEPROM_gaf35bc476eb3b917602c31bd57b692a82}{EEWE\+\_\+\+Bit}}~1
+\item 
+\#define \mbox{\hyperlink{group__EEPROM_ga69fb262d39210d467a5f45056ca69e29}{EEMWE\+\_\+\+Bit}}~2
+\item 
+\#define \mbox{\hyperlink{group__EEPROM_gaa994178426ceacfc0c0290fd27693080}{EERIE\+\_\+\+Bit}}~3
+\item 
+\#define \mbox{\hyperlink{group__Addresses_ga892e8070a888fd482d2f44f03ec5b740}{Device\+\_\+\+ID\+\_\+\+Add}}~0x00
+\item 
+\#define \mbox{\hyperlink{group__Addresses_ga038e19e88407a2c4b3b85176db46d86a}{Voltage\+\_\+\+Calib\+\_\+\+Add}}~0x01
+\item 
+\#define \mbox{\hyperlink{group__Addresses_ga873d68b4f88fd22c18221161471bf36a}{Current\+\_\+\+Calib\+\_\+\+Add}}~0x03
+\item 
+\#define \mbox{\hyperlink{group__Addresses_gae451ad88d19ec4bfa7fbcd1d16de9540}{Energy\+\_\+\+Counter\+\_\+\+Add}}~0x05
+\item 
+\#define \mbox{\hyperlink{group__Addresses_ga3fe4aed398b7a3db19a854723b0de357}{Overvoltage\+\_\+\+Limit\+\_\+\+Add}}~0x09
+\item 
+\#define \mbox{\hyperlink{group__Addresses_gac07d1c2004f3a404cd234d973c5e915c}{Overcurrent\+\_\+\+Limit\+\_\+\+Add}}~0x0B
+\item 
+\#define \mbox{\hyperlink{group__Addresses_gacb98e99c6b6050403a973c2509c399dc}{Voltage\+\_\+\+RMS\+\_\+\+Add}}~0x0D
+\item 
+\#define \mbox{\hyperlink{group__Addresses_ga89ec46466e7b8309960aaf4aefbe9df9}{Current\+\_\+\+RMS\+\_\+\+Add}}~0x0F
+\item 
+\#define \mbox{\hyperlink{group__Addresses_gaac389559bcf8de9c860681aab2b3e7ac}{Power\+\_\+\+Add}}~0x11
+\item 
+\#define \mbox{\hyperlink{EEPROM__Private_8h_a8f28860c0e22e2842b3f38028017c28e}{AVR\+\_\+\+EEPROM\+\_\+\+MAXAddress}}~1023
+\begin{DoxyCompactList}\small\item\em Maximum addressable EEPROM location for Atmega32. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the private definitions for the EEPROM module. 
+
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer \+: Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}}) 
+
+Reviewer \+: Basma Khaled (\href{mailto:basmak55@gmail.com}{\texttt{ basmak55@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/5 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{EEPROM__Private_8h_a8f28860c0e22e2842b3f38028017c28e}\label{EEPROM__Private_8h_a8f28860c0e22e2842b3f38028017c28e} 
+\index{EEPROM\_Private.h@{EEPROM\_Private.h}!AVR\_EEPROM\_MAXAddress@{AVR\_EEPROM\_MAXAddress}}
+\index{AVR\_EEPROM\_MAXAddress@{AVR\_EEPROM\_MAXAddress}!EEPROM\_Private.h@{EEPROM\_Private.h}}
+\doxysubsubsection{\texorpdfstring{AVR\_EEPROM\_MAXAddress}{AVR\_EEPROM\_MAXAddress}}
+{\footnotesize\ttfamily \#define AVR\+\_\+\+EEPROM\+\_\+\+MAXAddress~1023}
+
+
+
+Maximum addressable EEPROM location for Atmega32. 
+
+The Atmega32 microcontroller has 1024 bytes of EEPROM memory, which means the valid address range is from 0x0000 to 0x03\+FF. 

@@ -1,0 +1,52 @@
+\doxysection{Control Register (EECR) Bit Definitions}
+\hypertarget{group__EEPROM}{}\label{group__EEPROM}\index{Control Register (EECR) Bit Definitions@{Control Register (EECR) Bit Definitions}}
+
+
+This section defines the bit positions for the EEPROM Control Register (EECR).  
+
+
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__EEPROM_gae097056caec73a990b8f1b3ee5775fd3}{EERE\+\_\+\+Bit}}~0
+\item 
+\#define \mbox{\hyperlink{group__EEPROM_gaf35bc476eb3b917602c31bd57b692a82}{EEWE\+\_\+\+Bit}}~1
+\item 
+\#define \mbox{\hyperlink{group__EEPROM_ga69fb262d39210d467a5f45056ca69e29}{EEMWE\+\_\+\+Bit}}~2
+\item 
+\#define \mbox{\hyperlink{group__EEPROM_gaa994178426ceacfc0c0290fd27693080}{EERIE\+\_\+\+Bit}}~3
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This section defines the bit positions for the EEPROM Control Register (EECR). 
+
+The EECR register is used to control the operations of the EEPROM. , Bits Values in this register can be accessed using the defined bit positions. bit values can be only 0 or 1. bit from 4 to 7 are reserved. 
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{group__EEPROM_ga69fb262d39210d467a5f45056ca69e29}\label{group__EEPROM_ga69fb262d39210d467a5f45056ca69e29} 
+\index{Control Register (EECR) Bit Definitions@{Control Register (EECR) Bit Definitions}!EEMWE\_Bit@{EEMWE\_Bit}}
+\index{EEMWE\_Bit@{EEMWE\_Bit}!Control Register (EECR) Bit Definitions@{Control Register (EECR) Bit Definitions}}
+\doxysubsubsection{\texorpdfstring{EEMWE\_Bit}{EEMWE\_Bit}}
+{\footnotesize\ttfamily \#define EEMWE\+\_\+\+Bit~2}
+
+Setting this bit to 1 Enables the EEPROM Master Write ~\newline
+ \Hypertarget{group__EEPROM_gae097056caec73a990b8f1b3ee5775fd3}\label{group__EEPROM_gae097056caec73a990b8f1b3ee5775fd3} 
+\index{Control Register (EECR) Bit Definitions@{Control Register (EECR) Bit Definitions}!EERE\_Bit@{EERE\_Bit}}
+\index{EERE\_Bit@{EERE\_Bit}!Control Register (EECR) Bit Definitions@{Control Register (EECR) Bit Definitions}}
+\doxysubsubsection{\texorpdfstring{EERE\_Bit}{EERE\_Bit}}
+{\footnotesize\ttfamily \#define EERE\+\_\+\+Bit~0}
+
+Setting this bit to 1 Enables Reading \Hypertarget{group__EEPROM_gaa994178426ceacfc0c0290fd27693080}\label{group__EEPROM_gaa994178426ceacfc0c0290fd27693080} 
+\index{Control Register (EECR) Bit Definitions@{Control Register (EECR) Bit Definitions}!EERIE\_Bit@{EERIE\_Bit}}
+\index{EERIE\_Bit@{EERIE\_Bit}!Control Register (EECR) Bit Definitions@{Control Register (EECR) Bit Definitions}}
+\doxysubsubsection{\texorpdfstring{EERIE\_Bit}{EERIE\_Bit}}
+{\footnotesize\ttfamily \#define EERIE\+\_\+\+Bit~3}
+
+Setting this bit to 1 Enables the EEPROM Ready Interrupt \Hypertarget{group__EEPROM_gaf35bc476eb3b917602c31bd57b692a82}\label{group__EEPROM_gaf35bc476eb3b917602c31bd57b692a82} 
+\index{Control Register (EECR) Bit Definitions@{Control Register (EECR) Bit Definitions}!EEWE\_Bit@{EEWE\_Bit}}
+\index{EEWE\_Bit@{EEWE\_Bit}!Control Register (EECR) Bit Definitions@{Control Register (EECR) Bit Definitions}}
+\doxysubsubsection{\texorpdfstring{EEWE\_Bit}{EEWE\_Bit}}
+{\footnotesize\ttfamily \#define EEWE\+\_\+\+Bit~1}
+
+Setting this bit to 1 Enables EEPROM Writing (EEMWE Must = 1) 

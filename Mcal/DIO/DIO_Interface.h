@@ -19,6 +19,14 @@
 #define   _DIO_INTERFACE_H_
 
 /**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup DIO
+ * @{
+ */
+
+
+/**
  * @fn          mDIO_SetDirectionForPin(uint8_t GroupName, uint8_t PinNumber, uint8_t DirectionState)
  * @brief       Sets the direction of a specific DIO pin as input or output.
  * @details     
@@ -153,6 +161,12 @@ void mDIO_WriteGroup(uint8_t GroupName,uint8_t OutputValue);
  */
 void mDIO_ReadGroup(uint8_t GroupName,uint8_t *InputValue);
 
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif/*_DIO_INTERFACE_H_*/
 

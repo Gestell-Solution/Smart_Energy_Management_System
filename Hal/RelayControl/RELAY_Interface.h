@@ -12,6 +12,14 @@
 #ifndef _HRELAY_INTERFACE_H_
 #define _HRELAY_INTERFACE_H_
 
+/**
+ * @addtogroup Hal
+ * @{
+ * @addtogroup Relay_Control
+ * @{
+ */
+
+
 /* --------------------------------------------------------------------------
 *                               Include LIB
 * --------------------------------------------------------------------------*/
@@ -70,5 +78,11 @@ uint8_t hRelay_GetStatus(uint8_t relayId);
 
 
 
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /*_HRELAY_INTERFACE_H_*/

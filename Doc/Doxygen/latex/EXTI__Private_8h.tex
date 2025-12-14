@@ -1,0 +1,189 @@
+\doxysection{Mcal/\+EXTI/\+EXTI\+\_\+\+Private.h File Reference}
+\hypertarget{EXTI__Private_8h}{}\label{EXTI__Private_8h}\index{Mcal/EXTI/EXTI\_Private.h@{Mcal/EXTI/EXTI\_Private.h}}
+
+
+This file contains The Private for External Interrupt Module. ~\newline
+  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}../\+Atmega32\+Registers\+Address.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+Include dependency graph for EXTI\+\_\+\+Private.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EXTI__Private_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EXTI__Private_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__Name_ga08d3cd3e6bf42fca35e4562e6b3565c5}{ISC00\+\_\+\+Bit}}~0
+\item 
+\#define \mbox{\hyperlink{group__Name_gaf0abe082092a37f68709b4717edffc02}{ISC01\+\_\+\+Bit}}~1
+\item 
+\#define \mbox{\hyperlink{group__Name_ga14c3e8e04c020d120965d2ef84140800}{ISC10\+\_\+\+Bit}}~2
+\item 
+\#define \mbox{\hyperlink{group__Name_ga586b0b056c2dec99fecae1b3e418918a}{ISC11\+\_\+\+Bit}}~3
+\item 
+\#define \mbox{\hyperlink{group__Name_ga413fc8a5e2886142928f5993f70b0d02}{INT0\+\_\+\+Bit}}~6
+\item 
+\#define \mbox{\hyperlink{group__Name_ga5b3060958f50fcf87d45c0af47238169}{INT1\+\_\+\+Bit}}~7
+\item 
+\#define \mbox{\hyperlink{group__Name_ga60a5b8a22b4b4d114d78406d5156812f}{INT2\+\_\+\+Bit}}~5
+\item 
+\#define \mbox{\hyperlink{group__Name_gaab3a37f86fe590f3ed50c60a982b9e0e}{INTF0\+\_\+\+Bit}}~6
+\item 
+\#define \mbox{\hyperlink{group__Name_ga2fed5794174e0c4641528a4c9839ff89}{INTF1\+\_\+\+Bit}}~7
+\item 
+\#define \mbox{\hyperlink{group__Name_gad6d17e2723fcd5500cb1ee839b7cf071}{INTF2\+\_\+\+Bit}}~5
+\item 
+\#define \mbox{\hyperlink{EXTI__Private_8h_ac93657f9640588eb1e5e233e33e806cb}{EXT\+\_\+\+LOW\+\_\+\+LEVEL}}~0
+\begin{DoxyCompactList}\small\item\em Sense\+Control-\/-\/\texorpdfstring{$>$}{>}sense mode (Low / Any Change / Falling / Rising) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{EXTI__Private_8h_a325ebe12faf731687bf398179a8f9aeb}{EXT\+\_\+\+RISING\+\_\+\+EDGE}}~1
+\item 
+\#define \mbox{\hyperlink{EXTI__Private_8h_a32a0eb2d721e43a5cea337dd02c1878f}{EXT\+\_\+\+FALLING\+\_\+\+EDGE}}~2
+\item 
+\#define \mbox{\hyperlink{EXTI__Private_8h_ac1d9e47bc07d6b277e7d1582ae5fc54c}{EXT\+\_\+\+Any\+CHANGE}}~3
+\item 
+\#define \mbox{\hyperlink{EXTI__Private_8h_a77d55cf55a67ff5d43794d24f7cb9922}{EXTI0}}~0
+\begin{DoxyCompactList}\small\item\em External Interrupt Source Selection. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{EXTI__Private_8h_abcd18cd089259e5c95d338adc4949821}{EXTI1}}~1
+\item 
+\#define \mbox{\hyperlink{EXTI__Private_8h_ac1864c46eb6702208ff59e4ececd3776}{EXTI2}}~2
+\end{DoxyCompactItemize}
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{EXTI__Private_8h_a8229e72d30067e9b63d0c9c97576a62c}{ISC2\+\_\+\+Bit}}~6
+\end{DoxyCompactItemize}
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{EXTI__Private_8h_aa1900de9f1e1d34e411a5de470c55a7d}{\+\_\+\+\_\+vector\+\_\+1}} (void) \+\_\+\+\_\+attribute\+\_\+\+\_\+((signal))
+\begin{DoxyCompactList}\small\item\em surface routine (ISR) Declaration\textbackslash{} prototype \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{EXTI__Private_8h_a1201d48853bec11e5abb151f8c047772}{\+\_\+\+\_\+vector\+\_\+2}} (void) \+\_\+\+\_\+attribute\+\_\+\+\_\+((signal))
+\item 
+void \mbox{\hyperlink{EXTI__Private_8h_a4b6fbce9f3ecb0aeed5a38c5bc947c86}{\+\_\+\+\_\+vector\+\_\+3}} (void) \+\_\+\+\_\+attribute\+\_\+\+\_\+((signal))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains The Private for External Interrupt Module. ~\newline
+ 
+
+\begin{DoxyVersion}{Version}
+3.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer \+: Mohamed Abdelgaber (\href{mailto:mohamedabdelgaber247@gmail.com}{\texttt{ mohamedabdelgaber247@gmail.\+com}}) 
+
+Reviewer \+: Eng -\/ Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}} ) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/16 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{EXTI__Private_8h_ac1d9e47bc07d6b277e7d1582ae5fc54c}\label{EXTI__Private_8h_ac1d9e47bc07d6b277e7d1582ae5fc54c} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!EXT\_AnyCHANGE@{EXT\_AnyCHANGE}}
+\index{EXT\_AnyCHANGE@{EXT\_AnyCHANGE}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{EXT\_AnyCHANGE}{EXT\_AnyCHANGE}}
+{\footnotesize\ttfamily \#define EXT\+\_\+\+Any\+CHANGE~3}
+
+\Hypertarget{EXTI__Private_8h_a32a0eb2d721e43a5cea337dd02c1878f}\label{EXTI__Private_8h_a32a0eb2d721e43a5cea337dd02c1878f} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!EXT\_FALLING\_EDGE@{EXT\_FALLING\_EDGE}}
+\index{EXT\_FALLING\_EDGE@{EXT\_FALLING\_EDGE}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{EXT\_FALLING\_EDGE}{EXT\_FALLING\_EDGE}}
+{\footnotesize\ttfamily \#define EXT\+\_\+\+FALLING\+\_\+\+EDGE~2}
+
+\Hypertarget{EXTI__Private_8h_ac93657f9640588eb1e5e233e33e806cb}\label{EXTI__Private_8h_ac93657f9640588eb1e5e233e33e806cb} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!EXT\_LOW\_LEVEL@{EXT\_LOW\_LEVEL}}
+\index{EXT\_LOW\_LEVEL@{EXT\_LOW\_LEVEL}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{EXT\_LOW\_LEVEL}{EXT\_LOW\_LEVEL}}
+{\footnotesize\ttfamily \#define EXT\+\_\+\+LOW\+\_\+\+LEVEL~0}
+
+
+
+Sense\+Control-\/-\/\texorpdfstring{$>$}{>}sense mode (Low / Any Change / Falling / Rising) 
+
+\Hypertarget{EXTI__Private_8h_a325ebe12faf731687bf398179a8f9aeb}\label{EXTI__Private_8h_a325ebe12faf731687bf398179a8f9aeb} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!EXT\_RISING\_EDGE@{EXT\_RISING\_EDGE}}
+\index{EXT\_RISING\_EDGE@{EXT\_RISING\_EDGE}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{EXT\_RISING\_EDGE}{EXT\_RISING\_EDGE}}
+{\footnotesize\ttfamily \#define EXT\+\_\+\+RISING\+\_\+\+EDGE~1}
+
+\Hypertarget{EXTI__Private_8h_a77d55cf55a67ff5d43794d24f7cb9922}\label{EXTI__Private_8h_a77d55cf55a67ff5d43794d24f7cb9922} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!EXTI0@{EXTI0}}
+\index{EXTI0@{EXTI0}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{EXTI0}{EXTI0}}
+{\footnotesize\ttfamily \#define EXTI0~0}
+
+
+
+External Interrupt Source Selection. 
+
+\Hypertarget{EXTI__Private_8h_abcd18cd089259e5c95d338adc4949821}\label{EXTI__Private_8h_abcd18cd089259e5c95d338adc4949821} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!EXTI1@{EXTI1}}
+\index{EXTI1@{EXTI1}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{EXTI1}{EXTI1}}
+{\footnotesize\ttfamily \#define EXTI1~1}
+
+\Hypertarget{EXTI__Private_8h_ac1864c46eb6702208ff59e4ececd3776}\label{EXTI__Private_8h_ac1864c46eb6702208ff59e4ececd3776} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!EXTI2@{EXTI2}}
+\index{EXTI2@{EXTI2}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{EXTI2}{EXTI2}}
+{\footnotesize\ttfamily \#define EXTI2~2}
+
+\Hypertarget{EXTI__Private_8h_a8229e72d30067e9b63d0c9c97576a62c}\label{EXTI__Private_8h_a8229e72d30067e9b63d0c9c97576a62c} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!ISC2\_Bit@{ISC2\_Bit}}
+\index{ISC2\_Bit@{ISC2\_Bit}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{ISC2\_Bit}{ISC2\_Bit}}
+{\footnotesize\ttfamily \#define ISC2\+\_\+\+Bit~6}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{EXTI__Private_8h_aa1900de9f1e1d34e411a5de470c55a7d}\label{EXTI__Private_8h_aa1900de9f1e1d34e411a5de470c55a7d} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!\_\_vector\_1@{\_\_vector\_1}}
+\index{\_\_vector\_1@{\_\_vector\_1}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{\_\_vector\_1()}{\_\_vector\_1()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+vector\+\_\+1 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+surface routine (ISR) Declaration\textbackslash{} prototype 
+
+surface routine (ISR) Declaration\textbackslash{} prototype \begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000024}{Todo}}]Handle EXTI0\+\_\+\+Callback\+Function\+\_\+and\+\_\+\+ISR\+\_\+\+Handler =Null\end{DoxyRefDesc}
+\Hypertarget{EXTI__Private_8h_a1201d48853bec11e5abb151f8c047772}\label{EXTI__Private_8h_a1201d48853bec11e5abb151f8c047772} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!\_\_vector\_2@{\_\_vector\_2}}
+\index{\_\_vector\_2@{\_\_vector\_2}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{\_\_vector\_2()}{\_\_vector\_2()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+vector\+\_\+2 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000025}{Todo}}]Handle EXTI1\+\_\+\+Callback\+Function\+\_\+and\+\_\+\+ISR\+\_\+\+Handler =Null\end{DoxyRefDesc}
+\Hypertarget{EXTI__Private_8h_a4b6fbce9f3ecb0aeed5a38c5bc947c86}\label{EXTI__Private_8h_a4b6fbce9f3ecb0aeed5a38c5bc947c86} 
+\index{EXTI\_Private.h@{EXTI\_Private.h}!\_\_vector\_3@{\_\_vector\_3}}
+\index{\_\_vector\_3@{\_\_vector\_3}!EXTI\_Private.h@{EXTI\_Private.h}}
+\doxysubsubsection{\texorpdfstring{\_\_vector\_3()}{\_\_vector\_3()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+vector\+\_\+3 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000026}{Todo}}]Handle EXTI2\+\_\+\+Callback\+Function\+\_\+and\+\_\+\+ISR\+\_\+\+Handler =Null\end{DoxyRefDesc}

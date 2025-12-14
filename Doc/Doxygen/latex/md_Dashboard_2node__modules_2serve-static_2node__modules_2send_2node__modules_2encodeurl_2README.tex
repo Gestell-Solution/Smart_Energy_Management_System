@@ -1,0 +1,94 @@
+\chapter{encodeurl}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README}{}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README}\index{encodeurl@{encodeurl}}
+\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2718}%
+\Hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2718}%
+ \href{https://npmjs.org/package/encodeurl}{\texttt{ }} \href{https://npmjs.org/package/encodeurl}{\texttt{ }} \href{https://nodejs.org/en/download}{\texttt{ }} \href{https://travis-ci.org/pillarjs/encodeurl}{\texttt{ }} \href{https://coveralls.io/r/pillarjs/encodeurl?branch=master}{\texttt{ }}
+
+Encode a URL to a percent-\/encoded form, excluding already-\/encoded sequences\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2719}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2719}
+This is a \href{https://nodejs.org/en/}{\texttt{ Node.\+js}} module available through the \href{https://www.npmjs.com/}{\texttt{ npm registry}}. Installation is done using the \href{https://docs.npmjs.com/getting-started/installing-npm-packages-locally}{\texttt{ {\ttfamily npm install} command}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ encodeurl}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2720}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2720}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ encodeUrl\ =\ require('encodeurl')}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2721}{}\doxysubsection{\texorpdfstring{encode\+Url(url)}{encodeUrl(url)}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2721}
+Encode a URL to a percent-\/encoded form, excluding already-\/encoded sequences.
+
+This function will take an already-\/encoded URL and encode all the non-\/\+URL code points (as UTF-\/8 byte sequences). This function will not encode the "{}\%"{} character unless it is not part of a valid sequence ({\ttfamily \%20} will be left as-\/is, but {\ttfamily foo} will be encoded as {\ttfamily \%25foo}).
+
+This encode is meant to be "{}safe"{} and does not throw errors. It will try as hard as it can to properly encode the given URL, including replacing any raw, unpaired surrogate pairs with the Unicode replacement character prior to encoding.
+
+This function is {\itshape similar} to the intrinsic function {\ttfamily encode\+URI}, except it will not encode the {\ttfamily \%} character if that is part of a valid sequence, will not encode {\ttfamily \mbox{[}} and {\ttfamily \mbox{]}} (for IPv6 hostnames) and will replace raw, unpaired surrogate pairs with the Unicode replacement character (instead of throwing).\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2722}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2722}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2723}{}\doxysubsection{\texorpdfstring{Encode a URL containing user-\/controled data}{Encode a URL containing user-controled data}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2723}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ encodeUrl\ =\ require('encodeurl')}
+\DoxyCodeLine{var\ escapeHtml\ =\ require('escape-\/html')}
+\DoxyCodeLine{}
+\DoxyCodeLine{http.createServer(function\ onRequest\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ //\ get\ encoded\ form\ of\ inbound\ url}
+\DoxyCodeLine{\ \ var\ url\ =\ encodeUrl(req.url)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ create\ html\ message}
+\DoxyCodeLine{\ \ var\ body\ =\ '<p>Location\ '\ +\ escapeHtml(url)\ +\ '\ not\ found</p>'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ send\ a\ 404}
+\DoxyCodeLine{\ \ res.statusCode\ =\ 404}
+\DoxyCodeLine{\ \ res.setHeader('Content-\/Type',\ 'text/html;\ charset=UTF-\/8')}
+\DoxyCodeLine{\ \ res.setHeader('Content-\/Length',\ String(Buffer.byteLength(body,\ 'utf-\/8')))}
+\DoxyCodeLine{\ \ res.end(body,\ 'utf-\/8')}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2724}{}\doxysubsection{\texorpdfstring{Encode a URL for use in a header field}{Encode a URL for use in a header field}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2724}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ encodeUrl\ =\ require('encodeurl')}
+\DoxyCodeLine{var\ escapeHtml\ =\ require('escape-\/html')}
+\DoxyCodeLine{var\ url\ =\ require('url')}
+\DoxyCodeLine{}
+\DoxyCodeLine{http.createServer(function\ onRequest\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ //\ parse\ inbound\ url}
+\DoxyCodeLine{\ \ var\ href\ =\ url.parse(req)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ set\ new\ host\ for\ redirect}
+\DoxyCodeLine{\ \ href.host\ =\ 'localhost'}
+\DoxyCodeLine{\ \ href.protocol\ =\ 'https:'}
+\DoxyCodeLine{\ \ href.slashes\ =\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ create\ location\ header}
+\DoxyCodeLine{\ \ var\ location\ =\ encodeUrl(url.format(href))}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ create\ html\ message}
+\DoxyCodeLine{\ \ var\ body\ =\ '<p>Redirecting\ to\ new\ site:\ '\ +\ escapeHtml(location)\ +\ '</p>'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ send\ a\ 301}
+\DoxyCodeLine{\ \ res.statusCode\ =\ 301}
+\DoxyCodeLine{\ \ res.setHeader('Content-\/Type',\ 'text/html;\ charset=UTF-\/8')}
+\DoxyCodeLine{\ \ res.setHeader('Content-\/Length',\ String(Buffer.byteLength(body,\ 'utf-\/8')))}
+\DoxyCodeLine{\ \ res.setHeader('Location',\ location)}
+\DoxyCodeLine{\ \ res.end(body,\ 'utf-\/8')}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2725}{}\doxysection{\texorpdfstring{Testing}{Testing}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2725}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ test}
+\DoxyCodeLine{\$\ npm\ run\ lint}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2726}{}\doxysection{\texorpdfstring{References}{References}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2726}
+
+\begin{DoxyItemize}
+\item \href{https://tools.ietf.org/html/rfc3986}{\texttt{ RFC 3986\+: Uniform Resource Identifier (URI)\+: Generic Syntax}}
+\item \href{https://url.spec.whatwg.org/}{\texttt{ WHATWG URL Living Standard}}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2727}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2node__modules_2encodeurl_2README_autotoc_md2727}
+\mbox{[}MIT\mbox{]}(LICENSE) 

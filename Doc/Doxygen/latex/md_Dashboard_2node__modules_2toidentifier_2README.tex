@@ -1,0 +1,37 @@
+\chapter{toidentifier}
+\hypertarget{md_Dashboard_2node__modules_2toidentifier_2README}{}\label{md_Dashboard_2node__modules_2toidentifier_2README}\index{toidentifier@{toidentifier}}
+\label{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3057}%
+\Hypertarget{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3057}%
+ \href{https://npmjs.org/package/toidentifier}{\texttt{ }} \href{https://npmjs.org/package/toidentifier}{\texttt{ }} \href{https://github.com/component/toidentifier?query=workflow\%3Aci}{\texttt{ }} \href{https://codecov.io/gh/component/toidentifier}{\texttt{ }}
+
+\begin{quote}
+Convert a string of words to a Java\+Script identifier \end{quote}
+\hypertarget{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3058}{}\doxysection{\texorpdfstring{Install}{Install}}\label{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3058}
+This is a \href{https://nodejs.org/en/}{\texttt{ Node.\+js}} module available through the \href{https://www.npmjs.com/}{\texttt{ npm registry}}. Installation is done using the \href{https://docs.npmjs.com/getting-started/installing-npm-packages-locally}{\texttt{ {\ttfamily npm install} command}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ toidentifier}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3059}{}\doxysection{\texorpdfstring{Example}{Example}}\label{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3059}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ toIdentifier\ =\ require('toidentifier')}
+\DoxyCodeLine{}
+\DoxyCodeLine{console.log(toIdentifier('Bad\ Request'))}
+\DoxyCodeLine{//\ =>\ "{}BadRequest"{}}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3060}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3060}
+This Common\+JS module exports a single default function\+: {\ttfamily to\+Identifier}.\hypertarget{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3061}{}\doxysubsection{\texorpdfstring{to\+Identifier(string)}{toIdentifier(string)}}\label{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3061}
+Given a string as the argument, it will be transformed according to the following rules and the new string will be returned\+:
+
+
+\begin{DoxyEnumerate}
+\item Split into words separated by space characters ({\ttfamily 0x20}).
+\item Upper case the first character of each word.
+\item Join the words together with no separator.
+\item Remove all non-\/word ({\ttfamily \mbox{[}0-\/9a-\/z\+\_\+\mbox{]}}) characters.
+\end{DoxyEnumerate}\hypertarget{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3062}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2toidentifier_2README_autotoc_md3062}
+\mbox{[}MIT\mbox{]}(LICENSE)\hypertarget{README.md_autotoc_md3063}{}\doxysection{\texorpdfstring{autotoc\+\_\+md3063}{autotoc\_md3063}}\label{README.md_autotoc_md3063}

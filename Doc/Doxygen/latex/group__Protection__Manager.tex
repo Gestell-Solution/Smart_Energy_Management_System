@@ -1,0 +1,186 @@
+\doxysubsection{Protection\+\_\+\+Manager}
+\hypertarget{group__Protection__Manager}{}\label{group__Protection__Manager}\index{Protection\_Manager@{Protection\_Manager}}
+Collaboration diagram for Protection\+\_\+\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{group__Protection__Manager}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__PM}{API\textquotesingle{}S}}
+\begin{DoxyCompactList}\small\item\em PM Functions \{. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Protection__Manager_gad456b5b15a33838a41f2c4e9b237287f}{PM\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize all of the needed Modules in this Driver. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Protection__Manager_ga6cd0ecaa346b98c7876c62ae86a9cbfa}{PM\+\_\+\+Update}} (void)
+\begin{DoxyCompactList}\small\item\em Checks Periodically all the Protection Conditions. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__Protection__Manager_ga2626db0f8a299b1a9b129dea4589efaa}{PM\+\_\+\+Is\+Tripped}} (void)
+\begin{DoxyCompactList}\small\item\em Check if System Is Currently in Protection Mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Protection__Manager_gaad7eded3e2a8fd5644c37c2663a65619}{PM\+\_\+\+Reset}} (void)
+\begin{DoxyCompactList}\small\item\em Resets the Normal operation after fixing the problem. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+\doxysubsubsection{Function Documentation}
+\Hypertarget{group__Protection__Manager_gad456b5b15a33838a41f2c4e9b237287f}\label{group__Protection__Manager_gad456b5b15a33838a41f2c4e9b237287f} 
+\index{Protection\_Manager@{Protection\_Manager}!PM\_Init@{PM\_Init}}
+\index{PM\_Init@{PM\_Init}!Protection\_Manager@{Protection\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{PM\_Init()}{PM\_Init()}}
+{\footnotesize\ttfamily PM\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialize all of the needed Modules in this Driver. 
+
+Initialize all of the needed Modules in this Driver.
+
+Sets up necessary peripherals\+:
+\begin{DoxyItemize}
+\item External Interrupts (EXTI) for reset button.
+\item Timer1 (if used for timing protection).
+\item Output actuators\+: Buzzer, Relays, RGB LED.
+\item Input sensors\+: Voltage, Current.
+\item Display Manager (for showing status). Configures the system to start in the Safe (Green) state. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Protection__Manager_gad456b5b15a33838a41f2c4e9b237287f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Protection__Manager_gad456b5b15a33838a41f2c4e9b237287f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Protection__Manager_ga2626db0f8a299b1a9b129dea4589efaa}\label{group__Protection__Manager_ga2626db0f8a299b1a9b129dea4589efaa} 
+\index{Protection\_Manager@{Protection\_Manager}!PM\_IsTripped@{PM\_IsTripped}}
+\index{PM\_IsTripped@{PM\_IsTripped}!Protection\_Manager@{Protection\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{PM\_IsTripped()}{PM\_IsTripped()}}
+{\footnotesize\ttfamily PM\+\_\+\+Is\+Tripped (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Check if System Is Currently in Protection Mode. 
+
+\begin{DoxyReturn}{Returns}
+returns Danger or
+\end{DoxyReturn}
+Check if System Is Currently in Protection Mode.
+
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t status
+\begin{DoxyItemize}
+\item {\ttfamily Safe} (0)
+\item {\ttfamily Danger} (1) 
+\end{DoxyItemize}
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Protection__Manager_ga2626db0f8a299b1a9b129dea4589efaa_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Protection__Manager_gaad7eded3e2a8fd5644c37c2663a65619}\label{group__Protection__Manager_gaad7eded3e2a8fd5644c37c2663a65619} 
+\index{Protection\_Manager@{Protection\_Manager}!PM\_Reset@{PM\_Reset}}
+\index{PM\_Reset@{PM\_Reset}!Protection\_Manager@{Protection\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{PM\_Reset()}{PM\_Reset()}}
+{\footnotesize\ttfamily PM\+\_\+\+Reset (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Resets the Normal operation after fixing the problem. 
+
+this function is triggered by the system automatically, when the protection conditions are exceeded system stucks in a loop till problem is fixed , to reset the Operation Press the Reset button
+
+\begin{DoxyWarning}{Warning}
+Please Make Sure not to press the button till the problem is fixed
+\end{DoxyWarning}
+Resets the Normal operation after fixing the problem.
+
+Called via External Interrupt (Button Press). If the system considers the fault condition "{}\+Fixed"{} (state logic), this restores normal operation\+:
+\begin{DoxyItemize}
+\item Closes Relays (Power ON).
+\item Turns off Buzzer.
+\item Sets RGB LED to GREEN. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Protection__Manager_gaad7eded3e2a8fd5644c37c2663a65619_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Protection__Manager_gaad7eded3e2a8fd5644c37c2663a65619_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Protection__Manager_ga6cd0ecaa346b98c7876c62ae86a9cbfa}\label{group__Protection__Manager_ga6cd0ecaa346b98c7876c62ae86a9cbfa} 
+\index{Protection\_Manager@{Protection\_Manager}!PM\_Update@{PM\_Update}}
+\index{PM\_Update@{PM\_Update}!Protection\_Manager@{Protection\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{PM\_Update()}{PM\_Update()}}
+{\footnotesize\ttfamily PM\+\_\+\+Update (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Checks Periodically all the Protection Conditions. 
+
+Checks Periodically all the Protection Conditions.
+
+This function should be called in the main loop.
+\begin{DoxyEnumerate}
+\item Updates measurement readings.
+\item Compares readings with {\ttfamily Vrms\+\_\+\+Threshold}, {\ttfamily Irms\+\_\+\+Threshold}, and {\ttfamily P\+\_\+\+Threshold}.
+\item If limits exceeded\+:
+\begin{DoxyItemize}
+\item Sets state to {\ttfamily Danger}.
+\item Opens all Relays (CUTOFF).
+\item Turns RGB LED to RED.
+\item Activates Buzzer.
+\item Logs fault values to {\ttfamily g\+\_\+\+System\+Data}.
+\end{DoxyItemize}
+\item Handles UI updates for Safe/\+Danger states. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyEnumerate}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Protection__Manager_ga6cd0ecaa346b98c7876c62ae86a9cbfa_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{group__Protection__Manager_ga6cd0ecaa346b98c7876c62ae86a9cbfa_icgraph}
+\end{center}
+\end{figure}
+\input{group__PM}

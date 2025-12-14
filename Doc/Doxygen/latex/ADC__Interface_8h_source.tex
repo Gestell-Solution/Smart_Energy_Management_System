@@ -1,0 +1,30 @@
+\doxysection{ADC\+\_\+\+Interface.\+h}
+\hypertarget{ADC__Interface_8h_source}{}\label{ADC__Interface_8h_source}\index{Mcal/ADC/ADC\_Interface.h@{Mcal/ADC/ADC\_Interface.h}}
+\mbox{\hyperlink{ADC__Interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ ADC\_INTERFACE\_H}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ ADC\_INTERFACE\_H}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ADC__Private_8h}{ADC\_Private.h}}"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ADC__Config_8h}{ADC\_Config.h}}"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}../../Common/Macros.h"{}}}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__ADC__Driver_ga143d65005f0426645abce481e2bc7533}{mADC\_Init}}();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00053\ uint16\_t\ \mbox{\hyperlink{group__ADC__Driver_gaf051b88647d9b01ed8118a9667ca105f}{mADC\_Read}}(uint8\_t\ channel);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__ADC__Driver_ga6d329af1bb6843f8d54b802b034934f9}{mADC\_RegisterChannel}}(uint8\_t\ channel,\ \textcolor{keywordtype}{void}\ (*callback)(uint16\_t\ value));}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__ADC__Driver_gab22dee2029da82f9398f3119011f7629}{mADC\_StartGroup}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__ADC__Driver_ga9d7457f9c576cc1f739d22eb0a07164d}{mADC\_Stop}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__ADC__Driver_ga6e61785f9732e9197a2ef392fc23c34e}{ADC\_SetCallback}}(\textcolor{keywordtype}{void}\ (*callback)(uint16\_t)\ ,\ uint8\_t\ channel);}
+\DoxyCodeLine{00092\ }
+ \textcolor{comment}{// end of ADC\_Driver}\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

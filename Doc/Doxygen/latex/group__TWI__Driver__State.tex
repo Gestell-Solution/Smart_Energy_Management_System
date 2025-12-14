@@ -1,0 +1,102 @@
+\doxysection{TWI Driver State}
+\hypertarget{group__TWI__Driver__State}{}\label{group__TWI__Driver__State}\index{TWI Driver State@{TWI Driver State}}
+
+
+Internal state machine definitions for the TWI driver.  
+
+
+Collaboration diagram for TWI Driver State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{group__TWI__Driver__State}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__TWI__Callbacks}{TWI Callbacks}}
+\begin{DoxyCompactList}\small\item\em Function pointers for Slave operations (RX/\+TX). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__TWI__Driver__State_ga636ce0257fd17985d0f6678d3b9ec6a8}{TWI\+\_\+\+STATE\+\_\+\+IDLE}}~0
+\item 
+\#define \mbox{\hyperlink{group__TWI__Driver__State_ga669f25c49a910ceefe086f67052992be}{TWI\+\_\+\+STATE\+\_\+\+MASTER\+\_\+\+TX}}~1
+\item 
+\#define \mbox{\hyperlink{group__TWI__Driver__State_ga5ffca09f2b8a9e92669003509370d675}{TWI\+\_\+\+STATE\+\_\+\+MASTER\+\_\+\+RX}}~2
+\item 
+\#define \mbox{\hyperlink{group__TWI__Driver__State_gacead6ecdc53c03e74370af7b92e9cd41}{TWI\+\_\+\+STATE\+\_\+\+SLAVE\+\_\+\+RX}}~3
+\item 
+\#define \mbox{\hyperlink{group__TWI__Driver__State_gab370fbbec692b5e43c1322a67a8ae0d1}{TWI\+\_\+\+STATE\+\_\+\+SLAVE\+\_\+\+TX}}~4
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{group__TWI__Driver__State_gadd230b09b8aadc4f976a1e6803937c94}{TWI\+\_\+\+State}}
+\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__TWI__Driver__State_ga6e0150063861e8f4805317dacc6d922f}{slave\+Rx\+Callback}} )(uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t len)
+\item 
+uint8\+\_\+t(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__TWI__Driver__State_gaf7ac5f913f1b6f9c440cf234849e54a3}{slave\+Tx\+Provider}} )(uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, uint8\+\_\+t max\+Len)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Internal state machine definitions for the TWI driver. 
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{group__TWI__Driver__State_ga636ce0257fd17985d0f6678d3b9ec6a8}\label{group__TWI__Driver__State_ga636ce0257fd17985d0f6678d3b9ec6a8} 
+\index{TWI Driver State@{TWI Driver State}!TWI\_STATE\_IDLE@{TWI\_STATE\_IDLE}}
+\index{TWI\_STATE\_IDLE@{TWI\_STATE\_IDLE}!TWI Driver State@{TWI Driver State}}
+\doxysubsubsection{\texorpdfstring{TWI\_STATE\_IDLE}{TWI\_STATE\_IDLE}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+STATE\+\_\+\+IDLE~0}
+
+\Hypertarget{group__TWI__Driver__State_ga5ffca09f2b8a9e92669003509370d675}\label{group__TWI__Driver__State_ga5ffca09f2b8a9e92669003509370d675} 
+\index{TWI Driver State@{TWI Driver State}!TWI\_STATE\_MASTER\_RX@{TWI\_STATE\_MASTER\_RX}}
+\index{TWI\_STATE\_MASTER\_RX@{TWI\_STATE\_MASTER\_RX}!TWI Driver State@{TWI Driver State}}
+\doxysubsubsection{\texorpdfstring{TWI\_STATE\_MASTER\_RX}{TWI\_STATE\_MASTER\_RX}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+STATE\+\_\+\+MASTER\+\_\+\+RX~2}
+
+\Hypertarget{group__TWI__Driver__State_ga669f25c49a910ceefe086f67052992be}\label{group__TWI__Driver__State_ga669f25c49a910ceefe086f67052992be} 
+\index{TWI Driver State@{TWI Driver State}!TWI\_STATE\_MASTER\_TX@{TWI\_STATE\_MASTER\_TX}}
+\index{TWI\_STATE\_MASTER\_TX@{TWI\_STATE\_MASTER\_TX}!TWI Driver State@{TWI Driver State}}
+\doxysubsubsection{\texorpdfstring{TWI\_STATE\_MASTER\_TX}{TWI\_STATE\_MASTER\_TX}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+STATE\+\_\+\+MASTER\+\_\+\+TX~1}
+
+\Hypertarget{group__TWI__Driver__State_gacead6ecdc53c03e74370af7b92e9cd41}\label{group__TWI__Driver__State_gacead6ecdc53c03e74370af7b92e9cd41} 
+\index{TWI Driver State@{TWI Driver State}!TWI\_STATE\_SLAVE\_RX@{TWI\_STATE\_SLAVE\_RX}}
+\index{TWI\_STATE\_SLAVE\_RX@{TWI\_STATE\_SLAVE\_RX}!TWI Driver State@{TWI Driver State}}
+\doxysubsubsection{\texorpdfstring{TWI\_STATE\_SLAVE\_RX}{TWI\_STATE\_SLAVE\_RX}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+STATE\+\_\+\+SLAVE\+\_\+\+RX~3}
+
+\Hypertarget{group__TWI__Driver__State_gab370fbbec692b5e43c1322a67a8ae0d1}\label{group__TWI__Driver__State_gab370fbbec692b5e43c1322a67a8ae0d1} 
+\index{TWI Driver State@{TWI Driver State}!TWI\_STATE\_SLAVE\_TX@{TWI\_STATE\_SLAVE\_TX}}
+\index{TWI\_STATE\_SLAVE\_TX@{TWI\_STATE\_SLAVE\_TX}!TWI Driver State@{TWI Driver State}}
+\doxysubsubsection{\texorpdfstring{TWI\_STATE\_SLAVE\_TX}{TWI\_STATE\_SLAVE\_TX}}
+{\footnotesize\ttfamily \#define TWI\+\_\+\+STATE\+\_\+\+SLAVE\+\_\+\+TX~4}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{group__TWI__Driver__State_ga6e0150063861e8f4805317dacc6d922f}\label{group__TWI__Driver__State_ga6e0150063861e8f4805317dacc6d922f} 
+\index{TWI Driver State@{TWI Driver State}!slaveRxCallback@{slaveRxCallback}}
+\index{slaveRxCallback@{slaveRxCallback}!TWI Driver State@{TWI Driver State}}
+\doxysubsubsection{\texorpdfstring{slaveRxCallback}{slaveRxCallback}}
+{\footnotesize\ttfamily void(\texorpdfstring{$\ast$}{*} slave\+Rx\+Callback) (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t len) (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint8\+\_\+t}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{group__TWI__Driver__State_gaf7ac5f913f1b6f9c440cf234849e54a3}\label{group__TWI__Driver__State_gaf7ac5f913f1b6f9c440cf234849e54a3} 
+\index{TWI Driver State@{TWI Driver State}!slaveTxProvider@{slaveTxProvider}}
+\index{slaveTxProvider@{slaveTxProvider}!TWI Driver State@{TWI Driver State}}
+\doxysubsubsection{\texorpdfstring{slaveTxProvider}{slaveTxProvider}}
+{\footnotesize\ttfamily uint8\+\_\+t(\texorpdfstring{$\ast$}{*} slave\+Tx\+Provider) (uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, uint8\+\_\+t max\+Len) (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{uint8\+\_\+t}]{max\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{group__TWI__Driver__State_gadd230b09b8aadc4f976a1e6803937c94}\label{group__TWI__Driver__State_gadd230b09b8aadc4f976a1e6803937c94} 
+\index{TWI Driver State@{TWI Driver State}!TWI\_State@{TWI\_State}}
+\index{TWI\_State@{TWI\_State}!TWI Driver State@{TWI Driver State}}
+\doxysubsubsection{\texorpdfstring{TWI\_State}{TWI\_State}}
+{\footnotesize\ttfamily uint8\+\_\+t TWI\+\_\+\+State\hspace{0.3cm}{\ttfamily [extern]}}
+
+\input{group__TWI__Callbacks}

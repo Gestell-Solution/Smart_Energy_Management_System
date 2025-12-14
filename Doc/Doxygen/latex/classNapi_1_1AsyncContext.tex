@@ -1,0 +1,99 @@
+\doxysection{Napi\+::Async\+Context Class Reference}
+\hypertarget{classNapi_1_1AsyncContext}{}\label{classNapi_1_1AsyncContext}\index{Napi::AsyncContext@{Napi::AsyncContext}}
+
+
+{\ttfamily \#include $<$napi.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncContext_aa221ba954eb7ce7a4e0016dc3c2c2522}{Async\+Context}} (napi\+\_\+env env, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncContext_aca4d3a4a2337405876c9376c2dd4b407}{Async\+Context}} (napi\+\_\+env env, const char \texorpdfstring{$\ast$}{*}resource\+\_\+name, const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&resource)
+\item 
+virtual \mbox{\hyperlink{classNapi_1_1AsyncContext_ac92984fe19ad55d48a7bee4061c3376f}{\texorpdfstring{$\sim$}{\string~}\+Async\+Context}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncContext_a8a3986bc61c78daacb36c2a1bcee7a85}{Async\+Context}} (\mbox{\hyperlink{classNapi_1_1AsyncContext}{Async\+Context}} \&\&other)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncContext}{Async\+Context}} \& \mbox{\hyperlink{classNapi_1_1AsyncContext_a1f50ceeee3519c3702870f1ed056267e}{operator=}} (\mbox{\hyperlink{classNapi_1_1AsyncContext}{Async\+Context}} \&\&other)
+\item 
+\mbox{\hyperlink{classNapi_1_1AsyncContext_aab3abfd7a355f79ced9461a2be3e870f}{operator napi\+\_\+async\+\_\+context}} () const
+\item 
+\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} \mbox{\hyperlink{classNapi_1_1AsyncContext_a5e25d5f91466fbcdad082acdc7f12c95}{Env}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+napi\+\_\+env \mbox{\hyperlink{classNapi_1_1AsyncContext_aea2bae86615267ad4e55b3f866f8e346}{\+\_\+env}}
+\item 
+napi\+\_\+async\+\_\+context \mbox{\hyperlink{classNapi_1_1AsyncContext_a9a39be8feb628bb014e97c6be194cfd4}{\+\_\+context}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classNapi_1_1AsyncContext_aa221ba954eb7ce7a4e0016dc3c2c2522}\label{classNapi_1_1AsyncContext_aa221ba954eb7ce7a4e0016dc3c2c2522} 
+\index{Napi::AsyncContext@{Napi::AsyncContext}!AsyncContext@{AsyncContext}}
+\index{AsyncContext@{AsyncContext}!Napi::AsyncContext@{Napi::AsyncContext}}
+\doxysubsubsection{\texorpdfstring{AsyncContext()}{AsyncContext()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Napi\+::\+Async\+Context\+::\+Async\+Context (\begin{DoxyParamCaption}\item[{napi\+\_\+env}]{env,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{resource\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\Hypertarget{classNapi_1_1AsyncContext_aca4d3a4a2337405876c9376c2dd4b407}\label{classNapi_1_1AsyncContext_aca4d3a4a2337405876c9376c2dd4b407} 
+\index{Napi::AsyncContext@{Napi::AsyncContext}!AsyncContext@{AsyncContext}}
+\index{AsyncContext@{AsyncContext}!Napi::AsyncContext@{Napi::AsyncContext}}
+\doxysubsubsection{\texorpdfstring{AsyncContext()}{AsyncContext()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Napi\+::\+Async\+Context\+::\+Async\+Context (\begin{DoxyParamCaption}\item[{napi\+\_\+env}]{env,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{resource\+\_\+name,  }\item[{const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&}]{resource }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\Hypertarget{classNapi_1_1AsyncContext_ac92984fe19ad55d48a7bee4061c3376f}\label{classNapi_1_1AsyncContext_ac92984fe19ad55d48a7bee4061c3376f} 
+\index{Napi::AsyncContext@{Napi::AsyncContext}!````~AsyncContext@{\texorpdfstring{$\sim$}{\string~}AsyncContext}}
+\index{````~AsyncContext@{\texorpdfstring{$\sim$}{\string~}AsyncContext}!Napi::AsyncContext@{Napi::AsyncContext}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}AsyncContext()}{\string~AsyncContext()}}
+{\footnotesize\ttfamily Napi\+::\+Async\+Context\+::\texorpdfstring{$\sim$}{\string~}\+Async\+Context (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+\Hypertarget{classNapi_1_1AsyncContext_a8a3986bc61c78daacb36c2a1bcee7a85}\label{classNapi_1_1AsyncContext_a8a3986bc61c78daacb36c2a1bcee7a85} 
+\index{Napi::AsyncContext@{Napi::AsyncContext}!AsyncContext@{AsyncContext}}
+\index{AsyncContext@{AsyncContext}!Napi::AsyncContext@{Napi::AsyncContext}}
+\doxysubsubsection{\texorpdfstring{AsyncContext()}{AsyncContext()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Napi\+::\+Async\+Context\+::\+Async\+Context (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1AsyncContext}{Async\+Context}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classNapi_1_1AsyncContext_a5e25d5f91466fbcdad082acdc7f12c95}\label{classNapi_1_1AsyncContext_a5e25d5f91466fbcdad082acdc7f12c95} 
+\index{Napi::AsyncContext@{Napi::AsyncContext}!Env@{Env}}
+\index{Env@{Env}!Napi::AsyncContext@{Napi::AsyncContext}}
+\doxysubsubsection{\texorpdfstring{Env()}{Env()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} Napi\+::\+Async\+Context\+::\+Env (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1AsyncContext_aab3abfd7a355f79ced9461a2be3e870f}\label{classNapi_1_1AsyncContext_aab3abfd7a355f79ced9461a2be3e870f} 
+\index{Napi::AsyncContext@{Napi::AsyncContext}!operator napi\_async\_context@{operator napi\_async\_context}}
+\index{operator napi\_async\_context@{operator napi\_async\_context}!Napi::AsyncContext@{Napi::AsyncContext}}
+\doxysubsubsection{\texorpdfstring{operator napi\_async\_context()}{operator napi\_async\_context()}}
+{\footnotesize\ttfamily Napi\+::\+Async\+Context\+::operator napi\+\_\+async\+\_\+context (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1AsyncContext_a1f50ceeee3519c3702870f1ed056267e}\label{classNapi_1_1AsyncContext_a1f50ceeee3519c3702870f1ed056267e} 
+\index{Napi::AsyncContext@{Napi::AsyncContext}!operator=@{operator=}}
+\index{operator=@{operator=}!Napi::AsyncContext@{Napi::AsyncContext}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1AsyncContext}{Async\+Context}} \& Napi\+::\+Async\+Context\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1AsyncContext}{Async\+Context}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classNapi_1_1AsyncContext_a9a39be8feb628bb014e97c6be194cfd4}\label{classNapi_1_1AsyncContext_a9a39be8feb628bb014e97c6be194cfd4} 
+\index{Napi::AsyncContext@{Napi::AsyncContext}!\_context@{\_context}}
+\index{\_context@{\_context}!Napi::AsyncContext@{Napi::AsyncContext}}
+\doxysubsubsection{\texorpdfstring{\_context}{\_context}}
+{\footnotesize\ttfamily napi\+\_\+async\+\_\+context Napi\+::\+Async\+Context\+::\+\_\+context\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classNapi_1_1AsyncContext_aea2bae86615267ad4e55b3f866f8e346}\label{classNapi_1_1AsyncContext_aea2bae86615267ad4e55b3f866f8e346} 
+\index{Napi::AsyncContext@{Napi::AsyncContext}!\_env@{\_env}}
+\index{\_env@{\_env}!Napi::AsyncContext@{Napi::AsyncContext}}
+\doxysubsubsection{\texorpdfstring{\_env}{\_env}}
+{\footnotesize\ttfamily napi\+\_\+env Napi\+::\+Async\+Context\+::\+\_\+env\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Dashboard/node\+\_\+modules/node-\/addon-\/api/\mbox{\hyperlink{napi_8h}{napi.\+h}}\item 
+Dashboard/node\+\_\+modules/node-\/addon-\/api/\mbox{\hyperlink{napi-inl_8h}{napi-\/inl.\+h}}\end{DoxyCompactItemize}

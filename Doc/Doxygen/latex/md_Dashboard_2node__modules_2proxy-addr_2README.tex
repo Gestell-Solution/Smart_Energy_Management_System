@@ -1,0 +1,115 @@
+\chapter{proxy-\/addr}
+\hypertarget{md_Dashboard_2node__modules_2proxy-addr_2README}{}\label{md_Dashboard_2node__modules_2proxy-addr_2README}\index{proxy-\/addr@{proxy-\/addr}}
+\label{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2139}%
+\Hypertarget{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2139}%
+ \href{https://npmjs.org/package/proxy-addr}{\texttt{ }} \href{https://npmjs.org/package/proxy-addr}{\texttt{ }} \href{https://nodejs.org/en/download}{\texttt{ }} \href{https://github.com/jshttp/proxy-addr/actions?query=workflow\%3Aci}{\texttt{ }} \href{https://coveralls.io/r/jshttp/proxy-addr?branch=master}{\texttt{ }}
+
+Determine address of proxied request\hypertarget{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2140}{}\doxysection{\texorpdfstring{Install}{Install}}\label{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2140}
+This is a \href{https://nodejs.org/en/}{\texttt{ Node.\+js}} module available through the \href{https://www.npmjs.com/}{\texttt{ npm registry}}. Installation is done using the \href{https://docs.npmjs.com/getting-started/installing-npm-packages-locally}{\texttt{ {\ttfamily npm install} command}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ proxy-\/addr}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2141}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2141}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ proxyaddr\ =\ require('proxy-\/addr')}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2142}{}\doxysubsection{\texorpdfstring{proxyaddr(req, trust)}{proxyaddr(req, trust)}}\label{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2142}
+Return the address of the request, using the given {\ttfamily trust} parameter.
+
+The {\ttfamily trust} argument is a function that returns {\ttfamily true} if you trust the address, {\ttfamily false} if you don\textquotesingle{}t. The closest untrusted address is returned.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{proxyaddr(req,\ function\ (addr)\ \{\ return\ addr\ ===\ '127.0.0.1'\ \})}
+\DoxyCodeLine{proxyaddr(req,\ function\ (addr,\ i)\ \{\ return\ i\ <\ 1\ \})}
+
+\end{DoxyCode}
+
+
+The {\ttfamily trust} arugment may also be a single IP address string or an array of trusted addresses, as plain IP addresses, CIDR-\/formatted strings, or IP/netmask strings.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{proxyaddr(req,\ '127.0.0.1')}
+\DoxyCodeLine{proxyaddr(req,\ ['127.0.0.0/8',\ '10.0.0.0/8'])}
+\DoxyCodeLine{proxyaddr(req,\ ['127.0.0.0/255.0.0.0',\ '192.168.0.0/255.255.0.0'])}
+
+\end{DoxyCode}
+
+
+This module also supports IPv6. Your IPv6 addresses will be normalized automatically (i.\+e. {\ttfamily fe80\+:\+:00ed\+:1} equals {\ttfamily fe80\+:0\+:0\+:0\+:0\+:0\+:ed\+:1}).
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{proxyaddr(req,\ '::1')}
+\DoxyCodeLine{proxyaddr(req,\ ['::1/128',\ 'fe80::/10'])}
+
+\end{DoxyCode}
+
+
+This module will automatically work with IPv4-\/mapped IPv6 addresses as well to support node.\+js in IPv6-\/only mode. This means that you do not have to specify both {\ttfamily \+::ffff\+:a00\+:1} and {\ttfamily 10.\+0.\+0.\+1}.
+
+As a convenience, this module also takes certain pre-\/defined names in addition to IP addresses, which expand into IP addresses\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{proxyaddr(req,\ 'loopback')}
+\DoxyCodeLine{proxyaddr(req,\ ['loopback',\ 'fc00:ac:1ab5:fff::1/64'])}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item {\ttfamily loopback}\+: IPv4 and IPv6 loopback addresses (like {\ttfamily \+::1} and {\ttfamily 127.\+0.\+0.\+1}).
+\item {\ttfamily linklocal}\+: IPv4 and IPv6 link-\/local addresses (like {\ttfamily fe80\+:\+:1\+:1\+:1\+:1} and {\ttfamily 169.\+254.\+0.\+1}).
+\item {\ttfamily uniquelocal}\+: IPv4 private addresses and IPv6 unique-\/local addresses (like {\ttfamily fc00\+:ac\+:1ab5\+:fff\+:\+:1} and {\ttfamily 192.\+168.\+0.\+1}).
+\end{DoxyItemize}
+
+When {\ttfamily trust} is specified as a function, it will be called for each address to determine if it is a trusted address. The function is given two arguments\+: {\ttfamily addr} and {\ttfamily i}, where {\ttfamily addr} is a string of the address to check and {\ttfamily i} is a number that represents the distance from the socket address.\hypertarget{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2143}{}\doxysubsection{\texorpdfstring{proxyaddr.\+all(req, \mbox{[}trust\mbox{]})}{proxyaddr.all(req, [trust])}}\label{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2143}
+Return all the addresses of the request, optionally stopping at the first untrusted. This array is ordered from closest to furthest (i.\+e. {\ttfamily arr\mbox{[}0\mbox{]} === req.\+connection.\+remote\+Address}).
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{proxyaddr.all(req)}
+
+\end{DoxyCode}
+
+
+The optional {\ttfamily trust} argument takes the same arguments as {\ttfamily trust} does in {\ttfamily proxyaddr(req, trust)}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{proxyaddr.all(req,\ 'loopback')}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2144}{}\doxysubsection{\texorpdfstring{proxyaddr.\+compile(val)}{proxyaddr.compile(val)}}\label{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2144}
+Compiles argument {\ttfamily val} into a {\ttfamily trust} function. This function takes the same arguments as {\ttfamily trust} does in {\ttfamily proxyaddr(req, trust)} and returns a function suitable for {\ttfamily proxyaddr(req, trust)}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ trust\ =\ proxyaddr.compile('loopback')}
+\DoxyCodeLine{var\ addr\ =\ proxyaddr(req,\ trust)}
+
+\end{DoxyCode}
+
+
+This function is meant to be optimized for use against every request. It is recommend to compile a trust function up-\/front for the trusted configuration and pass that to {\ttfamily proxyaddr(req, trust)} for each request.\hypertarget{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2145}{}\doxysection{\texorpdfstring{Testing}{Testing}}\label{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2145}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ test}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2146}{}\doxysection{\texorpdfstring{Benchmarks}{Benchmarks}}\label{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2146}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ run-\/script\ bench}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2147}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2proxy-addr_2README_autotoc_md2147}
+\mbox{[}MIT\mbox{]}(LICENSE) 

@@ -1,0 +1,282 @@
+\doxysubsection{Buzzer}
+\hypertarget{group__Buzzer}{}\label{group__Buzzer}\index{Buzzer@{Buzzer}}
+Collaboration diagram for Buzzer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{group__Buzzer}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structBuzzer__State__t}{Buzzer\+\_\+\+State\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Holds the current operational state of the buzzer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{group__Buzzer_gaa6cdd577ceb0600f78bcf96b2ee90811}{Buzzer\+\_\+\+Mode\+\_\+t}} \{ \newline
+\mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a6fd00a9b64a658134b21162400027a68}{BUZZER\+\_\+\+OFF}}
+, \mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a5435ccab40fb29ad3420e7ffdecac65c}{BUZZER\+\_\+\+ON}}
+, \mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811af17ff5ea83f7863ede482388463a1f40}{BUZZER\+\_\+\+BEEP\+\_\+\+ONCE}}
+, \mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811aa32245a51bffe845da2250c59658a1b5}{BUZZER\+\_\+\+BEEP\+\_\+\+PERIODIC}}
+, \newline
+\mbox{\hyperlink{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a4e50caadfb5dbd532be9024f5306680d}{BUZZER\+\_\+\+ALERT}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Buzzer_ga6b75e04c90a3c65be473f9eba13031cd}{Buzzer\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize buzzer GPIO pin. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_gae044fe5feff64cb88cbe3a0ff41e2d0a}{Buzzer\+\_\+\+On}} (void)
+\begin{DoxyCompactList}\small\item\em Turn buzzer ON. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_ga2440a829dfd95dec323a2655f90399b6}{Buzzer\+\_\+\+Off}} (void)
+\begin{DoxyCompactList}\small\item\em Turn buzzer OFF. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_ga4721b60386c04b37b0bbc5b5d15432e2}{Buzzer\+\_\+\+Beep}} (uint16\+\_\+t duration)
+\begin{DoxyCompactList}\small\item\em Generate a single beep . \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_ga15befaa8279a094586f7171a367a38b9}{Buzzer\+\_\+\+Set\+Mode}} (\mbox{\hyperlink{group__Buzzer_gaa6cdd577ceb0600f78bcf96b2ee90811}{Buzzer\+\_\+\+Mode\+\_\+t}} mode)
+\begin{DoxyCompactList}\small\item\em Set buzzer behavior based on system state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_ga20046e530ca41e2524d346f2a2798b66}{Buzzer\+\_\+\+Alert\+\_\+\+Callback}} (void)
+\begin{DoxyCompactList}\small\item\em Callback function used for repeating the buzzer in alert mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Buzzer_ga38663e84ededea68df1392bf593fb7fe}{Buzzer\+\_\+\+Periodic\+\_\+\+Callback}} (void)
+\begin{DoxyCompactList}\small\item\em Callback function used for repeating the buzzer in periodic mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+\doxysubsubsection{Enumeration Type Documentation}
+\Hypertarget{group__Buzzer_gaa6cdd577ceb0600f78bcf96b2ee90811}\label{group__Buzzer_gaa6cdd577ceb0600f78bcf96b2ee90811} 
+\index{Buzzer@{Buzzer}!Buzzer\_Mode\_t@{Buzzer\_Mode\_t}}
+\index{Buzzer\_Mode\_t@{Buzzer\_Mode\_t}!Buzzer@{Buzzer}}
+\doxysubsubsubsection{\texorpdfstring{Buzzer\_Mode\_t}{Buzzer\_Mode\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{group__Buzzer_gaa6cdd577ceb0600f78bcf96b2ee90811}{Buzzer\+\_\+\+Mode\+\_\+t}}}
+
+Define buzzer mode \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BUZZER\_OFF@{BUZZER\_OFF}!Buzzer@{Buzzer}}\index{Buzzer@{Buzzer}!BUZZER\_OFF@{BUZZER\_OFF}}}\Hypertarget{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a6fd00a9b64a658134b21162400027a68}\label{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a6fd00a9b64a658134b21162400027a68} 
+BUZZER\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BUZZER\_ON@{BUZZER\_ON}!Buzzer@{Buzzer}}\index{Buzzer@{Buzzer}!BUZZER\_ON@{BUZZER\_ON}}}\Hypertarget{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a5435ccab40fb29ad3420e7ffdecac65c}\label{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a5435ccab40fb29ad3420e7ffdecac65c} 
+BUZZER\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BUZZER\_BEEP\_ONCE@{BUZZER\_BEEP\_ONCE}!Buzzer@{Buzzer}}\index{Buzzer@{Buzzer}!BUZZER\_BEEP\_ONCE@{BUZZER\_BEEP\_ONCE}}}\Hypertarget{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811af17ff5ea83f7863ede482388463a1f40}\label{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811af17ff5ea83f7863ede482388463a1f40} 
+BUZZER\+\_\+\+BEEP\+\_\+\+ONCE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BUZZER\_BEEP\_PERIODIC@{BUZZER\_BEEP\_PERIODIC}!Buzzer@{Buzzer}}\index{Buzzer@{Buzzer}!BUZZER\_BEEP\_PERIODIC@{BUZZER\_BEEP\_PERIODIC}}}\Hypertarget{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811aa32245a51bffe845da2250c59658a1b5}\label{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811aa32245a51bffe845da2250c59658a1b5} 
+BUZZER\+\_\+\+BEEP\+\_\+\+PERIODIC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BUZZER\_ALERT@{BUZZER\_ALERT}!Buzzer@{Buzzer}}\index{Buzzer@{Buzzer}!BUZZER\_ALERT@{BUZZER\_ALERT}}}\Hypertarget{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a4e50caadfb5dbd532be9024f5306680d}\label{group__Buzzer_ggaa6cdd577ceb0600f78bcf96b2ee90811a4e50caadfb5dbd532be9024f5306680d} 
+BUZZER\+\_\+\+ALERT&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsubsection{Function Documentation}
+\Hypertarget{group__Buzzer_ga20046e530ca41e2524d346f2a2798b66}\label{group__Buzzer_ga20046e530ca41e2524d346f2a2798b66} 
+\index{Buzzer@{Buzzer}!Buzzer\_Alert\_Callback@{Buzzer\_Alert\_Callback}}
+\index{Buzzer\_Alert\_Callback@{Buzzer\_Alert\_Callback}!Buzzer@{Buzzer}}
+\doxysubsubsubsection{\texorpdfstring{Buzzer\_Alert\_Callback()}{Buzzer\_Alert\_Callback()}}
+{\footnotesize\ttfamily void Buzzer\+\_\+\+Alert\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Callback function used for repeating the buzzer in alert mode. 
+
+This function is triggered automatically by the timer when the previous alert beep ends. Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_ga20046e530ca41e2524d346f2a2798b66_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_ga20046e530ca41e2524d346f2a2798b66_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Buzzer_ga4721b60386c04b37b0bbc5b5d15432e2}\label{group__Buzzer_ga4721b60386c04b37b0bbc5b5d15432e2} 
+\index{Buzzer@{Buzzer}!Buzzer\_Beep@{Buzzer\_Beep}}
+\index{Buzzer\_Beep@{Buzzer\_Beep}!Buzzer@{Buzzer}}
+\doxysubsubsubsection{\texorpdfstring{Buzzer\_Beep()}{Buzzer\_Beep()}}
+{\footnotesize\ttfamily void Buzzer\+\_\+\+Beep (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{duration }\end{DoxyParamCaption})}
+
+
+
+Generate a single beep . 
+
+
+\begin{DoxyParams}{Parameters}
+{\em duration} & Duration of the beep in milliseconds. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_ga4721b60386c04b37b0bbc5b5d15432e2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_ga4721b60386c04b37b0bbc5b5d15432e2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Buzzer_ga6b75e04c90a3c65be473f9eba13031cd}\label{group__Buzzer_ga6b75e04c90a3c65be473f9eba13031cd} 
+\index{Buzzer@{Buzzer}!Buzzer\_Init@{Buzzer\_Init}}
+\index{Buzzer\_Init@{Buzzer\_Init}!Buzzer@{Buzzer}}
+\doxysubsubsubsection{\texorpdfstring{Buzzer\_Init()}{Buzzer\_Init()}}
+{\footnotesize\ttfamily void Buzzer\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialize buzzer GPIO pin. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_ga6b75e04c90a3c65be473f9eba13031cd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_ga6b75e04c90a3c65be473f9eba13031cd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Buzzer_ga2440a829dfd95dec323a2655f90399b6}\label{group__Buzzer_ga2440a829dfd95dec323a2655f90399b6} 
+\index{Buzzer@{Buzzer}!Buzzer\_Off@{Buzzer\_Off}}
+\index{Buzzer\_Off@{Buzzer\_Off}!Buzzer@{Buzzer}}
+\doxysubsubsubsection{\texorpdfstring{Buzzer\_Off()}{Buzzer\_Off()}}
+{\footnotesize\ttfamily void Buzzer\+\_\+\+Off (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Turn buzzer OFF. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{group__Buzzer_ga2440a829dfd95dec323a2655f90399b6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_ga2440a829dfd95dec323a2655f90399b6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Buzzer_gae044fe5feff64cb88cbe3a0ff41e2d0a}\label{group__Buzzer_gae044fe5feff64cb88cbe3a0ff41e2d0a} 
+\index{Buzzer@{Buzzer}!Buzzer\_On@{Buzzer\_On}}
+\index{Buzzer\_On@{Buzzer\_On}!Buzzer@{Buzzer}}
+\doxysubsubsubsection{\texorpdfstring{Buzzer\_On()}{Buzzer\_On()}}
+{\footnotesize\ttfamily void Buzzer\+\_\+\+On (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Turn buzzer ON. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{group__Buzzer_gae044fe5feff64cb88cbe3a0ff41e2d0a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_gae044fe5feff64cb88cbe3a0ff41e2d0a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Buzzer_ga38663e84ededea68df1392bf593fb7fe}\label{group__Buzzer_ga38663e84ededea68df1392bf593fb7fe} 
+\index{Buzzer@{Buzzer}!Buzzer\_Periodic\_Callback@{Buzzer\_Periodic\_Callback}}
+\index{Buzzer\_Periodic\_Callback@{Buzzer\_Periodic\_Callback}!Buzzer@{Buzzer}}
+\doxysubsubsubsection{\texorpdfstring{Buzzer\_Periodic\_Callback()}{Buzzer\_Periodic\_Callback()}}
+{\footnotesize\ttfamily void Buzzer\+\_\+\+Periodic\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Callback function used for repeating the buzzer in periodic mode. 
+
+function is triggered automatically by the timer when the previous periodic beep ends. Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_ga38663e84ededea68df1392bf593fb7fe_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_ga38663e84ededea68df1392bf593fb7fe_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Buzzer_ga15befaa8279a094586f7171a367a38b9}\label{group__Buzzer_ga15befaa8279a094586f7171a367a38b9} 
+\index{Buzzer@{Buzzer}!Buzzer\_SetMode@{Buzzer\_SetMode}}
+\index{Buzzer\_SetMode@{Buzzer\_SetMode}!Buzzer@{Buzzer}}
+\doxysubsubsubsection{\texorpdfstring{Buzzer\_SetMode()}{Buzzer\_SetMode()}}
+{\footnotesize\ttfamily void Buzzer\+\_\+\+Set\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__Buzzer_gaa6cdd577ceb0600f78bcf96b2ee90811}{Buzzer\+\_\+\+Mode\+\_\+t}}}]{mode }\end{DoxyParamCaption})}
+
+
+
+Set buzzer behavior based on system state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & Desired mode from Buzzer\+\_\+\+Mode\+\_\+t.
+\begin{DoxyItemize}
+\item BUZZER\+\_\+\+OFF\+: Turn off buzzer.
+\item BUZZER\+\_\+\+ON\+: Keep buzzer continuously ON.
+\item BUZZER\+\_\+\+BEEP\+\_\+\+ONCE\+: Short beep for a defined duration.
+\item BUZZER\+\_\+\+BEEP\+\_\+\+PERIODIC\+: Beeps periodically with a defined interval.
+\item BUZZER\+\_\+\+ALERT\+: Fast repeated beeps (alert mode).
+
+This function automatically uses Timer0 to control timing for beep and periodic modes. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Buzzer_ga15befaa8279a094586f7171a367a38b9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{group__Buzzer_ga15befaa8279a094586f7171a367a38b9_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,49 @@
+\doxysection{EXTI\+\_\+\+Private.\+h}
+\hypertarget{EXTI__Private_8h_source}{}\label{EXTI__Private_8h_source}\index{Mcal/EXTI/EXTI\_Private.h@{Mcal/EXTI/EXTI\_Private.h}}
+\mbox{\hyperlink{EXTI__Private_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}../Atmega32RegistersAddress.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}../../Common/Macros.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ \_EXTI\_PRIVATE\_H}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ \_EXTI\_PRIVATE\_H}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ ISC00\_Bit\ \ \ \ 0}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ ISC01\_Bit\ \ \ \ 1}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ ISC10\_Bit\ \ \ \ 2}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ ISC11\_Bit\ \ \ \ 3}}
+\DoxyCodeLine{00034\ }
+ \textcolor{comment}{//End of MCUCR\_Reg Bit Names}\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ ISC2\_Bit\ \ \ \ 6}}
+\DoxyCodeLine{00047\ }
+ \textcolor{comment}{//End of MCUCSR\_Reg Bit Name}\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ INT0\_Bit\ \ \ \ \ \ \ \ 6}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ INT1\_Bit\ \ \ \ \ \ \ \ 7}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ INT2\_Bit\ \ \ \ \ \ \ \ 5}}
+\DoxyCodeLine{00061\ }
+ \textcolor{comment}{// End of GICR\_Reg Bit Names}\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ INTF0\_Bit\ \ \ \ \ \ \ \ 6}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ INTF1\_Bit\ \ \ \ \ \ \ \ 7}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ \ \ \ \ \ INTF2\_Bit\ \ \ \ \ \ \ \ 5\ \ }}
+\DoxyCodeLine{00075\ }
+ \textcolor{comment}{//End of GIFR\_Reg Bit Names}\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00084\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{EXTI__Private_8h_aa1900de9f1e1d34e411a5de470c55a7d}{\_\_vector\_1}}(\textcolor{keywordtype}{void})\ \_\_attribute\_\_((signal))\ ;\ \textcolor{comment}{//\ Related\ with\ INT0\ }}
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{EXTI__Private_8h_a1201d48853bec11e5abb151f8c047772}{\_\_vector\_2}}(\textcolor{keywordtype}{void})\ \_\_attribute\_\_((signal))\ ;\ \textcolor{comment}{//\ Related\ With\ INT1}}
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{EXTI__Private_8h_a4b6fbce9f3ecb0aeed5a38c5bc947c86}{\_\_vector\_3}}(\textcolor{keywordtype}{void})\ \_\_attribute\_\_((signal))\ ;\ \textcolor{comment}{//\ Related\ with\ INT2}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ \ \ \ \ EXT\_LOW\_LEVEL\ \ \ \ \ \ \ 0\ }}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ \ \ \ \ EXT\_RISING\_EDGE\ \ \ \ \ 1\ }}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ \ \ \ \ EXT\_FALLING\_EDGE\ \ \ \ 2}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ \ \ \ \ EXT\_AnyCHANGE\ \ \ \ \ \ \ 3\ }}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ \ \ \ \ EXTI0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ \ \ \ \ EXTI1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ \ \ \ \ EXTI2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\_EXTI\_PRIVATE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

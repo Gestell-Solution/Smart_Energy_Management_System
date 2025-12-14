@@ -1,0 +1,259 @@
+\doxysection{Mcal/\+ADC/\+ADC\+\_\+\+Private.h File Reference}
+\hypertarget{ADC__Private_8h}{}\label{ADC__Private_8h}\index{Mcal/ADC/ADC\_Private.h@{Mcal/ADC/ADC\_Private.h}}
+
+
+This file contains the private definitions for the ADC (Analog-\/to-\/\+Digital Converter) module.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for ADC\+\_\+\+Private.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{ADC__Private_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADC__Private_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structADC__ConfigType}{ADC\+\_\+\+Config\+Type}}
+\begin{DoxyCompactList}\small\item\em This structure holds the configuration parameters for the ADC module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga7b10fe19a48d876439dd28e38be57269}{ADC\+\_\+\+Prescaler\+\_\+\+DIV2}}~1
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga7615011b6ce6ca2f841d3084c3f449ed}{ADC\+\_\+\+Prescaler\+\_\+\+DIV4}}~2
+\item 
+\#define \mbox{\hyperlink{group__ADC_gae25dc76d621a21c4aa6a5aa1b9e5eb82}{ADC\+\_\+\+Prescaler\+\_\+\+DIV8}}~3
+\item 
+\#define \mbox{\hyperlink{group__ADC_gafdbe14de4a24ccbeffcb302387660256}{ADC\+\_\+\+Prescaler\+\_\+\+DIV16}}~4
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga56007e38c1e14696f661fe496feb0bac}{ADC\+\_\+\+Prescaler\+\_\+\+DIV32}}~5
+\item 
+\#define \mbox{\hyperlink{group__ADC_gae13c0d78395f9b270adc3c9daae16b00}{ADC\+\_\+\+Prescaler\+\_\+\+DIV64}}~6
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga1ae1171d24b839d3e96f8fad5fe0aec5}{ADC\+\_\+\+Prescaler\+\_\+\+DIV128}}~7
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga0ce97195538f4ffc1834823a9a035cb8}{ADC0\+\_\+\+Channel}}~0
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga5ef37d3d455fe8fc79c51b50d948c37e}{ADC1\+\_\+\+Channel}}~1
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga4b7ca6f21e9c3af0683af9307f6a6e9c}{ADC2\+\_\+\+Channel}}~2
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga212d722b39d6c53ef252b1e3e9c1e467}{ADC3\+\_\+\+Channel}}~3
+\item 
+\#define \mbox{\hyperlink{group__ADC_gad92d61beb516ce3fa2a9e01251e750de}{ADC4\+\_\+\+Channel}}~4
+\item 
+\#define \mbox{\hyperlink{group__ADC_gabd4eba8fd8050ce2f1cb885c0d9bac84}{ADC5\+\_\+\+Channel}}~5
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga9e5c8185488751ad057570921f5b8e37}{ADC6\+\_\+\+Channel}}~6
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga756985fc7ba4bec9f3009c6686b33d80}{ADC7\+\_\+\+Channel}}~7
+\item 
+\#define \mbox{\hyperlink{group__ADMUX__Reg_ga4e957d801963c3cad061bfada80f5ae7}{MUX0\+\_\+bit}}~0
+\item 
+\#define \mbox{\hyperlink{group__ADMUX__Reg_ga868d162a926b70f61e0e6845d8509301}{MUX1\+\_\+bit}}~1
+\item 
+\#define \mbox{\hyperlink{group__ADMUX__Reg_gaf6770ac5d275cdcadb4e3c135327d02c}{MUX2\+\_\+bit}}~2
+\item 
+\#define \mbox{\hyperlink{group__ADMUX__Reg_ga4c7b6da26263208665d79842c0cd377f}{MUX3\+\_\+bit}}~3
+\item 
+\#define \mbox{\hyperlink{group__ADMUX__Reg_gada6b96210481a2ec92d174b2180498a8}{MUX4\+\_\+bit}}~4
+\item 
+\#define \mbox{\hyperlink{group__ADMUX__Reg_gaa6abeb73fa0183d8a9e7e792b9318aed}{ADLAR\+\_\+bit}}~5        /\texorpdfstring{$\ast$}{*} must be zero\texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{group__ADMUX__Reg_gabee6dff10c53bba67890e8126329f82a}{REFS0\+\_\+bit}}~6
+\item 
+\#define \mbox{\hyperlink{group__ADMUX__Reg_ga818e67c387d2741ec4a3b7c20ec936c5}{REFS1\+\_\+bit}}~7
+\item 
+\#define \mbox{\hyperlink{group__ADCSRA__Reg_gae74766de17d8e77cc3fcf95209dae690}{ADPS0\+\_\+bit}}~0
+\item 
+\#define \mbox{\hyperlink{group__ADCSRA__Reg_ga08c9877781f914c80d06f12c6110926d}{ADPS1\+\_\+bit}}~1
+\item 
+\#define \mbox{\hyperlink{group__ADCSRA__Reg_ga430cbbac50e7517a7df3bc1be8ab65df}{ADPS2\+\_\+bit}}~2
+\item 
+\#define \mbox{\hyperlink{group__ADCSRA__Reg_gabe847d90aa3f4caf567895c022d467f9}{ADIE\+\_\+bit}}~3
+\item 
+\#define \mbox{\hyperlink{group__ADCSRA__Reg_ga1f0b7df0895c1f1e032d1ff1882c6644}{ADIF\+\_\+bit}}~4
+\item 
+\#define \mbox{\hyperlink{group__ADCSRA__Reg_ga920f966716e1e5a685837ca88310a2a7}{ADATE\+\_\+bit}}~5
+\item 
+\#define \mbox{\hyperlink{group__ADCSRA__Reg_ga2708c92e711d059d7aab6328d1382057}{ADSC\+\_\+bit}}~6
+\item 
+\#define \mbox{\hyperlink{group__ADCSRA__Reg_ga678754d9df1dd891a0ba09dce884d402}{ADEN\+\_\+bit}}~7
+\item 
+\#define \mbox{\hyperlink{group__SFIOR__Reg_gaadf38f3b83fd957b15e73789a0bfeb81}{ADTS0\+\_\+bit}}~5
+\item 
+\#define \mbox{\hyperlink{group__SFIOR__Reg_ga728791a1c6189741cb53458d28689ed9}{ADTS1\+\_\+bit}}~6
+\item 
+\#define \mbox{\hyperlink{group__SFIOR__Reg_ga1103172e1c927e6406a70a65eba18cf3}{ADTS2\+\_\+bit}}~7
+\item 
+\#define \mbox{\hyperlink{group__ADC_gaf2b32f909cae965ca7e8c3520e773ea6}{ADC\+\_\+\+FREE\+\_\+\+RUNNING\+\_\+\+MODE}}~0
+\item 
+\#define \mbox{\hyperlink{group__ADC_gab6e4545e17638824edc5b269b595b2b9}{ADC\+\_\+\+ANALOG\+\_\+\+COMPARATOR}}~1
+\item 
+\#define \mbox{\hyperlink{group__ADC_gad7288b2d7ac8ceab2408cbe04b154fa4}{ADC\+\_\+\+EXTERNAL\+\_\+\+INTERRUPT0}}~2
+\item 
+\#define \mbox{\hyperlink{group__ADC_gacc8f26b72b5a1c2173e3f4678814a0a0}{ADC\+\_\+\+TIMER0\+\_\+\+COMPARE\+\_\+\+MATCH}}~3
+\item 
+\#define \mbox{\hyperlink{group__ADC_gad156022727851a666788ab9501202c89}{ADC\+\_\+\+TIMER0\+\_\+\+OVERFLOW}}~4
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga7ada80fbb8418960dcbb5daff83d3bcc}{ADC\+\_\+\+TIMER1\+\_\+\+COMPARE\+\_\+\+MATCH\+\_\+B}}~5
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga388bd43b23fceb63e170772059697e03}{ADC\+\_\+\+TIMER1\+\_\+\+OVERFLOW}}~6
+\item 
+\#define \mbox{\hyperlink{group__ADC_gad928eb918f9d15c2fe8990844fd47838}{ADC\+\_\+\+TIMER1\+\_\+\+CAPTURE\+\_\+\+EVENT}}~7
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga1ba538e781c6840aca20ec9a8ae76959}{ADC\+\_\+\+AUTO\+\_\+\+TRIGGER\+\_\+\+Enable}}~1
+\item 
+\#define \mbox{\hyperlink{group__ADC_gac1ddb7733d87d9c3fbf1d1789e6b538b}{ADC\+\_\+\+AUTO\+\_\+\+TRIGGER\+\_\+\+Disable}}~0
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga208e2668e5c4919010cd7d0db243fba2}{ADC\+\_\+\+INTERRUPT\+\_\+\+Enable}}~1
+\item 
+\#define \mbox{\hyperlink{group__ADC_gaacefb77cddcd4a6c84f81fd79a100b34}{ADC\+\_\+\+INTERRUPT\+\_\+\+Disable}}~0
+\item 
+\#define \mbox{\hyperlink{group__ADC_gaf0f7ac4025d1623cda58f7656fcffade}{ADC\+\_\+\+ENABLE}}~1
+\item 
+\#define \mbox{\hyperlink{group__ADC_gadc5911f4f1e4a81fb3381359bf74e4c2}{ADC\+\_\+\+DISABLE}}~0
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga9f437a949dc24882010eb3da0a17d5fe}{ADC\+\_\+\+Channel\+\_\+\+Upper\+Nibble\+\_\+\+Mask}}~0x\+E0
+\item 
+\#define \mbox{\hyperlink{group__ADC_ga9fc076d16a92e15871d9b19e57fae6e7}{ADC\+\_\+\+Channel\+\_\+\+Lower\+Nibble\+\_\+\+Mask}}~0x07
+\item 
+\#define \mbox{\hyperlink{ADC__Private_8h_aad0b3b3eca7ddac6f516950ffc754426}{ADC\+\_\+\+Max\+\_\+used\+\_\+\+Channel}}~2
+\begin{DoxyCompactList}\small\item\em This macro represents the adc channles used in our project (starting from 0) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Private_8h_a8efa467a78cd5fd2c6fec1e60782c0fa}{Flagdown}}~0
+\begin{DoxyCompactList}\small\item\em This macro is used to represent the flag down state. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Private_8h_adfaa31f0c110be20488f0d62463b6443}{Flagup}}~1
+\begin{DoxyCompactList}\small\item\em This macro is used to represent the flag up state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ADC__Private_8h_a50c59762ed5856792c9708ef22f3c9b7}{ADC\+\_\+\+AREF}}~0
+\begin{DoxyCompactList}\small\item\em This option selects the external AREF pin as the voltage reference. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Private_8h_a5e8fd6976455aad9fbd8f509b462c352}{ADC\+\_\+\+AVCC}}~1
+\begin{DoxyCompactList}\small\item\em This option selects AVCC with an external capacitor at the AREF pin as the voltage reference. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Private_8h_a3e16e158efeff2b6a12c7454c4544b81}{ADC\+\_\+\+INTERNAL\+\_\+2\+\_\+56V}}~3
+\begin{DoxyCompactList}\small\item\em This option selects the internal 2.\+56V voltage reference with an external capacitor at the AREF pin. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ADC__Private_8h_a78e939dd2ba813b645fc0718755ca7e7}{Synchronous\+\_\+\+Mode}}~1
+\begin{DoxyCompactList}\small\item\em This mode is used for blocking (synchronous) ADC reads where the CPU waits for the conversion to complete. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{ADC__Private_8h_a9bd4d1327ee8eee4bb9343146311598e}{Asynchronous\+\_\+\+Mode}}~0
+\begin{DoxyCompactList}\small\item\em This mode is used for non-\/blocking (asynchronous) ADC reads using interrupts and auto-\/triggering. round-\/robin sampling of multiple channels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+
+\doxysubsection{Detailed Description}
+This file contains the private definitions for the ADC (Analog-\/to-\/\+Digital Converter) module. 
+
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer \+: Ahmed Ashraf (\href{mailto:ahmedashraf2022222@gmail.com}{\texttt{ ahmedashraf2022222@gmail.\+com}}) 
+
+Reviewer \+: 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/11 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ADC__Private_8h_a50c59762ed5856792c9708ef22f3c9b7}\label{ADC__Private_8h_a50c59762ed5856792c9708ef22f3c9b7} 
+\index{ADC\_Private.h@{ADC\_Private.h}!ADC\_AREF@{ADC\_AREF}}
+\index{ADC\_AREF@{ADC\_AREF}!ADC\_Private.h@{ADC\_Private.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_AREF}{ADC\_AREF}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+AREF~0}
+
+
+
+This option selects the external AREF pin as the voltage reference. 
+
+Connect VCC with both AREF \& AVCC Pins \Hypertarget{ADC__Private_8h_a5e8fd6976455aad9fbd8f509b462c352}\label{ADC__Private_8h_a5e8fd6976455aad9fbd8f509b462c352} 
+\index{ADC\_Private.h@{ADC\_Private.h}!ADC\_AVCC@{ADC\_AVCC}}
+\index{ADC\_AVCC@{ADC\_AVCC}!ADC\_Private.h@{ADC\_Private.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_AVCC}{ADC\_AVCC}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+AVCC~1}
+
+
+
+This option selects AVCC with an external capacitor at the AREF pin as the voltage reference. 
+
+VCC With AVCC \& Capacitor with AREF \Hypertarget{ADC__Private_8h_a3e16e158efeff2b6a12c7454c4544b81}\label{ADC__Private_8h_a3e16e158efeff2b6a12c7454c4544b81} 
+\index{ADC\_Private.h@{ADC\_Private.h}!ADC\_INTERNAL\_2\_56V@{ADC\_INTERNAL\_2\_56V}}
+\index{ADC\_INTERNAL\_2\_56V@{ADC\_INTERNAL\_2\_56V}!ADC\_Private.h@{ADC\_Private.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_INTERNAL\_2\_56V}{ADC\_INTERNAL\_2\_56V}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+INTERNAL\+\_\+2\+\_\+56V~3}
+
+
+
+This option selects the internal 2.\+56V voltage reference with an external capacitor at the AREF pin. 
+
+AVCC WITH VCC \& ~\newline
+ \Hypertarget{ADC__Private_8h_aad0b3b3eca7ddac6f516950ffc754426}\label{ADC__Private_8h_aad0b3b3eca7ddac6f516950ffc754426} 
+\index{ADC\_Private.h@{ADC\_Private.h}!ADC\_Max\_used\_Channel@{ADC\_Max\_used\_Channel}}
+\index{ADC\_Max\_used\_Channel@{ADC\_Max\_used\_Channel}!ADC\_Private.h@{ADC\_Private.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_Max\_used\_Channel}{ADC\_Max\_used\_Channel}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+Max\+\_\+used\+\_\+\+Channel~2}
+
+
+
+This macro represents the adc channles used in our project (starting from 0) 
+
+\Hypertarget{ADC__Private_8h_a9bd4d1327ee8eee4bb9343146311598e}\label{ADC__Private_8h_a9bd4d1327ee8eee4bb9343146311598e} 
+\index{ADC\_Private.h@{ADC\_Private.h}!Asynchronous\_Mode@{Asynchronous\_Mode}}
+\index{Asynchronous\_Mode@{Asynchronous\_Mode}!ADC\_Private.h@{ADC\_Private.h}}
+\doxysubsubsection{\texorpdfstring{Asynchronous\_Mode}{Asynchronous\_Mode}}
+{\footnotesize\ttfamily \#define Asynchronous\+\_\+\+Mode~0}
+
+
+
+This mode is used for non-\/blocking (asynchronous) ADC reads using interrupts and auto-\/triggering. round-\/robin sampling of multiple channels. 
+
+\Hypertarget{ADC__Private_8h_a8efa467a78cd5fd2c6fec1e60782c0fa}\label{ADC__Private_8h_a8efa467a78cd5fd2c6fec1e60782c0fa} 
+\index{ADC\_Private.h@{ADC\_Private.h}!Flagdown@{Flagdown}}
+\index{Flagdown@{Flagdown}!ADC\_Private.h@{ADC\_Private.h}}
+\doxysubsubsection{\texorpdfstring{Flagdown}{Flagdown}}
+{\footnotesize\ttfamily \#define Flagdown~0}
+
+
+
+This macro is used to represent the flag down state. 
+
+\Hypertarget{ADC__Private_8h_adfaa31f0c110be20488f0d62463b6443}\label{ADC__Private_8h_adfaa31f0c110be20488f0d62463b6443} 
+\index{ADC\_Private.h@{ADC\_Private.h}!Flagup@{Flagup}}
+\index{Flagup@{Flagup}!ADC\_Private.h@{ADC\_Private.h}}
+\doxysubsubsection{\texorpdfstring{Flagup}{Flagup}}
+{\footnotesize\ttfamily \#define Flagup~1}
+
+
+
+This macro is used to represent the flag up state. 
+
+\Hypertarget{ADC__Private_8h_a78e939dd2ba813b645fc0718755ca7e7}\label{ADC__Private_8h_a78e939dd2ba813b645fc0718755ca7e7} 
+\index{ADC\_Private.h@{ADC\_Private.h}!Synchronous\_Mode@{Synchronous\_Mode}}
+\index{Synchronous\_Mode@{Synchronous\_Mode}!ADC\_Private.h@{ADC\_Private.h}}
+\doxysubsubsection{\texorpdfstring{Synchronous\_Mode}{Synchronous\_Mode}}
+{\footnotesize\ttfamily \#define Synchronous\+\_\+\+Mode~1}
+
+
+
+This mode is used for blocking (synchronous) ADC reads where the CPU waits for the conversion to complete. 
+

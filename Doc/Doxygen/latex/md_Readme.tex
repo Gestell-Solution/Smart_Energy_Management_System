@@ -1,0 +1,114 @@
+\chapter{📘 Smart Energy Meter with Control}
+\hypertarget{md_Readme}{}\label{md_Readme}\index{📘 Smart Energy Meter with Control@{📘 Smart Energy Meter with Control}}
+\label{md_Readme_autotoc_md3473}%
+\Hypertarget{md_Readme_autotoc_md3473}%
+ \hypertarget{md_Readme_autotoc_md3474}{}\doxysection{\texorpdfstring{✅ Objective}{✅ Objective}}\label{md_Readme_autotoc_md3474}
+Develop a smart energy monitoring and control system that measures household electricity consumption, displays data in real-\/time, and provides overload protection with wireless monitoring.
+
+\DoxyHorRuler{0}
+\hypertarget{md_Readme_autotoc_md3476}{}\doxysection{\texorpdfstring{🧠 Features Covered}{🧠 Features Covered}}\label{md_Readme_autotoc_md3476}
+
+\begin{DoxyItemize}
+\item Real-\/time Current \& Voltage Measurement (via ACS712 + Voltage Divider).
+\item Power (W) and Energy (k\+Wh) Calculation.
+\item LCD Display Interface.
+\item Overload Detection with Alerts (Buzzer + LED).
+\item Load Control via Relay (Automatic cut-\/off on overload).
+\item Data Logging with RTC (optional).
+\item Wireless Communication\+:
+\begin{DoxyItemize}
+\item {\bfseries{HC-\/05 Bluetooth}} → Local mobile monitoring.
+\item {\bfseries{ESP8266 Wi-\/\+Fi}} → Remote/cloud monitoring.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Readme_autotoc_md3478}{}\doxysection{\texorpdfstring{🧱 Hardware Components}{🧱 Hardware Components}}\label{md_Readme_autotoc_md3478}
+
+\begin{DoxyItemize}
+\item ATmega32 Microcontroller
+\item ACS712 Current Sensor
+\item Voltage Divider for AC Voltage Measurement
+\item 16x4 LCD
+\item Relay Module (5V, opto-\/isolated)
+\item Buzzer + LED (Overload Alert)
+\item Push Buttons (Mode / Reset)
+\item HC-\/05 Bluetooth Module
+\item ESP8266 Wi-\/\+Fi Module
+\item Power Supply (220V AC → 5V DC regulated)
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Readme_autotoc_md3480}{}\doxysection{\texorpdfstring{📌 Pin Mapping}{📌 Pin Mapping}}\label{md_Readme_autotoc_md3480}
+
+\begin{DoxyItemize}
+\item {\bfseries{ACS712 Current Sensor}} → ADC0 (PA0)
+\item {\bfseries{Voltage Divider}} → ADC1 (PA1)
+\item {\bfseries{LCD Data}} → PC0–\+PC3
+\item {\bfseries{LCD Control}}\+: RS → PC4, EN → PC5
+\item {\bfseries{Relay Control}} → PD4
+\item {\bfseries{Buzzer}} → PD5
+\item {\bfseries{LED Alert}} → PD6
+\item {\bfseries{Push Button 1 (Mode)}} → PD2
+\item {\bfseries{HC-\/05 Bluetooth}} → UART0 (PD0–\+PD1)
+\item {\bfseries{ESP8266 Wi-\/\+Fi}} → UART1 (or Software UART)
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Readme_autotoc_md3482}{}\doxysection{\texorpdfstring{🧭 System Workflow}{🧭 System Workflow}}\label{md_Readme_autotoc_md3482}
+
+\begin{DoxyEnumerate}
+\item MCU continuously reads analog signals from ACS712 and Voltage Divider.
+\item Calculate Irms, Vrms, Power (P = V × I), and cumulative Energy (k\+Wh).
+\item Display values on LCD in real-\/time.
+\item If power exceeds Threshold\+:
+\begin{DoxyItemize}
+\item Activate Buzzer + LED.
+\item Disconnect load via Relay.
+\end{DoxyItemize}
+\item User can reset system or change display modes via buttons.
+\item Data can be monitored via Bluetooth (mobile app) or Wi-\/\+Fi (cloud).
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Readme_autotoc_md3484}{}\doxysection{\texorpdfstring{📊 Threshold Table (\+Example)}{📊 Threshold Table (Example)}}\label{md_Readme_autotoc_md3484}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Parameter   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Limit   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Action    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Parameter   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Limit   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Action    }\\\cline{1-3}
+\endhead
+Current (I)   &\texorpdfstring{$>$}{>} 10A   &Trigger overload protection    \\\cline{1-3}
+Power (P)   &\texorpdfstring{$>$}{>} 2000W   &Buzzer + LED + Cut-\/off Relay    \\\cline{1-3}
+Energy (E)   &\texorpdfstring{$>$}{>} 5 k\+Wh/day   &Display warning message   \\\cline{1-3}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_Readme_autotoc_md3486}{}\doxysubsection{\texorpdfstring{📱 Mobile App Mockup}{📱 Mobile App Mockup}}\label{md_Readme_autotoc_md3486}
+
+\begin{DoxyItemize}
+\item {\bfseries{Bluetooth Tab}}\+:
+\begin{DoxyItemize}
+\item Show Current (A), Power (W), Energy (k\+Wh).
+\item Button to Reset Energy.
+\end{DoxyItemize}
+\item {\bfseries{Wi-\/\+Fi Tab}}\+:
+\begin{DoxyItemize}
+\item Upload data to {\bfseries{Web Server}}.
+\item {\bfseries{Dashboard Website}} shows\+:
+\begin{DoxyItemize}
+\item Current, Power, Energy in widgets.
+\item Graphs of energy consumption over time.
+\item Alerts panel for overload.
+\item Option to download reports.
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_Readme_autotoc_md3488}{}\doxysubsection{\texorpdfstring{This Project Made By Gestell Company}{This Project Made By Gestell Company}}\label{md_Readme_autotoc_md3488}

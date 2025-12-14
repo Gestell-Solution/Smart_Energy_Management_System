@@ -1,0 +1,518 @@
+\doxysection{Poller Class Reference}
+\hypertarget{classPoller}{}\label{classPoller}\index{Poller@{Poller}}
+
+
+{\ttfamily \#include $<$poller.\+h$>$}
+
+
+
+Inheritance diagram for Poller\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Poller\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPoller_a9d24e9813394b98dd8ab992267553396}{Poller}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&info)
+\item 
+\mbox{\hyperlink{classPoller_a558eed5a0c012c2ed4a4f6df07a02f66}{\texorpdfstring{$\sim$}{\string~}\+Poller}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classNapi_1_1ObjectWrap}{Napi\+::\+Object\+Wrap$<$ Poller $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNapi_1_1ObjectWrap_a35f8944fffb4205baf1d88fafccf102c}{Object\+Wrap}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&callback\+Info)
+\item 
+virtual \mbox{\hyperlink{classNapi_1_1ObjectWrap_a4290c2d4bbdacaff419dc018fe2c7c46}{\texorpdfstring{$\sim$}{\string~}\+Object\+Wrap}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1ClassPropertyDescriptor}{Class\+Property\+Descriptor}}$<$ \mbox{\hyperlink{classPoller}{Poller}} $>$ \mbox{\hyperlink{classNapi_1_1ObjectWrap_afbfeaafcbfec5e4c5f2af199fc9e6a18}{Static\+Method}} (const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+property\+\_\+attributes attributes, void \texorpdfstring{$\ast$}{*}data)
+\item 
+\mbox{\hyperlink{classNapi_1_1ClassPropertyDescriptor}{Class\+Property\+Descriptor}}$<$ \mbox{\hyperlink{classPoller}{Poller}} $>$ \mbox{\hyperlink{classNapi_1_1ObjectWrap_a188be942527b40f1cfecd76eb90488bd}{Static\+Method}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, napi\+\_\+property\+\_\+attributes attributes, void \texorpdfstring{$\ast$}{*}data)
+\item 
+\mbox{\hyperlink{classNapi_1_1ClassPropertyDescriptor}{Class\+Property\+Descriptor}}$<$ \mbox{\hyperlink{classPoller}{Poller}} $>$ \mbox{\hyperlink{classNapi_1_1ObjectWrap_a63ecd2b5cde21a86908ef53cd3c6a4d8}{Static\+Accessor}} (const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+property\+\_\+attributes attributes, void \texorpdfstring{$\ast$}{*}data)
+\item 
+\mbox{\hyperlink{classNapi_1_1ClassPropertyDescriptor}{Class\+Property\+Descriptor}}$<$ \mbox{\hyperlink{classPoller}{Poller}} $>$ \mbox{\hyperlink{classNapi_1_1ObjectWrap_aeee45179b612ea5fc79e1c0134da0e77}{Static\+Accessor}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, napi\+\_\+property\+\_\+attributes attributes, void \texorpdfstring{$\ast$}{*}data)
+\item 
+virtual void \mbox{\hyperlink{classNapi_1_1ObjectWrap_ae0a8cf1731f9933ba5f74b90a94d12f2}{Finalize}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classNapi_1_1InstanceWrap}{Napi\+::\+Instance\+Wrap$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{classNapi_1_1InstanceWrap}{Instance\+Wrap}}$<$ T $>$\mbox{\hyperlink{classNapi_1_1InstanceWrap_ada17136961c45b29f87e9be692628fab}{\+::\+Instance\+Void\+Method\+Callback}} method$>$ }\\\mbox{\hyperlink{classNapi_1_1ClassPropertyDescriptor}{Class\+Property\+Descriptor}}$<$ T $>$ \mbox{\hyperlink{classNapi_1_1InstanceWrap_acf3b9ad6a732e6ff224dca4c5503175c}{Instance\+Method}} (const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+property\+\_\+attributes attributes, void \texorpdfstring{$\ast$}{*}data)
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{classNapi_1_1InstanceWrap}{Instance\+Wrap}}$<$ T $>$\mbox{\hyperlink{classNapi_1_1InstanceWrap_ada17136961c45b29f87e9be692628fab}{\+::\+Instance\+Void\+Method\+Callback}} method$>$ }\\\mbox{\hyperlink{classNapi_1_1ClassPropertyDescriptor}{Class\+Property\+Descriptor}}$<$ T $>$ \mbox{\hyperlink{classNapi_1_1InstanceWrap_a045fb0fb543ac0621b09b7f3adc0d621}{Instance\+Method}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, napi\+\_\+property\+\_\+attributes attributes, void \texorpdfstring{$\ast$}{*}data)
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{classNapi_1_1InstanceWrap}{Instance\+Wrap}}$<$ T $>$\mbox{\hyperlink{classNapi_1_1InstanceWrap_abe4b17e69bb70e40341a17f3eebb4da4}{\+::\+Instance\+Getter\+Callback}} getter, typename \mbox{\hyperlink{classNapi_1_1InstanceWrap}{Instance\+Wrap}}$<$ T $>$\mbox{\hyperlink{classNapi_1_1InstanceWrap_af2bbde19a366869c7a619865250a92db}{\+::\+Instance\+Setter\+Callback}} setter$>$ }\\\mbox{\hyperlink{classNapi_1_1ClassPropertyDescriptor}{Class\+Property\+Descriptor}}$<$ T $>$ \mbox{\hyperlink{classNapi_1_1InstanceWrap_a393883f6685da45e82ec1ae79bdec19d}{Instance\+Accessor}} (const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+property\+\_\+attributes attributes, void \texorpdfstring{$\ast$}{*}data)
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{classNapi_1_1InstanceWrap}{Instance\+Wrap}}$<$ T $>$\mbox{\hyperlink{classNapi_1_1InstanceWrap_abe4b17e69bb70e40341a17f3eebb4da4}{\+::\+Instance\+Getter\+Callback}} getter, typename \mbox{\hyperlink{classNapi_1_1InstanceWrap}{Instance\+Wrap}}$<$ T $>$\mbox{\hyperlink{classNapi_1_1InstanceWrap_af2bbde19a366869c7a619865250a92db}{\+::\+Instance\+Setter\+Callback}} setter$>$ }\\\mbox{\hyperlink{classNapi_1_1ClassPropertyDescriptor}{Class\+Property\+Descriptor}}$<$ T $>$ \mbox{\hyperlink{classNapi_1_1InstanceWrap_adca0f4d098e7b41199b4ecd60d3a66a0}{Instance\+Accessor}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, napi\+\_\+property\+\_\+attributes attributes, void \texorpdfstring{$\ast$}{*}data)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference$<$ Object $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_acfb08026d010104194470069df9a363e}{Reference}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_a2a67b234561bea28b4bcd4488199660f}{Reference}} (napi\+\_\+env env, napi\+\_\+ref ref)
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_af4ad22fff396f846cea40e98e946ff95}{Reference}} (\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ \mbox{\hyperlink{classNapi_1_1Object}{Object}} $>$ \&\&other)
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_abd291db2fe0f9189277f7b269b96d113}{\texorpdfstring{$\sim$}{\string~}\+Reference}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ \mbox{\hyperlink{classNapi_1_1Object}{Object}} $>$ \& \mbox{\hyperlink{classNapi_1_1Reference_a3b1b3ee1d586be0e3809b58fd61873d1}{operator=}} (\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ \mbox{\hyperlink{classNapi_1_1Object}{Object}} $>$ \&\&other)
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_a1dde216e32ec70e5e6b8f6b292d4f1f4}{operator napi\+\_\+ref}} () const
+\item 
+bool \mbox{\hyperlink{classNapi_1_1Reference_a5d51bd065ce7a381e8345e138f7102bd}{operator==}} (const \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ \mbox{\hyperlink{classNapi_1_1Object}{Object}} $>$ \&other) const
+\item 
+bool \mbox{\hyperlink{classNapi_1_1Reference_a15a469146858232a5f60377552208aad}{operator!=}} (const \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ \mbox{\hyperlink{classNapi_1_1Object}{Object}} $>$ \&other) const
+\item 
+\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} \mbox{\hyperlink{classNapi_1_1Reference_a145936a59e9db2c455542576e76773ac}{Env}} () const
+\item 
+bool \mbox{\hyperlink{classNapi_1_1Reference_add921efd1d432fc4a60ec249f9fa7257}{Is\+Empty}} () const
+\item 
+\mbox{\hyperlink{classNapi_1_1Object}{Object}} \mbox{\hyperlink{classNapi_1_1Reference_ae7f2d23d1f33cdbcfb4aa1b89193c5ae}{Value}} () const
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classNapi_1_1Reference_aa4a691ce6ed68117e5a4fabb1b594c75}{Ref}} () const
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classNapi_1_1Reference_a0350ecff614582dc9a38e41a37289261}{Unref}} () const
+\item 
+void \mbox{\hyperlink{classNapi_1_1Reference_ac73acbd590af4c097f457a315c5f24c6}{Reset}} ()
+\item 
+void \mbox{\hyperlink{classNapi_1_1Reference_abe91ee8ad7ba1623805e948c39d78389}{Reset}} (const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&value, uint32\+\_\+t refcount=0)
+\item 
+void \mbox{\hyperlink{classNapi_1_1Reference_a1dd310614fa3c053c9dc9468043096b3}{Suppress\+Destruct}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classNapi_1_1Object}{Napi\+::\+Object}} \mbox{\hyperlink{classPoller_acd67d4eb74878bf20287e315f6efd7bb}{Init}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env, \mbox{\hyperlink{classNapi_1_1Object}{Napi\+::\+Object}} exports)
+\item 
+static \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \mbox{\hyperlink{classPoller_a47418e60d6e34fbee8c1f42d7648402e}{New}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&info)
+\item 
+static void \mbox{\hyperlink{classPoller_a60739ed7a1398e2c86507785af2d55a6}{on\+Data}} (uv\+\_\+poll\+\_\+t \texorpdfstring{$\ast$}{*}handle, int status, int \mbox{\hyperlink{classPoller_a98744607285a09b2f02be536a41d7653}{events}})
+\item 
+static void \mbox{\hyperlink{classPoller_a4fb750c4a198f340f96bb36165b30967}{on\+Close}} (uv\+\_\+handle\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{classPoller_ae27fca4ae791fa69d559a6d5e2222efe}{poll\+\_\+handle}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classNapi_1_1ObjectWrap}{Napi\+::\+Object\+Wrap$<$ Poller $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classPoller}{Poller}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a01b0c689b46db5e5e8df49da100e6d32}{Unwrap}} (\mbox{\hyperlink{classNapi_1_1Object}{Object}} wrapper)
+\item 
+static \mbox{\hyperlink{classNapi_1_1Function}{Function}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a0951856129efcd16c5db43efd7eb5528}{Define\+Class}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env, const char \texorpdfstring{$\ast$}{*}utf8name, const std\+::initializer\+\_\+list$<$ \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} $>$ \&properties, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1Function}{Function}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a7fc89c1ee27f700ee003f1509fbcf745}{Define\+Class}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env, const char \texorpdfstring{$\ast$}{*}utf8name, const std\+::vector$<$ \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} $>$ \&properties, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_ae9a92c0ead2682251a28275d118203c1}{Static\+Method}} (const char \texorpdfstring{$\ast$}{*}utf8name, \mbox{\hyperlink{classNapi_1_1ObjectWrap_ae992db7fd55cf0a595cf5abae1ad00d0}{Static\+Void\+Method\+Callback}} method, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_ab5a23bc4df509ef7f0f5646867e77c05}{Static\+Method}} (const char \texorpdfstring{$\ast$}{*}utf8name, \mbox{\hyperlink{classNapi_1_1ObjectWrap_a803630884066bca0fde78c87be97e365}{Static\+Method\+Callback}} method, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a42c4a362993960effd4ce7da0b3d5578}{Static\+Method}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, \mbox{\hyperlink{classNapi_1_1ObjectWrap_ae992db7fd55cf0a595cf5abae1ad00d0}{Static\+Void\+Method\+Callback}} method, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_ad6f5962b7b28e7588118e46c62a86ebb}{Static\+Method}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, \mbox{\hyperlink{classNapi_1_1ObjectWrap_a803630884066bca0fde78c87be97e365}{Static\+Method\+Callback}} method, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_ab8b7b03c1b34994110da167a9de69cdc}{Static\+Method}} (const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a1688b84abf872d655952f705caabe343}{Static\+Method}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_ab8b7b03c1b34994110da167a9de69cdc}{Static\+Method}} (const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a1688b84abf872d655952f705caabe343}{Static\+Method}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a6b7aba95440431339e274be3dc1b9a02}{Static\+Accessor}} (const char \texorpdfstring{$\ast$}{*}utf8name, \mbox{\hyperlink{classNapi_1_1ObjectWrap_ab6ebbe82838ad3664db5a9916fa61604}{Static\+Getter\+Callback}} getter, \mbox{\hyperlink{classNapi_1_1ObjectWrap_a84078b20ac83c1d75c0bf99ab49f656d}{Static\+Setter\+Callback}} setter, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a8d890b8c7f28b596d34831f689e05ef1}{Static\+Accessor}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, \mbox{\hyperlink{classNapi_1_1ObjectWrap_ab6ebbe82838ad3664db5a9916fa61604}{Static\+Getter\+Callback}} getter, \mbox{\hyperlink{classNapi_1_1ObjectWrap_a84078b20ac83c1d75c0bf99ab49f656d}{Static\+Setter\+Callback}} setter, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a6db3b67b41a390d536a65f900ab0ee9c}{Static\+Accessor}} (const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a344401440934fca7a839260318e83515}{Static\+Accessor}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_aa49a7a52fde56e6acbf5ab4c166bdda3}{Static\+Value}} (const char \texorpdfstring{$\ast$}{*}utf8name, \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} value, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default)
+\item 
+static \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a4aecce4485f9e313365f0c81a4e481db}{Static\+Value}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} value, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default)
+\item 
+static \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \mbox{\hyperlink{classNapi_1_1ObjectWrap_a08581d4e6b4614790b4bc751f894ad50}{On\+Called\+As\+Function}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&callback\+Info)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classNapi_1_1InstanceWrap}{Napi\+::\+Instance\+Wrap$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_afc90b95e3e63c0130a424b1e4a0f7899}{Instance\+Method}} (const char \texorpdfstring{$\ast$}{*}utf8name, \mbox{\hyperlink{classNapi_1_1InstanceWrap_ada17136961c45b29f87e9be692628fab}{Instance\+Void\+Method\+Callback}} method, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_a5a88801cba49425f21558c02ce0a2e15}{Instance\+Method}} (const char \texorpdfstring{$\ast$}{*}utf8name, \mbox{\hyperlink{classNapi_1_1InstanceWrap_a41b3f207e6145a08d7c86c9d1c9ac713}{Instance\+Method\+Callback}} method, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_abf8b33af5afd8bdd5e6f7e5ffeb1d323}{Instance\+Method}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, \mbox{\hyperlink{classNapi_1_1InstanceWrap_ada17136961c45b29f87e9be692628fab}{Instance\+Void\+Method\+Callback}} method, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_a7a002d25e0c0f5cab1c9a80387560dd0}{Instance\+Method}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, \mbox{\hyperlink{classNapi_1_1InstanceWrap_a41b3f207e6145a08d7c86c9d1c9ac713}{Instance\+Method\+Callback}} method, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{classNapi_1_1InstanceWrap_ada17136961c45b29f87e9be692628fab}{Instance\+Void\+Method\+Callback}} method$>$ }\\static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_a916edc73880b47c402e5bc533a1a60c1}{Instance\+Method}} (const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{classNapi_1_1InstanceWrap_a41b3f207e6145a08d7c86c9d1c9ac713}{Instance\+Method\+Callback}} method$>$ }\\static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_a916edc73880b47c402e5bc533a1a60c1}{Instance\+Method}} (const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{classNapi_1_1InstanceWrap_ada17136961c45b29f87e9be692628fab}{Instance\+Void\+Method\+Callback}} method$>$ }\\static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_aaefdb7b910a0d6f930c2e2772173426e}{Instance\+Method}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{classNapi_1_1InstanceWrap_a41b3f207e6145a08d7c86c9d1c9ac713}{Instance\+Method\+Callback}} method$>$ }\\static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_aaefdb7b910a0d6f930c2e2772173426e}{Instance\+Method}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_a85e0d750f20079806d4966708559290a}{Instance\+Accessor}} (const char \texorpdfstring{$\ast$}{*}utf8name, \mbox{\hyperlink{classNapi_1_1InstanceWrap_abe4b17e69bb70e40341a17f3eebb4da4}{Instance\+Getter\+Callback}} getter, \mbox{\hyperlink{classNapi_1_1InstanceWrap_af2bbde19a366869c7a619865250a92db}{Instance\+Setter\+Callback}} setter, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_afdc66bd9ba80c2a1d83a06cd015be547}{Instance\+Accessor}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, \mbox{\hyperlink{classNapi_1_1InstanceWrap_abe4b17e69bb70e40341a17f3eebb4da4}{Instance\+Getter\+Callback}} getter, \mbox{\hyperlink{classNapi_1_1InstanceWrap_af2bbde19a366869c7a619865250a92db}{Instance\+Setter\+Callback}} setter, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{classNapi_1_1InstanceWrap_abe4b17e69bb70e40341a17f3eebb4da4}{Instance\+Getter\+Callback}} getter, \mbox{\hyperlink{classNapi_1_1InstanceWrap_af2bbde19a366869c7a619865250a92db}{Instance\+Setter\+Callback}} setter = nullptr$>$ }\\static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_a3eb99195a22e95d4f4fc08198aea8b35}{Instance\+Accessor}} (const char \texorpdfstring{$\ast$}{*}utf8name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{classNapi_1_1InstanceWrap_abe4b17e69bb70e40341a17f3eebb4da4}{Instance\+Getter\+Callback}} getter, \mbox{\hyperlink{classNapi_1_1InstanceWrap_af2bbde19a366869c7a619865250a92db}{Instance\+Setter\+Callback}} setter = nullptr$>$ }\\static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_a96e7133e9cee4d09f521d69a2157cc82}{Instance\+Accessor}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default, void \texorpdfstring{$\ast$}{*}data=nullptr)
+\item 
+static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_abd9a2d8c4b72c9947dfb80836c2150aa}{Instance\+Value}} (const char \texorpdfstring{$\ast$}{*}utf8name, \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} value, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default)
+\item 
+static \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} \mbox{\hyperlink{classNapi_1_1InstanceWrap_abc1df9fcd66d1df07a30ab0b7ab411f5}{Instance\+Value}} (\mbox{\hyperlink{classNapi_1_1Symbol}{Symbol}} name, \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} value, napi\+\_\+property\+\_\+attributes attributes=napi\+\_\+default)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference$<$ Object $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ \mbox{\hyperlink{classNapi_1_1Object}{Object}} $>$ \mbox{\hyperlink{classNapi_1_1Reference_a3572d80d57cb54046b581177727b91d0}{New}} (const \mbox{\hyperlink{classNapi_1_1Object}{Object}} \&value, uint32\+\_\+t initial\+Refcount=0)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classPoller_a04f316bbeb0b59f117b9ee2fb0980926}{poll}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env, int \mbox{\hyperlink{classPoller_a98744607285a09b2f02be536a41d7653}{events}})
+\item 
+void \mbox{\hyperlink{classPoller_a295ed01ad45f9f68ffaa54a25e635228}{stop}} (\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} env)
+\item 
+int \mbox{\hyperlink{classPoller_a36592ec8d72d80b3ed75cce711e9473b}{\+\_\+stop}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \mbox{\hyperlink{classPoller_a1b4e88b625fb8540238e82d1d2730c8b}{poll}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&info)
+\item 
+\mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \mbox{\hyperlink{classPoller_aa5dbb9665682f42400a77c151fcecc4f}{stop}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&info)
+\item 
+\mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \mbox{\hyperlink{classPoller_aade0238e12661330db043afb3831cb5f}{destroy}} (const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&info)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classNapi_1_1FunctionReference}{Napi\+::\+Function\+Reference}} \& \mbox{\hyperlink{classPoller_a33fd46f6c01de207365123ca596cb585}{constructor}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classPoller_a972153e71afc7d325f8e7ef9d675d541}{fd}}
+\item 
+uv\+\_\+poll\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classPoller_ae27fca4ae791fa69d559a6d5e2222efe}{poll\+\_\+handle}} = nullptr
+\item 
+\mbox{\hyperlink{classNapi_1_1FunctionReference}{Napi\+::\+Function\+Reference}} \mbox{\hyperlink{classPoller_a901209cb1aaf6647d9748ff22c41ec27}{callback}}
+\item 
+bool \mbox{\hyperlink{classPoller_ac38ba1f820275c5780d432c2b4b888f7}{uv\+\_\+poll\+\_\+init\+\_\+success}} = false
+\item 
+int \mbox{\hyperlink{classPoller_a98744607285a09b2f02be536a41d7653}{events}} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classNapi_1_1ObjectWrap}{Napi\+::\+Object\+Wrap$<$ Poller $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classNapi_1_1ObjectWrap_ae992db7fd55cf0a595cf5abae1ad00d0}{Static\+Void\+Method\+Callback}} = void(\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info)
+\item 
+using \mbox{\hyperlink{classNapi_1_1ObjectWrap_a803630884066bca0fde78c87be97e365}{Static\+Method\+Callback}} = \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}}(\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info)
+\item 
+using \mbox{\hyperlink{classNapi_1_1ObjectWrap_ab6ebbe82838ad3664db5a9916fa61604}{Static\+Getter\+Callback}} = \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}}(\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info)
+\item 
+using \mbox{\hyperlink{classNapi_1_1ObjectWrap_a84078b20ac83c1d75c0bf99ab49f656d}{Static\+Setter\+Callback}} = void(\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info, const \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \&value)
+\item 
+using \mbox{\hyperlink{classNapi_1_1ObjectWrap_a5b6fca2a4bda1d797605ca8dcfd86066}{Property\+Descriptor}} = \mbox{\hyperlink{classNapi_1_1ClassPropertyDescriptor}{Class\+Property\+Descriptor}}$<$ \mbox{\hyperlink{classPoller}{Poller}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classNapi_1_1InstanceWrap}{Napi\+::\+Instance\+Wrap$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classNapi_1_1InstanceWrap_ada17136961c45b29f87e9be692628fab}{Instance\+Void\+Method\+Callback}} = void(T\+::\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info)
+\item 
+using \mbox{\hyperlink{classNapi_1_1InstanceWrap_a41b3f207e6145a08d7c86c9d1c9ac713}{Instance\+Method\+Callback}} = \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}}(T\+::\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info)
+\item 
+using \mbox{\hyperlink{classNapi_1_1InstanceWrap_abe4b17e69bb70e40341a17f3eebb4da4}{Instance\+Getter\+Callback}} = \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}}(T\+::\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info)
+\item 
+using \mbox{\hyperlink{classNapi_1_1InstanceWrap_af2bbde19a366869c7a619865250a92db}{Instance\+Setter\+Callback}} = void(T\+::\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info, const \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} \&value)
+\item 
+using \mbox{\hyperlink{classNapi_1_1InstanceWrap_a30a21f47920a82cc146a70fc395008d8}{Property\+Descriptor}} = \mbox{\hyperlink{classNapi_1_1ClassPropertyDescriptor}{Class\+Property\+Descriptor}}$<$ T $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference$<$ Object $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_a617460d4d55206bfa79c25155cfa1a42}{Reference}} (const \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ \mbox{\hyperlink{classNapi_1_1Object}{Object}} $>$ \&)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classNapi_1_1InstanceWrap}{Napi\+::\+Instance\+Wrap$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classNapi_1_1InstanceWrap_a79fb97be981e347863b0ca2224a2d558}{Attach\+Prop\+Data}} (napi\+\_\+env env, napi\+\_\+value value, const napi\+\_\+property\+\_\+descriptor \texorpdfstring{$\ast$}{*}prop)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference$<$ Object $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+napi\+\_\+env \mbox{\hyperlink{classNapi_1_1Reference_a5c690557fa39d709a1dbaa14c3ccc5a1}{\+\_\+env}}
+\begin{DoxyCompactList}\small\item\em !cond INTERNAL \end{DoxyCompactList}\item 
+napi\+\_\+ref \mbox{\hyperlink{classNapi_1_1Reference_a238e28b4750cc8659be3a9159f179a90}{\+\_\+ref}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classPoller_a9d24e9813394b98dd8ab992267553396}\label{classPoller_a9d24e9813394b98dd8ab992267553396} 
+\index{Poller@{Poller}!Poller@{Poller}}
+\index{Poller@{Poller}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{Poller()}{Poller()}}
+{\footnotesize\ttfamily Poller\+::\+Poller (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&}]{info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller_a9d24e9813394b98dd8ab992267553396_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_a558eed5a0c012c2ed4a4f6df07a02f66}\label{classPoller_a558eed5a0c012c2ed4a4f6df07a02f66} 
+\index{Poller@{Poller}!````~Poller@{\texorpdfstring{$\sim$}{\string~}Poller}}
+\index{````~Poller@{\texorpdfstring{$\sim$}{\string~}Poller}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Poller()}{\string~Poller()}}
+{\footnotesize\ttfamily Poller\+::\texorpdfstring{$\sim$}{\string~}\+Poller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=277pt]{classPoller_a558eed5a0c012c2ed4a4f6df07a02f66_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classPoller_a36592ec8d72d80b3ed75cce711e9473b}\label{classPoller_a36592ec8d72d80b3ed75cce711e9473b} 
+\index{Poller@{Poller}!\_stop@{\_stop}}
+\index{\_stop@{\_stop}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{\_stop()}{\_stop()}}
+{\footnotesize\ttfamily int Poller\+::\+\_\+stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller_a36592ec8d72d80b3ed75cce711e9473b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_a33fd46f6c01de207365123ca596cb585}\label{classPoller_a33fd46f6c01de207365123ca596cb585} 
+\index{Poller@{Poller}!constructor@{constructor}}
+\index{constructor@{constructor}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{constructor()}{constructor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1FunctionReference}{Napi\+::\+Function\+Reference}} \& Poller\+::constructor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{classPoller_a33fd46f6c01de207365123ca596cb585_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_aade0238e12661330db043afb3831cb5f}\label{classPoller_aade0238e12661330db043afb3831cb5f} 
+\index{Poller@{Poller}!destroy@{destroy}}
+\index{destroy@{destroy}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{destroy()}{destroy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} Poller\+::destroy (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&}]{info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{classPoller_aade0238e12661330db043afb3831cb5f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_acd67d4eb74878bf20287e315f6efd7bb}\label{classPoller_acd67d4eb74878bf20287e315f6efd7bb} 
+\index{Poller@{Poller}!Init@{Init}}
+\index{Init@{Init}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1Object}{Napi\+::\+Object}} Poller\+::\+Init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}}}]{env,  }\item[{\mbox{\hyperlink{classNapi_1_1Object}{Napi\+::\+Object}}}]{exports }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller_acd67d4eb74878bf20287e315f6efd7bb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{classPoller_acd67d4eb74878bf20287e315f6efd7bb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_a47418e60d6e34fbee8c1f42d7648402e}\label{classPoller_a47418e60d6e34fbee8c1f42d7648402e} 
+\index{Poller@{Poller}!New@{New}}
+\index{New@{New}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{New()}{New()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} Poller\+::\+New (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&}]{info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller_a47418e60d6e34fbee8c1f42d7648402e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_a4fb750c4a198f340f96bb36165b30967}\label{classPoller_a4fb750c4a198f340f96bb36165b30967} 
+\index{Poller@{Poller}!onClose@{onClose}}
+\index{onClose@{onClose}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{onClose()}{onClose()}}
+{\footnotesize\ttfamily void Poller\+::on\+Close (\begin{DoxyParamCaption}\item[{uv\+\_\+handle\+\_\+t \texorpdfstring{$\ast$}{*}}]{poll\+\_\+handle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=277pt]{classPoller_a4fb750c4a198f340f96bb36165b30967_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_a60739ed7a1398e2c86507785af2d55a6}\label{classPoller_a60739ed7a1398e2c86507785af2d55a6} 
+\index{Poller@{Poller}!onData@{onData}}
+\index{onData@{onData}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{onData()}{onData()}}
+{\footnotesize\ttfamily void Poller\+::on\+Data (\begin{DoxyParamCaption}\item[{uv\+\_\+poll\+\_\+t \texorpdfstring{$\ast$}{*}}]{handle,  }\item[{int}]{status,  }\item[{int}]{events }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller_a60739ed7a1398e2c86507785af2d55a6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller_a60739ed7a1398e2c86507785af2d55a6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_a1b4e88b625fb8540238e82d1d2730c8b}\label{classPoller_a1b4e88b625fb8540238e82d1d2730c8b} 
+\index{Poller@{Poller}!poll@{poll}}
+\index{poll@{poll}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{poll()}{poll()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} Poller\+::poll (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&}]{info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller_a1b4e88b625fb8540238e82d1d2730c8b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_a04f316bbeb0b59f117b9ee2fb0980926}\label{classPoller_a04f316bbeb0b59f117b9ee2fb0980926} 
+\index{Poller@{Poller}!poll@{poll}}
+\index{poll@{poll}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{poll()}{poll()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Poller\+::poll (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}}}]{env,  }\item[{int}]{events }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller_a04f316bbeb0b59f117b9ee2fb0980926_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=257pt]{classPoller_a04f316bbeb0b59f117b9ee2fb0980926_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_aa5dbb9665682f42400a77c151fcecc4f}\label{classPoller_aa5dbb9665682f42400a77c151fcecc4f} 
+\index{Poller@{Poller}!stop@{stop}}
+\index{stop@{stop}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}} Poller\+::stop (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Napi\+::\+Callback\+Info}} \&}]{info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller_aa5dbb9665682f42400a77c151fcecc4f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classPoller_a295ed01ad45f9f68ffaa54a25e635228}\label{classPoller_a295ed01ad45f9f68ffaa54a25e635228} 
+\index{Poller@{Poller}!stop@{stop}}
+\index{stop@{stop}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Poller\+::stop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}}}]{env }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoller_a295ed01ad45f9f68ffaa54a25e635228_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{classPoller_a295ed01ad45f9f68ffaa54a25e635228_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classPoller_a901209cb1aaf6647d9748ff22c41ec27}\label{classPoller_a901209cb1aaf6647d9748ff22c41ec27} 
+\index{Poller@{Poller}!callback@{callback}}
+\index{callback@{callback}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{callback}{callback}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1FunctionReference}{Napi\+::\+Function\+Reference}} Poller\+::callback\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classPoller_a98744607285a09b2f02be536a41d7653}\label{classPoller_a98744607285a09b2f02be536a41d7653} 
+\index{Poller@{Poller}!events@{events}}
+\index{events@{events}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{events}{events}}
+{\footnotesize\ttfamily int Poller\+::events = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classPoller_a972153e71afc7d325f8e7ef9d675d541}\label{classPoller_a972153e71afc7d325f8e7ef9d675d541} 
+\index{Poller@{Poller}!fd@{fd}}
+\index{fd@{fd}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{fd}{fd}}
+{\footnotesize\ttfamily int Poller\+::fd\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classPoller_ae27fca4ae791fa69d559a6d5e2222efe}\label{classPoller_ae27fca4ae791fa69d559a6d5e2222efe} 
+\index{Poller@{Poller}!poll\_handle@{poll\_handle}}
+\index{poll\_handle@{poll\_handle}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{poll\_handle}{poll\_handle}}
+{\footnotesize\ttfamily uv\+\_\+poll\+\_\+t\texorpdfstring{$\ast$}{*} Poller\+::poll\+\_\+handle = nullptr\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classPoller_ac38ba1f820275c5780d432c2b4b888f7}\label{classPoller_ac38ba1f820275c5780d432c2b4b888f7} 
+\index{Poller@{Poller}!uv\_poll\_init\_success@{uv\_poll\_init\_success}}
+\index{uv\_poll\_init\_success@{uv\_poll\_init\_success}!Poller@{Poller}}
+\doxysubsubsection{\texorpdfstring{uv\_poll\_init\_success}{uv\_poll\_init\_success}}
+{\footnotesize\ttfamily bool Poller\+::uv\+\_\+poll\+\_\+init\+\_\+success = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/\mbox{\hyperlink{poller_8h}{poller.\+h}}\item 
+Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/\mbox{\hyperlink{poller_8cpp}{poller.\+cpp}}\end{DoxyCompactItemize}

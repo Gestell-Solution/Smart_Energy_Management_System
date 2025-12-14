@@ -14,6 +14,14 @@
 #ifndef ENERGY_LOGGER_INTERFACE_H
 #define ENERGY_LOGGER_INTERFACE_H
 
+/**
+ * @addtogroup App
+ * @{
+ * @addtogroup Energy_Logger
+ * @{
+ */
+
+
 #include <stdint.h>
 #include "EnergyLogger_config.h"
 
@@ -114,5 +122,11 @@ void App_EnergyLogger_ReadLog(uint16_t index, EnergyLog_t *log);
  *          log buffer and handles batch writing to EEPROM to minimize write cycles.
  */
 void App_EnergyLogger_Task(void);
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif 

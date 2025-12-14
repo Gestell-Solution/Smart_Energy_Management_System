@@ -1,0 +1,61 @@
+\chapter{ms}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme}{}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme}\index{ms@{ms}}
+\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md60}%
+\Hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md60}%
+ \href{https://travis-ci.org/zeit/ms}{\texttt{ }} \href{https://spectrum.chat/zeit}{\texttt{ }}
+
+Use this package to easily convert various time formats to milliseconds.\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md61}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md61}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ms('2\ days')\ \ //\ 172800000}
+\DoxyCodeLine{ms('1d')\ \ \ \ \ \ //\ 86400000}
+\DoxyCodeLine{ms('10h')\ \ \ \ \ //\ 36000000}
+\DoxyCodeLine{ms('2.5\ hrs')\ //\ 9000000}
+\DoxyCodeLine{ms('2h')\ \ \ \ \ \ //\ 7200000}
+\DoxyCodeLine{ms('1m')\ \ \ \ \ \ //\ 60000}
+\DoxyCodeLine{ms('5s')\ \ \ \ \ \ //\ 5000}
+\DoxyCodeLine{ms('1y')\ \ \ \ \ \ //\ 31557600000}
+\DoxyCodeLine{ms('100')\ \ \ \ \ //\ 100}
+\DoxyCodeLine{ms('-\/3\ days')\ //\ -\/259200000}
+\DoxyCodeLine{ms('-\/1h')\ \ \ \ \ //\ -\/3600000}
+\DoxyCodeLine{ms('-\/200')\ \ \ \ //\ -\/200}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md62}{}\doxysubsection{\texorpdfstring{Convert from Milliseconds}{Convert from Milliseconds}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md62}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ms(60000)\ \ \ \ \ \ \ \ \ \ \ \ \ //\ "{}1m"{}}
+\DoxyCodeLine{ms(2\ *\ 60000)\ \ \ \ \ \ \ \ \ //\ "{}2m"{}}
+\DoxyCodeLine{ms(-\/3\ *\ 60000)\ \ \ \ \ \ \ \ //\ "{}-\/3m"{}}
+\DoxyCodeLine{ms(ms('10\ hours'))\ \ \ \ //\ "{}10h"{}}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md63}{}\doxysubsection{\texorpdfstring{Time Format Written-\/\+Out}{Time Format Written-Out}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md63}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ms(60000,\ \{\ long:\ true\ \})\ \ \ \ \ \ \ \ \ \ \ \ \ //\ "{}1\ minute"{}}
+\DoxyCodeLine{ms(2\ *\ 60000,\ \{\ long:\ true\ \})\ \ \ \ \ \ \ \ \ //\ "{}2\ minutes"{}}
+\DoxyCodeLine{ms(-\/3\ *\ 60000,\ \{\ long:\ true\ \})\ \ \ \ \ \ \ \ //\ "{}-\/3\ minutes"{}}
+\DoxyCodeLine{ms(ms('10\ hours'),\ \{\ long:\ true\ \})\ \ \ \ //\ "{}10\ hours"{}}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md64}{}\doxysection{\texorpdfstring{Features}{Features}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md64}
+
+\begin{DoxyItemize}
+\item Works both in \href{https://nodejs.org}{\texttt{ Node.\+js}} and in the browser
+\item If a number is supplied to {\ttfamily ms}, a string with a unit is returned
+\item If a string that contains the number is supplied, it returns it as a number (e.\+g.\+: it returns {\ttfamily 100} for `\textquotesingle{}100'\`{})
+\item If you pass a string with a number and a valid unit, the number of equivalent milliseconds is returned
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md65}{}\doxysection{\texorpdfstring{Related Packages}{Related Packages}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md65}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/knpwrs/ms.macro}{\texttt{ ms.\+macro}} -\/ Run {\ttfamily ms} as a macro at build-\/time.
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md66}{}\doxysection{\texorpdfstring{Caught a Bug?}{Caught a Bug?}}\label{md_Dashboard_2node__modules_2_0dserialport_2bindings-cpp_2node__modules_2ms_2readme_autotoc_md66}
+
+\begin{DoxyEnumerate}
+\item \href{https://help.github.com/articles/fork-a-repo/}{\texttt{ Fork}} this repository to your own Git\+Hub account and then \href{https://help.github.com/articles/cloning-a-repository/}{\texttt{ clone}} it to your local device
+\item Link the package to the global module directory\+: {\ttfamily npm link}
+\item Within the module you want to test your local development instance of ms, just link it to the dependencies\+: {\ttfamily npm link ms}. Instead of the default one from npm, Node.\+js will now use your clone of ms!
+\end{DoxyEnumerate}
+
+As always, you can run the tests using\+: {\ttfamily npm test} 

@@ -1,0 +1,230 @@
+\doxysection{Napi\+::details Namespace Reference}
+\hypertarget{namespaceNapi_1_1details}{}\label{namespaceNapi_1_1details}\index{Napi::details@{Napi::details}}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1AccessorCallbackData}{Accessor\+Callback\+Data}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1CallbackData}{Callback\+Data}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1CallbackData_3_01Callable_00_01void_01_4}{Callback\+Data$<$ Callable, void $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1can__make__string}{can\+\_\+make\+\_\+string}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1disjunction}{disjunction}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1disjunction_3_01B_01_4}{disjunction$<$ B $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1disjunction_3_01B_00_01Bs_8_8_8_01_4}{disjunction$<$ B, Bs... $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1FinalizeData}{Finalize\+Data}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__fallback}{vf\+\_\+fallback}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__number}{vf\+\_\+number}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__number_3_01bool_01_4}{vf\+\_\+number$<$ bool $>$}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__utf16__charp}{vf\+\_\+utf16\+\_\+charp}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__utf16__string}{vf\+\_\+utf16\+\_\+string}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__utf8__charp}{vf\+\_\+utf8\+\_\+charp}}
+\item 
+struct \mbox{\hyperlink{structNapi_1_1details_1_1vf__utf8__string}{vf\+\_\+utf8\+\_\+string}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Free\+Type $>$ }\\napi\+\_\+status \mbox{\hyperlink{namespaceNapi_1_1details_ae8d3b8bf05a5a55f5cdf2104ee095b02}{Attach\+Data}} (napi\+\_\+env env, napi\+\_\+value obj, Free\+Type \texorpdfstring{$\ast$}{*}data, napi\+\_\+finalize finalizer=nullptr, void \texorpdfstring{$\ast$}{*}hint=nullptr)
+\item 
+{\footnotesize template$<$typename Callable $>$ }\\napi\+\_\+value \mbox{\hyperlink{namespaceNapi_1_1details_ad7dfc06e482555ea99ae09b2e55bc79d}{Wrap\+Callback}} (Callable callback)
+\item 
+{\footnotesize template$<$typename Callable $>$ }\\void \mbox{\hyperlink{namespaceNapi_1_1details_a3b92109504231e15075d3c7d93bfc8bb}{Wrap\+Void\+Callback}} (Callable callback)
+\item 
+{\footnotesize template$<$void(\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Callback$>$ }\\napi\+\_\+value \mbox{\hyperlink{namespaceNapi_1_1details_a17cfac33705c623011cfd42ba52de380}{Templated\+Void\+Callback}} (napi\+\_\+env env, napi\+\_\+callback\+\_\+info info) \mbox{\hyperlink{napi_8h_a0549e8092c78a35134e6b34510dfb277}{NAPI\+\_\+\+NOEXCEPT}}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}}(\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Callback$>$ }\\napi\+\_\+value \mbox{\hyperlink{namespaceNapi_1_1details_a32d741b379db2e6e3ac8dbe1d5fb2968}{Templated\+Callback}} (napi\+\_\+env env, napi\+\_\+callback\+\_\+info info) \mbox{\hyperlink{napi_8h_a0549e8092c78a35134e6b34510dfb277}{NAPI\+\_\+\+NOEXCEPT}}
+\item 
+{\footnotesize template$<$typename T , \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}}(T\+::\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Unwrap\+Callback$>$ }\\napi\+\_\+value \mbox{\hyperlink{namespaceNapi_1_1details_af616a966dd94b3cb1272bc7864623eba}{Templated\+Instance\+Callback}} (napi\+\_\+env env, napi\+\_\+callback\+\_\+info info) \mbox{\hyperlink{napi_8h_a0549e8092c78a35134e6b34510dfb277}{NAPI\+\_\+\+NOEXCEPT}}
+\item 
+{\footnotesize template$<$typename T , void(T\+::\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Unwrap\+Callback$>$ }\\napi\+\_\+value \mbox{\hyperlink{namespaceNapi_1_1details_aa75f927fdfd3fcb5ca56c8fdc83b3017}{Templated\+Instance\+Void\+Callback}} (napi\+\_\+env env, napi\+\_\+callback\+\_\+info info) \mbox{\hyperlink{napi_8h_a0549e8092c78a35134e6b34510dfb277}{NAPI\+\_\+\+NOEXCEPT}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr int \mbox{\hyperlink{namespaceNapi_1_1details_a176173100099bf0be393d0c388c0b8cf}{napi\+\_\+no\+\_\+external\+\_\+buffers\+\_\+allowed}} = 22
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceNapi_1_1details_ae8d3b8bf05a5a55f5cdf2104ee095b02}\label{namespaceNapi_1_1details_ae8d3b8bf05a5a55f5cdf2104ee095b02} 
+\index{Napi::details@{Napi::details}!AttachData@{AttachData}}
+\index{AttachData@{AttachData}!Napi::details@{Napi::details}}
+\doxysubsubsection{\texorpdfstring{AttachData()}{AttachData()}}
+{\footnotesize\ttfamily template$<$typename Free\+Type $>$ \\
+napi\+\_\+status Napi\+::details\+::\+Attach\+Data (\begin{DoxyParamCaption}\item[{napi\+\_\+env}]{env,  }\item[{napi\+\_\+value}]{obj,  }\item[{Free\+Type \texorpdfstring{$\ast$}{*}}]{data,  }\item[{napi\+\_\+finalize}]{finalizer = {\ttfamily nullptr},  }\item[{void \texorpdfstring{$\ast$}{*}}]{hint = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{namespaceNapi_1_1details_ae8d3b8bf05a5a55f5cdf2104ee095b02_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceNapi_1_1details_ae8d3b8bf05a5a55f5cdf2104ee095b02_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceNapi_1_1details_a32d741b379db2e6e3ac8dbe1d5fb2968}\label{namespaceNapi_1_1details_a32d741b379db2e6e3ac8dbe1d5fb2968} 
+\index{Napi::details@{Napi::details}!TemplatedCallback@{TemplatedCallback}}
+\index{TemplatedCallback@{TemplatedCallback}!Napi::details@{Napi::details}}
+\doxysubsubsection{\texorpdfstring{TemplatedCallback()}{TemplatedCallback()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}}(\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Callback$>$ \\
+napi\+\_\+value Napi\+::details\+::\+Templated\+Callback (\begin{DoxyParamCaption}\item[{napi\+\_\+env}]{env,  }\item[{napi\+\_\+callback\+\_\+info}]{info }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{namespaceNapi_1_1details_a32d741b379db2e6e3ac8dbe1d5fb2968_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{namespaceNapi_1_1details_a32d741b379db2e6e3ac8dbe1d5fb2968_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceNapi_1_1details_af616a966dd94b3cb1272bc7864623eba}\label{namespaceNapi_1_1details_af616a966dd94b3cb1272bc7864623eba} 
+\index{Napi::details@{Napi::details}!TemplatedInstanceCallback@{TemplatedInstanceCallback}}
+\index{TemplatedInstanceCallback@{TemplatedInstanceCallback}!Napi::details@{Napi::details}}
+\doxysubsubsection{\texorpdfstring{TemplatedInstanceCallback()}{TemplatedInstanceCallback()}}
+{\footnotesize\ttfamily template$<$typename T , \mbox{\hyperlink{classNapi_1_1Value}{Napi\+::\+Value}}(T\+::\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Unwrap\+Callback$>$ \\
+napi\+\_\+value Napi\+::details\+::\+Templated\+Instance\+Callback (\begin{DoxyParamCaption}\item[{napi\+\_\+env}]{env,  }\item[{napi\+\_\+callback\+\_\+info}]{info }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceNapi_1_1details_af616a966dd94b3cb1272bc7864623eba_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{namespaceNapi_1_1details_af616a966dd94b3cb1272bc7864623eba_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceNapi_1_1details_aa75f927fdfd3fcb5ca56c8fdc83b3017}\label{namespaceNapi_1_1details_aa75f927fdfd3fcb5ca56c8fdc83b3017} 
+\index{Napi::details@{Napi::details}!TemplatedInstanceVoidCallback@{TemplatedInstanceVoidCallback}}
+\index{TemplatedInstanceVoidCallback@{TemplatedInstanceVoidCallback}!Napi::details@{Napi::details}}
+\doxysubsubsection{\texorpdfstring{TemplatedInstanceVoidCallback()}{TemplatedInstanceVoidCallback()}}
+{\footnotesize\ttfamily template$<$typename T , void(T\+::\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Unwrap\+Callback$>$ \\
+napi\+\_\+value Napi\+::details\+::\+Templated\+Instance\+Void\+Callback (\begin{DoxyParamCaption}\item[{napi\+\_\+env}]{env,  }\item[{napi\+\_\+callback\+\_\+info}]{info }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceNapi_1_1details_aa75f927fdfd3fcb5ca56c8fdc83b3017_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{namespaceNapi_1_1details_aa75f927fdfd3fcb5ca56c8fdc83b3017_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceNapi_1_1details_a17cfac33705c623011cfd42ba52de380}\label{namespaceNapi_1_1details_a17cfac33705c623011cfd42ba52de380} 
+\index{Napi::details@{Napi::details}!TemplatedVoidCallback@{TemplatedVoidCallback}}
+\index{TemplatedVoidCallback@{TemplatedVoidCallback}!Napi::details@{Napi::details}}
+\doxysubsubsection{\texorpdfstring{TemplatedVoidCallback()}{TemplatedVoidCallback()}}
+{\footnotesize\ttfamily template$<$void(\texorpdfstring{$\ast$}{*})(const \mbox{\hyperlink{classNapi_1_1CallbackInfo}{Callback\+Info}} \&info) Callback$>$ \\
+napi\+\_\+value Napi\+::details\+::\+Templated\+Void\+Callback (\begin{DoxyParamCaption}\item[{napi\+\_\+env}]{env,  }\item[{napi\+\_\+callback\+\_\+info}]{info }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{namespaceNapi_1_1details_a17cfac33705c623011cfd42ba52de380_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{namespaceNapi_1_1details_a17cfac33705c623011cfd42ba52de380_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceNapi_1_1details_ad7dfc06e482555ea99ae09b2e55bc79d}\label{namespaceNapi_1_1details_ad7dfc06e482555ea99ae09b2e55bc79d} 
+\index{Napi::details@{Napi::details}!WrapCallback@{WrapCallback}}
+\index{WrapCallback@{WrapCallback}!Napi::details@{Napi::details}}
+\doxysubsubsection{\texorpdfstring{WrapCallback()}{WrapCallback()}}
+{\footnotesize\ttfamily template$<$typename Callable $>$ \\
+napi\+\_\+value Napi\+::details\+::\+Wrap\+Callback (\begin{DoxyParamCaption}\item[{Callable}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceNapi_1_1details_ad7dfc06e482555ea99ae09b2e55bc79d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{namespaceNapi_1_1details_ad7dfc06e482555ea99ae09b2e55bc79d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceNapi_1_1details_a3b92109504231e15075d3c7d93bfc8bb}\label{namespaceNapi_1_1details_a3b92109504231e15075d3c7d93bfc8bb} 
+\index{Napi::details@{Napi::details}!WrapVoidCallback@{WrapVoidCallback}}
+\index{WrapVoidCallback@{WrapVoidCallback}!Napi::details@{Napi::details}}
+\doxysubsubsection{\texorpdfstring{WrapVoidCallback()}{WrapVoidCallback()}}
+{\footnotesize\ttfamily template$<$typename Callable $>$ \\
+void Napi\+::details\+::\+Wrap\+Void\+Callback (\begin{DoxyParamCaption}\item[{Callable}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceNapi_1_1details_a3b92109504231e15075d3c7d93bfc8bb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceNapi_1_1details_a3b92109504231e15075d3c7d93bfc8bb_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceNapi_1_1details_a176173100099bf0be393d0c388c0b8cf}\label{namespaceNapi_1_1details_a176173100099bf0be393d0c388c0b8cf} 
+\index{Napi::details@{Napi::details}!napi\_no\_external\_buffers\_allowed@{napi\_no\_external\_buffers\_allowed}}
+\index{napi\_no\_external\_buffers\_allowed@{napi\_no\_external\_buffers\_allowed}!Napi::details@{Napi::details}}
+\doxysubsubsection{\texorpdfstring{napi\_no\_external\_buffers\_allowed}{napi\_no\_external\_buffers\_allowed}}
+{\footnotesize\ttfamily constexpr int Napi\+::details\+::napi\+\_\+no\+\_\+external\+\_\+buffers\+\_\+allowed = 22\hspace{0.3cm}{\ttfamily [constexpr]}}
+

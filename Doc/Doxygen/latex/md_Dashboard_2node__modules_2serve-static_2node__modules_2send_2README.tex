@@ -1,0 +1,213 @@
+\chapter{send}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README}{}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README}\index{send@{send}}
+\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2728}%
+\Hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2728}%
+ \href{https://npmjs.org/package/send}{\texttt{ }} \href{https://npmjs.org/package/send}{\texttt{ }} \href{https://github.com/pillarjs/send/actions/workflows/ci.yml}{\texttt{ }} \href{https://ci.appveyor.com/project/dougwilson/send}{\texttt{ }} \href{https://coveralls.io/r/pillarjs/send?branch=master}{\texttt{ }}
+
+Send is a library for streaming files from the file system as a http response supporting partial responses (Ranges), conditional-\/\+GET negotiation (If-\/\+Match, If-\/\+Unmodified-\/\+Since, If-\/\+None-\/\+Match, If-\/\+Modified-\/\+Since), high test coverage, and granular events which may be leveraged to take appropriate actions in your application or framework.
+
+Looking to serve up entire folders mapped to URLs? Try \href{https://www.npmjs.org/package/serve-static}{\texttt{ serve-\/static}}.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2729}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2729}
+This is a \href{https://nodejs.org/en/}{\texttt{ Node.\+js}} module available through the \href{https://www.npmjs.com/}{\texttt{ npm registry}}. Installation is done using the \href{https://docs.npmjs.com/getting-started/installing-npm-packages-locally}{\texttt{ {\ttfamily npm install} command}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ send}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2730}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2730}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ send\ =\ require('send')}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2731}{}\doxysubsection{\texorpdfstring{send(req, path, \mbox{[}options\mbox{]})}{send(req, path, [options])}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2731}
+Create a new {\ttfamily Send\+Stream} for the given path to send to a {\ttfamily res}. The {\ttfamily req} is the Node.\+js HTTP request and the {\ttfamily path} is a urlencoded path to send (urlencoded, not the actual file-\/system path).\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2732}{}\doxysubsubsection{\texorpdfstring{Options}{Options}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2732}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2733}{}\doxyparagraph{\texorpdfstring{accept\+Ranges}{acceptRanges}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2733}
+Enable or disable accepting ranged requests, defaults to true. Disabling this will not send {\ttfamily Accept-\/\+Ranges} and ignore the contents of the {\ttfamily Range} request header.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2734}{}\doxyparagraph{\texorpdfstring{cache\+Control}{cacheControl}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2734}
+Enable or disable setting {\ttfamily Cache-\/\+Control} response header, defaults to true. Disabling this will ignore the {\ttfamily immutable} and {\ttfamily max\+Age} options.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2735}{}\doxyparagraph{\texorpdfstring{dotfiles}{dotfiles}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2735}
+Set how "{}dotfiles"{} are treated when encountered. A dotfile is a file or directory that begins with a dot ("{}."{}). Note this check is done on the path itself without checking if the path actually exists on the disk. If {\ttfamily root} is specified, only the dotfiles above the root are checked (i.\+e. the root itself can be within a dotfile when when set to "{}deny"{}).
+
+
+\begin{DoxyItemize}
+\item `\textquotesingle{}allow'{\ttfamily No special treatment for dotfiles. -\/}\textquotesingle{}deny\textquotesingle{}{\ttfamily Send a 403 for any request for a dotfile. -\/}\textquotesingle{}ignore\textquotesingle{}\`{} Pretend like the dotfile does not exist and 404.
+\end{DoxyItemize}
+
+The default value is {\itshape similar} to `\textquotesingle{}ignore'\`{}, with the exception that this default will not ignore the files within a directory that begins with a dot, for backward-\/compatibility.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2736}{}\doxyparagraph{\texorpdfstring{end}{end}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2736}
+Byte offset at which the stream ends, defaults to the length of the file minus 1. The end is inclusive in the stream, meaning {\ttfamily end\+: 3} will include the 4th byte in the stream.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2737}{}\doxyparagraph{\texorpdfstring{etag}{etag}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2737}
+Enable or disable etag generation, defaults to true.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2738}{}\doxyparagraph{\texorpdfstring{extensions}{extensions}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2738}
+If a given file doesn\textquotesingle{}t exist, try appending one of the given extensions, in the given order. By default, this is disabled (set to {\ttfamily false}). An example value that will serve extension-\/less HTML files\+: `\mbox{[}\textquotesingle{}html', \textquotesingle{}htm\textquotesingle{}\mbox{]}\`{}. This is skipped if the requested file already has an extension.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2739}{}\doxyparagraph{\texorpdfstring{immutable}{immutable}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2739}
+Enable or disable the {\ttfamily immutable} directive in the {\ttfamily Cache-\/\+Control} response header, defaults to {\ttfamily false}. If set to {\ttfamily true}, the {\ttfamily max\+Age} option should also be specified to enable caching. The {\ttfamily immutable} directive will prevent supported clients from making conditional requests during the life of the {\ttfamily max\+Age} option to check if the file has changed.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2740}{}\doxyparagraph{\texorpdfstring{index}{index}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2740}
+By default send supports "{}index.\+html"{} files, to disable this set {\ttfamily false} or to supply a new index pass a string or an array in preferred order.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2741}{}\doxyparagraph{\texorpdfstring{last\+Modified}{lastModified}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2741}
+Enable or disable {\ttfamily Last-\/\+Modified} header, defaults to true. Uses the file system\textquotesingle{}s last modified value.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2742}{}\doxyparagraph{\texorpdfstring{max\+Age}{maxAge}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2742}
+Provide a max-\/age in milliseconds for http caching, defaults to 0. This can also be a string accepted by the \href{https://www.npmjs.org/package/ms\#readme}{\texttt{ ms}} module.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2743}{}\doxyparagraph{\texorpdfstring{root}{root}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2743}
+Serve files relative to {\ttfamily path}.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2744}{}\doxyparagraph{\texorpdfstring{start}{start}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2744}
+Byte offset at which the stream starts, defaults to 0. The start is inclusive, meaning {\ttfamily start\+: 2} will include the 3rd byte in the stream.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2745}{}\doxysubsubsection{\texorpdfstring{Events}{Events}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2745}
+The {\ttfamily Send\+Stream} is an event emitter and will emit the following events\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily error} an error occurred {\ttfamily (err)}
+\item {\ttfamily directory} a directory was requested {\ttfamily (res, path)}
+\item {\ttfamily file} a file was requested {\ttfamily (path, stat)}
+\item {\ttfamily headers} the headers are about to be set on a file {\ttfamily (res, path, stat)}
+\item {\ttfamily stream} file streaming has started {\ttfamily (stream)}
+\item {\ttfamily end} streaming has completed
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2746}{}\doxysubsubsection{\texorpdfstring{.\+pipe}{.pipe}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2746}
+The {\ttfamily pipe} method is used to pipe the response into the Node.\+js HTTP response object, typically {\ttfamily send(req, path, options).pipe(res)}.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2747}{}\doxysubsection{\texorpdfstring{.\+mime}{.mime}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2747}
+The {\ttfamily mime} export is the global instance of of the \href{https://www.npmjs.com/package/mime}{\texttt{ {\ttfamily mime} npm module}}.
+
+This is used to configure the MIME types that are associated with file extensions as well as other options for how to resolve the MIME type of a file (like the default type to use for an unknown file extension).\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2748}{}\doxysection{\texorpdfstring{Error-\/handling}{Error-handling}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2748}
+By default when no {\ttfamily error} listeners are present an automatic response will be made, otherwise you have full control over the response, aka you may show a 5xx page etc.\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2749}{}\doxysection{\texorpdfstring{Caching}{Caching}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2749}
+It does {\itshape not} perform internal caching, you should use a reverse proxy cache such as Varnish for this, or those fancy things called CDNs. If your application is small enough that it would benefit from single-\/node memory caching, it\textquotesingle{}s small enough that it does not need caching at all ;).\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2750}{}\doxysection{\texorpdfstring{Debugging}{Debugging}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2750}
+To enable {\ttfamily debug()} instrumentation output export {\bfseries{DEBUG}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ DEBUG=send\ node\ app}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2751}{}\doxysection{\texorpdfstring{Running tests}{Running tests}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2751}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install}
+\DoxyCodeLine{\$\ npm\ test}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2752}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2752}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2753}{}\doxysubsection{\texorpdfstring{Serve a specific file}{Serve a specific file}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2753}
+This simple example will send a specific file to all requests.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ http\ =\ require('http')}
+\DoxyCodeLine{var\ send\ =\ require('send')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ server\ =\ http.createServer(function\ onRequest\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ send(req,\ '/path/to/index.html')}
+\DoxyCodeLine{\ \ \ \ .pipe(res)}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.listen(3000)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2754}{}\doxysubsection{\texorpdfstring{Serve all files from a directory}{Serve all files from a directory}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2754}
+This simple example will just serve up all the files in a given directory as the top-\/level. For example, a request {\ttfamily GET /foo.txt} will send back {\ttfamily /www/public/foo.txt}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ http\ =\ require('http')}
+\DoxyCodeLine{var\ parseUrl\ =\ require('parseurl')}
+\DoxyCodeLine{var\ send\ =\ require('send')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ server\ =\ http.createServer(function\ onRequest\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ send(req,\ parseUrl(req).pathname,\ \{\ root:\ '/www/public'\ \})}
+\DoxyCodeLine{\ \ \ \ .pipe(res)}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.listen(3000)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2755}{}\doxysubsection{\texorpdfstring{Custom file types}{Custom file types}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2755}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ http\ =\ require('http')}
+\DoxyCodeLine{var\ parseUrl\ =\ require('parseurl')}
+\DoxyCodeLine{var\ send\ =\ require('send')}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Default\ unknown\ types\ to\ text/plain}
+\DoxyCodeLine{send.mime.default\_type\ =\ 'text/plain'}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Add\ a\ custom\ type}
+\DoxyCodeLine{send.mime.define(\{}
+\DoxyCodeLine{\ \ 'application/x-\/my-\/type':\ ['x-\/mt',\ 'x-\/mtt']}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ server\ =\ http.createServer(function\ onRequest\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ send(req,\ parseUrl(req).pathname,\ \{\ root:\ '/www/public'\ \})}
+\DoxyCodeLine{\ \ \ \ .pipe(res)}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.listen(3000)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2756}{}\doxysubsection{\texorpdfstring{Custom directory index view}{Custom directory index view}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2756}
+This is a example of serving up a structure of directories with a custom function to render a listing of a directory.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ http\ =\ require('http')}
+\DoxyCodeLine{var\ fs\ =\ require('fs')}
+\DoxyCodeLine{var\ parseUrl\ =\ require('parseurl')}
+\DoxyCodeLine{var\ send\ =\ require('send')}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Transfer\ arbitrary\ files\ from\ within\ /www/example.com/public/*}
+\DoxyCodeLine{//\ with\ a\ custom\ handler\ for\ directory\ listing}
+\DoxyCodeLine{var\ server\ =\ http.createServer(function\ onRequest\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ send(req,\ parseUrl(req).pathname,\ \{\ index:\ false,\ root:\ '/www/public'\ \})}
+\DoxyCodeLine{\ \ \ \ .once('directory',\ directory)}
+\DoxyCodeLine{\ \ \ \ .pipe(res)}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.listen(3000)}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Custom\ directory\ handler}
+\DoxyCodeLine{function\ directory\ (res,\ path)\ \{}
+\DoxyCodeLine{\ \ var\ stream\ =\ this}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ redirect\ to\ trailing\ slash\ for\ consistent\ url}
+\DoxyCodeLine{\ \ if\ (!stream.hasTrailingSlash())\ \{}
+\DoxyCodeLine{\ \ \ \ return\ stream.redirect(path)}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ get\ directory\ list}
+\DoxyCodeLine{\ \ fs.readdir(path,\ function\ onReaddir\ (err,\ list)\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (err)\ return\ stream.error(err)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ render\ an\ index\ for\ the\ directory}
+\DoxyCodeLine{\ \ \ \ res.setHeader('Content-\/Type',\ 'text/plain;\ charset=UTF-\/8')}
+\DoxyCodeLine{\ \ \ \ res.end(list.join('\(\backslash\)n')\ +\ '\(\backslash\)n')}
+\DoxyCodeLine{\ \ \})}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2757}{}\doxysubsection{\texorpdfstring{Serving from a root directory with custom error-\/handling}{Serving from a root directory with custom error-handling}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2757}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ http\ =\ require('http')}
+\DoxyCodeLine{var\ parseUrl\ =\ require('parseurl')}
+\DoxyCodeLine{var\ send\ =\ require('send')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ server\ =\ http.createServer(function\ onRequest\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ //\ your\ custom\ error-\/handling\ logic:}
+\DoxyCodeLine{\ \ function\ error\ (err)\ \{}
+\DoxyCodeLine{\ \ \ \ res.statusCode\ =\ err.status\ ||\ 500}
+\DoxyCodeLine{\ \ \ \ res.end(err.message)}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ your\ custom\ headers}
+\DoxyCodeLine{\ \ function\ headers\ (res,\ path,\ stat)\ \{}
+\DoxyCodeLine{\ \ \ \ //\ serve\ all\ files\ for\ download}
+\DoxyCodeLine{\ \ \ \ res.setHeader('Content-\/Disposition',\ 'attachment')}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ your\ custom\ directory\ handling\ logic:}
+\DoxyCodeLine{\ \ function\ redirect\ ()\ \{}
+\DoxyCodeLine{\ \ \ \ res.statusCode\ =\ 301}
+\DoxyCodeLine{\ \ \ \ res.setHeader('Location',\ req.url\ +\ '/')}
+\DoxyCodeLine{\ \ \ \ res.end('Redirecting\ to\ '\ +\ req.url\ +\ '/')}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ transfer\ arbitrary\ files\ from\ within}
+\DoxyCodeLine{\ \ //\ /www/example.com/public/*}
+\DoxyCodeLine{\ \ send(req,\ parseUrl(req).pathname,\ \{\ root:\ '/www/public'\ \})}
+\DoxyCodeLine{\ \ \ \ .on('error',\ error)}
+\DoxyCodeLine{\ \ \ \ .on('directory',\ redirect)}
+\DoxyCodeLine{\ \ \ \ .on('headers',\ headers)}
+\DoxyCodeLine{\ \ \ \ .pipe(res)}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.listen(3000)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2758}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2serve-static_2node__modules_2send_2README_autotoc_md2758}
+\mbox{[}MIT\mbox{]}(LICENSE) 

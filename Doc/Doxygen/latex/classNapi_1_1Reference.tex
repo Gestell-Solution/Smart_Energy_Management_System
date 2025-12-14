@@ -1,0 +1,296 @@
+\doxysection{Napi\+::Reference\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classNapi_1_1Reference}{}\label{classNapi_1_1Reference}\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+
+
+{\ttfamily \#include $<$napi.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_acfb08026d010104194470069df9a363e}{Reference}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_a2a67b234561bea28b4bcd4488199660f}{Reference}} (napi\+\_\+env env, napi\+\_\+ref ref)
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_abd291db2fe0f9189277f7b269b96d113}{\texorpdfstring{$\sim$}{\string~}\+Reference}} ()
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_af4ad22fff396f846cea40e98e946ff95}{Reference}} (\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \&\&other)
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \& \mbox{\hyperlink{classNapi_1_1Reference_a3b1b3ee1d586be0e3809b58fd61873d1}{operator=}} (\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \&\&other)
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_a1dde216e32ec70e5e6b8f6b292d4f1f4}{operator napi\+\_\+ref}} () const
+\item 
+bool \mbox{\hyperlink{classNapi_1_1Reference_a5d51bd065ce7a381e8345e138f7102bd}{operator==}} (const \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \&other) const
+\item 
+bool \mbox{\hyperlink{classNapi_1_1Reference_a15a469146858232a5f60377552208aad}{operator!=}} (const \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \&other) const
+\item 
+\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} \mbox{\hyperlink{classNapi_1_1Reference_a145936a59e9db2c455542576e76773ac}{Env}} () const
+\item 
+bool \mbox{\hyperlink{classNapi_1_1Reference_add921efd1d432fc4a60ec249f9fa7257}{Is\+Empty}} () const
+\item 
+T \mbox{\hyperlink{classNapi_1_1Reference_ae7f2d23d1f33cdbcfb4aa1b89193c5ae}{Value}} () const
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classNapi_1_1Reference_aa4a691ce6ed68117e5a4fabb1b594c75}{Ref}} () const
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classNapi_1_1Reference_a0350ecff614582dc9a38e41a37289261}{Unref}} () const
+\item 
+void \mbox{\hyperlink{classNapi_1_1Reference_ac73acbd590af4c097f457a315c5f24c6}{Reset}} ()
+\item 
+void \mbox{\hyperlink{classNapi_1_1Reference_abe91ee8ad7ba1623805e948c39d78389}{Reset}} (const T \&value, uint32\+\_\+t refcount=0)
+\item 
+void \mbox{\hyperlink{classNapi_1_1Reference_a1dd310614fa3c053c9dc9468043096b3}{Suppress\+Destruct}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \mbox{\hyperlink{classNapi_1_1Reference_a3572d80d57cb54046b581177727b91d0}{New}} (const T \&value, uint32\+\_\+t initial\+Refcount=0)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNapi_1_1Reference_a617460d4d55206bfa79c25155cfa1a42}{Reference}} (const \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \&)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+napi\+\_\+env \mbox{\hyperlink{classNapi_1_1Reference_a5c690557fa39d709a1dbaa14c3ccc5a1}{\+\_\+env}}
+\begin{DoxyCompactList}\small\item\em !cond INTERNAL \end{DoxyCompactList}\item 
+napi\+\_\+ref \mbox{\hyperlink{classNapi_1_1Reference_a238e28b4750cc8659be3a9159f179a90}{\+\_\+ref}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classNapi_1_1Reference_a5cf037c1279b85f62ba70db2f4c2bcc9}{\+\_\+suppress\+Destruct}}
+\begin{DoxyCompactList}\small\item\em !endcond \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Napi\+::\+Reference$<$ T $>$}
+Holds a counted reference to a value; initially a weak reference unless otherwise specified, may be changed to/from a strong reference by adjusting the refcount.
+
+The referenced value is not immediately destroyed when the reference count is zero; it is merely then eligible for garbage-\/collection if there are no other references to the value. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classNapi_1_1Reference_acfb08026d010104194470069df9a363e}\label{classNapi_1_1Reference_acfb08026d010104194470069df9a363e} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!Reference@{Reference}}
+\index{Reference@{Reference}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Reference()}{Reference()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Reference (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_a2a67b234561bea28b4bcd4488199660f}\label{classNapi_1_1Reference_a2a67b234561bea28b4bcd4488199660f} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!Reference@{Reference}}
+\index{Reference@{Reference}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Reference()}{Reference()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Reference (\begin{DoxyParamCaption}\item[{napi\+\_\+env}]{env,  }\item[{napi\+\_\+ref}]{ref }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_abd291db2fe0f9189277f7b269b96d113}\label{classNapi_1_1Reference_abd291db2fe0f9189277f7b269b96d113} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!````~Reference@{\texorpdfstring{$\sim$}{\string~}Reference}}
+\index{````~Reference@{\texorpdfstring{$\sim$}{\string~}Reference}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Reference()}{\string~Reference()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{classNapi_1_1Reference}{Reference}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_af4ad22fff396f846cea40e98e946ff95}\label{classNapi_1_1Reference_af4ad22fff396f846cea40e98e946ff95} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!Reference@{Reference}}
+\index{Reference@{Reference}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Reference()}{Reference()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Reference (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_a617460d4d55206bfa79c25155cfa1a42}\label{classNapi_1_1Reference_a617460d4d55206bfa79c25155cfa1a42} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!Reference@{Reference}}
+\index{Reference@{Reference}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Reference()}{Reference()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Reference (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classNapi_1_1Reference_a617460d4d55206bfa79c25155cfa1a42_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classNapi_1_1Reference_a145936a59e9db2c455542576e76773ac}\label{classNapi_1_1Reference_a145936a59e9db2c455542576e76773ac} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!Env@{Env}}
+\index{Env@{Env}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Env()}{Env()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classNapi_1_1Env}{Napi\+::\+Env}} \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Env (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classNapi_1_1Reference_a145936a59e9db2c455542576e76773ac_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classNapi_1_1Reference_add921efd1d432fc4a60ec249f9fa7257}\label{classNapi_1_1Reference_add921efd1d432fc4a60ec249f9fa7257} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!IsEmpty@{IsEmpty}}
+\index{IsEmpty@{IsEmpty}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{IsEmpty()}{IsEmpty()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_a3572d80d57cb54046b581177727b91d0}\label{classNapi_1_1Reference_a3572d80d57cb54046b581177727b91d0} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!New@{New}}
+\index{New@{New}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{New()}{New()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+New (\begin{DoxyParamCaption}\item[{const T \&}]{value,  }\item[{uint32\+\_\+t}]{initial\+Refcount = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{classNapi_1_1Reference_a3572d80d57cb54046b581177727b91d0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classNapi_1_1Reference_a3572d80d57cb54046b581177727b91d0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classNapi_1_1Reference_a1dde216e32ec70e5e6b8f6b292d4f1f4}\label{classNapi_1_1Reference_a1dde216e32ec70e5e6b8f6b292d4f1f4} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!operator napi\_ref@{operator napi\_ref}}
+\index{operator napi\_ref@{operator napi\_ref}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator napi\_ref()}{operator napi\_ref()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::operator napi\+\_\+ref (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_a15a469146858232a5f60377552208aad}\label{classNapi_1_1Reference_a15a469146858232a5f60377552208aad} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_a3b1b3ee1d586be0e3809b58fd61873d1}\label{classNapi_1_1Reference_a3b1b3ee1d586be0e3809b58fd61873d1} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \& \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_a5d51bd065ce7a381e8345e138f7102bd}\label{classNapi_1_1Reference_a5d51bd065ce7a381e8345e138f7102bd} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNapi_1_1Reference}{Reference}}$<$ T $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classNapi_1_1Reference_a5d51bd065ce7a381e8345e138f7102bd_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classNapi_1_1Reference_aa4a691ce6ed68117e5a4fabb1b594c75}\label{classNapi_1_1Reference_aa4a691ce6ed68117e5a4fabb1b594c75} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!Ref@{Ref}}
+\index{Ref@{Ref}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Ref()}{Ref()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+uint32\+\_\+t \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Ref (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_ac73acbd590af4c097f457a315c5f24c6}\label{classNapi_1_1Reference_ac73acbd590af4c097f457a315c5f24c6} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!Reset@{Reset}}
+\index{Reset@{Reset}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classNapi_1_1Reference_ac73acbd590af4c097f457a315c5f24c6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classNapi_1_1Reference_abe91ee8ad7ba1623805e948c39d78389}\label{classNapi_1_1Reference_abe91ee8ad7ba1623805e948c39d78389} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!Reset@{Reset}}
+\index{Reset@{Reset}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Reset (\begin{DoxyParamCaption}\item[{const T \&}]{value,  }\item[{uint32\+\_\+t}]{refcount = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_a1dd310614fa3c053c9dc9468043096b3}\label{classNapi_1_1Reference_a1dd310614fa3c053c9dc9468043096b3} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!SuppressDestruct@{SuppressDestruct}}
+\index{SuppressDestruct@{SuppressDestruct}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SuppressDestruct()}{SuppressDestruct()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Suppress\+Destruct (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_a0350ecff614582dc9a38e41a37289261}\label{classNapi_1_1Reference_a0350ecff614582dc9a38e41a37289261} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!Unref@{Unref}}
+\index{Unref@{Unref}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Unref()}{Unref()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+uint32\+\_\+t \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Unref (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classNapi_1_1Reference_ae7f2d23d1f33cdbcfb4aa1b89193c5ae}\label{classNapi_1_1Reference_ae7f2d23d1f33cdbcfb4aa1b89193c5ae} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!Value@{Value}}
+\index{Value@{Value}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Value()}{Value()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classNapi_1_1Reference_ae7f2d23d1f33cdbcfb4aa1b89193c5ae_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classNapi_1_1Reference_a5c690557fa39d709a1dbaa14c3ccc5a1}\label{classNapi_1_1Reference_a5c690557fa39d709a1dbaa14c3ccc5a1} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!\_env@{\_env}}
+\index{\_env@{\_env}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_env}{\_env}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+napi\+\_\+env \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+\_\+env\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+!cond INTERNAL 
+
+\Hypertarget{classNapi_1_1Reference_a238e28b4750cc8659be3a9159f179a90}\label{classNapi_1_1Reference_a238e28b4750cc8659be3a9159f179a90} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!\_ref@{\_ref}}
+\index{\_ref@{\_ref}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_ref}{\_ref}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+napi\+\_\+ref \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+\_\+ref\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classNapi_1_1Reference_a5cf037c1279b85f62ba70db2f4c2bcc9}\label{classNapi_1_1Reference_a5cf037c1279b85f62ba70db2f4c2bcc9} 
+\index{Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}!\_suppressDestruct@{\_suppressDestruct}}
+\index{\_suppressDestruct@{\_suppressDestruct}!Napi::Reference$<$ T $>$@{Napi::Reference$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_suppressDestruct}{\_suppressDestruct}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{classNapi_1_1Reference}{Napi\+::\+Reference}}$<$ T $>$\+::\+\_\+suppress\+Destruct\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+!endcond 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Dashboard/node\+\_\+modules/node-\/addon-\/api/\mbox{\hyperlink{napi_8h}{napi.\+h}}\item 
+Dashboard/node\+\_\+modules/node-\/addon-\/api/\mbox{\hyperlink{napi-inl_8h}{napi-\/inl.\+h}}\end{DoxyCompactItemize}

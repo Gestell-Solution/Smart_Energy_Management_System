@@ -1,0 +1,151 @@
+\chapter{raw-\/body}
+\hypertarget{md_Dashboard_2node__modules_2raw-body_2README}{}\label{md_Dashboard_2node__modules_2raw-body_2README}\index{raw-\/body@{raw-\/body}}
+\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2263}%
+\Hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2263}%
+ \href{https://npmjs.org/package/raw-body}{\texttt{ }} \href{https://npmjs.org/package/raw-body}{\texttt{ }} \href{https://nodejs.org/en/download/}{\texttt{ }} \href{https://github.com/jshttp/stream-utils/raw-body?query=workflow\%3Aci}{\texttt{ }} \href{https://coveralls.io/r/stream-utils/raw-body?branch=master}{\texttt{ }}
+
+Gets the entire buffer of a stream either as a {\ttfamily Buffer} or a string. Validates the stream\textquotesingle{}s length against an expected length and maximum limit. Ideal for parsing request bodies.\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2264}{}\doxysection{\texorpdfstring{Install}{Install}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2264}
+This is a \href{https://nodejs.org/en/}{\texttt{ Node.\+js}} module available through the \href{https://www.npmjs.com/}{\texttt{ npm registry}}. Installation is done using the \href{https://docs.npmjs.com/getting-started/installing-npm-packages-locally}{\texttt{ {\ttfamily npm install} command}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ raw-\/body}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2265}{}\doxysubsection{\texorpdfstring{Type\+Script}{TypeScript}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2265}
+This module includes a \href{https://www.typescriptlang.org/}{\texttt{ Type\+Script}} declaration file to enable auto complete in compatible editors and type information for Type\+Script projects. This module depends on the Node.\+js types, so install {\ttfamily @types/node}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ @types/node}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2266}{}\doxysection{\texorpdfstring{API}{API}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2266}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ getRawBody\ =\ require('raw-\/body')}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2267}{}\doxysubsection{\texorpdfstring{get\+Raw\+Body(stream, \mbox{[}options\mbox{]}, \mbox{[}callback\mbox{]})}{getRawBody(stream, [options], [callback])}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2267}
+{\bfseries{Returns a promise if no callback specified and global {\ttfamily Promise} exists.}}
+
+Options\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily length} -\/ The length of the stream. If the contents of the stream do not add up to this length, an {\ttfamily 400} error code is returned.
+\item {\ttfamily limit} -\/ The byte limit of the body. This is the number of bytes or any string format supported by \href{https://www.npmjs.com/package/bytes}{\texttt{ bytes}}, for example {\ttfamily 1000}, `\textquotesingle{}500kb'{\ttfamily or}\textquotesingle{}3mb\textquotesingle{}{\ttfamily . If the body ends up being larger than this limit, a}413{\ttfamily error code is returned. -\/}encoding{\ttfamily -\/ The encoding to use to decode the body into a string. By default, a}Buffer{\ttfamily instance will be returned when no encoding is specified. Most likely, you want}utf-\/8{\ttfamily , so setting}encoding{\ttfamily to}true{\ttfamily will decode as}utf-\/8\`{}. You can use any type of encoding supported by \href{https://www.npmjs.org/package/iconv-lite\#readme}{\texttt{ iconv-\/lite}}.
+\end{DoxyItemize}
+
+You can also pass a string in place of options to just specify the encoding.
+
+If an error occurs, the stream will be paused, everything unpiped, and you are responsible for correctly disposing the stream. For HTTP requests, you may need to finish consuming the stream if you want to keep the socket open for future requests. For streams that use file descriptors, you should {\ttfamily stream.\+destroy()} or {\ttfamily stream.\+close()} to prevent leaks.\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2268}{}\doxysection{\texorpdfstring{Errors}{Errors}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2268}
+This module creates errors depending on the error condition during reading. The error may be an error from the underlying Node.\+js implementation, but is otherwise an error created by this module, which has the following attributes\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily limit} -\/ the limit in bytes
+\item {\ttfamily length} and {\ttfamily expected} -\/ the expected length of the stream
+\item {\ttfamily received} -\/ the received bytes
+\item {\ttfamily encoding} -\/ the invalid encoding
+\item {\ttfamily status} and {\ttfamily status\+Code} -\/ the corresponding status code for the error
+\item {\ttfamily type} -\/ the error type
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2269}{}\doxysubsection{\texorpdfstring{Types}{Types}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2269}
+The errors from this module have a {\ttfamily type} property which allows for the programmatic determination of the type of error returned.\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2270}{}\doxysubsubsection{\texorpdfstring{encoding.\+unsupported}{encoding.unsupported}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2270}
+This error will occur when the {\ttfamily encoding} option is specified, but the value does not map to an encoding supported by the \href{https://www.npmjs.org/package/iconv-lite\#readme}{\texttt{ iconv-\/lite}} module.\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2271}{}\doxysubsubsection{\texorpdfstring{entity.\+too.\+large}{entity.too.large}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2271}
+This error will occur when the {\ttfamily limit} option is specified, but the stream has an entity that is larger.\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2272}{}\doxysubsubsection{\texorpdfstring{request.\+aborted}{request.aborted}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2272}
+This error will occur when the request stream is aborted by the client before reading the body has finished.\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2273}{}\doxysubsubsection{\texorpdfstring{request.\+size.\+invalid}{request.size.invalid}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2273}
+This error will occur when the {\ttfamily length} option is specified, but the stream has emitted more bytes.\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2274}{}\doxysubsubsection{\texorpdfstring{stream.\+encoding.\+set}{stream.encoding.set}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2274}
+This error will occur when the given stream has an encoding set on it, making it a decoded stream. The stream should not have an encoding set and is expected to emit {\ttfamily Buffer} objects.\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2275}{}\doxysubsubsection{\texorpdfstring{stream.\+not.\+readable}{stream.not.readable}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2275}
+This error will occur when the given stream is not readable.\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2276}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2276}
+\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2277}{}\doxysubsection{\texorpdfstring{Simple Express example}{Simple Express example}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2277}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ contentType\ =\ require('content-\/type')}
+\DoxyCodeLine{var\ express\ =\ require('express')}
+\DoxyCodeLine{var\ getRawBody\ =\ require('raw-\/body')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ app\ =\ express()}
+\DoxyCodeLine{}
+\DoxyCodeLine{app.use(function\ (req,\ res,\ next)\ \{}
+\DoxyCodeLine{\ \ getRawBody(req,\ \{}
+\DoxyCodeLine{\ \ \ \ length:\ req.headers['content-\/length'],}
+\DoxyCodeLine{\ \ \ \ limit:\ '1mb',}
+\DoxyCodeLine{\ \ \ \ encoding:\ contentType.parse(req).parameters.charset}
+\DoxyCodeLine{\ \ \},\ function\ (err,\ string)\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (err)\ return\ next(err)}
+\DoxyCodeLine{\ \ \ \ req.text\ =\ string}
+\DoxyCodeLine{\ \ \ \ next()}
+\DoxyCodeLine{\ \ \})}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ now\ access\ req.text}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2278}{}\doxysubsection{\texorpdfstring{Simple Koa example}{Simple Koa example}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2278}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ contentType\ =\ require('content-\/type')}
+\DoxyCodeLine{var\ getRawBody\ =\ require('raw-\/body')}
+\DoxyCodeLine{var\ koa\ =\ require('koa')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ app\ =\ koa()}
+\DoxyCodeLine{}
+\DoxyCodeLine{app.use(function\ *\ (next)\ \{}
+\DoxyCodeLine{\ \ this.text\ =\ yield\ getRawBody(this.req,\ \{}
+\DoxyCodeLine{\ \ \ \ length:\ this.req.headers['content-\/length'],}
+\DoxyCodeLine{\ \ \ \ limit:\ '1mb',}
+\DoxyCodeLine{\ \ \ \ encoding:\ contentType.parse(this.req).parameters.charset}
+\DoxyCodeLine{\ \ \})}
+\DoxyCodeLine{\ \ yield\ next}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ now\ access\ this.text}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2279}{}\doxysubsection{\texorpdfstring{Using as a promise}{Using as a promise}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2279}
+To use this library as a promise, simply omit the {\ttfamily callback} and a promise is returned, provided that a global {\ttfamily Promise} is defined.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ getRawBody\ =\ require('raw-\/body')}
+\DoxyCodeLine{var\ http\ =\ require('http')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ server\ =\ http.createServer(function\ (req,\ res)\ \{}
+\DoxyCodeLine{\ \ getRawBody(req)}
+\DoxyCodeLine{\ \ \ \ .then(function\ (buf)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ res.statusCode\ =\ 200}
+\DoxyCodeLine{\ \ \ \ \ \ res.end(buf.length\ +\ '\ bytes\ submitted')}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ .catch(function\ (err)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ res.statusCode\ =\ 500}
+\DoxyCodeLine{\ \ \ \ \ \ res.end(err.message)}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.listen(3000)}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2280}{}\doxysubsection{\texorpdfstring{Using with Type\+Script}{Using with TypeScript}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2280}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ *\ as\ getRawBody\ from\ 'raw-\/body';}
+\DoxyCodeLine{import\ *\ as\ http\ from\ 'http';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ server\ =\ http.createServer((req,\ res)\ =>\ \{}
+\DoxyCodeLine{\ \ getRawBody(req)}
+\DoxyCodeLine{\ \ .then((buf)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ res.statusCode\ =\ 200;}
+\DoxyCodeLine{\ \ \ \ res.end(buf.length\ +\ '\ bytes\ submitted');}
+\DoxyCodeLine{\ \ \})}
+\DoxyCodeLine{\ \ .catch((err)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ res.statusCode\ =\ err.statusCode;}
+\DoxyCodeLine{\ \ \ \ res.end(err.message);}
+\DoxyCodeLine{\ \ \});}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{server.listen(3000);}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2281}{}\doxysection{\texorpdfstring{License}{License}}\label{md_Dashboard_2node__modules_2raw-body_2README_autotoc_md2281}
+\mbox{[}MIT\mbox{]}(LICENSE) 

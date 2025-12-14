@@ -1,0 +1,125 @@
+\doxysection{Mcal/\+SPI/\+SPI\+\_\+\+Program.c File Reference}
+\hypertarget{SPI__Program_8c}{}\label{SPI__Program_8c}\index{Mcal/SPI/SPI\_Program.c@{Mcal/SPI/SPI\_Program.c}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}../\+Atmega32\+Registers\+Address.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Config.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Mcal/\+DIO/\+DIO\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include "{}SPI\+\_\+\+Private.\+h"{}}\newline
+{\ttfamily \#include "{}SPI\+\_\+\+Interface.\+h"{}}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include "{}SPI\+\_\+\+Config.\+h"{}}\newline
+Include dependency graph for SPI\+\_\+\+Program.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SPI__Program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__SPI_gae80f1d0b314912128389c30420c3c5e4}{m\+SPI\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the SPI peripheral. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__SPI_gabedd500298ac0b9d9f50e6ab61f7419b}{m\+SPI\+\_\+\+Transmit\+Byte}} (uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Transmits a single byte through SPI (Blocking). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__SPI_ga1c3330dfe870eacf98887b74987380a6}{m\+SPI\+\_\+\+Transmit\+Buffer}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}tx\+Buffer, uint8\+\_\+t \texorpdfstring{$\ast$}{*}rx\+Buffer, uint16\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Transmits and receives a buffer over SPI (Blocking). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__SPI_ga1c8055e5cf1540761023ab577617e9a3}{m\+SPI\+\_\+\+Transmit\+Byte\+\_\+\+IT}} (uint8\+\_\+t data, void(\texorpdfstring{$\ast$}{*}callback)(uint8\+\_\+t rx\+Data))
+\begin{DoxyCompactList}\small\item\em Transmits a single byte via SPI interrupt mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__SPI_ga56df6580c58d6e0fb9fe7234ed351a5f}{m\+SPI\+\_\+\+Transmit\+Buffer\+\_\+\+IT}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}tx\+Buffer, uint8\+\_\+t \texorpdfstring{$\ast$}{*}rx\+Buffer, uint16\+\_\+t length, void(\texorpdfstring{$\ast$}{*}callback)(void))
+\begin{DoxyCompactList}\small\item\em Transmits and receives a buffer using SPI interrupt mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__SPI_ga725d2bb06fbc9d069559de80e1fb4706}{m\+SPI\+\_\+\+Enable}} (void)
+\begin{DoxyCompactList}\small\item\em Enables the SPI peripheral. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__SPI_ga21dabe35906ad4f3481c968d21d7fd52}{m\+SPI\+\_\+\+Disable}} (void)
+\begin{DoxyCompactList}\small\item\em Disables the SPI peripheral. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{SPI__Program_8c_af9cad97352f5ba9bbd800446131125a6}{ISR}} (SPI\+\_\+\+STC\+\_\+vect)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static volatile uint8\+\_\+t \mbox{\hyperlink{SPI__Program_8c_a3f09155dbd8cf43e98c7787cc02a02c6}{SPI\+\_\+\+Tx\+Byte}}
+\item 
+static volatile uint8\+\_\+t \mbox{\hyperlink{SPI__Program_8c_a95468a2ef1d31495f076c446fb14ebf9}{SPI\+\_\+\+Rx\+Byte}}
+\item 
+static void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{SPI__Program_8c_adb1203b5647b5e2bb23a1131de63e53a}{SPI\+\_\+\+Byte\+Callback}} )(uint8\+\_\+t) = \mbox{\hyperlink{group__Common_gaaa8b54751ff9c56e4405bea260e336eb}{Null}}
+\item 
+static volatile uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{SPI__Program_8c_a48530ad8e92f30d76cd6a253dbb7c2ba}{SPI\+\_\+\+Tx\+Buffer\+Ptr}} = \mbox{\hyperlink{group__Common_gaaa8b54751ff9c56e4405bea260e336eb}{Null}}
+\item 
+static volatile uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{SPI__Program_8c_a8f826f9dff51a2c982391cf5a2885799}{SPI\+\_\+\+Rx\+Buffer\+Ptr}} = \mbox{\hyperlink{group__Common_gaaa8b54751ff9c56e4405bea260e336eb}{Null}}
+\item 
+static volatile uint16\+\_\+t \mbox{\hyperlink{SPI__Program_8c_a4cfb93c41dc824bebb4014cbed482a3d}{SPI\+\_\+\+Buffer\+Length}} = 0
+\item 
+static volatile uint16\+\_\+t \mbox{\hyperlink{SPI__Program_8c_afa2b850746b7ce7105b532d611be093f}{SPI\+\_\+\+Buffer\+Index}} = 0
+\item 
+static void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{SPI__Program_8c_a1c250a830fb6acc2eb7d54d16358c288}{SPI\+\_\+\+Buffer\+Callback}} )(void) = \mbox{\hyperlink{group__Common_gaaa8b54751ff9c56e4405bea260e336eb}{Null}}
+\item 
+static \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaff}{SPI\+\_\+\+State\+\_\+t}} \mbox{\hyperlink{SPI__Program_8c_abf7132b18f6e6c0aa4320818d2c1f5e3}{SPI\+\_\+\+State}} = \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaffa2bd994f65055168349dca121498cf257}{SPI\+\_\+\+State\+\_\+\+Idle}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{SPI__Program_8c_af9cad97352f5ba9bbd800446131125a6}\label{SPI__Program_8c_af9cad97352f5ba9bbd800446131125a6} 
+\index{SPI\_Program.c@{SPI\_Program.c}!ISR@{ISR}}
+\index{ISR@{ISR}!SPI\_Program.c@{SPI\_Program.c}}
+\doxysubsubsection{\texorpdfstring{ISR()}{ISR()}}
+{\footnotesize\ttfamily ISR (\begin{DoxyParamCaption}\item[{SPI\+\_\+\+STC\+\_\+vect}]{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{SPI__Program_8c_a1c250a830fb6acc2eb7d54d16358c288}\label{SPI__Program_8c_a1c250a830fb6acc2eb7d54d16358c288} 
+\index{SPI\_Program.c@{SPI\_Program.c}!SPI\_BufferCallback@{SPI\_BufferCallback}}
+\index{SPI\_BufferCallback@{SPI\_BufferCallback}!SPI\_Program.c@{SPI\_Program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_BufferCallback}{SPI\_BufferCallback}}
+{\footnotesize\ttfamily void(\texorpdfstring{$\ast$}{*} SPI\+\_\+\+Buffer\+Callback) (void) (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption}) = \mbox{\hyperlink{group__Common_gaaa8b54751ff9c56e4405bea260e336eb}{Null}}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{SPI__Program_8c_afa2b850746b7ce7105b532d611be093f}\label{SPI__Program_8c_afa2b850746b7ce7105b532d611be093f} 
+\index{SPI\_Program.c@{SPI\_Program.c}!SPI\_BufferIndex@{SPI\_BufferIndex}}
+\index{SPI\_BufferIndex@{SPI\_BufferIndex}!SPI\_Program.c@{SPI\_Program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_BufferIndex}{SPI\_BufferIndex}}
+{\footnotesize\ttfamily volatile uint16\+\_\+t SPI\+\_\+\+Buffer\+Index = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{SPI__Program_8c_a4cfb93c41dc824bebb4014cbed482a3d}\label{SPI__Program_8c_a4cfb93c41dc824bebb4014cbed482a3d} 
+\index{SPI\_Program.c@{SPI\_Program.c}!SPI\_BufferLength@{SPI\_BufferLength}}
+\index{SPI\_BufferLength@{SPI\_BufferLength}!SPI\_Program.c@{SPI\_Program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_BufferLength}{SPI\_BufferLength}}
+{\footnotesize\ttfamily volatile uint16\+\_\+t SPI\+\_\+\+Buffer\+Length = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{SPI__Program_8c_adb1203b5647b5e2bb23a1131de63e53a}\label{SPI__Program_8c_adb1203b5647b5e2bb23a1131de63e53a} 
+\index{SPI\_Program.c@{SPI\_Program.c}!SPI\_ByteCallback@{SPI\_ByteCallback}}
+\index{SPI\_ByteCallback@{SPI\_ByteCallback}!SPI\_Program.c@{SPI\_Program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_ByteCallback}{SPI\_ByteCallback}}
+{\footnotesize\ttfamily void(\texorpdfstring{$\ast$}{*} SPI\+\_\+\+Byte\+Callback) (uint8\+\_\+t) (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ }\end{DoxyParamCaption}) = \mbox{\hyperlink{group__Common_gaaa8b54751ff9c56e4405bea260e336eb}{Null}}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{SPI__Program_8c_a8f826f9dff51a2c982391cf5a2885799}\label{SPI__Program_8c_a8f826f9dff51a2c982391cf5a2885799} 
+\index{SPI\_Program.c@{SPI\_Program.c}!SPI\_RxBufferPtr@{SPI\_RxBufferPtr}}
+\index{SPI\_RxBufferPtr@{SPI\_RxBufferPtr}!SPI\_Program.c@{SPI\_Program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_RxBufferPtr}{SPI\_RxBufferPtr}}
+{\footnotesize\ttfamily volatile uint8\+\_\+t\texorpdfstring{$\ast$}{*} SPI\+\_\+\+Rx\+Buffer\+Ptr = \mbox{\hyperlink{group__Common_gaaa8b54751ff9c56e4405bea260e336eb}{Null}}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{SPI__Program_8c_a95468a2ef1d31495f076c446fb14ebf9}\label{SPI__Program_8c_a95468a2ef1d31495f076c446fb14ebf9} 
+\index{SPI\_Program.c@{SPI\_Program.c}!SPI\_RxByte@{SPI\_RxByte}}
+\index{SPI\_RxByte@{SPI\_RxByte}!SPI\_Program.c@{SPI\_Program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_RxByte}{SPI\_RxByte}}
+{\footnotesize\ttfamily volatile uint8\+\_\+t SPI\+\_\+\+Rx\+Byte\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{SPI__Program_8c_abf7132b18f6e6c0aa4320818d2c1f5e3}\label{SPI__Program_8c_abf7132b18f6e6c0aa4320818d2c1f5e3} 
+\index{SPI\_Program.c@{SPI\_Program.c}!SPI\_State@{SPI\_State}}
+\index{SPI\_State@{SPI\_State}!SPI\_Program.c@{SPI\_Program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_State}{SPI\_State}}
+{\footnotesize\ttfamily \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaff}{SPI\+\_\+\+State\+\_\+t}} SPI\+\_\+\+State = \mbox{\hyperlink{SPI__Private_8h_a8078b72d287bff3700578f7eeb57eaffa2bd994f65055168349dca121498cf257}{SPI\+\_\+\+State\+\_\+\+Idle}}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{SPI__Program_8c_a48530ad8e92f30d76cd6a253dbb7c2ba}\label{SPI__Program_8c_a48530ad8e92f30d76cd6a253dbb7c2ba} 
+\index{SPI\_Program.c@{SPI\_Program.c}!SPI\_TxBufferPtr@{SPI\_TxBufferPtr}}
+\index{SPI\_TxBufferPtr@{SPI\_TxBufferPtr}!SPI\_Program.c@{SPI\_Program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_TxBufferPtr}{SPI\_TxBufferPtr}}
+{\footnotesize\ttfamily volatile uint8\+\_\+t\texorpdfstring{$\ast$}{*} SPI\+\_\+\+Tx\+Buffer\+Ptr = \mbox{\hyperlink{group__Common_gaaa8b54751ff9c56e4405bea260e336eb}{Null}}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{SPI__Program_8c_a3f09155dbd8cf43e98c7787cc02a02c6}\label{SPI__Program_8c_a3f09155dbd8cf43e98c7787cc02a02c6} 
+\index{SPI\_Program.c@{SPI\_Program.c}!SPI\_TxByte@{SPI\_TxByte}}
+\index{SPI\_TxByte@{SPI\_TxByte}!SPI\_Program.c@{SPI\_Program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_TxByte}{SPI\_TxByte}}
+{\footnotesize\ttfamily volatile uint8\+\_\+t SPI\+\_\+\+Tx\+Byte\hspace{0.3cm}{\ttfamily [static]}}
+

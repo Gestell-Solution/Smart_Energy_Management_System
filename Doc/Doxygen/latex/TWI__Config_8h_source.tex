@@ -1,0 +1,64 @@
+\doxysection{TWI\+\_\+\+Config.\+h}
+\hypertarget{TWI__Config_8h_source}{}\label{TWI__Config_8h_source}\index{Mcal/TWI/TWI\_Config.h@{Mcal/TWI/TWI\_Config.h}}
+\mbox{\hyperlink{TWI__Config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}../Atmega32RegistersAddress.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}../../Common/Macros.h"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifndef\ \ \ \_TWI\_CONFIG\_H\_}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ \ \ \_TWI\_CONFIG\_H\_}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ F\_CPU\ 8000000UL}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00029\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BIT\ Rate\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00030\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ TWI\_Bit\_Rate\ \ \ 100000UL\ \ }\textcolor{comment}{//\ e.g\ (100\ KHz\ or\ 400KHz)-\/-\/>\ 100KHz\ has\ been\ chosen\ Normal\ and\ Suitable\ speed\ rate.\ }}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00040\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Slave\ Address\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00041\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ TWI\_Slave\_Address\ \ 0x50\ \ }\textcolor{comment}{//\ Standard\ 7\ bit\ slave\ address\ and\ Non\ reserved\ (0x00\ ,\ 1111\ xxx)\ out\ from\ TWI\ reserved\ 9\ slave\ adresses}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00052\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Multi-\/Master\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ TWI\_Enable\_MasterArbitration\ \ \ \ 1\ \ \ }\textcolor{comment}{//\ Atmega32\ supports\ master\ arbitration\ (Multi\ master\ can\ talk\ arbitration\ happens)}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ TWI\_MAX\_Master\_Retries\ \ \ \ \ \ \ \ \ \ 3\ \ }\textcolor{comment}{//\ \ 3\ retry\ is\ suitable\ and\ standard\ to\ handle\ arbitration\ for\ master\ loser\ to\ waiting\ until\ it\ sends\ its\ data\ packet}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00065\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ACK/General\ Call\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00066\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ TWI\_Enable\_ACK\ \ \ \ \ \ \ \ \ \ \ 1\ \ \ \ \ \ }\textcolor{comment}{//\ important\ to\ set\ ACK\ for\ Slave\ after\ Recieving\ data\ or\ to\ Master\ after\ Reading\ Data.}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ TWI\_General\_Call\_Enable\ \ 0\ \ \ \ \ \ }\textcolor{comment}{//\ No\ Broadcasting\ in\ this\ driver\ uptill\ now.}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00078\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Buffers\ Size\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00079\ \textcolor{comment}{/*\ ====================================================================================\ */}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{/*\ Asynchrounus\ TWI\ Driver\ need\ */}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ TWI\_Master\_Tx\_BufferSize\ \ 64}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ TWI\_Master\_Rx\_BufferSize\ \ 64}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ TWI\_Slave\_Tx\_BufferSize\ \ \ 64}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ TWI\_Slave\_Rx\_BufferSize\ \ \ 64}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\_TWI\_CONFIG\_H\_*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

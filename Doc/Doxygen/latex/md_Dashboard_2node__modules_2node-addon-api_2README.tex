@@ -1,0 +1,322 @@
+\chapter{README}
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README}{}\label{md_Dashboard_2node__modules_2node-addon-api_2README}\index{README@{README}}
+NOTE\+: The default branch has been renamed! master is now named main
+
+If you have a local clone, you can update it by running\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ branch\ -\/m\ master\ main}
+\DoxyCodeLine{git\ fetch\ origin}
+\DoxyCodeLine{git\ branch\ -\/u\ origin/main\ main}
+
+\end{DoxyCode}
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1809}{}\doxysection{\texorpdfstring{$<$strong$>$node-\/addon-\/api module$<$/strong$>$}{<strong>node-addon-api module</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1809}
+This module contains {\bfseries{header-\/only C++ wrapper classes}} which simplify the use of the C based \href{https://nodejs.org/dist/latest/docs/api/n-api.html}{\texttt{ Node-\/\+API}} provided by Node.\+js when using C++. It provides a C++ object model and exception handling semantics with low overhead.
+
+There are three options for implementing addons\+: Node-\/\+API, nan, or direct use of internal V8, libuv, and Node.\+js libraries. Unless there is a need for direct access to functionality that is not exposed by Node-\/\+API as outlined in \href{https://nodejs.org/dist/latest/docs/api/addons.html}{\texttt{ C/\+C++ addons}} in Node.\+js core, use Node-\/\+API. Refer to \href{https://nodejs.org/dist/latest/docs/api/n-api.html}{\texttt{ C/\+C++ addons with Node-\/\+API}} for more information on Node-\/\+API.
+
+Node-\/\+API is an ABI stable C interface provided by Node.\+js for building native addons. It is independent of the underlying Java\+Script runtime (e.\+g. V8 or Chakra\+Core) and is maintained as part of Node.\+js itself. It is intended to insulate native addons from changes in the underlying Java\+Script engine and allow modules compiled for one version to run on later versions of Node.\+js without recompilation.
+
+The {\ttfamily node-\/addon-\/api} module, which is not part of Node.\+js, preserves the benefits of the Node-\/\+API as it consists only of inline code that depends only on the stable API provided by Node-\/\+API. As such, modules built against one version of Node.\+js using node-\/addon-\/api should run without having to be rebuilt with newer versions of Node.\+js.
+
+It is important to remember that {\itshape other} Node.\+js interfaces such as {\ttfamily libuv} (included in a project via {\ttfamily \#include \texorpdfstring{$<$}{<}uv.\+h\texorpdfstring{$>$}{>}}) are not ABI-\/stable across Node.\+js major versions. Thus, an addon must use Node-\/\+API and/or {\ttfamily node-\/addon-\/api} exclusively and build against a version of Node.\+js that includes an implementation of Node-\/\+API (meaning an active LTS version of Node.\+js) in order to benefit from ABI stability across Node.\+js major versions. Node.\+js provides an \href{https://nodejs.org/en/docs/guides/abi-stability/}{\texttt{ ABI stability guide}} containing a detailed explanation of ABI stability in general, and the Node-\/\+API ABI stability guarantee in particular.
+
+As new APIs are added to Node-\/\+API, node-\/addon-\/api must be updated to provide wrappers for those new APIs. For this reason, node-\/addon-\/api provides methods that allow callers to obtain the underlying Node-\/\+API handles so direct calls to Node-\/\+API and the use of the objects/methods provided by node-\/addon-\/api can be used together. For example, in order to be able to use an API for which the node-\/addon-\/api does not yet provide a wrapper.
+
+APIs exposed by node-\/addon-\/api are generally used to create and manipulate Java\+Script values. Concepts and operations generally map to ideas specified in the {\bfseries{ECMA262 Language Specification}}.
+
+The \href{https://nodejs.github.io/node-addon-examples/}{\texttt{ Node-\/\+API Resource}} offers an excellent orientation and tips for developers just getting started with Node-\/\+API and node-\/addon-\/api.
+
+
+\begin{DoxyItemize}
+\item {\bfseries{\doxylink{md_Dashboard_2node__modules_2node-addon-api_2README_setup}{Setup}}}
+\item {\bfseries{\doxylink{md_Dashboard_2node__modules_2node-addon-api_2README_api}{API Documentation}}}
+\item {\bfseries{\doxylink{md_Dashboard_2node__modules_2node-addon-api_2README_examples}{Examples}}}
+\item {\bfseries{\doxylink{md_Dashboard_2node__modules_2node-addon-api_2README_tests}{Tests}}}
+\item {\bfseries{\doxylink{md_Dashboard_2node__modules_2node-addon-api_2README_resources}{More resource and info about native Addons}}}
+\item {\bfseries{\doxylink{md_Dashboard_2node__modules_2node-addon-api_2README_badges}{Badges}}}
+\item {\bfseries{\doxylink{CODE__OF__CONDUCT_8md}{Code of Conduct}}}
+\item {\bfseries{\doxylink{md_Dashboard_2node__modules_2node-addon-api_2README_contributors}{Contributors}}}
+\item {\bfseries{\doxylink{md_Dashboard_2node__modules_2node-addon-api_2README_license}{License}}}
+\end{DoxyItemize}\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1810}{}\doxysubsection{\texorpdfstring{$<$strong$>$\+Current version\+: 7.\+0.\+0$<$/strong$>$}{<strong>Current version: 7.0.0</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1810}
+(See \doxylink{side-channel_2CHANGELOG_8md}{CHANGELOG.md} for complete Changelog)
+
+\href{https://nodei.co/npm/node-addon-api/}{\texttt{ }} \href{https://nodei.co/npm/node-addon-api/}{\texttt{ }}
+
+\label{md_Dashboard_2node__modules_2node-addon-api_2README_setup}%
+\Hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_setup}%
+
+
+node-\/addon-\/api is based on \href{https://nodejs.org/api/n-api.html}{\texttt{ Node-\/\+API}} and supports using different Node-\/\+API versions. This allows addons built with it to run with Node.\+js versions which support the targeted Node-\/\+API version. {\bfseries{However}} the node-\/addon-\/api support model is to support only the active LTS Node.\+js versions. This means that every year there will be a new major which drops support for the Node.\+js LTS version which has gone out of service.
+
+The oldest Node.\+js version supported by the current version of node-\/addon-\/api is Node.\+js 16.\+x.\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1811}{}\doxysubsection{\texorpdfstring{Setup}{Setup}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1811}
+
+\begin{DoxyItemize}
+\item Installation and usage
+\item node-\/gyp
+\item cmake-\/js
+\item Conversion tool
+\item Checker tool
+\item Generator
+\item Prebuild tools
+\end{DoxyItemize}
+
+\label{md_Dashboard_2node__modules_2node-addon-api_2README_api}%
+\Hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_api}%
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1812}{}\doxysubsubsection{\texorpdfstring{$<$strong$>$\+API Documentation$<$/strong$>$}{<strong>API Documentation</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1812}
+The following is the documentation for node-\/addon-\/api.
+
+
+\begin{DoxyItemize}
+\item Full Class Hierarchy
+\item Addon Structure
+\item Data Types\+:
+\begin{DoxyItemize}
+\item Env
+\item Callback\+Info
+\item Reference
+\item Value
+\begin{DoxyItemize}
+\item Name
+\begin{DoxyItemize}
+\item Symbol
+\item String
+\end{DoxyItemize}
+\item Number
+\item Date
+\item Big\+Int
+\item Boolean
+\item External
+\item Object
+\begin{DoxyItemize}
+\item Array
+\item Object\+Reference
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item Property\+Descriptor
+\item Function
+\begin{DoxyItemize}
+\item Function\+Reference
+\end{DoxyItemize}
+\item Object\+Wrap
+\begin{DoxyItemize}
+\item Class\+Property\+Descriptor
+\end{DoxyItemize}
+\item Buffer
+\item Array\+Buffer
+\item Typed\+Array
+\begin{DoxyItemize}
+\item Typed\+Array\+Of
+\end{DoxyItemize}
+\item Data\+View
+\end{DoxyItemize}
+\item Error Handling
+\begin{DoxyItemize}
+\item Error
+\begin{DoxyItemize}
+\item Type\+Error
+\item Range\+Error
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item Object Lifetime Management
+\begin{DoxyItemize}
+\item Handle\+Scope
+\item Escapable\+Handle\+Scope
+\end{DoxyItemize}
+\item Memory Management
+\item Async Operations
+\begin{DoxyItemize}
+\item Async\+Worker
+\item Async\+Context
+\item Async\+Worker Variants
+\end{DoxyItemize}
+\item Thread-\/safe Functions
+\begin{DoxyItemize}
+\item Thread\+Safe\+Function
+\item Typed\+Thread\+Safe\+Function
+\end{DoxyItemize}
+\item Promises
+\item Version management
+\end{DoxyItemize}
+
+\label{md_Dashboard_2node__modules_2node-addon-api_2README_examples}%
+\Hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_examples}%
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1813}{}\doxysubsubsection{\texorpdfstring{$<$strong$>$\+Examples$<$/strong$>$}{<strong>Examples</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1813}
+Are you new to {\bfseries{node-\/addon-\/api}}? Take a look at our {\bfseries{\href{https://github.com/nodejs/node-addon-examples}{\texttt{ examples}}}}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{\href{https://github.com/nodejs/node-addon-examples/tree/HEAD/1_hello_world/node-addon-api}{\texttt{ Hello World}}}}
+\item {\bfseries{\href{https://github.com/nodejs/node-addon-examples/tree/HEAD/2_function_arguments/node-addon-api}{\texttt{ Pass arguments to a function}}}}
+\item {\bfseries{\href{https://github.com/nodejs/node-addon-examples/tree/HEAD/3_callbacks/node-addon-api}{\texttt{ Callbacks}}}}
+\item {\bfseries{\href{https://github.com/nodejs/node-addon-examples/tree/HEAD/4_object_factory/node-addon-api}{\texttt{ Object factory}}}}
+\item {\bfseries{\href{https://github.com/nodejs/node-addon-examples/tree/HEAD/5_function_factory/node-addon-api}{\texttt{ Function factory}}}}
+\item {\bfseries{\href{https://github.com/nodejs/node-addon-examples/tree/HEAD/6_object_wrap/node-addon-api}{\texttt{ Wrapping C++ Object}}}}
+\item {\bfseries{\href{https://github.com/nodejs/node-addon-examples/tree/HEAD/7_factory_wrap/node-addon-api}{\texttt{ Factory of wrapped object}}}}
+\item {\bfseries{\href{https://github.com/nodejs/node-addon-examples/tree/HEAD/8_passing_wrapped/node-addon-api}{\texttt{ Passing wrapped object around}}}}
+\end{DoxyItemize}
+
+\label{md_Dashboard_2node__modules_2node-addon-api_2README_tests}%
+\Hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_tests}%
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1814}{}\doxysubsubsection{\texorpdfstring{$<$strong$>$\+Tests$<$/strong$>$}{<strong>Tests</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1814}
+To run the {\bfseries{node-\/addon-\/api}} tests do\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install}
+\DoxyCodeLine{npm\ test}
+
+\end{DoxyCode}
+
+
+To avoid testing the deprecated portions of the API run 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install}
+\DoxyCodeLine{npm\ test\ -\/-\/disable-\/deprecated}
+
+\end{DoxyCode}
+
+
+To run the tests targeting a specific version of Node-\/\+API run 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install}
+\DoxyCodeLine{export\ NAPI\_VERSION=X}
+\DoxyCodeLine{npm\ test\ -\/-\/NAPI\_VERSION=X}
+
+\end{DoxyCode}
+
+
+where X is the version of Node-\/\+API you want to target.
+
+To run a specific unit test, filter conditions are available
+
+{\bfseries{Example\+:}} compile and run only tests on objectwrap.\+cc and objectwrap.\+js 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ run\ unit\ -\/-\/filter=objectwrap}
+
+\end{DoxyCode}
+
+
+Multiple unit tests cane be selected with wildcards
+
+{\bfseries{Example\+:}} compile and run all test files ending with "{}reference"{} -\/\texorpdfstring{$>$}{>} function\+\_\+reference.\+cc, object\+\_\+reference.\+cc, reference.\+cc 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ run\ unit\ -\/-\/filter=*reference}
+
+\end{DoxyCode}
+
+
+Multiple filter conditions can be joined to broaden the test selection
+
+{\bfseries{Example\+:}} compile and run all tests under folders threadsafe\+\_\+function and typed\+\_\+threadsafe\+\_\+function and also the objectwrap.\+cc file npm run unit --filter=\textquotesingle{}\texorpdfstring{$\ast$}{*}function objectwrap\textquotesingle{}\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1815}{}\doxysubsubsection{\texorpdfstring{$<$strong$>$\+Debug$<$/strong$>$}{<strong>Debug</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1815}
+To run the {\bfseries{node-\/addon-\/api}} tests with {\ttfamily -\/-\/debug} option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ run-\/script\ dev}
+
+\end{DoxyCode}
+
+
+If you want a faster build, you might use the following option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ run-\/script\ dev:incremental}
+
+\end{DoxyCode}
+
+
+Take a look and get inspired by our {\bfseries{\href{https://github.com/nodejs/node-addon-api/tree/HEAD/test}{\texttt{ test suite}}}}\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1816}{}\doxysubsubsection{\texorpdfstring{$<$strong$>$\+Benchmarks$<$/strong$>$}{<strong>Benchmarks</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1816}
+You can run the available benchmarks using the following command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ run-\/script\ benchmark}
+
+\end{DoxyCode}
+
+
+See benchmark/\+README.md for more details about running and adding benchmarks.
+
+\label{md_Dashboard_2node__modules_2node-addon-api_2README_resources}%
+\Hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_resources}%
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1817}{}\doxysubsubsection{\texorpdfstring{$<$strong$>$\+More resource and info about native Addons$<$/strong$>$}{<strong>More resource and info about native Addons</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1817}
+
+\begin{DoxyItemize}
+\item {\bfseries{\href{https://nodejs.org/dist/latest/docs/api/addons.html}{\texttt{ C++ Addons}}}}
+\item {\bfseries{\href{https://nodejs.org/dist/latest/docs/api/n-api.html}{\texttt{ Node-\/\+API}}}}
+\item {\bfseries{\href{https://youtu.be/-Oniup60Afs}{\texttt{ Node-\/\+API -\/ Next Generation Node API for Native Modules}}}}
+\item {\bfseries{\href{https://developer.mongodb.com/article/realm-javascript-nan-to-n-api}{\texttt{ How We Migrated Realm Java\+Script From NAN to Node-\/\+API}}}}
+\end{DoxyItemize}
+
+As node-\/addon-\/api\textquotesingle{}s core mission is to expose the plain C Node-\/\+API as C++ wrappers, tools that facilitate n-\/api/node-\/addon-\/api providing more convenient patterns for developing a Node.\+js add-\/on with n-\/api/node-\/addon-\/api can be published to NPM as standalone packages. It is also recommended to tag such packages with {\ttfamily node-\/addon-\/api} to provide more visibility to the community.
+
+Quick links to NPM searches\+: \href{https://www.npmjs.com/search?q=keywords\%3Anode-addon-api}{\texttt{ keywords\+:node-\/addon-\/api}}.
+
+\label{md_Dashboard_2node__modules_2node-addon-api_2README_other-bindings}%
+\Hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_other-bindings}%
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1818}{}\doxysubsubsection{\texorpdfstring{$<$strong$>$\+Other bindings$<$/strong$>$}{<strong>Other bindings</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1818}
+
+\begin{DoxyItemize}
+\item {\bfseries{\href{https://napi.rs}{\texttt{ napi-\/rs}}}} -\/ ({\ttfamily Rust})
+\end{DoxyItemize}
+
+\label{md_Dashboard_2node__modules_2node-addon-api_2README_badges}%
+\Hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_badges}%
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1819}{}\doxysubsubsection{\texorpdfstring{$<$strong$>$\+Badges$<$/strong$>$}{<strong>Badges</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1819}
+The use of badges is recommended to indicate the minimum version of Node-\/\+API required for the module. This helps to determine which Node.\+js major versions are supported. Addon maintainers can consult the \href{https://nodejs.org/dist/latest/docs/api/n-api.html\#n_api_n_api_version_matrix}{\texttt{ Node-\/\+API support matrix}} to determine which Node.\+js versions provide a given Node-\/\+API version. The following badges are available\+:
+
+         \hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1820}{}\doxysubsection{\texorpdfstring{$<$strong$>$\+Contributing$<$/strong$>$}{<strong>Contributing</strong>}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1820}
+We love contributions from the community to {\bfseries{node-\/addon-\/api}}! See \doxylink{CONTRIBUTING_8md}{CONTRIBUTING.md} for more details on our philosophy around extending this module.
+
+\label{md_Dashboard_2node__modules_2node-addon-api_2README_contributors}%
+\Hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_contributors}%
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1821}{}\doxysubsection{\texorpdfstring{Team members}{Team members}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1821}
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1822}{}\doxysubsubsection{\texorpdfstring{Active}{Active}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1822}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Git\+Hub Link    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Git\+Hub Link    }\\\cline{1-2}
+\endhead
+Anna Henningsen   &\href{https://github.com/addaleax}{\texttt{ addaleax}}    \\\cline{1-2}
+Chengzhong Wu   &\href{https://github.com/legendecas}{\texttt{ legendecas}}    \\\cline{1-2}
+Jack Xia   &\href{https://github.com/JckXia}{\texttt{ Jck\+Xia}}    \\\cline{1-2}
+Kevin Eady   &\href{https://github.com/KevinEady}{\texttt{ Kevin\+Eady}}    \\\cline{1-2}
+Michael Dawson   &\href{https://github.com/mhdawson}{\texttt{ mhdawson}}    \\\cline{1-2}
+Nicola Del Gobbo   &\href{https://github.com/NickNaso}{\texttt{ Nick\+Naso}}    \\\cline{1-2}
+Vladimir Morozov   &\href{https://github.com/vmoroz}{\texttt{ vmoroz}}   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1823}{}\doxysubsubsection{\texorpdfstring{Emeritus}{Emeritus}}\label{md_Dashboard_2node__modules_2node-addon-api_2README_autotoc_md1823}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Git\+Hub Link    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Git\+Hub Link    }\\\cline{1-2}
+\endhead
+Arunesh Chandra   &\href{https://github.com/aruneshchandra}{\texttt{ aruneshchandra}}    \\\cline{1-2}
+Benjamin Byholm   &\href{https://github.com/kkoopa}{\texttt{ kkoopa}}    \\\cline{1-2}
+Gabriel Schulhof   &\href{https://github.com/gabrielschulhof}{\texttt{ gabrielschulhof}}    \\\cline{1-2}
+Hitesh Kanwathirtha   &\href{https://github.com/digitalinfinity}{\texttt{ digitalinfinity}}    \\\cline{1-2}
+Jason Ginchereau   &\href{https://github.com/jasongin}{\texttt{ jasongin}}    \\\cline{1-2}
+Jim Schlight   &\href{https://github.com/jschlight}{\texttt{ jschlight}}    \\\cline{1-2}
+Sampson Gao   &\href{https://github.com/sampsongao}{\texttt{ sampsongao}}    \\\cline{1-2}
+Taylor Woll   &\href{https://github.com/boingoing}{\texttt{ boingoing}}   \\\cline{1-2}
+\end{longtabu}
+
+
+\label{md_Dashboard_2node__modules_2node-addon-api_2README_license}%
+\Hypertarget{md_Dashboard_2node__modules_2node-addon-api_2README_license}%
+
+
+Licensed under \doxysectlink{md_Dashboard_2node__modules_2node-addon-api_2LICENSE}{MIT}{0} 

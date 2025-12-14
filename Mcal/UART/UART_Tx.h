@@ -20,6 +20,14 @@
 #ifndef UART_TX_H_
 #define UART_TX_H_
 
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup UART
+ * @{
+ */
+
+
 #include "../UART/UART_Init.h"
 
 
@@ -50,6 +58,12 @@ void mUART_SendBuffer(const uint8_t *data, uint16_t length);
 /**
  * @brief Set callback function for transmission complete event.
  * @param LocalPtr Pointer to user function .
+ */
+
+
+/**
+ * @}
+ * @}
  */
 
 #endif /* UART_TX_H_ */

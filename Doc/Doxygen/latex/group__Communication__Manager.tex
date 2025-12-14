@@ -1,0 +1,319 @@
+\doxysubsection{Communication\+\_\+\+Manager}
+\hypertarget{group__Communication__Manager}{}\label{group__Communication__Manager}\index{Communication\_Manager@{Communication\_Manager}}
+Collaboration diagram for Communication\+\_\+\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__Queue__circular__Buffer}{Queue\+\_\+circular\+\_\+\+Buffer}}
+\begin{DoxyCompactList}\small\item\em This is for defining circular array to handle the data of the recieved Action. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__Commands}{ID}}
+\begin{DoxyCompactList}\small\item\em This group is concerned to define the Commands sent by the communication Manager to other places in the APP. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__Communication__Manager_ga0f7c663ea4f25ab1e210e970a07166cc}{Scheduling\+\_\+\+Time}}~5
+\item 
+\#define \mbox{\hyperlink{group__Communication__Manager_ga1e7801d7d2ee49a7e1d67e786d48d6b7}{FRAME\+\_\+\+HEADER}}~0x\+AA
+\item 
+\#define \mbox{\hyperlink{group__Communication__Manager_ga5d096ccb837ec487e1ccc8ffc996aa38}{Done\+\_\+\+Action}}~1
+\item 
+\#define \mbox{\hyperlink{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}{Max\+\_\+\+Buffer\+\_\+size}}~64
+\item 
+\#define \mbox{\hyperlink{group__Communication__Manager_ga7ebc9a785e5ab85457c98595aac81589}{YES}}~1
+\item 
+\#define \mbox{\hyperlink{group__Communication__Manager_ga996bde01ecac342918f0a2c4e7ce7bd5}{NO}}~0
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{group__Communication__Manager_gacb5610f49f4a40514d67f4d723d999ee}{Recive\+\_\+states}} \{ \mbox{\hyperlink{group__Communication__Manager_ggacb5610f49f4a40514d67f4d723d999eeab558769138d07fccd93cc89d4b519e57}{Wait\+The\+Header}}
+, \mbox{\hyperlink{group__Communication__Manager_ggacb5610f49f4a40514d67f4d723d999eeaa780da04aaa09af635dd26f41544f3f4}{Wait\+Len}}
+, \mbox{\hyperlink{group__Communication__Manager_ggacb5610f49f4a40514d67f4d723d999eeaa2550adf5d506d8bf0a84717908a997e}{Wait\+\_\+data\+\_\+\+With\+\_\+command}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Communication__Manager_gacbe9519cd35b948524ef1a76e7ee0e22}{App\+\_\+\+Comm\+Manager\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the Application Communication Manager. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Communication__Manager_ga4eeaf4f2d31541c712542c908a0ca84b}{App\+\_\+\+Comm\+Manager\+\_\+\+Task}} (void)
+\begin{DoxyCompactList}\small\item\em Periodic task for the Communication Manager. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Communication__Manager_ga49febd29b2c845b874f2234f42f5d70e}{App\+\_\+\+Comm\+Manager\+\_\+\+Send\+Frame}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t Command, uint16\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Sends a formatted frame via Bluetooth. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Communication__Manager_ga3b8ba07d2d655903a4281aaa85bb1e00}{App\+\_\+\+Comm\+Manager\+\_\+\+Receive\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em Parses received data from the circular buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Communication__Manager_ga3e651ff89e53e00bc7c782032dcea67f}{App\+\_\+\+Comm\+Manager\+\_\+\+Process\+Command}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}frame)
+\begin{DoxyCompactList}\small\item\em Processes a decoded command frame and routes it to the appropriate module. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__Communication__Manager_ga75a44e0263b93e1ef19ee5beb312799d}{Accesslength}} ()
+\begin{DoxyCompactList}\small\item\em Helper to peek at the next byte in the queue (Debug/\+Test). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+\doxysubsubsection{Macro Definition Documentation}
+\Hypertarget{group__Communication__Manager_ga5d096ccb837ec487e1ccc8ffc996aa38}\label{group__Communication__Manager_ga5d096ccb837ec487e1ccc8ffc996aa38} 
+\index{Communication\_Manager@{Communication\_Manager}!Done\_Action@{Done\_Action}}
+\index{Done\_Action@{Done\_Action}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{Done\_Action}{Done\_Action}}
+{\footnotesize\ttfamily \#define Done\+\_\+\+Action~1}
+
+\Hypertarget{group__Communication__Manager_ga1e7801d7d2ee49a7e1d67e786d48d6b7}\label{group__Communication__Manager_ga1e7801d7d2ee49a7e1d67e786d48d6b7} 
+\index{Communication\_Manager@{Communication\_Manager}!FRAME\_HEADER@{FRAME\_HEADER}}
+\index{FRAME\_HEADER@{FRAME\_HEADER}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{FRAME\_HEADER}{FRAME\_HEADER}}
+{\footnotesize\ttfamily \#define FRAME\+\_\+\+HEADER~0x\+AA}
+
+\Hypertarget{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647}\label{group__Communication__Manager_ga1c74ad870e7433db7c586fb1cfba4647} 
+\index{Communication\_Manager@{Communication\_Manager}!Max\_Buffer\_size@{Max\_Buffer\_size}}
+\index{Max\_Buffer\_size@{Max\_Buffer\_size}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{Max\_Buffer\_size}{Max\_Buffer\_size}}
+{\footnotesize\ttfamily \#define Max\+\_\+\+Buffer\+\_\+size~64}
+
+\Hypertarget{group__Communication__Manager_ga996bde01ecac342918f0a2c4e7ce7bd5}\label{group__Communication__Manager_ga996bde01ecac342918f0a2c4e7ce7bd5} 
+\index{Communication\_Manager@{Communication\_Manager}!NO@{NO}}
+\index{NO@{NO}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{NO}{NO}}
+{\footnotesize\ttfamily \#define NO~0}
+
+\Hypertarget{group__Communication__Manager_ga0f7c663ea4f25ab1e210e970a07166cc}\label{group__Communication__Manager_ga0f7c663ea4f25ab1e210e970a07166cc} 
+\index{Communication\_Manager@{Communication\_Manager}!Scheduling\_Time@{Scheduling\_Time}}
+\index{Scheduling\_Time@{Scheduling\_Time}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{Scheduling\_Time}{Scheduling\_Time}}
+{\footnotesize\ttfamily \#define Scheduling\+\_\+\+Time~5}
+
+\Hypertarget{group__Communication__Manager_ga7ebc9a785e5ab85457c98595aac81589}\label{group__Communication__Manager_ga7ebc9a785e5ab85457c98595aac81589} 
+\index{Communication\_Manager@{Communication\_Manager}!YES@{YES}}
+\index{YES@{YES}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{YES}{YES}}
+{\footnotesize\ttfamily \#define YES~1}
+
+
+
+\doxysubsubsection{Enumeration Type Documentation}
+\Hypertarget{group__Communication__Manager_gacb5610f49f4a40514d67f4d723d999ee}\label{group__Communication__Manager_gacb5610f49f4a40514d67f4d723d999ee} 
+\index{Communication\_Manager@{Communication\_Manager}!Recive\_states@{Recive\_states}}
+\index{Recive\_states@{Recive\_states}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{Recive\_states}{Recive\_states}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{group__Communication__Manager_gacb5610f49f4a40514d67f4d723d999ee}{Recive\+\_\+states}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WaitTheHeader@{WaitTheHeader}!Communication\_Manager@{Communication\_Manager}}\index{Communication\_Manager@{Communication\_Manager}!WaitTheHeader@{WaitTheHeader}}}\Hypertarget{group__Communication__Manager_ggacb5610f49f4a40514d67f4d723d999eeab558769138d07fccd93cc89d4b519e57}\label{group__Communication__Manager_ggacb5610f49f4a40514d67f4d723d999eeab558769138d07fccd93cc89d4b519e57} 
+Wait\+The\+Header&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WaitLen@{WaitLen}!Communication\_Manager@{Communication\_Manager}}\index{Communication\_Manager@{Communication\_Manager}!WaitLen@{WaitLen}}}\Hypertarget{group__Communication__Manager_ggacb5610f49f4a40514d67f4d723d999eeaa780da04aaa09af635dd26f41544f3f4}\label{group__Communication__Manager_ggacb5610f49f4a40514d67f4d723d999eeaa780da04aaa09af635dd26f41544f3f4} 
+Wait\+Len&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Wait\_data\_With\_command@{Wait\_data\_With\_command}!Communication\_Manager@{Communication\_Manager}}\index{Communication\_Manager@{Communication\_Manager}!Wait\_data\_With\_command@{Wait\_data\_With\_command}}}\Hypertarget{group__Communication__Manager_ggacb5610f49f4a40514d67f4d723d999eeaa2550adf5d506d8bf0a84717908a997e}\label{group__Communication__Manager_ggacb5610f49f4a40514d67f4d723d999eeaa2550adf5d506d8bf0a84717908a997e} 
+Wait\+\_\+data\+\_\+\+With\+\_\+command&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsubsection{Function Documentation}
+\Hypertarget{group__Communication__Manager_ga75a44e0263b93e1ef19ee5beb312799d}\label{group__Communication__Manager_ga75a44e0263b93e1ef19ee5beb312799d} 
+\index{Communication\_Manager@{Communication\_Manager}!Accesslength@{Accesslength}}
+\index{Accesslength@{Accesslength}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{Accesslength()}{Accesslength()}}
+{\footnotesize\ttfamily uint8\+\_\+t Accesslength (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Helper to peek at the next byte in the queue (Debug/\+Test). 
+
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t Next byte value. 
+\end{DoxyReturn}
+\Hypertarget{group__Communication__Manager_gacbe9519cd35b948524ef1a76e7ee0e22}\label{group__Communication__Manager_gacbe9519cd35b948524ef1a76e7ee0e22} 
+\index{Communication\_Manager@{Communication\_Manager}!App\_CommManager\_Init@{App\_CommManager\_Init}}
+\index{App\_CommManager\_Init@{App\_CommManager\_Init}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{App\_CommManager\_Init()}{App\_CommManager\_Init()}}
+{\footnotesize\ttfamily void App\+\_\+\+Comm\+Manager\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the Application Communication Manager. 
+
+Configures and initializes internal resources used by the communication manager module (e.\+g., framing state, internal buffers, and protocol state machines). This function does not enable or start lower-\/layer peripherals (UART/\+Wi-\/\+Fi); those must be initialized separately. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Call this function once during system startup before calling any other {\ttfamily App\+\_\+\+Comm\+Manager} APIs.
+\end{DoxyNote}
+Initializes the Application Communication Manager.
+
+Sets up the Bluetooth module, Timer0 for scheduling, and ensures the communication task is registered to run periodically. Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager_gacbe9519cd35b948524ef1a76e7ee0e22_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager_gacbe9519cd35b948524ef1a76e7ee0e22_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Communication__Manager_ga3e651ff89e53e00bc7c782032dcea67f}\label{group__Communication__Manager_ga3e651ff89e53e00bc7c782032dcea67f} 
+\index{Communication\_Manager@{Communication\_Manager}!App\_CommManager\_ProcessCommand@{App\_CommManager\_ProcessCommand}}
+\index{App\_CommManager\_ProcessCommand@{App\_CommManager\_ProcessCommand}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{App\_CommManager\_ProcessCommand()}{App\_CommManager\_ProcessCommand()}}
+{\footnotesize\ttfamily void App\+\_\+\+Comm\+Manager\+\_\+\+Process\+Command (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{frame }\end{DoxyParamCaption})}
+
+
+
+Processes a decoded command frame and routes it to the appropriate module. 
+
+The function decodes the payload of a validated frame, extracts command ID and parameters, and dispatches the command to the target application module (e.\+g., configuration manager, sensor manager, or OTA handler). The exact frame format is defined by the framing protocol used by the project. 
+\begin{DoxyParams}{Parameters}
+{\em frame} & Pointer to the decoded command frame. The frame format is implementation-\/specific (command ID + parameters). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+The caller must ensure {\ttfamily frame} points to a valid, decoded frame. 
+\end{DoxyWarning}
+\begin{DoxyNote}{Note}
+Consider extending the signature with a {\ttfamily len} parameter if variable length frames are expected to be processed in the future.
+\end{DoxyNote}
+Processes a decoded command frame and routes it to the appropriate module.
+
+Dispatches commands to System Controller, Energy Logger, or modifies settings. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em frame} & Pointer to the frame buffer (typically pointing to Length/\+Command). \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager_ga3e651ff89e53e00bc7c782032dcea67f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager_ga3e651ff89e53e00bc7c782032dcea67f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Communication__Manager_ga3b8ba07d2d655903a4281aaa85bb1e00}\label{group__Communication__Manager_ga3b8ba07d2d655903a4281aaa85bb1e00} 
+\index{Communication\_Manager@{Communication\_Manager}!App\_CommManager\_ReceiveHandler@{App\_CommManager\_ReceiveHandler}}
+\index{App\_CommManager\_ReceiveHandler@{App\_CommManager\_ReceiveHandler}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{App\_CommManager\_ReceiveHandler()}{App\_CommManager\_ReceiveHandler()}}
+{\footnotesize\ttfamily void App\+\_\+\+Comm\+Manager\+\_\+\+Receive\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Parses received data from the circular buffer. 
+
+Implements a State Machine to detect valid frames\+:
+\begin{DoxyEnumerate}
+\item {\bfseries{Wait\+The\+Header}}\+: Looks for {\ttfamily 0x\+AA}.
+\item {\bfseries{Wait\+Len}}\+: Reads the length byte.
+\item {\bfseries{Wait\+\_\+data\+\_\+\+With\+\_\+command}}\+: Collects the remaining bytes. On full frame detection, calls {\ttfamily App\+\_\+\+Comm\+Manager\+\_\+\+Process\+Command}. 
+\end{DoxyEnumerate}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager_ga3b8ba07d2d655903a4281aaa85bb1e00_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager_ga3b8ba07d2d655903a4281aaa85bb1e00_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Communication__Manager_ga49febd29b2c845b874f2234f42f5d70e}\label{group__Communication__Manager_ga49febd29b2c845b874f2234f42f5d70e} 
+\index{Communication\_Manager@{Communication\_Manager}!App\_CommManager\_SendFrame@{App\_CommManager\_SendFrame}}
+\index{App\_CommManager\_SendFrame@{App\_CommManager\_SendFrame}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{App\_CommManager\_SendFrame()}{App\_CommManager\_SendFrame()}}
+{\footnotesize\ttfamily void App\+\_\+\+Comm\+Manager\+\_\+\+Send\+Frame (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint8\+\_\+t}]{Command,  }\item[{uint16\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Sends a formatted frame via Bluetooth. 
+
+Constructs the frame {\ttfamily \mbox{[}HEADER, LEN, COMMAND, DATA...\mbox{]}} and transmits it. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em data} & Pointer to the payload data. \\
+\hline
+\mbox{\texttt{ in}}  & {\em Command} & Command ID to identify the message type. \\
+\hline
+\mbox{\texttt{ in}}  & {\em len} & Length of the payload data. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager_ga49febd29b2c845b874f2234f42f5d70e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager_ga49febd29b2c845b874f2234f42f5d70e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__Communication__Manager_ga4eeaf4f2d31541c712542c908a0ca84b}\label{group__Communication__Manager_ga4eeaf4f2d31541c712542c908a0ca84b} 
+\index{Communication\_Manager@{Communication\_Manager}!App\_CommManager\_Task@{App\_CommManager\_Task}}
+\index{App\_CommManager\_Task@{App\_CommManager\_Task}!Communication\_Manager@{Communication\_Manager}}
+\doxysubsubsubsection{\texorpdfstring{App\_CommManager\_Task()}{App\_CommManager\_Task()}}
+{\footnotesize\ttfamily void App\+\_\+\+Comm\+Manager\+\_\+\+Task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Periodic task for the Communication Manager. 
+
+Performs periodic processing such as handling transmit queues, processing received frames, timeouts, and performing housekeeping required by the communication manager. This function is intended to be called regularly from the main loop or a scheduler. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Ensure {\ttfamily \doxylink{group__Communication__Manager_gacbe9519cd35b948524ef1a76e7ee0e22}{App\+\_\+\+Comm\+Manager\+\_\+\+Init()}} has been called prior to invoking this function.
+\end{DoxyWarning}
+Periodic task for the Communication Manager.
+
+Reads available bytes from the Bluetooth module and pushes them into the software circular buffer ({\ttfamily Datareceived}). If data is present, it triggers the {\ttfamily Receive\+Handler}. Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager_ga4eeaf4f2d31541c712542c908a0ca84b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__Communication__Manager_ga4eeaf4f2d31541c712542c908a0ca84b_icgraph}
+\end{center}
+\end{figure}
+\input{group__Queue__circular__Buffer}
+\input{group__Commands}

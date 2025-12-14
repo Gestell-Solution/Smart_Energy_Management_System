@@ -1,0 +1,91 @@
+\doxysection{for memory map of EEPROM}
+\hypertarget{group__Addresses}{}\label{group__Addresses}\index{for memory map of EEPROM@{for memory map of EEPROM}}
+
+
+This section defines the memory map addresses for the EEPROM.  
+
+
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__Addresses_ga892e8070a888fd482d2f44f03ec5b740}{Device\+\_\+\+ID\+\_\+\+Add}}~0x00
+\item 
+\#define \mbox{\hyperlink{group__Addresses_ga038e19e88407a2c4b3b85176db46d86a}{Voltage\+\_\+\+Calib\+\_\+\+Add}}~0x01
+\item 
+\#define \mbox{\hyperlink{group__Addresses_ga873d68b4f88fd22c18221161471bf36a}{Current\+\_\+\+Calib\+\_\+\+Add}}~0x03
+\item 
+\#define \mbox{\hyperlink{group__Addresses_gae451ad88d19ec4bfa7fbcd1d16de9540}{Energy\+\_\+\+Counter\+\_\+\+Add}}~0x05
+\item 
+\#define \mbox{\hyperlink{group__Addresses_ga3fe4aed398b7a3db19a854723b0de357}{Overvoltage\+\_\+\+Limit\+\_\+\+Add}}~0x09
+\item 
+\#define \mbox{\hyperlink{group__Addresses_gac07d1c2004f3a404cd234d973c5e915c}{Overcurrent\+\_\+\+Limit\+\_\+\+Add}}~0x0B
+\item 
+\#define \mbox{\hyperlink{group__Addresses_gacb98e99c6b6050403a973c2509c399dc}{Voltage\+\_\+\+RMS\+\_\+\+Add}}~0x0D
+\item 
+\#define \mbox{\hyperlink{group__Addresses_ga89ec46466e7b8309960aaf4aefbe9df9}{Current\+\_\+\+RMS\+\_\+\+Add}}~0x0F
+\item 
+\#define \mbox{\hyperlink{group__Addresses_gaac389559bcf8de9c860681aab2b3e7ac}{Power\+\_\+\+Add}}~0x11
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This section defines the memory map addresses for the EEPROM. 
+
+This Addresses are used to store data in the EEPROM a proper value should be written on the address register (EEARH, EEARL) before any read or write operation. 
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{group__Addresses_ga873d68b4f88fd22c18221161471bf36a}\label{group__Addresses_ga873d68b4f88fd22c18221161471bf36a} 
+\index{for memory map of EEPROM@{for memory map of EEPROM}!Current\_Calib\_Add@{Current\_Calib\_Add}}
+\index{Current\_Calib\_Add@{Current\_Calib\_Add}!for memory map of EEPROM@{for memory map of EEPROM}}
+\doxysubsubsection{\texorpdfstring{Current\_Calib\_Add}{Current\_Calib\_Add}}
+{\footnotesize\ttfamily \#define Current\+\_\+\+Calib\+\_\+\+Add~0x03}
+
+2 Byte \Hypertarget{group__Addresses_ga89ec46466e7b8309960aaf4aefbe9df9}\label{group__Addresses_ga89ec46466e7b8309960aaf4aefbe9df9} 
+\index{for memory map of EEPROM@{for memory map of EEPROM}!Current\_RMS\_Add@{Current\_RMS\_Add}}
+\index{Current\_RMS\_Add@{Current\_RMS\_Add}!for memory map of EEPROM@{for memory map of EEPROM}}
+\doxysubsubsection{\texorpdfstring{Current\_RMS\_Add}{Current\_RMS\_Add}}
+{\footnotesize\ttfamily \#define Current\+\_\+\+RMS\+\_\+\+Add~0x0F}
+
+2 Byte \Hypertarget{group__Addresses_ga892e8070a888fd482d2f44f03ec5b740}\label{group__Addresses_ga892e8070a888fd482d2f44f03ec5b740} 
+\index{for memory map of EEPROM@{for memory map of EEPROM}!Device\_ID\_Add@{Device\_ID\_Add}}
+\index{Device\_ID\_Add@{Device\_ID\_Add}!for memory map of EEPROM@{for memory map of EEPROM}}
+\doxysubsubsection{\texorpdfstring{Device\_ID\_Add}{Device\_ID\_Add}}
+{\footnotesize\ttfamily \#define Device\+\_\+\+ID\+\_\+\+Add~0x00}
+
+1 Byte \Hypertarget{group__Addresses_gae451ad88d19ec4bfa7fbcd1d16de9540}\label{group__Addresses_gae451ad88d19ec4bfa7fbcd1d16de9540} 
+\index{for memory map of EEPROM@{for memory map of EEPROM}!Energy\_Counter\_Add@{Energy\_Counter\_Add}}
+\index{Energy\_Counter\_Add@{Energy\_Counter\_Add}!for memory map of EEPROM@{for memory map of EEPROM}}
+\doxysubsubsection{\texorpdfstring{Energy\_Counter\_Add}{Energy\_Counter\_Add}}
+{\footnotesize\ttfamily \#define Energy\+\_\+\+Counter\+\_\+\+Add~0x05}
+
+4 Byte \Hypertarget{group__Addresses_gac07d1c2004f3a404cd234d973c5e915c}\label{group__Addresses_gac07d1c2004f3a404cd234d973c5e915c} 
+\index{for memory map of EEPROM@{for memory map of EEPROM}!Overcurrent\_Limit\_Add@{Overcurrent\_Limit\_Add}}
+\index{Overcurrent\_Limit\_Add@{Overcurrent\_Limit\_Add}!for memory map of EEPROM@{for memory map of EEPROM}}
+\doxysubsubsection{\texorpdfstring{Overcurrent\_Limit\_Add}{Overcurrent\_Limit\_Add}}
+{\footnotesize\ttfamily \#define Overcurrent\+\_\+\+Limit\+\_\+\+Add~0x0B}
+
+2 Byte \Hypertarget{group__Addresses_ga3fe4aed398b7a3db19a854723b0de357}\label{group__Addresses_ga3fe4aed398b7a3db19a854723b0de357} 
+\index{for memory map of EEPROM@{for memory map of EEPROM}!Overvoltage\_Limit\_Add@{Overvoltage\_Limit\_Add}}
+\index{Overvoltage\_Limit\_Add@{Overvoltage\_Limit\_Add}!for memory map of EEPROM@{for memory map of EEPROM}}
+\doxysubsubsection{\texorpdfstring{Overvoltage\_Limit\_Add}{Overvoltage\_Limit\_Add}}
+{\footnotesize\ttfamily \#define Overvoltage\+\_\+\+Limit\+\_\+\+Add~0x09}
+
+2 Byte \Hypertarget{group__Addresses_gaac389559bcf8de9c860681aab2b3e7ac}\label{group__Addresses_gaac389559bcf8de9c860681aab2b3e7ac} 
+\index{for memory map of EEPROM@{for memory map of EEPROM}!Power\_Add@{Power\_Add}}
+\index{Power\_Add@{Power\_Add}!for memory map of EEPROM@{for memory map of EEPROM}}
+\doxysubsubsection{\texorpdfstring{Power\_Add}{Power\_Add}}
+{\footnotesize\ttfamily \#define Power\+\_\+\+Add~0x11}
+
+2 Byte \Hypertarget{group__Addresses_ga038e19e88407a2c4b3b85176db46d86a}\label{group__Addresses_ga038e19e88407a2c4b3b85176db46d86a} 
+\index{for memory map of EEPROM@{for memory map of EEPROM}!Voltage\_Calib\_Add@{Voltage\_Calib\_Add}}
+\index{Voltage\_Calib\_Add@{Voltage\_Calib\_Add}!for memory map of EEPROM@{for memory map of EEPROM}}
+\doxysubsubsection{\texorpdfstring{Voltage\_Calib\_Add}{Voltage\_Calib\_Add}}
+{\footnotesize\ttfamily \#define Voltage\+\_\+\+Calib\+\_\+\+Add~0x01}
+
+2 Byte \Hypertarget{group__Addresses_gacb98e99c6b6050403a973c2509c399dc}\label{group__Addresses_gacb98e99c6b6050403a973c2509c399dc} 
+\index{for memory map of EEPROM@{for memory map of EEPROM}!Voltage\_RMS\_Add@{Voltage\_RMS\_Add}}
+\index{Voltage\_RMS\_Add@{Voltage\_RMS\_Add}!for memory map of EEPROM@{for memory map of EEPROM}}
+\doxysubsubsection{\texorpdfstring{Voltage\_RMS\_Add}{Voltage\_RMS\_Add}}
+{\footnotesize\ttfamily \#define Voltage\+\_\+\+RMS\+\_\+\+Add~0x0D}
+
+2 Byte 

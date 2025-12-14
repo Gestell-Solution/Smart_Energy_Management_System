@@ -10,6 +10,14 @@
 
 #ifndef _PROTECTIONMANAGER_iNTERFACE_H_
 #define _PROTECTIONMANAGER_iNTERFACE_H_
+
+/**
+ * @addtogroup App
+ * @{
+ * @addtogroup Protection_Manager
+ * @{
+ */
+
 #include "ProtectionManager_Config.h"
 #include "ProtectionManager_Private.h"
 #include "../../Hal/Buzzer/Buzzer_Interface.h"
@@ -61,5 +69,11 @@ uint8_t PM_IsTripped(void); // Check if system is currently in protection mode
 void PM_Reset(void); // Restore normal operation
 
 /** @} */
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif

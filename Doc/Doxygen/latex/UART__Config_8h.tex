@@ -1,0 +1,70 @@
+\doxysection{Mcal/\+UART/\+UART\+\_\+\+Config.h File Reference}
+\hypertarget{UART__Config_8h}{}\label{UART__Config_8h}\index{Mcal/UART/UART\_Config.h@{Mcal/UART/UART\_Config.h}}
+
+
+Configuration file for UART driver (shared between Tx and Rx modules).  
+
+
+{\ttfamily \#include "{}../\+UART/\+UART\+\_\+\+Private.\+h"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}../\+Atmega32\+Registers\+Address.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Include dependency graph for UART\+\_\+\+Config.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{UART__Config_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{UART__Config_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structUART__Buffer__t}{UART\+\_\+\+Buffer\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Circular buffer structure for UART data handling. This structure provides an efficient, non-\/blocking mechanism for storing bytes being transmitted or received by the UART driver. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__UART_ga05f5d709605c6317c97e4974bec3402a}{UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE}}~64
+\begin{DoxyCompactList}\small\item\em Defines the size of the UART transmission (Tx) circular buffer. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__UART_ga5bdd6772c246436bb14377095de79b31}{UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE}}~64
+\begin{DoxyCompactList}\small\item\em Defines the size of the UART reception (Rx) circular buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{group__Buffer_ga29ee47ce4f3f6f590d9829ab218e782f}{UART\+\_\+\+Buffer\+\_\+\+Init}} (\mbox{\hyperlink{structUART__Buffer__t}{UART\+\_\+\+Buffer\+\_\+t}} \texorpdfstring{$\ast$}{*}buf, uint16\+\_\+t buffer\+\_\+size)
+\begin{DoxyCompactList}\small\item\em Initializes a UART buffer structure. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{group__Buffer_ga26b93a6a49298d08dac60a3e7b0d18ef}{UART\+\_\+\+Buffer\+\_\+\+Is\+Empty}} (const \mbox{\hyperlink{structUART__Buffer__t}{UART\+\_\+\+Buffer\+\_\+t}} \texorpdfstring{$\ast$}{*}buf)
+\begin{DoxyCompactList}\small\item\em Checks if a circular buffer is empty. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{group__Buffer_gaffa3defe32a02522af8b6ebb6e97a11e}{UART\+\_\+\+Buffer\+\_\+\+Is\+Full}} (const \mbox{\hyperlink{structUART__Buffer__t}{UART\+\_\+\+Buffer\+\_\+t}} \texorpdfstring{$\ast$}{*}buf)
+\begin{DoxyCompactList}\small\item\em Checks if a circular buffer is full. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{group__Buffer_gad962401528134102ab1fbe1f4d7d55dc}{UART\+\_\+\+Buffer\+\_\+\+Put}} (\mbox{\hyperlink{structUART__Buffer__t}{UART\+\_\+\+Buffer\+\_\+t}} \texorpdfstring{$\ast$}{*}buf, uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Inserts one byte into the buffer. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{group__Buffer_ga7a920e8abc81de506ad8583067e31d52}{UART\+\_\+\+Buffer\+\_\+\+Get}} (\mbox{\hyperlink{structUART__Buffer__t}{UART\+\_\+\+Buffer\+\_\+t}} \texorpdfstring{$\ast$}{*}buf, uint8\+\_\+t \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Reads one byte from the buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Configuration file for UART driver (shared between Tx and Rx modules). 
+
+This file defines the common data structures, types, and buffer configurations used by both UART transmission and reception modules. \begin{DoxyVersion}{Version}
+1.\+0.\+0 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+$<$\+Basma khaled$>$ \href{mailto:basmak55@gmail.com}{\texttt{ basmak55@gmail.\+com}} 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/08 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 , Gestell Company 
+\end{DoxyCopyright}

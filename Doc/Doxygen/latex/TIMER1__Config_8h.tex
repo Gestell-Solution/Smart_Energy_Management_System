@@ -1,0 +1,286 @@
+\doxysection{Mcal/\+Timer1/\+TIMER1\+\_\+\+Config.h File Reference}
+\hypertarget{TIMER1__Config_8h}{}\label{TIMER1__Config_8h}\index{Mcal/Timer1/TIMER1\_Config.h@{Mcal/Timer1/TIMER1\_Config.h}}
+
+
+Configuration settings for Timer1 specifications.  
+
+
+{\ttfamily \#include "{}../../\+Common/\+Macros.\+h"{}}\newline
+{\ttfamily \#include "{}../../\+Common/\+Project\+Cfg.\+h"{}}\newline
+{\ttfamily \#include "{}../\+Atmega32\+Registers\+Address.\+h"{}}\newline
+{\ttfamily \#include "{}TIMER1\+\_\+\+Private.\+h"{}}\newline
+Include dependency graph for TIMER1\+\_\+\+Config.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIMER1__Config_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIMER1__Config_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a7bf51f6d30ddb2e80a03109ad483f8fa}{Compare\+Match1\+A\+\_\+\+Interrupt\+Enable}}~\mbox{\hyperlink{group__Common_gacc73d037d112d6d752d87762f87f5efa}{Set\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a9b6bd680ae692c4c3c0a8a9a362518cc}{TIMSK\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER1__Private_8h_a541ce51bda2fa8908ca4b00e551ecd33}{OCIE1\+A\+\_\+\+Bit}})
+\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a2d3304918c1ff818ce5c5f4ffa4e2515}{Compare\+Match1\+B\+\_\+\+Interrupt\+Enable}}~\mbox{\hyperlink{group__Common_gacc73d037d112d6d752d87762f87f5efa}{Set\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a9b6bd680ae692c4c3c0a8a9a362518cc}{TIMSK\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER1__Private_8h_a18eabc7abb90e3c26c8142c65697a595}{OCF1\+B\+\_\+\+Bit}})
+\begin{DoxyCompactList}\small\item\em Enables Timer1 Compare Match B interrupt. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a2f54961b883cea32d394d30ea5cd2421}{Timer1\+\_\+\+Prescaler}}~\mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78abb8dc0cf7f74cabd648f2b572baabb28}{T1\+\_\+\+Clk\+Prescalling\+\_\+64}}
+\begin{DoxyCompactList}\small\item\em Defines the prescaler for Timer1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a149e2dd96b5f7ad707ac3fd126a665fb}{Timer1\+\_\+\+Prescalervalue}}~64
+\begin{DoxyCompactList}\small\item\em Defines the prescaler value for Timer1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a4aedd3c529bd029261852b5d6594d2af}{Timer1\+\_\+\+Wave\+Gen\+Mode}}~\mbox{\hyperlink{TIMER1__Private_8h_ad729a090c363d763c04c6052d5d9426aad785fa3eabfa7f70b909d4465e324c18}{T1\+\_\+\+CTC\+\_\+\+ICR1\+\_\+is\+\_\+\+TOP}}
+\begin{DoxyCompactList}\small\item\em Selects the waveform generation mode for Timer1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_aeeb3281c46bba67bdd62545e2dbd1b5f}{Timer1\+\_\+\+Compare\+Output\+ModeA}}~\mbox{\hyperlink{TIMER1__Private_8h_ae00fb3d863c62725dd2b3487081a9873ac96886bfda040c8aa93652cf66a1b266}{T1\+\_\+\+Normal\+Port}}
+\begin{DoxyCompactList}\small\item\em Sets the compare output behavior for Timer1 Channel A. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a2d62a1607d6359dd2feb9881db2d4948}{Timer1\+\_\+\+Compare\+Output\+ModeB}}~\mbox{\hyperlink{TIMER1__Private_8h_ae00fb3d863c62725dd2b3487081a9873ac96886bfda040c8aa93652cf66a1b266}{T1\+\_\+\+Normal\+Port}}
+\begin{DoxyCompactList}\small\item\em Sets the compare output behavior for Timer1 Channel B. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a4fcee828b490f0b4ef705349e40e7100}{Timer1\+\_\+\+Resolution}}~\mbox{\hyperlink{TIMER1__Private_8h_a09f44cf53214ad71c6ccf5101efb9792}{T1\+\_\+\+Milli\+Second}}
+\begin{DoxyCompactList}\small\item\em Defines the time resolution for Timer1 ticks. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_add9ec6017216901ba2a0a2fdef92194c}{Is\+COMA\+\_\+\+Flag\+Set}}~\mbox{\hyperlink{group__Common_ga7bcdd84fafe02843ba2ef1c5d781b6ca}{Get\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a768581424123f426adc2980c4070e923}{TIFR\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER1__Private_8h_a255c76cb37fed28e2f76bceb07d2215a}{OCF1\+A\+\_\+\+Bit}})
+\begin{DoxyCompactList}\small\item\em Checks if the Timer1 Compare Match A flag is set. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_aeee8a111c409b92458ee606fc03cc298}{Is\+COMB\+\_\+\+Flag\+Set}}~\mbox{\hyperlink{group__Common_ga7bcdd84fafe02843ba2ef1c5d781b6ca}{Get\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a768581424123f426adc2980c4070e923}{TIFR\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER1__Private_8h_a18eabc7abb90e3c26c8142c65697a595}{OCF1\+B\+\_\+\+Bit}})
+\begin{DoxyCompactList}\small\item\em Checks if the Timer1 Compare Match B flag is set. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a041951c69b5bfd4ac1c36bf8f6b92067}{T1\+\_\+\+Clk\+Time}}~((float)\mbox{\hyperlink{TIMER1__Config_8h_a149e2dd96b5f7ad707ac3fd126a665fb}{Timer1\+\_\+\+Prescalervalue}} / \mbox{\hyperlink{ProjectCfg_8h_a43bafb28b29491ec7f871319b5a3b2f8}{F\+\_\+\+CPU}})
+\begin{DoxyCompactList}\small\item\em Calculates the time per Timer1 tick. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_ab02973da401e2d038ace596107df0234}{T1\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CTC}}~1
+\begin{DoxyCompactList}\small\item\em Defines the number of CTC channels used in Timer1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a7edba9999c34afff5780748277b57089}{Compare\+Match\+ValueA}}~((\mbox{\hyperlink{TIMER1__Config_8h_a4fcee828b490f0b4ef705349e40e7100}{Timer1\+\_\+\+Resolution}} / (\mbox{\hyperlink{TIMER1__Config_8h_a041951c69b5bfd4ac1c36bf8f6b92067}{T1\+\_\+\+Clk\+Time}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{TIMER1__Config_8h_ab02973da401e2d038ace596107df0234}{T1\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CTC}}))) -\/ 1
+\begin{DoxyCompactList}\small\item\em Calculates the OCR1A value for Timer1 in CTC mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a4f57fafc568cb73be8974ed015d9feb1}{Compare\+Match\+ValueB}}~((\mbox{\hyperlink{TIMER1__Config_8h_a4fcee828b490f0b4ef705349e40e7100}{Timer1\+\_\+\+Resolution}} / (\mbox{\hyperlink{TIMER1__Config_8h_a041951c69b5bfd4ac1c36bf8f6b92067}{T1\+\_\+\+Clk\+Time}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{TIMER1__Config_8h_ab02973da401e2d038ace596107df0234}{T1\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CTC}}))) -\/ 1
+\begin{DoxyCompactList}\small\item\em Calculates the OCR1B value for Timer1 in CTC mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a60b9e2ff3f2a8b66d8bbb4b504f07637}{Timer1\+\_\+\+TOPvalue}}~1250
+\begin{DoxyCompactList}\small\item\em Defines the TOP value for Timer1 in CTC mode using ICR1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{TIMER1__Config_8h_a0c4d27aa86e5a99f2689d953dd66b6d3}{Timer1\+\_\+\+Sampling\+\_\+\+Clks}}~1250
+\begin{DoxyCompactList}\small\item\em Defines the Number of clock Ticks for Timer1 Compare Match A and B. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Configuration settings for Timer1 specifications. 
+
+This header file defines macros and constants for configuring Timer1 based on project requirements, including prescaler, waveform mode, compare output behavior, and interrupt settings. \begin{DoxyVersion}{Version}
+0.\+3 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Developer\+: Mohamed Diaa (\href{mailto:mohammeddiaato@gmail.com}{\texttt{ mohammeddiaato@gmail.\+com}}) 
+
+Reviewer\+: Basma 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/10-\/09 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025, Gestell Company 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{TIMER1__Config_8h_a7bf51f6d30ddb2e80a03109ad483f8fa}\label{TIMER1__Config_8h_a7bf51f6d30ddb2e80a03109ad483f8fa} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!CompareMatch1A\_InterruptEnable@{CompareMatch1A\_InterruptEnable}}
+\index{CompareMatch1A\_InterruptEnable@{CompareMatch1A\_InterruptEnable}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{CompareMatch1A\_InterruptEnable}{CompareMatch1A\_InterruptEnable}}
+{\footnotesize\ttfamily \#define Compare\+Match1\+A\+\_\+\+Interrupt\+Enable~\mbox{\hyperlink{group__Common_gacc73d037d112d6d752d87762f87f5efa}{Set\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a9b6bd680ae692c4c3c0a8a9a362518cc}{TIMSK\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER1__Private_8h_a541ce51bda2fa8908ca4b00e551ecd33}{OCIE1\+A\+\_\+\+Bit}})}
+
+\Hypertarget{TIMER1__Config_8h_a2d3304918c1ff818ce5c5f4ffa4e2515}\label{TIMER1__Config_8h_a2d3304918c1ff818ce5c5f4ffa4e2515} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!CompareMatch1B\_InterruptEnable@{CompareMatch1B\_InterruptEnable}}
+\index{CompareMatch1B\_InterruptEnable@{CompareMatch1B\_InterruptEnable}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{CompareMatch1B\_InterruptEnable}{CompareMatch1B\_InterruptEnable}}
+{\footnotesize\ttfamily \#define Compare\+Match1\+B\+\_\+\+Interrupt\+Enable~\mbox{\hyperlink{group__Common_gacc73d037d112d6d752d87762f87f5efa}{Set\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a9b6bd680ae692c4c3c0a8a9a362518cc}{TIMSK\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER1__Private_8h_a18eabc7abb90e3c26c8142c65697a595}{OCF1\+B\+\_\+\+Bit}})}
+
+
+
+Enables Timer1 Compare Match B interrupt. 
+
+Sets the OCIE1B bit in the TIMSK register. \Hypertarget{TIMER1__Config_8h_a7edba9999c34afff5780748277b57089}\label{TIMER1__Config_8h_a7edba9999c34afff5780748277b57089} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!CompareMatchValueA@{CompareMatchValueA}}
+\index{CompareMatchValueA@{CompareMatchValueA}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{CompareMatchValueA}{CompareMatchValueA}}
+{\footnotesize\ttfamily \#define Compare\+Match\+ValueA~((\mbox{\hyperlink{TIMER1__Config_8h_a4fcee828b490f0b4ef705349e40e7100}{Timer1\+\_\+\+Resolution}} / (\mbox{\hyperlink{TIMER1__Config_8h_a041951c69b5bfd4ac1c36bf8f6b92067}{T1\+\_\+\+Clk\+Time}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{TIMER1__Config_8h_ab02973da401e2d038ace596107df0234}{T1\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CTC}}))) -\/ 1}
+
+
+
+Calculates the OCR1A value for Timer1 in CTC mode. 
+
+Determines the value to load into OCR1A to achieve the desired tick resolution. \begin{DoxyNote}{Note}
+Depends on clock frequency, prescaler, and desired time resolution. 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+Ensure that the result fits within 16-\/bit range (0–65535). 
+\end{DoxyWarning}
+\Hypertarget{TIMER1__Config_8h_a4f57fafc568cb73be8974ed015d9feb1}\label{TIMER1__Config_8h_a4f57fafc568cb73be8974ed015d9feb1} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!CompareMatchValueB@{CompareMatchValueB}}
+\index{CompareMatchValueB@{CompareMatchValueB}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{CompareMatchValueB}{CompareMatchValueB}}
+{\footnotesize\ttfamily \#define Compare\+Match\+ValueB~((\mbox{\hyperlink{TIMER1__Config_8h_a4fcee828b490f0b4ef705349e40e7100}{Timer1\+\_\+\+Resolution}} / (\mbox{\hyperlink{TIMER1__Config_8h_a041951c69b5bfd4ac1c36bf8f6b92067}{T1\+\_\+\+Clk\+Time}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{TIMER1__Config_8h_ab02973da401e2d038ace596107df0234}{T1\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CTC}}))) -\/ 1}
+
+
+
+Calculates the OCR1B value for Timer1 in CTC mode. 
+
+Determines the value to load into OCR1B to achieve the desired tick resolution. \begin{DoxyNote}{Note}
+Depends on clock frequency, prescaler, and desired time resolution. 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+Ensure that the result fits within 16-\/bit range (0–65535). 
+\end{DoxyWarning}
+\Hypertarget{TIMER1__Config_8h_add9ec6017216901ba2a0a2fdef92194c}\label{TIMER1__Config_8h_add9ec6017216901ba2a0a2fdef92194c} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!IsCOMA\_FlagSet@{IsCOMA\_FlagSet}}
+\index{IsCOMA\_FlagSet@{IsCOMA\_FlagSet}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{IsCOMA\_FlagSet}{IsCOMA\_FlagSet}}
+{\footnotesize\ttfamily \#define Is\+COMA\+\_\+\+Flag\+Set~\mbox{\hyperlink{group__Common_ga7bcdd84fafe02843ba2ef1c5d781b6ca}{Get\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a768581424123f426adc2980c4070e923}{TIFR\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER1__Private_8h_a255c76cb37fed28e2f76bceb07d2215a}{OCF1\+A\+\_\+\+Bit}})}
+
+
+
+Checks if the Timer1 Compare Match A flag is set. 
+
+Reads the OCF1A bit from the TIFR register to determine if a compare match occurred. \begin{DoxyReturn}{Returns}
+Boolean value\+: 1 if set, 0 if not. 
+\end{DoxyReturn}
+\Hypertarget{TIMER1__Config_8h_aeee8a111c409b92458ee606fc03cc298}\label{TIMER1__Config_8h_aeee8a111c409b92458ee606fc03cc298} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!IsCOMB\_FlagSet@{IsCOMB\_FlagSet}}
+\index{IsCOMB\_FlagSet@{IsCOMB\_FlagSet}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{IsCOMB\_FlagSet}{IsCOMB\_FlagSet}}
+{\footnotesize\ttfamily \#define Is\+COMB\+\_\+\+Flag\+Set~\mbox{\hyperlink{group__Common_ga7bcdd84fafe02843ba2ef1c5d781b6ca}{Get\+Bit}}(\mbox{\hyperlink{Atmega32RegistersAddress_8h_a768581424123f426adc2980c4070e923}{TIFR\+\_\+\+Reg}}, \mbox{\hyperlink{TIMER1__Private_8h_a18eabc7abb90e3c26c8142c65697a595}{OCF1\+B\+\_\+\+Bit}})}
+
+
+
+Checks if the Timer1 Compare Match B flag is set. 
+
+Reads the OCF1B bit from the TIFR register to determine if a compare match occurred. \begin{DoxyReturn}{Returns}
+Boolean value\+: 1 if set, 0 if not. 
+\end{DoxyReturn}
+\Hypertarget{TIMER1__Config_8h_a041951c69b5bfd4ac1c36bf8f6b92067}\label{TIMER1__Config_8h_a041951c69b5bfd4ac1c36bf8f6b92067} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!T1\_ClkTime@{T1\_ClkTime}}
+\index{T1\_ClkTime@{T1\_ClkTime}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{T1\_ClkTime}{T1\_ClkTime}}
+{\footnotesize\ttfamily \#define T1\+\_\+\+Clk\+Time~((float)\mbox{\hyperlink{TIMER1__Config_8h_a149e2dd96b5f7ad707ac3fd126a665fb}{Timer1\+\_\+\+Prescalervalue}} / \mbox{\hyperlink{ProjectCfg_8h_a43bafb28b29491ec7f871319b5a3b2f8}{F\+\_\+\+CPU}})}
+
+
+
+Calculates the time per Timer1 tick. 
+
+Based on the selected prescaler and system clock frequency. \begin{DoxyNote}{Note}
+Used in determining the compare match value for CTC mode. 
+\end{DoxyNote}
+\Hypertarget{TIMER1__Config_8h_ab02973da401e2d038ace596107df0234}\label{TIMER1__Config_8h_ab02973da401e2d038ace596107df0234} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!T1\_NUMBER\_OF\_CTC@{T1\_NUMBER\_OF\_CTC}}
+\index{T1\_NUMBER\_OF\_CTC@{T1\_NUMBER\_OF\_CTC}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{T1\_NUMBER\_OF\_CTC}{T1\_NUMBER\_OF\_CTC}}
+{\footnotesize\ttfamily \#define T1\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CTC~1}
+
+
+
+Defines the number of CTC channels used in Timer1. 
+
+\begin{DoxyNote}{Note}
+Adjust this value based on the required number of CTC channels for your application. 
+\end{DoxyNote}
+\Hypertarget{TIMER1__Config_8h_aeeb3281c46bba67bdd62545e2dbd1b5f}\label{TIMER1__Config_8h_aeeb3281c46bba67bdd62545e2dbd1b5f} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!Timer1\_CompareOutputModeA@{Timer1\_CompareOutputModeA}}
+\index{Timer1\_CompareOutputModeA@{Timer1\_CompareOutputModeA}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer1\_CompareOutputModeA}{Timer1\_CompareOutputModeA}}
+{\footnotesize\ttfamily \#define Timer1\+\_\+\+Compare\+Output\+ModeA~\mbox{\hyperlink{TIMER1__Private_8h_ae00fb3d863c62725dd2b3487081a9873ac96886bfda040c8aa93652cf66a1b266}{T1\+\_\+\+Normal\+Port}}}
+
+
+
+Sets the compare output behavior for Timer1 Channel A. 
+
+In Normal Port mode, the OC1A pin is disconnected and used as a regular I/O. \Hypertarget{TIMER1__Config_8h_a2d62a1607d6359dd2feb9881db2d4948}\label{TIMER1__Config_8h_a2d62a1607d6359dd2feb9881db2d4948} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!Timer1\_CompareOutputModeB@{Timer1\_CompareOutputModeB}}
+\index{Timer1\_CompareOutputModeB@{Timer1\_CompareOutputModeB}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer1\_CompareOutputModeB}{Timer1\_CompareOutputModeB}}
+{\footnotesize\ttfamily \#define Timer1\+\_\+\+Compare\+Output\+ModeB~\mbox{\hyperlink{TIMER1__Private_8h_ae00fb3d863c62725dd2b3487081a9873ac96886bfda040c8aa93652cf66a1b266}{T1\+\_\+\+Normal\+Port}}}
+
+
+
+Sets the compare output behavior for Timer1 Channel B. 
+
+In Normal Port mode, the OC1B pin is disconnected and used as a regular I/O. \Hypertarget{TIMER1__Config_8h_a2f54961b883cea32d394d30ea5cd2421}\label{TIMER1__Config_8h_a2f54961b883cea32d394d30ea5cd2421} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!Timer1\_Prescaler@{Timer1\_Prescaler}}
+\index{Timer1\_Prescaler@{Timer1\_Prescaler}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer1\_Prescaler}{Timer1\_Prescaler}}
+{\footnotesize\ttfamily \#define Timer1\+\_\+\+Prescaler~\mbox{\hyperlink{TIMER1__Private_8h_a801730126b8a90d39d8eb302ad433c78abb8dc0cf7f74cabd648f2b572baabb28}{T1\+\_\+\+Clk\+Prescalling\+\_\+64}}}
+
+
+
+Defines the prescaler for Timer1. 
+
+Sets the clock division factor for Timer1. This affects the timer tick frequency. \begin{DoxyNote}{Note}
+Must be one of the values defined in the Timer1\+\_\+\+Prescallers enum. 
+\end{DoxyNote}
+\Hypertarget{TIMER1__Config_8h_a149e2dd96b5f7ad707ac3fd126a665fb}\label{TIMER1__Config_8h_a149e2dd96b5f7ad707ac3fd126a665fb} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!Timer1\_Prescalervalue@{Timer1\_Prescalervalue}}
+\index{Timer1\_Prescalervalue@{Timer1\_Prescalervalue}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer1\_Prescalervalue}{Timer1\_Prescalervalue}}
+{\footnotesize\ttfamily \#define Timer1\+\_\+\+Prescalervalue~64}
+
+
+
+Defines the prescaler value for Timer1. 
+
+this is used in the equation of getting clk time \begin{DoxyNote}{Note}
+Must be one of the values defined in the Timer1\+\_\+\+Prescallers enum. 
+\end{DoxyNote}
+\Hypertarget{TIMER1__Config_8h_a4fcee828b490f0b4ef705349e40e7100}\label{TIMER1__Config_8h_a4fcee828b490f0b4ef705349e40e7100} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!Timer1\_Resolution@{Timer1\_Resolution}}
+\index{Timer1\_Resolution@{Timer1\_Resolution}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer1\_Resolution}{Timer1\_Resolution}}
+{\footnotesize\ttfamily \#define Timer1\+\_\+\+Resolution~\mbox{\hyperlink{TIMER1__Private_8h_a09f44cf53214ad71c6ccf5101efb9792}{T1\+\_\+\+Milli\+Second}}}
+
+
+
+Defines the time resolution for Timer1 ticks. 
+
+Sets the base time unit for scheduling tasks, typically in milliseconds. \Hypertarget{TIMER1__Config_8h_a0c4d27aa86e5a99f2689d953dd66b6d3}\label{TIMER1__Config_8h_a0c4d27aa86e5a99f2689d953dd66b6d3} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!Timer1\_Sampling\_Clks@{Timer1\_Sampling\_Clks}}
+\index{Timer1\_Sampling\_Clks@{Timer1\_Sampling\_Clks}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer1\_Sampling\_Clks}{Timer1\_Sampling\_Clks}}
+{\footnotesize\ttfamily \#define Timer1\+\_\+\+Sampling\+\_\+\+Clks~1250}
+
+
+
+Defines the Number of clock Ticks for Timer1 Compare Match A and B. 
+
+This macro sets the value to be loaded into the OCR1A and OCR1B registers, which determines the compare match value for Timer1 in CTC mode , which is used to trigger ADC sampling. \begin{DoxyNote}{Note}
+The actual timing depends on the system clock frequency and the selected prescaler. 
+
+This Value with prescaler 64 and F\+\_\+\+CPU 8MHz will result in 10ms time interval. 
+\end{DoxyNote}
+\Hypertarget{TIMER1__Config_8h_a60b9e2ff3f2a8b66d8bbb4b504f07637}\label{TIMER1__Config_8h_a60b9e2ff3f2a8b66d8bbb4b504f07637} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!Timer1\_TOPvalue@{Timer1\_TOPvalue}}
+\index{Timer1\_TOPvalue@{Timer1\_TOPvalue}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer1\_TOPvalue}{Timer1\_TOPvalue}}
+{\footnotesize\ttfamily \#define Timer1\+\_\+\+TOPvalue~1250}
+
+
+
+Defines the TOP value for Timer1 in CTC mode using ICR1. 
+
+This macro sets the value to be loaded into the ICR1 register, which determines the maximum count value (TOP) for Timer1 in CTC mode. The timer resets when it reaches this value, creating a periodic interval.
+
+\begin{DoxyNote}{Note}
+The actual timing depends on the system clock frequency and the selected prescaler.
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+Ensure that the value fits within the 16-\/bit range (0–65535) to avoid overflow. 
+\end{DoxyWarning}
+\Hypertarget{TIMER1__Config_8h_a4aedd3c529bd029261852b5d6594d2af}\label{TIMER1__Config_8h_a4aedd3c529bd029261852b5d6594d2af} 
+\index{TIMER1\_Config.h@{TIMER1\_Config.h}!Timer1\_WaveGenMode@{Timer1\_WaveGenMode}}
+\index{Timer1\_WaveGenMode@{Timer1\_WaveGenMode}!TIMER1\_Config.h@{TIMER1\_Config.h}}
+\doxysubsubsection{\texorpdfstring{Timer1\_WaveGenMode}{Timer1\_WaveGenMode}}
+{\footnotesize\ttfamily \#define Timer1\+\_\+\+Wave\+Gen\+Mode~\mbox{\hyperlink{TIMER1__Private_8h_ad729a090c363d763c04c6052d5d9426aad785fa3eabfa7f70b909d4465e324c18}{T1\+\_\+\+CTC\+\_\+\+ICR1\+\_\+is\+\_\+\+TOP}}}
+
+
+
+Selects the waveform generation mode for Timer1. 
+
+Configures Timer1 to operate in CTC mode with ICR1 as TOP. \begin{DoxyNote}{Note}
+Other modes include Normal and PWM. 
+\end{DoxyNote}

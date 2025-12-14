@@ -1,0 +1,20 @@
+\doxysection{EEPROM\+\_\+\+Interface.\+h}
+\hypertarget{EEPROM__Interface_8h_source}{}\label{EEPROM__Interface_8h_source}\index{Mcal/EEPROM/EEPROM\_Interface.h@{Mcal/EEPROM/EEPROM\_Interface.h}}
+\mbox{\hyperlink{EEPROM__Interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ EEPROM\_INTERFACE\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ EEPROM\_INTERFACE\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{EEPROM__Private_8h}{EEPROM\_Private.h}}"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}../Atmega32RegistersAddress.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__EEPROM__Internal_gaf511d04155dc490a3ef71d607f63788f}{mEEPROM\_WriteByte}}(uint16\_t\ Address,\ uint8\_t\ Data);}
+\DoxyCodeLine{00035\ uint8\_t\ \mbox{\hyperlink{group__EEPROM__Internal_ga61b011cda19b665985f85446f35ca9b7}{mEEPROM\_ReadByte}}(uint16\_t\ Address);}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__EEPROM__Internal_ga63bcf3a3207a7a97c66e90ad3677ce57}{mEEPROM\_WriteBlock}}(uint16\_t\ Address,\ uint8\_t*\ data,\ uint16\_t\ length);}
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__EEPROM__Internal_ga77566f4190424d2c88707c1b611ca1f3}{mEEPROM\_ReadBlock}}(uint16\_t\ Address,\ uint8\_t*\ data,\ uint16\_t\ length);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

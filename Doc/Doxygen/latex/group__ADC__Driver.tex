@@ -1,0 +1,255 @@
+\doxysubsubsection{ADC Driver}
+\hypertarget{group__ADC__Driver}{}\label{group__ADC__Driver}\index{ADC Driver@{ADC Driver}}
+
+
+ADC Driver APIs and Configuration for ATmega32.  
+
+
+Collaboration diagram for ADC Driver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=293pt]{group__ADC__Driver}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__ADC__Driver_ga143d65005f0426645abce481e2bc7533}{m\+ADC\+\_\+\+Init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the ADC peripheral. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{group__ADC__Driver_gaf051b88647d9b01ed8118a9667ca105f}{m\+ADC\+\_\+\+Read}} (uint8\+\_\+t channel)
+\begin{DoxyCompactList}\small\item\em This Function reads the ADC value from the specified channel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__ADC__Driver_ga6d329af1bb6843f8d54b802b034934f9}{m\+ADC\+\_\+\+Register\+Channel}} (uint8\+\_\+t channel, void(\texorpdfstring{$\ast$}{*}callback)(uint16\+\_\+t value))
+\begin{DoxyCompactList}\small\item\em This Function registers a callback function for a specific ADC channel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__ADC__Driver_gab22dee2029da82f9398f3119011f7629}{m\+ADC\+\_\+\+Start\+Group}} (void)
+\begin{DoxyCompactList}\small\item\em enables auto-\/triggering and starts the ADC conversion process for a group of channels in round-\/robin fashion. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__ADC__Driver_ga9d7457f9c576cc1f739d22eb0a07164d}{m\+ADC\+\_\+\+Stop}} (void)
+\begin{DoxyCompactList}\small\item\em This Function stops the ADC auto-\/triggering and conversion process. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__ADC__Driver_ga6e61785f9732e9197a2ef392fc23c34e}{ADC\+\_\+\+Set\+Callback}} (void(\texorpdfstring{$\ast$}{*}callback)(uint16\+\_\+t), uint8\+\_\+t channel)
+\begin{DoxyCompactList}\small\item\em This Function sets the callback function for a specific ADC channel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsection{Detailed Description}
+ADC Driver APIs and Configuration for ATmega32. 
+
+
+
+\doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__ADC__Driver_ga6e61785f9732e9197a2ef392fc23c34e}\label{group__ADC__Driver_ga6e61785f9732e9197a2ef392fc23c34e} 
+\index{ADC Driver@{ADC Driver}!ADC\_SetCallback@{ADC\_SetCallback}}
+\index{ADC\_SetCallback@{ADC\_SetCallback}!ADC Driver@{ADC Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{ADC\_SetCallback()}{ADC\_SetCallback()}}
+{\footnotesize\ttfamily ADC\+\_\+\+Set\+Callback (\begin{DoxyParamCaption}\item[{void(\texorpdfstring{$\ast$}{*})(uint16\+\_\+t)}]{callback,  }\item[{uint8\+\_\+t}]{channel }\end{DoxyParamCaption})}
+
+
+
+This Function sets the callback function for a specific ADC channel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em callback} & \+: pointer to the callback function that will be called with the ADC value when conversion is complete. \\
+\hline
+{\em channel} & \+: the ADC channel number (0-\/7) in our project (0-\/1). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void
+\end{DoxyReturn}
+This Function sets the callback function for a specific ADC channel.
+
+Called internally by {\ttfamily m\+ADC\+\_\+\+Register\+Channel}. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em callback} & Pointer to the function to execute on conversion complete. \\
+\hline
+\mbox{\texttt{ in}}  & {\em channel} & Channel ID (0 or 1). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__ADC__Driver_ga6e61785f9732e9197a2ef392fc23c34e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__ADC__Driver_ga143d65005f0426645abce481e2bc7533}\label{group__ADC__Driver_ga143d65005f0426645abce481e2bc7533} 
+\index{ADC Driver@{ADC Driver}!mADC\_Init@{mADC\_Init}}
+\index{mADC\_Init@{mADC\_Init}!ADC Driver@{ADC Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{mADC\_Init()}{mADC\_Init()}}
+{\footnotesize\ttfamily void m\+ADC\+\_\+\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the ADC peripheral. 
+
+~\newline
+
+\begin{DoxyItemize}
+\item Configures {\bfseries{ADMUX}}\+: Reference Voltage, Adjustment.
+\item Configures {\bfseries{ADCSRA}}\+: Prescaler, Auto-\/\+Trigger Enable, Interrupt Enable.
+\item Configures {\bfseries{SFIOR}}\+: Trigger Source (if Auto-\/\+Trigger enabled).
+\item Enables the ADC hardware. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Configuration Map\+:
+\begin{DoxyEnumerate}
+\item ADMUX (Ref + Left\+Adjust + Channel)
+\item ADCSRA (Enable + Start + Auto\+Trig + Int\+Flag + Int\+Enable + Prescaler)
+\item SFIOR (Special Function IO, for Trigger Source)
+\end{DoxyEnumerate}Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__ADC__Driver_ga143d65005f0426645abce481e2bc7533_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__ADC__Driver_gaf051b88647d9b01ed8118a9667ca105f}\label{group__ADC__Driver_gaf051b88647d9b01ed8118a9667ca105f} 
+\index{ADC Driver@{ADC Driver}!mADC\_Read@{mADC\_Read}}
+\index{mADC\_Read@{mADC\_Read}!ADC Driver@{ADC Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{mADC\_Read()}{mADC\_Read()}}
+{\footnotesize\ttfamily uint16\+\_\+t m\+ADC\+\_\+\+Read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{channel }\end{DoxyParamCaption})}
+
+
+
+This Function reads the ADC value from the specified channel. 
+
+\begin{DoxyReturn}{Returns}
+returns the 10-\/bit ADC value. 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & \+: the ADC channel number (0-\/7) in our project (0-\/1). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+to use this function the ADC must be initialized in Synchronous\+\_\+\+Mode from the config.\+h
+\end{DoxyWarning}
+This Function reads the ADC value from the specified channel.
+
+
+\begin{DoxyEnumerate}
+\item Selects the channel in ADMUX.
+\begin{DoxyEnumerate}
+\item Starts Conversion (ADSC).
+\item Busy-\/waits until ADSC clears (or ADIF sets).
+\item Returns the 10-\/bit result.
+\end{DoxyEnumerate}
+
+{\bfseries{Note}}\+: Disabling interrupts is recommended during this call if mixed mode is used, though this implementation manually clears the flag. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em channel} & Channel Number (0-\/7). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint16\+\_\+t 10-\/bit ADC result. 
+\end{DoxyReturn}
+
+\end{DoxyEnumerate}Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{group__ADC__Driver_gaf051b88647d9b01ed8118a9667ca105f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__ADC__Driver_ga6d329af1bb6843f8d54b802b034934f9}\label{group__ADC__Driver_ga6d329af1bb6843f8d54b802b034934f9} 
+\index{ADC Driver@{ADC Driver}!mADC\_RegisterChannel@{mADC\_RegisterChannel}}
+\index{mADC\_RegisterChannel@{mADC\_RegisterChannel}!ADC Driver@{ADC Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{mADC\_RegisterChannel()}{mADC\_RegisterChannel()}}
+{\footnotesize\ttfamily m\+ADC\+\_\+\+Register\+Channel (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{channel,  }\item[{void(\texorpdfstring{$\ast$}{*})(uint16\+\_\+t value)}]{callback }\end{DoxyParamCaption})}
+
+
+
+This Function registers a callback function for a specific ADC channel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & \+: the ADC channel number (0-\/7) in our project (0-\/1). \\
+\hline
+{\em callback} & \+: pointer to the callback function that will be called with the ADC value when conversion is complete. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void
+\end{DoxyReturn}
+This Function registers a callback function for a specific ADC channel.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em channel} & ADC Channel to listen to. \\
+\hline
+\mbox{\texttt{ in}}  & {\em callback} & Function pointer {\ttfamily void func(uint16\+\_\+t value)}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{group__ADC__Driver_ga6d329af1bb6843f8d54b802b034934f9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__ADC__Driver_ga6d329af1bb6843f8d54b802b034934f9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__ADC__Driver_gab22dee2029da82f9398f3119011f7629}\label{group__ADC__Driver_gab22dee2029da82f9398f3119011f7629} 
+\index{ADC Driver@{ADC Driver}!mADC\_StartGroup@{mADC\_StartGroup}}
+\index{mADC\_StartGroup@{mADC\_StartGroup}!ADC Driver@{ADC Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{mADC\_StartGroup()}{mADC\_StartGroup()}}
+{\footnotesize\ttfamily m\+ADC\+\_\+\+Start\+Group (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+enables auto-\/triggering and starts the ADC conversion process for a group of channels in round-\/robin fashion. 
+
+\begin{DoxyNote}{Note}
+this function starts conversions starting from channel0 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+to use this function the ADC must be initialized in Asynchronous\+\_\+\+Mode from the config.\+h
+\end{DoxyWarning}
+enables auto-\/triggering and starts the ADC conversion process for a group of channels in round-\/robin fashion.
+
+Beings conversion on Channel 0. The ISR will then automatically rotate to the next channel upon completion. \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__ADC__Driver_gab22dee2029da82f9398f3119011f7629_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__ADC__Driver_ga9d7457f9c576cc1f739d22eb0a07164d}\label{group__ADC__Driver_ga9d7457f9c576cc1f739d22eb0a07164d} 
+\index{ADC Driver@{ADC Driver}!mADC\_Stop@{mADC\_Stop}}
+\index{mADC\_Stop@{mADC\_Stop}!ADC Driver@{ADC Driver}}
+\doxysubsubsubsubsection{\texorpdfstring{mADC\_Stop()}{mADC\_Stop()}}
+{\footnotesize\ttfamily m\+ADC\+\_\+\+Stop (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+This Function stops the ADC auto-\/triggering and conversion process. 
+
+\begin{DoxyWarning}{Warning}
+to use this function the ADC must be initialized in Asynchronous\+\_\+\+Mode from the config.\+h
+\end{DoxyWarning}
+This Function stops the ADC auto-\/triggering and conversion process.
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

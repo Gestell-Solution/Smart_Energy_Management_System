@@ -10,6 +10,14 @@
 #ifndef UART_INIT_H_
 #define UART_INIT_H_
 
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup UART
+ * @{
+ */
+
+
 #include "../UART/UART_Config.h"
 #include <stdint.h>
 
@@ -93,5 +101,11 @@ typedef struct
  * enables transmitter and receiver.
  */
 void mUART_Init(const UART_Config_t *Config);
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif /* UART_INIT_H_ */

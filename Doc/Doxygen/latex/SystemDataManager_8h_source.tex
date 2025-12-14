@@ -1,0 +1,54 @@
+\doxysection{System\+Data\+Manager.\+h}
+\hypertarget{SystemDataManager_8h_source}{}\label{SystemDataManager_8h_source}\index{Common/SystemDataManager/SystemDataManager.h@{Common/SystemDataManager/SystemDataManager.h}}
+\mbox{\hyperlink{SystemDataManager_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ \_SYSTEM\_DATA\_MANAGER\_H\_}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ \_SYSTEM\_DATA\_MANAGER\_H\_}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}../../Mcal/EEPROM/EEPROM\_Interface.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structSystemData__t_ad0a9825697296913f122e3d12564a1fd}{MagicNumber}};}
+\DoxyCodeLine{00027\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structSystemData__t_ae24fa5dbed7f1dcbe3bce6a993c4f958}{DeviceID}};}
+\DoxyCodeLine{00028\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structSystemData__t_a45bae298f5caf94192eeefeeda00220f}{VoltageCalib}};}
+\DoxyCodeLine{00029\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structSystemData__t_a20b2a5907fcfc94099b27ea95f3ad5b6}{CurrentCalib}};}
+\DoxyCodeLine{00030\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structSystemData__t_a8285fb395d32d0f3ca3dfea99fe435eb}{EnergyCounter}};}
+\DoxyCodeLine{00031\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structSystemData__t_abfc0259c70caedb33cf57f474bd03706}{OvervoltageLimit}};}
+\DoxyCodeLine{00032\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structSystemData__t_ac67a10635e6aa88368bac5497f4be83f}{OvercurrentLimit}};}
+\DoxyCodeLine{00033\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structSystemData__t_a3cb276b93645b4f95f06f4ece9250353}{Checksum}};\ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structSystemData__t_a359831a2fb5b86966654834c61ec1537}{Voltage\_RMS}};}
+\DoxyCodeLine{00035\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structSystemData__t_a13f3ba8cd664d91d9ef6a073f8e2cde4}{Current\_RMS}};}
+\DoxyCodeLine{00036\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structSystemData__t_a46a1e66bdb41ae9015dacd003a74a5d4}{Power}};}
+\DoxyCodeLine{00037\ \}\ \mbox{\hyperlink{structSystemData__t}{SystemData\_t}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ DEFAULT\_DEVICE\_ID\ \ \ \ \ \ \ \ \ \ \ \ 0x01}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ DEFAULT\_VOLTAGE\_CALIB\ \ \ \ \ \ \ \ 1000}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ DEFAULT\_CURRENT\_CALIB\ \ \ \ \ \ \ \ 1000}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ DEFAULT\_ENERGY\_COUNTER\ \ \ \ \ \ \ 0x00000000}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ DEFAULT\_OVERVOLTAGE\_LIMIT\ \ \ \ 250}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ DEFAULT\_OVERCURRENT\_LIMIT\ \ \ \ 10}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ DEFAULT\_VOLTAGE\_RMS\ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ DEFAULT\_CURRENT\_RMS\ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ DEFAULT\_POWER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ SYSTEMDATA\_MAGIC\ \ 0xA5}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structSystemData__t}{SystemData\_t}}\ \mbox{\hyperlink{SystemDataManager_8h_aaa8c13d13ee69ee7da085a0836a6fad0}{g\_SystemData}};}
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{SystemDataManager_8h_ad2c90ce83c2bb4fb133ca430888bb474}{SystemData\_Init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{SystemDataManager_8h_a629f2cf8fd030dc6967a16698b0b1805}{SystemData\_SaveToEEPROM}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{SystemDataManager_8h_ab9e816688e505253a01d49cbd3e2c466}{SystemData\_LoadFromEEPROM}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{SystemDataManager_8h_a0c99db2855ec48a0df955ec6ba41b89c}{SystemData\_SetDefaults}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{SystemDataManager_8h_a92a2ffe2b4b04f6332ee8c3f37463269}{SystemData\_Validate}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_SYSTEM\_DATA\_MANAGER\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -13,6 +13,14 @@
 #ifndef ADC_INTERFACE_H
 #define ADC_INTERFACE_H
 
+/**
+ * @addtogroup Mcal
+ * @{
+ * @addtogroup ADC
+ * @{
+ */
+
+
 #include <stdint.h>
 #include "ADC_Private.h"
 #include "ADC_Config.h"
@@ -84,5 +92,11 @@ void ADC_SetCallback(void (*callback)(uint16_t) , uint8_t channel);
 
 /** @} */ // end of ADC_Driver
 
+
+
+/**
+ * @}
+ * @}
+ */
 
 #endif

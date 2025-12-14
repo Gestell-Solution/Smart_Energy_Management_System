@@ -1,0 +1,129 @@
+\doxysection{Write\+Baton Struct Reference}
+\hypertarget{structWriteBaton}{}\label{structWriteBaton}\index{WriteBaton@{WriteBaton}}
+
+
+{\ttfamily \#include $<$serialport\+\_\+win.\+h$>$}
+
+
+
+Collaboration diagram for Write\+Baton\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structWriteBaton__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structWriteBaton_abba1dd348bdfa9cfb00a9e30a05caf17}{Write\+Baton}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structWriteBaton_a616877444cbb2c5395e351ede7aad955}{fd}} = 0
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structWriteBaton_ab49ca8ae852313ae1a0919601102de51}{buffer\+Data}} = nullptr
+\item 
+size\+\_\+t \mbox{\hyperlink{structWriteBaton_af43dd829589313d32aa05415a61a29b4}{buffer\+Length}} = 0
+\item 
+size\+\_\+t \mbox{\hyperlink{structWriteBaton_a725806a0a15d8d32b6e53c2a014c9923}{offset}} = 0
+\item 
+size\+\_\+t \mbox{\hyperlink{structWriteBaton_ab7d9306a4402f78908f104de0c93181c}{bytes\+Written}} = 0
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structWriteBaton_a36ea3470f9a51d19e568a318f9ed1615}{h\+Thread}} = nullptr
+\item 
+bool \mbox{\hyperlink{structWriteBaton_aacbd1ce049d6bfb2c7b9643b232dcb00}{complete}} = false
+\item 
+\mbox{\hyperlink{classNapi_1_1ObjectReference}{Napi\+::\+Object\+Reference}} \mbox{\hyperlink{structWriteBaton_a681e31266a0211d26f7e4db904b633fd}{buffer}}
+\item 
+\mbox{\hyperlink{classNapi_1_1FunctionReference}{Napi\+::\+Function\+Reference}} \mbox{\hyperlink{structWriteBaton_ac5f7c16357db1515dc6ca863e9284cd0}{callback}}
+\item 
+int \mbox{\hyperlink{structWriteBaton_a2c5036d255d2e286b6b7f1dbde40c5a1}{result}} = 0
+\item 
+char \mbox{\hyperlink{structWriteBaton_accab25e6ab4e50676e06b49e4d6ca7a6}{error\+String}} \mbox{[}\mbox{\hyperlink{serialport__win_8h_a2dc0029776b8cfa523fc558c0d80c43e}{ERROR\+\_\+\+STRING\+\_\+\+SIZE}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structWriteBaton_abba1dd348bdfa9cfb00a9e30a05caf17}\label{structWriteBaton_abba1dd348bdfa9cfb00a9e30a05caf17} 
+\index{WriteBaton@{WriteBaton}!WriteBaton@{WriteBaton}}
+\index{WriteBaton@{WriteBaton}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{WriteBaton()}{WriteBaton()}}
+{\footnotesize\ttfamily Write\+Baton\+::\+Write\+Baton (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{structWriteBaton_a681e31266a0211d26f7e4db904b633fd}\label{structWriteBaton_a681e31266a0211d26f7e4db904b633fd} 
+\index{WriteBaton@{WriteBaton}!buffer@{buffer}}
+\index{buffer@{buffer}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{buffer}{buffer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1ObjectReference}{Napi\+::\+Object\+Reference}} Write\+Baton\+::buffer}
+
+\Hypertarget{structWriteBaton_ab49ca8ae852313ae1a0919601102de51}\label{structWriteBaton_ab49ca8ae852313ae1a0919601102de51} 
+\index{WriteBaton@{WriteBaton}!bufferData@{bufferData}}
+\index{bufferData@{bufferData}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{bufferData}{bufferData}}
+{\footnotesize\ttfamily char\texorpdfstring{$\ast$}{*} Write\+Baton\+::buffer\+Data = nullptr}
+
+\Hypertarget{structWriteBaton_af43dd829589313d32aa05415a61a29b4}\label{structWriteBaton_af43dd829589313d32aa05415a61a29b4} 
+\index{WriteBaton@{WriteBaton}!bufferLength@{bufferLength}}
+\index{bufferLength@{bufferLength}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{bufferLength}{bufferLength}}
+{\footnotesize\ttfamily size\+\_\+t Write\+Baton\+::buffer\+Length = 0}
+
+\Hypertarget{structWriteBaton_ab7d9306a4402f78908f104de0c93181c}\label{structWriteBaton_ab7d9306a4402f78908f104de0c93181c} 
+\index{WriteBaton@{WriteBaton}!bytesWritten@{bytesWritten}}
+\index{bytesWritten@{bytesWritten}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{bytesWritten}{bytesWritten}}
+{\footnotesize\ttfamily size\+\_\+t Write\+Baton\+::bytes\+Written = 0}
+
+\Hypertarget{structWriteBaton_ac5f7c16357db1515dc6ca863e9284cd0}\label{structWriteBaton_ac5f7c16357db1515dc6ca863e9284cd0} 
+\index{WriteBaton@{WriteBaton}!callback@{callback}}
+\index{callback@{callback}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{callback}{callback}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNapi_1_1FunctionReference}{Napi\+::\+Function\+Reference}} Write\+Baton\+::callback}
+
+\Hypertarget{structWriteBaton_aacbd1ce049d6bfb2c7b9643b232dcb00}\label{structWriteBaton_aacbd1ce049d6bfb2c7b9643b232dcb00} 
+\index{WriteBaton@{WriteBaton}!complete@{complete}}
+\index{complete@{complete}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{complete}{complete}}
+{\footnotesize\ttfamily bool Write\+Baton\+::complete = false}
+
+\Hypertarget{structWriteBaton_accab25e6ab4e50676e06b49e4d6ca7a6}\label{structWriteBaton_accab25e6ab4e50676e06b49e4d6ca7a6} 
+\index{WriteBaton@{WriteBaton}!errorString@{errorString}}
+\index{errorString@{errorString}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{errorString}{errorString}}
+{\footnotesize\ttfamily char Write\+Baton\+::error\+String\mbox{[}\mbox{\hyperlink{serialport__win_8h_a2dc0029776b8cfa523fc558c0d80c43e}{ERROR\+\_\+\+STRING\+\_\+\+SIZE}}\mbox{]}}
+
+\Hypertarget{structWriteBaton_a616877444cbb2c5395e351ede7aad955}\label{structWriteBaton_a616877444cbb2c5395e351ede7aad955} 
+\index{WriteBaton@{WriteBaton}!fd@{fd}}
+\index{fd@{fd}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{fd}{fd}}
+{\footnotesize\ttfamily int Write\+Baton\+::fd = 0}
+
+\Hypertarget{structWriteBaton_a36ea3470f9a51d19e568a318f9ed1615}\label{structWriteBaton_a36ea3470f9a51d19e568a318f9ed1615} 
+\index{WriteBaton@{WriteBaton}!hThread@{hThread}}
+\index{hThread@{hThread}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{hThread}{hThread}}
+{\footnotesize\ttfamily void\texorpdfstring{$\ast$}{*} Write\+Baton\+::h\+Thread = nullptr}
+
+\Hypertarget{structWriteBaton_a725806a0a15d8d32b6e53c2a014c9923}\label{structWriteBaton_a725806a0a15d8d32b6e53c2a014c9923} 
+\index{WriteBaton@{WriteBaton}!offset@{offset}}
+\index{offset@{offset}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{offset}{offset}}
+{\footnotesize\ttfamily size\+\_\+t Write\+Baton\+::offset = 0}
+
+\Hypertarget{structWriteBaton_a2c5036d255d2e286b6b7f1dbde40c5a1}\label{structWriteBaton_a2c5036d255d2e286b6b7f1dbde40c5a1} 
+\index{WriteBaton@{WriteBaton}!result@{result}}
+\index{result@{result}!WriteBaton@{WriteBaton}}
+\doxysubsubsection{\texorpdfstring{result}{result}}
+{\footnotesize\ttfamily int Write\+Baton\+::result = 0}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Dashboard/node\+\_\+modules/@serialport/bindings-\/cpp/src/\mbox{\hyperlink{serialport__win_8h}{serialport\+\_\+win.\+h}}\end{DoxyCompactItemize}

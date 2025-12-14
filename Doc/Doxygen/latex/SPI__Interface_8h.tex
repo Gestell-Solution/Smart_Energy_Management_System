@@ -1,0 +1,62 @@
+\doxysection{Mcal/\+SPI/\+SPI\+\_\+\+Interface.h File Reference}
+\hypertarget{SPI__Interface_8h}{}\label{SPI__Interface_8h}\index{Mcal/SPI/SPI\_Interface.h@{Mcal/SPI/SPI\_Interface.h}}
+
+
+Public interface for the SPI driver.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}SPI\+\_\+\+Private.\+h"{}}\newline
+{\ttfamily \#include "{}SPI\+\_\+\+Config.\+h"{}}\newline
+Include dependency graph for SPI\+\_\+\+Interface.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SPI__Interface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{SPI__Interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__SPI_gae80f1d0b314912128389c30420c3c5e4}{m\+SPI\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the SPI peripheral. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__SPI_gabedd500298ac0b9d9f50e6ab61f7419b}{m\+SPI\+\_\+\+Transmit\+Byte}} (uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Transmits a single byte through SPI (Blocking). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__SPI_ga1c3330dfe870eacf98887b74987380a6}{m\+SPI\+\_\+\+Transmit\+Buffer}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}tx\+Buffer, uint8\+\_\+t \texorpdfstring{$\ast$}{*}rx\+Buffer, uint16\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Transmits and receives a buffer over SPI (Blocking). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__SPI_ga1c8055e5cf1540761023ab577617e9a3}{m\+SPI\+\_\+\+Transmit\+Byte\+\_\+\+IT}} (uint8\+\_\+t data, void(\texorpdfstring{$\ast$}{*}callback)(uint8\+\_\+t rx\+Data))
+\begin{DoxyCompactList}\small\item\em Transmits a single byte via SPI interrupt mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__SPI_ga56df6580c58d6e0fb9fe7234ed351a5f}{m\+SPI\+\_\+\+Transmit\+Buffer\+\_\+\+IT}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}tx\+Buffer, uint8\+\_\+t \texorpdfstring{$\ast$}{*}rx\+Buffer, uint16\+\_\+t length, void(\texorpdfstring{$\ast$}{*}callback)(void))
+\begin{DoxyCompactList}\small\item\em Transmits and receives a buffer using SPI interrupt mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__SPI_ga725d2bb06fbc9d069559de80e1fb4706}{m\+SPI\+\_\+\+Enable}} (void)
+\begin{DoxyCompactList}\small\item\em Enables the SPI peripheral. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__SPI_ga21dabe35906ad4f3481c968d21d7fd52}{m\+SPI\+\_\+\+Disable}} (void)
+\begin{DoxyCompactList}\small\item\em Disables the SPI peripheral. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public interface for the SPI driver. 
+
+This file contains all API functions used to initialize and operate the Serial Peripheral Interface (SPI) module. The driver supports blocking and interrupt-\/driven data transmission for both single-\/byte and multi-\/byte buffers. \begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/12-\/05
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Developer\+: Ahmed Twap (\href{mailto:ahmedtwap2@gmail.com}{\texttt{ ahmedtwap2@gmail.\+com}}) 
+
+Reviewer\+: ENG.\+Bassma Khaled 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 
+\end{DoxyCopyright}
