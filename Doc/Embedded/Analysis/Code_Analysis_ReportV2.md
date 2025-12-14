@@ -2010,7 +2010,7 @@ float instant_voltage = Voltage_Value * (1.0f / 1024.0f) * Vref * Voltage_Divide
 
 **Error Calculation:**
 
-```
+```text
 Using 1023: 5.0V × (1023/1023) = 5.000V
 Using 1024: 5.0V × (1023/1024) = 4.995V
 
