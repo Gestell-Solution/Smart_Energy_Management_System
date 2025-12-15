@@ -1,3 +1,8 @@
+#include "../../Common/Config.h"
+
+#if Calibration_TestModule == Enable
+
+
 #include "CAL_Test.h"
 #include <util/delay.h>
 void Calibration_test()
@@ -27,3 +32,4 @@ void Calibration_test()
         hLCD_SendCommand(0x01);
     }
 }
+#endif

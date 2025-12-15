@@ -70,4 +70,14 @@
  * @}
  */
 
+
+
+#define ADC_TestModule                                 Disable 
+#define Calibration_TestModule                         Disable
+#define CommunicationManager_TestModule                Disable 
+#define EEPROM_TestModule                              Disable
+#define EnergyLogger_TestModule                        Disable 
+#define LcdAndDisplayManager_TestModule                Disable 
+#define Uart_TestModule                                Disable
+#define VoltageAndCurrent_TestModule                   Disable 
 #endif /* _COMFIG_H_*/

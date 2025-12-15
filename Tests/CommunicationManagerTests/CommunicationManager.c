@@ -1,3 +1,7 @@
+#include "../../Common/Config.h"
+
+#if CommunicationManager_TestModule == Enable
+
 #include "CommunicationManager.h"
 #include "../../Mcal/UART/UART_Tx.h"
 #include "../../Hal/HC05/HC05_Interface.h"
@@ -36,3 +40,4 @@ void CommManagerTestsMain()
 
 
 }
+#endif

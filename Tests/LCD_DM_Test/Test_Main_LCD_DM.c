@@ -1,3 +1,7 @@
+#include "../../Common/Config.h"
+
+#if LcdAndDisplayManager_TestModule == Enable
+
 #include <util/delay.h>
 #include <stdlib.h>  
 #include "Test_Main_LCD_DM.h"
@@ -94,5 +98,4 @@ int LCD_DM_Test(void)
     return 0;
 }
 
-
-
+#endif

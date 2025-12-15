@@ -1,3 +1,7 @@
+#include "../../Common/Config.h"
+
+#if Uart_TestModule == Enable
+
 #include "../../Mcal/UART/UART_Tx.h"
 #include "../../Mcal/UART/UART_Rx.h"
 #include "../../Mcal/UART/UART_Init.h"
@@ -28,3 +32,4 @@ void UartTestMain()
     // mUART_SendByte(0x55);
     // mUART_SendByte(0x55);
 }
+#endif

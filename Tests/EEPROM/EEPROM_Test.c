@@ -4,6 +4,9 @@
  * @author Basma khaled
  * @date 2025-12-12
  */
+#include "../../Common/Config.h"
+
+#if EEPROM_TestModule == Enable
 
 #include <stdint.h>
 #include "../../App/EnergyLogger/EnergyLogger_Interface.h"
@@ -154,3 +157,4 @@ void IntegrationTest2_logging(void)
 
     }
 }
+#endif

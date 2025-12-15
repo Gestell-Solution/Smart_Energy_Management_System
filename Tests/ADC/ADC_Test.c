@@ -1,5 +1,12 @@
+#include "../../Common/Config.h"
+
+#if ADC_TestModule == Enable
+
+
+
 #include "ADC_Test.h"
 #include <util/delay.h>
+
 void ADC_Synchronous_Test()
 {
     mGIE_Enable();
@@ -17,3 +24,4 @@ void ADC_Synchronous_Test()
         hLCD_SendCommand(0x01); // Clear display
     }
 }
+#endif

@@ -1,3 +1,7 @@
+#include "../../Common/Config.h"
+
+#if VoltageAndCurrent_TestModule == Enable
+
 #include "Voltage_Current_Test.h"
 #include <util/delay.h>
 void Voltage_Current_Test(){
@@ -25,3 +29,4 @@ void Voltage_Current_Test(){
        
     }
 }
+#endif

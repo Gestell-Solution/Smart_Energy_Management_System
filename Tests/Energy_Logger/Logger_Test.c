@@ -1,3 +1,7 @@
+#include "../../Common/Config.h"
+
+#if EnergyLogger_TestModule == Enable
+
 #include "../../App/EnergyLogger/EnergyLogger_Interface.h"
 #include "../../Mcal/EEPROM/EEPROM_Interface.h"
 #include "../../Mcal/Timer1/TIMER1_Interface.h"  
@@ -107,3 +111,4 @@ int LoggerTestMain(void)
         Display_LED_Status(); 
     }
 }
+#endif
