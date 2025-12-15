@@ -606,9 +606,9 @@ For licensing inquiries, contact: Hisham4Ahmed@gmail.com
 
 **Technical Support**: Hisham4Ahmed@gmail.com
 
-**Project Repository**: [GitHub Link]
+**Project Repository**: https://github.com/Gestell-Solution/Smart_Energy_Management_System
 
-**Company Website**: [Gestell Company]
+**LinkedIn Company Page**: https://www.linkedin.com/company/gestell-company 
 
 ---
 
