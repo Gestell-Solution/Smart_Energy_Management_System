@@ -1,0 +1,155 @@
+╔════════════════════════════════════════════════════════════════╗
+║     Gestell Energy Management System - Dashboard v1.0.0       ║
+║                    Quick Reference Card                        ║
+╚════════════════════════════════════════════════════════════════╝
+
+┌────────────────────────────────────────────────────────────────┐
+│ 🚀 QUICK START                                                 │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  Method 1 (Recommended):                                       │
+│    ./start.sh                                                  │
+│                                                                │
+│  Method 2 (Manual):                                            │
+│    npm install                                                 │
+│    npm start                                                   │
+│                                                                │
+│  Access Dashboard:                                             │
+│    http://localhost:3000                                       │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ 🎮 CONTROLS                                                     │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  F5             → Refresh Dashboard                            │
+│  Ctrl+Shift+I   → Developer Tools                              │
+│  Ctrl+C         → Stop Server                                  │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ 📊 FEATURES                                                     │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  ✓ Real-time monitoring                                        │
+│  ✓ Local & Remote modes                                        │
+│  ✓ WiFi provisioning                                           │
+│  ✓ Calibration controls                                        │
+│  ✓ Demo mode                                                   │
+│  ✓ Event logging                                               │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ 🔌 CONNECTION MODES                                             │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  LOCAL MODE:                                                   │
+│    • Bluetooth HC-05 / USB-Serial                              │
+│    • Web Serial API                                            │
+│    • Direct device connection                                  │
+│    • Button: "Connect Device"                                  │
+│                                                                │
+│  REMOTE MODE:                                                  │
+│    • Internet via WebSocket                                    │
+│    • Socket.IO protocol                                        │
+│    • Remote monitoring                                         │
+│    • Button: "Connect Server"                                  │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ ⚡ PROTOCOL COMMANDS                                            │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  0x05  → Get RMS Data                                          │
+│  0x09  → Relay Control                                         │
+│  0x0B  → Calibration                                           │
+│  0x0C  → WiFi Setup                                            │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ 🛠️ TROUBLESHOOTING                                             │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  Problem: Web Serial not supported                             │
+│  Solution: Use Chrome/Edge browser (v89+)                      │
+│                                                                │
+│  Problem: Connection fails                                     │
+│  Solution:                                                     │
+│    • Check Bluetooth pairing                                   │
+│    • Verify server is running (npm start)                      │
+│    • Check firewall settings                                   │
+│                                                                │
+│  Problem: No data displayed                                    │
+│  Solution: Try Demo Mode to test UI                            │
+│                                                                │
+│  Problem: Server won't start                                   │
+│  Solution: rm -rf node_modules && npm install                  │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ 📁 FILE STRUCTURE                                               │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  index.html        → Main UI                                   │
+│  style.css         → Styling                                   │
+│  script.js         → Client Logic                              │
+│  server.js         → Backend Server                            │
+│  package.json      → Dependencies                              │
+│  start.sh          → Auto Launcher                             │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ 🔐 PORT CONFIGURATION                                           │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  Default Port:  3000                                           │
+│  Change Port:   PORT=8080 npm start                            │
+│  Change Host:   HOST=192.168.1.100 npm start                   │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ 📈 PERFORMANCE                                                  │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  Update Rate:       1 second                                   │
+│  Chart Points:      20 points                                  │
+│  Latency:           <100ms                                     │
+│  Browser:           Chrome 89+, Edge 89+                       │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ 💻 NPM SCRIPTS                                                  │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  npm start         → Start production server                   │
+│  npm run dev       → Development mode with auto-reload         │
+│  npm test          → Run tests                                 │
+│  npm install       → Install dependencies                      │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ 📚 DOCUMENTATION                                                │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  README.md              → Project overview                     │
+│  SETUP_GUIDE.md         → Complete setup guide                 │
+│  QUICK_REFERENCE.txt    → This file                            │
+│  START_HERE.md          → First-time user guide                │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+╔════════════════════════════════════════════════════════════════╗
+║                  Gestell - Smart Energy System                 ║
+║                       Version 1.0.0                            ║
+║                    Professional Dashboard                      ║
+╚════════════════════════════════════════════════════════════════╝
