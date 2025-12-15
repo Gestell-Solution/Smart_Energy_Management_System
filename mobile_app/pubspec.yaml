@@ -1,0 +1,53 @@
+name: smart_energy_app
+description: Gestell Smart Energy Management System - Mobile Application for real-time energy monitoring
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  provider: ^6.1.0
+  
+  # Bluetooth Communication
+  flutter_blue_plus: ^1.31.0
+  
+  # Charts & Visualization
+  fl_chart: ^0.66.0
+  syncfusion_flutter_gauges: ^24.2.9
+  
+  # Local Storage
+  shared_preferences: ^2.2.0
+  
+  # Permissions
+  permission_handler: ^11.0.0
+  
+  # UI & Styling
+  google_fonts: ^6.1.0
+  animations: ^2.0.8
+  
+  # Utilities
+  intl: ^0.18.0
+  
+  # Icons
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+  
+  # fonts:
+  #   - family: CustomFont
+  #     fonts:
+  #       - asset: assets/fonts/CustomFont.ttf

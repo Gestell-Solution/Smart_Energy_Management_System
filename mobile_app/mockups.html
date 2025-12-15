@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Energy App - UI Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            direction: ltr;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .phone-mockup {
+            background: #1E293B;
+            border-radius: 40px;
+            padding: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .phone-screen {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .screen-header {
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            color: white;
+            padding: 50px 20px 20px;
+            text-align: center;
+        }
+        
+        .screen-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .screen-content {
+            padding: 20px;
+        }
+        
+        /* Dashboard Specific */
+        .dashboard-gauges {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .gauge-card {
+            background: #F8FAFC;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .gauge-circle {
+            width: 120px;
+            height: 120px;
+            margin: 10px auto;
+            border-radius: 50%;
+            border: 10px solid;
+            border-color: #10B981 #F59E0B #EF4444 transparent;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .gauge-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1E293B;
+        }
+        
+        .gauge-unit {
+            font-size: 0.8rem;
+            color: #64748B;
+        }
+        
+        .value-card {
+            background: #F8FAFC;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .value-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .value-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .value-label {
+            font-weight: 600;
+            color: #1E293B;
+        }
+        
+        .value-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1E293B;
+        }
+        
+        .cost-card {
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .cost-label {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .cost-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        /* Alert Card */
+        .alert-card {
+            background: white;
+            border: 2px solid #FEE2E2;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .alert-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #FEE2E2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .alert-content h3 {
+            color: #EF4444;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+        
+        .alert-content p {
+            color: #64748B;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .alert-time {
+            color: #94A3B8;
+            font-size: 0.8rem;
+        }
+        
+        /* Chart */
+        .chart {
+            background: #F8FAFC;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            height: 200px;
+            position: relative;
+        }
+        
+        .chart-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(99, 102, 241, 0.1) 0%, 
+                rgba(99, 102, 241, 0.05) 50%, 
+                transparent 100%);
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .chart-line {
+            position: absolute;
+            bottom: 20%;
+            left: 0;
+            right: 0;
+            height: 60%;
+            border-top: 3px solid #6366F1;
+            border-radius: 3px;
+        }
+        
+        /* Settings List */
+        .settings-item {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .settings-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366F1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .settings-info {
+            flex: 1;
+        }
+        
+        .settings-info h4 {
+            color: #1E293B;
+            margin-bottom: 5px;
+        }
+        
+        .settings-info p {
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+        
+        .connection-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .connection-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+        }
+        
+        .bottom-nav {
+            background: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #E2E8F0;
+        }
+        
+        .nav-item {
+            text-align: center;
+            color: #94A3B8;
+            font-size: 0.8rem;
+        }
+        
+        .nav-item.active {
+            color: #6366F1;
+        }
+        
+        .nav-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Smart Energy Mobile App - UI Mockups</h1>
+        
+        <div class="screens-grid">
+            <!-- Splash Screen -->
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div style="background: linear-gradient(135deg, #1E1B4B, #312E81); height: 600px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                        <div style="width: 120px; height: 120px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
+                            <div style="font-size: 60px;">⚡</div>
+                        </div>
+                        <h2 style="color: white; font-size: 2rem; margin-bottom: 10px;">Smart Energy</h2>
+                        <p style="color: rgba(255,255,255,0.8); margin-bottom: 40px;">Management System</p>
+                        <div style="width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                        <p style="color: rgba(255,255,255,0.6); margin-top: 60px; font-size: 0.9rem;">by Gestell Company</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard -->
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="screen-header">
+                        <div class="screen-title">Energy Dashboard</div>
+                        <div class="connection-badge">
+                            <div class="connection-dot"></div>
+                            Connected
+                        </div>
+                    </div>
+                    <div class="screen-content">
+                        <div class="dashboard-gauges">
+                            <div class="gauge-card">
+                                <div style="font-weight: 600; margin-bottom: 10px;">Voltage</div>
+                                <div class="gauge-circle">
+                                    <div class="gauge-value">220.5</div>
+                                    <div class="gauge-unit">V</div>
+                                </div>
+                            </div>
+                            <div class="gauge-card">
+                                <div style="font-weight: 600; margin-bottom: 10px;">Current</div>
+                                <div class="gauge-circle">
+                                    <div class="gauge-value">5.2</div>
+                                    <div class="gauge-unit">A</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="value-card">
+                            <div class="value-header">
+                                <div class="value-icon" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">⚡</div>
+                                <div class="value-label">Power</div>
+                            </div>
+                            <div class="value-number">1147 <span style="font-size: 1rem; color: #64748B;">W</span></div>
+                        </div>
+                        
+                        <div class="cost-card">
+                            <div class="cost-label">Total Cost</div>
+                            <div class="cost-value">2.25 EGP</div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <div class="nav-icon">📊</div>
+                            <div>Dashboard</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">📈</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">🔔</div>
+                            <div>Alerts</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- History Screen -->
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="screen-header">
+                        <div class="screen-title">Energy History</div>
+                    </div>
+                    <div class="screen-content">
+                        <div style="background: #F8FAFC; border-radius: 12px; padding: 8px; display: flex; gap: 8px; margin-bottom: 20px;">
+                            <div style="flex: 1; background: #6366F1; color: white; padding: 10px; border-radius: 8px; text-align: center; font-weight: 600;">Today</div>
+                            <div style="flex: 1; padding: 10px; text-align: center; color: #64748B; font-weight: 600;">Week</div>
+                            <div style="flex: 1; padding: 10px; text-align: center; color: #64748B; font-weight: 600;">Month</div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                            <div class="gauge-card" style="padding: 12px;">
+                                <div style="font-size: 1.5rem; margin-bottom: 5px;">📊</div>
+                                <div style="font-size: 0.8rem; color: #64748B; margin-bottom: 5px;">Average</div>
+                                <div style="font-weight: bold; color: #6366F1;">875 W</div>
+                            </div>
+                            <div class="gauge-card" style="padding: 12px;">
+                                <div style="font-size: 1.5rem; margin-bottom: 5px;">📈</div>
+                                <div style="font-size: 0.8rem; color: #64748B; margin-bottom: 5px;">Peak</div>
+                                <div style="font-weight: bold; color: #F59E0B;">1500 W</div>
+                            </div>
+                            <div class="gauge-card" style="padding: 12px;">
+                                <div style="font-size: 1.5rem; margin-bottom: 5px;">🍃</div>
+                                <div style="font-size: 0.8rem; color: #64748B; margin-bottom: 5px;">Total</div>
+                                <div style="font-weight: bold; color: #10B981;">2.5 kWh</div>
+                            </div>
+                        </div>
+                        
+                        <div style="font-weight: 600; margin-bottom: 10px;">Power Consumption</div>
+                        <div class="chart">
+                            <div class="chart-placeholder">
+                                <div class="chart-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <div class="nav-icon">📊</div>
+                            <div>Dashboard</div>
+                        </div>
+                        <div class="nav-item active">
+                            <div class="nav-icon">📈</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">🔔</div>
+                            <div>Alerts</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alerts Screen -->
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="screen-header">
+                        <div class="screen-title">Alerts & Notifications</div>
+                    </div>
+                    <div class="screen-content" style="padding-top: 0;">
+                        <div style="background: rgba(99, 102, 241, 0.1); color: #6366F1; padding: 12px; text-align: center; font-weight: 600; margin-bottom: 10px;">
+                            2 unread alerts
+                        </div>
+                        
+                        <div class="alert-card">
+                            <div class="alert-icon">⚡</div>
+                            <div class="alert-content">
+                                <h3>Power Overload</h3>
+                                <p>Current power: 2150W exceeds limit</p>
+                                <div class="alert-time">2 min ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert-card" style="border-color: #FEF3C7;">
+                            <div class="alert-icon" style="background: #FEF3C7; color: #F59E0B;">⚠️</div>
+                            <div class="alert-content">
+                                <h3 style="color: #F59E0B;">High Voltage</h3>
+                                <p>Voltage: 255V approaching limit</p>
+                                <div class="alert-time">15 min ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert-card" style="border-color: #E0E7FF; opacity: 0.7;">
+                            <div class="alert-icon" style="background: #E0E7FF; color: #6366F1;">ℹ️</div>
+                            <div class="alert-content">
+                                <h3 style="color: #6366F1;">Information</h3>
+                                <p>Energy data logged successfully</p>
+                                <div class="alert-time">1 hour ago</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <div class="nav-icon">📊</div>
+                            <div>Dashboard</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">📈</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item active">
+                            <div class="nav-icon">🔔</div>
+                            <div>Alerts</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Screen -->
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="screen-header">
+                        <div class="screen-title">Settings</div>
+                    </div>
+                    <div class="screen-content">
+                        <div style="font-weight: 600; margin-bottom: 10px; color: #64748B; font-size: 0.9rem;">BLUETOOTH CONNECTION</div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981;">📡</div>
+                            <div class="settings-info">
+                                <h4>Connected</h4>
+                                <p>HC-05 • Signal: Strong</p>
+                            </div>
+                        </div>
+                        
+                        <div style="font-weight: 600; margin: 20px 0 10px; color: #64748B; font-size: 0.9rem;">PREFERENCES</div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-icon">🌙</div>
+                            <div class="settings-info">
+                                <h4>Dark Mode</h4>
+                                <p>Switch between light and dark theme</p>
+                            </div>
+                            <div style="width: 50px; height: 30px; background: #6366F1; border-radius: 15px; position: relative;">
+                                <div style="width: 26px; height: 26px; background: white; border-radius: 50%; position: absolute; right: 2px; top: 2px;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-icon" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">💰</div>
+                            <div class="settings-info">
+                                <h4>Energy Cost Rate</h4>
+                                <p>0.90 EGP/kWh</p>
+                            </div>
+                        </div>
+                        
+                        <div style="font-weight: 600; margin: 20px 0 10px; color: #64748B; font-size: 0.9rem;">ABOUT</div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-icon" style="background: rgba(59, 130, 246, 0.1); color: #3B82F6;">ℹ️</div>
+                            <div class="settings-info">
+                                <h4>App Version</h4>
+                                <p>1.0.0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <div class="nav-icon">📊</div>
+                            <div>Dashboard</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">📈</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon">🔔</div>
+                            <div>Alerts</div>
+                        </div>
+                        <div class="nav-item active">
+                            <div class="nav-icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</body>
+</html>

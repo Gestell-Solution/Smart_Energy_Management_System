@@ -1,0 +1,64 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter run -d chrome
+
+## exception
+
+DartDevelopmentServiceException: DartDevelopmentServiceException: Failed to start Dart Development Service
+
+```
+```
+
+## flutter doctor
+
+```
+[32m[✓][39m Flutter (Channel stable, 3.38.4, on Ubuntu 24.04.3 LTS 6.14.0-37-generic, locale en_US.UTF-8) [182ms]
+    [32m•[39m Flutter version 3.38.4 on channel stable at /home/hesham/Android/flutter_sdk/flutter
+    [32m•[39m Upstream repository https://github.com/flutter/flutter.git
+    [32m•[39m Framework revision 66dd93f9a2 (9 days ago), 2025-12-03 14:56:10 -0800
+    [32m•[39m Engine revision a5cb96369e
+    [32m•[39m Dart version 3.10.3
+    [32m•[39m DevTools version 2.51.1
+    [32m•[39m Feature flags: enable-web, enable-linux-desktop, enable-macos-desktop, enable-windows-desktop, enable-android, enable-ios, cli-animations, enable-native-assets,
+      omit-legacy-version-file, enable-lldb-debugging
+
+[33m[!][39m Android toolchain - develop for Android devices (Android SDK version 36.1.0) [12.6s]
+    [32m•[39m Android SDK at /home/hesham/Android/Sdk
+    [32m•[39m Emulator version 36.1.9.0 (build_id 13823996) (CL:N/A)
+    [32m•[39m Platform android-Baklava-ext19, build-tools 36.1.0
+    [32m•[39m Java binary at: /snap/android-studio/209/jbr/bin/java
+      This is the JDK bundled with the latest Android Studio installation on this machine.
+      To manually set the JDK path, use: `flutter config --jdk-dir="path/to/jdk"`.
+    [32m•[39m Java version OpenJDK Runtime Environment (build 21.0.7+-13880790-b1038.58)
+    [33m![39m Some Android licenses not accepted. To resolve this, run: flutter doctor --android-licenses
+
+[32m[✓][39m Chrome - develop for the web [41ms]
+    [32m•[39m Chrome at google-chrome
+
+[31m[✗][39m Linux toolchain - develop for Linux desktop [1,479ms]
+    [31m✗[39m clang++ is required for Linux development.
+      It is likely available from your distribution (e.g.: apt install clang), or can be downloaded from https://releases.llvm.org/
+    [32m•[39m cmake version 3.28.3
+    [32m•[39m ninja version 1.11.1
+    [32m•[39m pkg-config version 1.8.1
+    [32m•[39m OpenGL core renderer: Mesa Intel(R) UHD Graphics (ICL GT1) (X11)
+    [32m•[39m OpenGL core version: 4.6 (Core Profile) Mesa 25.3.0 - kisak-mesa PPA (X11)
+    [32m•[39m OpenGL core shading language version: 4.60 (X11)
+    [32m•[39m OpenGL ES renderer: Mesa Intel(R) UHD Graphics (ICL GT1) (X11)
+    [32m•[39m OpenGL ES version: OpenGL ES 3.2 Mesa 25.3.0 - kisak-mesa PPA (X11)
+    [32m•[39m OpenGL ES shading language version: OpenGL ES GLSL ES 3.20 (X11)
+    [32m•[39m GL_EXT_framebuffer_blit: yes (X11)
+    [32m•[39m GL_EXT_texture_format_BGRA8888: yes (X11)
+
+[32m[✓][39m Connected device (2 available) [366ms]
+    [32m•[39m Linux (desktop) • linux  • linux-x64      • Ubuntu 24.04.3 LTS 6.14.0-37-generic
+    [32m•[39m Chrome (web)    • chrome • web-javascript • Google Chrome 143.0.7499.40
+
+[32m[✓][39m Network resources [824ms]
+    [32m•[39m All expected network resources are available.
+
+[33m![39m Doctor found issues in 2 categories.
+```
