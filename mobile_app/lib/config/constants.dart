@@ -46,7 +46,9 @@ class AppConstants {
   static const int cmdGetLoggedData = 0x06;
   static const int cmdNotification = 0x07;
   static const int cmdUpdateEeprom = 0x08;
-  static const int cmdProtectionDanger = 0x09;
+  static const int cmdCuttOFF =
+      0x09; // Relay Control / Protection Cutoff (embedded: CuttOFF)
   static const int cmdProtectionSafe = 0x0A;
-  static const int cmdControlRelay = 0x0D;
+  static const int cmdControlRelay =
+      0x09; // Same as CuttOFF - relay control command
 }

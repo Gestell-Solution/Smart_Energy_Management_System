@@ -348,7 +348,12 @@ function processBuffer(buffer) {
 function handleCommand(cmd, data) {
     if (cmd === CMD_GET_RMS) {
         if (data.length >= 16) {
-            const view = new DataView(data.buffer);
+            // Create new ArrayBuffer to avoid offset issues
+            const buffer = new ArrayBuffer(16);
+            const bytes = new Uint8Array(buffer);
+            bytes.set(data.slice(0, 16));
+
+            const view = new DataView(buffer);
             const v = view.getFloat32(0, true);
             const i = view.getFloat32(4, true);
             const p = view.getFloat32(8, true);
