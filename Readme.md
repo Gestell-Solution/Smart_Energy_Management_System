@@ -460,8 +460,10 @@ Smart_Energy_Management_System/
    - SPI Driver
 
 ### Gestell Team
-- **Hesham Ahmed** (Lead) - Hisham4Ahmed@gmail.com
-- **Alaa Emad** - Reviewer & Scrum Master
+- **Hesham Ahmed** - (Lead) 
+- **Alaa Emad** - (Scrum Master)
+- **Aya Gamal** - (Mobile App Developer)
+- **Hassan Elsayed** - (Web Dashboard Developer)
 
 ---
 
