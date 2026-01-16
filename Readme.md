@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Status](https://img.shields.io/badge/Status-Refactoring)
+![Status](https://img.shields.io/badge/Status-Complete-success)
 ![Platform](https://img.shields.io/badge/Platform-ATmega32-blue)
 ![License](https://img.shields.io/badge/License-Gestell-orange)
 
