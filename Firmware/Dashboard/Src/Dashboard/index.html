@@ -1,479 +1,551 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Gestell Energy Management System - Professional Dashboard for Real-time Monitoring">
-    <meta name="author" content="Gestell">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Gestell Energy Management System - Professional Dashboard for Real-time Monitoring"
+    />
+    <meta name="author" content="Gestell" />
     <title>Gestell Energy Dashboard - Smart Energy Management System</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <div class="app-container">
-        <!-- Sidebar / Navigation -->
-        <nav class="sidebar">
-            <div class="logo">
-                <i class="fa-solid fa-bolt"></i>
-                <span>Gestell Energy</span>
+      <!-- Sidebar / Navigation -->
+      <nav class="sidebar">
+        <div class="logo">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Gestell Energy</span>
+        </div>
+
+        <ul class="nav-links">
+          <li class="active" data-tab="dashboard">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+          </li>
+          <li data-tab="controls">
+            <i class="fa-solid fa-sliders"></i>
+            <span>Controls</span>
+          </li>
+          <li data-tab="relays">
+            <i class="fa-solid fa-toggle-on"></i>
+            <span>Relays</span>
+          </li>
+          <li data-tab="logs">
+            <i class="fa-solid fa-list-ul"></i>
+            <span>Logs</span>
+          </li>
+          <li data-tab="settings">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+          </li>
+        </ul>
+
+        <div class="connection-status">
+          <div class="status-indicator" id="status-dot"></div>
+          <span id="status-text">Disconnected</span>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="top-bar">
+          <div class="header-title">
+            <h1 id="page-title">Dashboard</h1>
+            <p class="subtitle">Real-time system monitoring</p>
+          </div>
+          <div class="header-actions">
+            <button
+              id="export-btn"
+              class="btn secondary"
+              onclick="exportDataToCSV()"
+            >
+              <i class="fa-solid fa-file-export"></i> Export Data
+            </button>
+            <button
+              id="lang-btn"
+              class="btn secondary"
+              onclick="switchLanguage(currentLang === 'en' ? 'ar' : 'en')"
+            >
+              <i class="fa-solid fa-language"></i>
+              <span id="lang-label">العربية</span>
+            </button>
+            <button id="demo-btn" class="btn secondary">
+              <i class="fa-solid fa-play"></i> Demo Mode
+            </button>
+            <button id="mode-btn" class="btn secondary">
+              <i class="fa-solid fa-network-wired"></i> Local Mode
+            </button>
+            <button id="connect-btn" class="btn primary">
+              <i class="fa-brands fa-bluetooth-b"></i> Connect Device
+            </button>
+          </div>
+        </header>
+
+        <!-- Dashboard View -->
+        <section id="view-dashboard" class="view active">
+          <!-- Main Metrics Grid -->
+          <div class="metrics-grid">
+            <!-- Voltage Card -->
+            <div class="card metric-card voltage">
+              <div class="card-icon">
+                <i class="fa-solid fa-plug"></i>
+              </div>
+              <div class="card-info">
+                <h3>Voltage</h3>
+                <div class="value-container">
+                  <span class="value" id="val-voltage">0.0</span>
+                  <span class="unit">V</span>
+                </div>
+                <div class="metric-status" id="status-voltage">Normal</div>
+              </div>
+              <div class="mini-chart" id="chart-voltage"></div>
             </div>
 
-            <ul class="nav-links">
-                <li class="active" data-tab="dashboard">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span>Dashboard</span>
-                </li>
-                <li data-tab="controls">
-                    <i class="fa-solid fa-sliders"></i>
-                    <span>Controls</span>
-                </li>
-                <li data-tab="relays">
-                    <i class="fa-solid fa-toggle-on"></i>
-                    <span>Relays</span>
-                </li>
-                <li data-tab="logs">
-                    <i class="fa-solid fa-list-ul"></i>
-                    <span>Logs</span>
-                </li>
-                <li data-tab="settings">
-                    <i class="fa-solid fa-gear"></i>
-                    <span>Settings</span>
-                </li>
-            </ul>
-
-            <div class="connection-status">
-                <div class="status-indicator" id="status-dot"></div>
-                <span id="status-text">Disconnected</span>
+            <!-- Current Card -->
+            <div class="card metric-card current">
+              <div class="card-icon">
+                <i class="fa-solid fa-bolt-lightning"></i>
+              </div>
+              <div class="card-info">
+                <h3>Current</h3>
+                <div class="value-container">
+                  <span class="value" id="val-current">0.00</span>
+                  <span class="unit">A</span>
+                </div>
+                <div class="metric-status" id="status-current">Normal</div>
+              </div>
+              <div class="mini-chart" id="chart-current"></div>
             </div>
-        </nav>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="top-bar">
-                <div class="header-title">
-                    <h1 id="page-title">Dashboard</h1>
-                    <p class="subtitle">Real-time system monitoring</p>
+            <!-- Power Card -->
+            <div class="card metric-card power">
+              <div class="card-icon">
+                <i class="fa-solid fa-lightbulb"></i>
+              </div>
+              <div class="card-info">
+                <h3>Power</h3>
+                <div class="value-container">
+                  <span class="value" id="val-power">0.0</span>
+                  <span class="unit">W</span>
                 </div>
-                <div class="header-actions">
-                    <button id="demo-btn" class="btn secondary">
-                        <i class="fa-solid fa-play"></i> Demo Mode
-                    </button>
-                    <button id="mode-btn" class="btn secondary">
-                        <i class="fa-solid fa-network-wired"></i> Local Mode
-                    </button>
-                    <button id="connect-btn" class="btn primary">
-                        <i class="fa-brands fa-bluetooth-b"></i> Connect Device
-                    </button>
+                <div class="metric-status" id="status-power">Normal</div>
+              </div>
+              <div class="mini-chart" id="chart-power"></div>
+            </div>
+
+            <!-- Energy Card -->
+            <div class="card metric-card energy">
+              <div class="card-icon">
+                <i class="fa-solid fa-leaf"></i>
+              </div>
+              <div class="card-info">
+                <h3>Energy</h3>
+                <div class="value-container">
+                  <span class="value" id="val-energy">0.0</span>
+                  <span class="unit">kWh</span>
                 </div>
-            </header>
+                <div class="metric-status" id="status-energy">Monitoring</div>
+              </div>
+            </div>
+          </div>
 
-            <!-- Dashboard View -->
-            <section id="view-dashboard" class="view active">
-                <!-- Main Metrics Grid -->
-                <div class="metrics-grid">
-                    <!-- Voltage Card -->
-                    <div class="card metric-card voltage">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-plug"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3>Voltage</h3>
-                            <div class="value-container">
-                                <span class="value" id="val-voltage">0.0</span>
-                                <span class="unit">V</span>
-                            </div>
-                            <div class="metric-status" id="status-voltage">Normal</div>
-                        </div>
-                        <div class="mini-chart" id="chart-voltage"></div>
-                    </div>
+          <!-- Statistics Cards -->
+          <div class="stats-grid">
+            <div class="card stat-card">
+              <i class="fa-solid fa-clock"></i>
+              <div class="stat-info">
+                <span class="stat-label">Uptime</span>
+                <span class="stat-value" id="stat-uptime">0h 0m</span>
+              </div>
+            </div>
+            <div class="card stat-card">
+              <i class="fa-solid fa-dollar-sign"></i>
+              <div class="stat-info">
+                <span class="stat-label">Est. Cost</span>
+                <span class="stat-value" id="stat-cost">$0.00</span>
+              </div>
+            </div>
+            <div class="card stat-card">
+              <i class="fa-solid fa-chart-simple"></i>
+              <div class="stat-info">
+                <span class="stat-label">Avg Power</span>
+                <span class="stat-value" id="stat-avg-power">0.0 W</span>
+              </div>
+            </div>
+            <div class="card stat-card">
+              <i class="fa-solid fa-fire"></i>
+              <div class="stat-info">
+                <span class="stat-label">Peak Power</span>
+                <span class="stat-value" id="stat-peak-power">0.0 W</span>
+              </div>
+            </div>
+          </div>
 
-                    <!-- Current Card -->
-                    <div class="card metric-card current">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-bolt-lightning"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3>Current</h3>
-                            <div class="value-container">
-                                <span class="value" id="val-current">0.00</span>
-                                <span class="unit">A</span>
-                            </div>
-                            <div class="metric-status" id="status-current">Normal</div>
-                        </div>
-                        <div class="mini-chart" id="chart-current"></div>
-                    </div>
-
-                    <!-- Power Card -->
-                    <div class="card metric-card power">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-lightbulb"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3>Power</h3>
-                            <div class="value-container">
-                                <span class="value" id="val-power">0.0</span>
-                                <span class="unit">W</span>
-                            </div>
-                            <div class="metric-status" id="status-power">Normal</div>
-                        </div>
-                        <div class="mini-chart" id="chart-power"></div>
-                    </div>
-
-                    <!-- Energy Card -->
-                    <div class="card metric-card energy">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-leaf"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3>Energy</h3>
-                            <div class="value-container">
-                                <span class="value" id="val-energy">0.0</span>
-                                <span class="unit">kWh</span>
-                            </div>
-                            <div class="metric-status" id="status-energy">Monitoring</div>
-                        </div>
-                    </div>
+          <!-- Main Chart Section -->
+          <div class="main-chart-section">
+            <div class="card large-chart">
+              <div class="card-header">
+                <h2>Power Consumption History</h2>
+                <div class="chart-controls">
+                  <button class="chart-btn active" data-range="1h">1H</button>
+                  <button class="chart-btn" data-range="6h">6H</button>
+                  <button class="chart-btn" data-range="24h">24H</button>
                 </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="mainChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                <!-- Statistics Cards -->
-                <div class="stats-grid">
-                    <div class="card stat-card">
-                        <i class="fa-solid fa-clock"></i>
-                        <div class="stat-info">
-                            <span class="stat-label">Uptime</span>
-                            <span class="stat-value" id="stat-uptime">0h 0m</span>
-                        </div>
-                    </div>
-                    <div class="card stat-card">
-                        <i class="fa-solid fa-dollar-sign"></i>
-                        <div class="stat-info">
-                            <span class="stat-label">Est. Cost</span>
-                            <span class="stat-value" id="stat-cost">$0.00</span>
-                        </div>
-                    </div>
-                    <div class="card stat-card">
-                        <i class="fa-solid fa-chart-simple"></i>
-                        <div class="stat-info">
-                            <span class="stat-label">Avg Power</span>
-                            <span class="stat-value" id="stat-avg-power">0.0 W</span>
-                        </div>
-                    </div>
-                    <div class="card stat-card">
-                        <i class="fa-solid fa-fire"></i>
-                        <div class="stat-info">
-                            <span class="stat-label">Peak Power</span>
-                            <span class="stat-value" id="stat-peak-power">0.0 W</span>
-                        </div>
-                    </div>
+        <!-- Controls View -->
+        <section id="view-controls" class="view">
+          <div class="controls-grid">
+            <div class="card control-card">
+              <div class="card-header">
+                <h2>System Control</h2>
+              </div>
+              <div class="control-item">
+                <span>Protection Auto-Reset</span>
+                <label class="switch">
+                  <input type="checkbox" id="protection-autoreset" checked />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+              <div class="control-item">
+                <span>Data Logging</span>
+                <label class="switch">
+                  <input type="checkbox" id="data-logging" checked />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+              <div class="control-item">
+                <span>Alerts Enabled</span>
+                <label class="switch">
+                  <input type="checkbox" id="alerts-enabled" checked />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="card control-card">
+              <div class="card-header">
+                <h2>Calibration</h2>
+              </div>
+              <div class="input-group">
+                <label>Voltage Factor</label>
+                <input
+                  type="number"
+                  id="cal-voltage"
+                  value="1.0"
+                  step="0.01"
+                  min="0.5"
+                  max="2.0"
+                />
+              </div>
+              <div class="input-group">
+                <label>Current Factor</label>
+                <input
+                  type="number"
+                  id="cal-current"
+                  value="1.0"
+                  step="0.01"
+                  min="0.5"
+                  max="2.0"
+                />
+              </div>
+              <button class="btn primary full-width" id="btn-calibrate">
+                Apply Calibration
+              </button>
+            </div>
+
+            <div class="card control-card">
+              <div class="card-header">
+                <h2>WiFi Provisioning</h2>
+              </div>
+              <div class="input-group">
+                <label>SSID</label>
+                <input
+                  type="text"
+                  id="wifi-ssid"
+                  placeholder="Enter WiFi Name"
+                />
+              </div>
+              <div class="input-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  id="wifi-pass"
+                  placeholder="Enter WiFi Password"
+                />
+              </div>
+              <button class="btn primary full-width" id="btn-wifi-save">
+                <i class="fa-brands fa-bluetooth-b"></i> Save via Bluetooth
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Relays View -->
+        <section id="view-relays" class="view">
+          <div class="relays-grid">
+            <!-- Relay 1 -->
+            <div class="card relay-card" data-relay="1">
+              <div class="relay-header">
+                <div class="relay-icon">
+                  <i class="fa-solid fa-plug"></i>
                 </div>
-
-                <!-- Main Chart Section -->
-                <div class="main-chart-section">
-                    <div class="card large-chart">
-                        <div class="card-header">
-                            <h2>Power Consumption History</h2>
-                            <div class="chart-controls">
-                                <button class="chart-btn active" data-range="1h">1H</button>
-                                <button class="chart-btn" data-range="6h">6H</button>
-                                <button class="chart-btn" data-range="24h">24H</button>
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="mainChart"></canvas>
-                        </div>
-                    </div>
+                <div class="relay-info">
+                  <h3>Relay 1</h3>
+                  <span class="relay-status" id="relay-1-status">OFF</span>
                 </div>
-            </section>
-
-            <!-- Controls View -->
-            <section id="view-controls" class="view">
-                <div class="controls-grid">
-                    <div class="card control-card">
-                        <div class="card-header">
-                            <h2>System Control</h2>
-                        </div>
-                        <div class="control-item">
-                            <span>Protection Auto-Reset</span>
-                            <label class="switch">
-                                <input type="checkbox" id="protection-autoreset" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <div class="control-item">
-                            <span>Data Logging</span>
-                            <label class="switch">
-                                <input type="checkbox" id="data-logging" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <div class="control-item">
-                            <span>Alerts Enabled</span>
-                            <label class="switch">
-                                <input type="checkbox" id="alerts-enabled" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="card control-card">
-                        <div class="card-header">
-                            <h2>Calibration</h2>
-                        </div>
-                        <div class="input-group">
-                            <label>Voltage Factor</label>
-                            <input type="number" id="cal-voltage" value="1.0" step="0.01" min="0.5" max="2.0">
-                        </div>
-                        <div class="input-group">
-                            <label>Current Factor</label>
-                            <input type="number" id="cal-current" value="1.0" step="0.01" min="0.5" max="2.0">
-                        </div>
-                        <button class="btn primary full-width" id="btn-calibrate">Apply Calibration</button>
-                    </div>
-
-                    <div class="card control-card">
-                        <div class="card-header">
-                            <h2>WiFi Provisioning</h2>
-                        </div>
-                        <div class="input-group">
-                            <label>SSID</label>
-                            <input type="text" id="wifi-ssid" placeholder="Enter WiFi Name">
-                        </div>
-                        <div class="input-group">
-                            <label>Password</label>
-                            <input type="password" id="wifi-pass" placeholder="Enter WiFi Password">
-                        </div>
-                        <button class="btn primary full-width" id="btn-wifi-save">
-                            <i class="fa-brands fa-bluetooth-b"></i> Save via Bluetooth
-                        </button>
-                    </div>
+              </div>
+              <div class="relay-control">
+                <label class="switch-large">
+                  <input type="checkbox" id="relay-1" data-relay="1" />
+                  <span class="slider-large round"></span>
+                </label>
+              </div>
+              <div class="relay-stats">
+                <div class="relay-stat">
+                  <span class="stat-label">Load</span>
+                  <span class="stat-value" id="relay-1-load">0.0 W</span>
                 </div>
-            </section>
-
-            <!-- Relays View -->
-            <section id="view-relays" class="view">
-                <div class="relays-grid">
-                    <!-- Relay 1 -->
-                    <div class="card relay-card" data-relay="1">
-                        <div class="relay-header">
-                            <div class="relay-icon">
-                                <i class="fa-solid fa-plug"></i>
-                            </div>
-                            <div class="relay-info">
-                                <h3>Relay 1</h3>
-                                <span class="relay-status" id="relay-1-status">OFF</span>
-                            </div>
-                        </div>
-                        <div class="relay-control">
-                            <label class="switch-large">
-                                <input type="checkbox" id="relay-1" data-relay="1">
-                                <span class="slider-large round"></span>
-                            </label>
-                        </div>
-                        <div class="relay-stats">
-                            <div class="relay-stat">
-                                <span class="stat-label">Load</span>
-                                <span class="stat-value" id="relay-1-load">0.0 W</span>
-                            </div>
-                            <div class="relay-stat">
-                                <span class="stat-label">Runtime</span>
-                                <span class="stat-value" id="relay-1-runtime">0h 0m</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Relay 2 -->
-                    <div class="card relay-card" data-relay="2">
-                        <div class="relay-header">
-                            <div class="relay-icon">
-                                <i class="fa-solid fa-plug"></i>
-                            </div>
-                            <div class="relay-info">
-                                <h3>Relay 2</h3>
-                                <span class="relay-status" id="relay-2-status">OFF</span>
-                            </div>
-                        </div>
-                        <div class="relay-control">
-                            <label class="switch-large">
-                                <input type="checkbox" id="relay-2" data-relay="2">
-                                <span class="slider-large round"></span>
-                            </label>
-                        </div>
-                        <div class="relay-stats">
-                            <div class="relay-stat">
-                                <span class="stat-label">Load</span>
-                                <span class="stat-value" id="relay-2-load">0.0 W</span>
-                            </div>
-                            <div class="relay-stat">
-                                <span class="stat-label">Runtime</span>
-                                <span class="stat-value" id="relay-2-runtime">0h 0m</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Relay 3 -->
-                    <div class="card relay-card" data-relay="3">
-                        <div class="relay-header">
-                            <div class="relay-icon">
-                                <i class="fa-solid fa-plug"></i>
-                            </div>
-                            <div class="relay-info">
-                                <h3>Relay 3</h3>
-                                <span class="relay-status" id="relay-3-status">OFF</span>
-                            </div>
-                        </div>
-                        <div class="relay-control">
-                            <label class="switch-large">
-                                <input type="checkbox" id="relay-3" data-relay="3">
-                                <span class="slider-large round"></span>
-                            </label>
-                        </div>
-                        <div class="relay-stats">
-                            <div class="relay-stat">
-                                <span class="stat-label">Load</span>
-                                <span class="stat-value" id="relay-3-load">0.0 W</span>
-                            </div>
-                            <div class="relay-stat">
-                                <span class="stat-label">Runtime</span>
-                                <span class="stat-value" id="relay-3-runtime">0h 0m</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Relay 4 -->
-                    <div class="card relay-card" data-relay="4">
-                        <div class="relay-header">
-                            <div class="relay-icon">
-                                <i class="fa-solid fa-plug"></i>
-                            </div>
-                            <div class="relay-info">
-                                <h3>Relay 4</h3>
-                                <span class="relay-status" id="relay-4-status">OFF</span>
-                            </div>
-                        </div>
-                        <div class="relay-control">
-                            <label class="switch-large">
-                                <input type="checkbox" id="relay-4" data-relay="4">
-                                <span class="slider-large round"></span>
-                            </label>
-                        </div>
-                        <div class="relay-stats">
-                            <div class="relay-stat">
-                                <span class="stat-label">Load</span>
-                                <span class="stat-value" id="relay-4-load">0.0 W</span>
-                            </div>
-                            <div class="relay-stat">
-                                <span class="stat-label">Runtime</span>
-                                <span class="stat-value" id="relay-4-runtime">0h 0m</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="relay-stat">
+                  <span class="stat-label">Runtime</span>
+                  <span class="stat-value" id="relay-1-runtime">0h 0m</span>
                 </div>
+              </div>
+            </div>
 
-                <!-- Master Control -->
-                <div class="card master-control-card">
-                    <div class="card-header">
-                        <h2>Master Control</h2>
-                    </div>
-                    <div class="master-control-buttons">
-                        <button class="btn primary" id="btn-all-on">
-                            <i class="fa-solid fa-power-off"></i> Turn All ON
-                        </button>
-                        <button class="btn secondary" id="btn-all-off">
-                            <i class="fa-solid fa-power-off"></i> Turn All OFF
-                        </button>
-                    </div>
+            <!-- Relay 2 -->
+            <div class="card relay-card" data-relay="2">
+              <div class="relay-header">
+                <div class="relay-icon">
+                  <i class="fa-solid fa-plug"></i>
                 </div>
-            </section>
-
-            <!-- Logs View -->
-            <section id="view-logs" class="view">
-                <div class="card logs-card">
-                    <div class="card-header">
-                        <h2>System Logs</h2>
-                        <button class="btn secondary" id="btn-clear-logs">Clear</button>
-                    </div>
-                    <div class="logs-container" id="logs-list">
-                        <div class="log-item info">
-                            <span class="timestamp">--:--:--</span>
-                            <span class="message">Gestell Energy Dashboard initialized.</span>
-                        </div>
-                    </div>
+                <div class="relay-info">
+                  <h3>Relay 2</h3>
+                  <span class="relay-status" id="relay-2-status">OFF</span>
                 </div>
-            </section>
-
-            <!-- Settings View -->
-            <section id="view-settings" class="view">
-                <div class="settings-grid">
-                    <div class="card settings-card">
-                        <div class="card-header">
-                            <h2>Thresholds</h2>
-                        </div>
-                        <div class="input-group">
-                            <label>Max Voltage (V)</label>
-                            <input type="number" id="threshold-voltage-max" value="250" step="1">
-                        </div>
-                        <div class="input-group">
-                            <label>Min Voltage (V)</label>
-                            <input type="number" id="threshold-voltage-min" value="200" step="1">
-                        </div>
-                        <div class="input-group">
-                            <label>Max Current (A)</label>
-                            <input type="number" id="threshold-current-max" value="10" step="0.1">
-                        </div>
-                        <button class="btn primary full-width" id="btn-save-thresholds">Save Thresholds</button>
-                    </div>
-
-                    <div class="card settings-card">
-                        <div class="card-header">
-                            <h2>Display Settings</h2>
-                        </div>
-                        <div class="control-item">
-                            <span>Dark Mode</span>
-                            <label class="switch">
-                                <input type="checkbox" id="dark-mode" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <div class="control-item">
-                            <span>Auto-refresh</span>
-                            <label class="switch">
-                                <input type="checkbox" id="auto-refresh" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <div class="input-group">
-                            <label>Refresh Rate (seconds)</label>
-                            <input type="number" id="refresh-rate" value="1" step="1" min="1" max="10">
-                        </div>
-                    </div>
-
-                    <div class="card settings-card">
-                        <div class="card-header">
-                            <h2>About</h2>
-                        </div>
-                        <div class="about-info">
-                            <p><strong>Gestell Energy Dashboard</strong></p>
-                            <p>Version: 1.0.0</p>
-                            <p>© 2025 Gestell. All rights reserved.</p>
-                            <p class="about-desc">Professional Energy Management System for real-time monitoring and
-                                control.</p>
-                        </div>
-                    </div>
+              </div>
+              <div class="relay-control">
+                <label class="switch-large">
+                  <input type="checkbox" id="relay-2" data-relay="2" />
+                  <span class="slider-large round"></span>
+                </label>
+              </div>
+              <div class="relay-stats">
+                <div class="relay-stat">
+                  <span class="stat-label">Load</span>
+                  <span class="stat-value" id="relay-2-load">0.0 W</span>
                 </div>
-            </section>
+                <div class="relay-stat">
+                  <span class="stat-label">Runtime</span>
+                  <span class="stat-value" id="relay-2-runtime">0h 0m</span>
+                </div>
+              </div>
+            </div>
 
-        </main>
+            <!-- Relay 3 -->
+            <div class="card relay-card" data-relay="3">
+              <div class="relay-header">
+                <div class="relay-icon">
+                  <i class="fa-solid fa-plug"></i>
+                </div>
+                <div class="relay-info">
+                  <h3>Relay 3</h3>
+                  <span class="relay-status" id="relay-3-status">OFF</span>
+                </div>
+              </div>
+              <div class="relay-control">
+                <label class="switch-large">
+                  <input type="checkbox" id="relay-3" data-relay="3" />
+                  <span class="slider-large round"></span>
+                </label>
+              </div>
+              <div class="relay-stats">
+                <div class="relay-stat">
+                  <span class="stat-label">Load</span>
+                  <span class="stat-value" id="relay-3-load">0.0 W</span>
+                </div>
+                <div class="relay-stat">
+                  <span class="stat-label">Runtime</span>
+                  <span class="stat-value" id="relay-3-runtime">0h 0m</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Relay 4 -->
+            <div class="card relay-card" data-relay="4">
+              <div class="relay-header">
+                <div class="relay-icon">
+                  <i class="fa-solid fa-plug"></i>
+                </div>
+                <div class="relay-info">
+                  <h3>Relay 4</h3>
+                  <span class="relay-status" id="relay-4-status">OFF</span>
+                </div>
+              </div>
+              <div class="relay-control">
+                <label class="switch-large">
+                  <input type="checkbox" id="relay-4" data-relay="4" />
+                  <span class="slider-large round"></span>
+                </label>
+              </div>
+              <div class="relay-stats">
+                <div class="relay-stat">
+                  <span class="stat-label">Load</span>
+                  <span class="stat-value" id="relay-4-load">0.0 W</span>
+                </div>
+                <div class="relay-stat">
+                  <span class="stat-label">Runtime</span>
+                  <span class="stat-value" id="relay-4-runtime">0h 0m</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Master Control -->
+          <div class="card master-control-card">
+            <div class="card-header">
+              <h2>Master Control</h2>
+            </div>
+            <div class="master-control-buttons">
+              <button class="btn primary" id="btn-all-on">
+                <i class="fa-solid fa-power-off"></i> Turn All ON
+              </button>
+              <button class="btn secondary" id="btn-all-off">
+                <i class="fa-solid fa-power-off"></i> Turn All OFF
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Logs View -->
+        <section id="view-logs" class="view">
+          <div class="card logs-card">
+            <div class="card-header">
+              <h2>System Logs</h2>
+              <button class="btn secondary" id="btn-clear-logs">Clear</button>
+            </div>
+            <div class="logs-container" id="logs-list">
+              <div class="log-item info">
+                <span class="timestamp">--:--:--</span>
+                <span class="message"
+                  >Gestell Energy Dashboard initialized.</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Settings View -->
+        <section id="view-settings" class="view">
+          <div class="settings-grid">
+            <div class="card settings-card">
+              <div class="card-header">
+                <h2>Thresholds</h2>
+              </div>
+              <div class="input-group">
+                <label>Max Voltage (V)</label>
+                <input
+                  type="number"
+                  id="threshold-voltage-max"
+                  value="250"
+                  step="1"
+                />
+              </div>
+              <div class="input-group">
+                <label>Min Voltage (V)</label>
+                <input
+                  type="number"
+                  id="threshold-voltage-min"
+                  value="200"
+                  step="1"
+                />
+              </div>
+              <div class="input-group">
+                <label>Max Current (A)</label>
+                <input
+                  type="number"
+                  id="threshold-current-max"
+                  value="10"
+                  step="0.1"
+                />
+              </div>
+              <button class="btn primary full-width" id="btn-save-thresholds">
+                Save Thresholds
+              </button>
+            </div>
+
+            <div class="card settings-card">
+              <div class="card-header">
+                <h2>Display Settings</h2>
+              </div>
+              <div class="control-item">
+                <span>Dark Mode</span>
+                <label class="switch">
+                  <input type="checkbox" id="dark-mode" checked />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+              <div class="control-item">
+                <span>Auto-refresh</span>
+                <label class="switch">
+                  <input type="checkbox" id="auto-refresh" checked />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+              <div class="input-group">
+                <label>Refresh Rate (seconds)</label>
+                <input
+                  type="number"
+                  id="refresh-rate"
+                  value="1"
+                  step="1"
+                  min="1"
+                  max="10"
+                />
+              </div>
+            </div>
+
+            <div class="card settings-card">
+              <div class="card-header">
+                <h2>About</h2>
+              </div>
+              <div class="about-info">
+                <p><strong>Gestell Energy Dashboard</strong></p>
+                <p>Version: 1.0.0</p>
+                <p>© 2025 Gestell. All rights reserved.</p>
+                <p class="about-desc">
+                  Professional Energy Management System for real-time monitoring
+                  and control.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>

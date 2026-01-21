@@ -64,6 +64,13 @@ let stats = {
     relayStartTimes: { 1: null, 2: null, 3: null, 4: null }
 };
 
+// Historical Data Storage
+let historicalData = [];
+const MAX_HISTORICAL_RECORDS = 1000;
+
+// Current Language
+let currentLang = 'en';
+
 // Constants
 const FRAME_HEADER = 0xAA;
 const CMD_GET_RMS = 0x05;
@@ -75,6 +82,51 @@ const CMD_UPDATE_WIFI = 0x0C;
 const MODE_LOCAL = 'local';
 const MODE_REMOTE = 'remote';
 let currentMode = MODE_LOCAL;
+
+// Alert Thresholds
+const THRESHOLDS = {
+    voltage: { min: 200, max: 250 },
+    current: { max: 10 },
+    power: { max: 2000 }
+};
+
+// Translations (i18n)
+const translations = {
+    en: {
+        title: 'Gestell Energy',
+        dashboard: 'Dashboard',
+        controls: 'Controls',
+        relays: 'Relays',
+        logs: 'Logs',
+        settings: 'Settings',
+        voltage: 'Voltage',
+        current: 'Current',
+        power: 'Power',
+        energy: 'Energy',
+        connected: 'Connected',
+        disconnected: 'Disconnected',
+        demoMode: 'Demo Mode',
+        exportData: 'Export Data',
+        clearData: 'Clear Historical Data'
+    },
+    ar: {
+        title: 'جيستل للطاقة',
+        dashboard: 'لوحة التحكم',
+        controls: 'التحكم',
+        relays: 'الريليهات',
+        logs: 'السجلات',
+        settings: 'الإعدادات',
+        voltage: 'الجهد',
+        current: 'التيار',
+        power: 'القدرة',
+        energy: 'الطاقة',
+        connected: 'متصل',
+        disconnected: 'غير متصل',
+        demoMode: 'وضع العرض',
+        exportData: 'تصدير البيانات',
+        clearData: 'مسح البيانات التاريخية'
+    }
+};
 
 // ==================== Chart Initialization ====================
 const mainChart = new Chart(ctxMain, {
@@ -239,7 +291,7 @@ async function connectLocal() {
 // Remote Mode (Socket.IO)
 function connectRemote() {
     try {
-        const socketUrl = 'http://localhost:3000';
+        const socketUrl = window.location.origin;
         log(`Connecting to Server: ${socketUrl}...`, 'info');
         socket = io(socketUrl);
 
@@ -467,6 +519,12 @@ function updateMetrics(v, i, p, e) {
     mainChart.data.labels.push(now);
     mainChart.data.datasets[0].data.push(p);
     mainChart.update();
+    
+    // Save to historical data
+    saveToHistory(v, i, p, e);
+    
+    // Check thresholds and send alerts
+    checkThresholdsAndAlert(v, i, p);
 }
 
 function log(msg, type = 'info') {
@@ -508,6 +566,162 @@ function toggleDemoMode() {
     }
 }
 
+// ==================== Data Export ====================
+function exportDataToCSV() {
+    if (historicalData.length === 0) {
+        log('No data to export', 'warning');
+        return;
+    }
+
+    // Create CSV content
+    let csvContent = 'Timestamp,Voltage (V),Current (A),Power (W),Energy (kWh)\n';
+    
+    historicalData.forEach(record => {
+        const row = [
+            record.timestamp,
+            record.voltage.toFixed(2),
+            record.current.toFixed(2),
+            record.power.toFixed(2),
+            record.energy.toFixed(2)
+        ].join(',');
+        csvContent += row + '\n';
+    });
+
+    // Create download link
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    const timestamp = new Date().toISOString().replace(/:/g, '-').split('.')[0];
+    link.setAttribute('href', url);
+    link.setAttribute('download', `energy_data_${timestamp}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    log(`Exported ${historicalData.length} records to CSV`, 'success');
+}
+
+function clearHistoricalData() {
+    if (confirm(translations[currentLang].clearData + '?')) {
+        historicalData = [];
+        localStorage.removeItem('energyHistoricalData');
+        log('Historical data cleared', 'info');
+    }
+}
+
+// ==================== Historical Data Storage ====================
+function saveToHistory(v, i, p, e) {
+    const record = {
+        timestamp: new Date().toISOString(),
+        voltage: v,
+        current: i,
+        power: p,
+        energy: e
+    };
+    
+    historicalData.push(record);
+    
+    // Limit storage size
+    if (historicalData.length > MAX_HISTORICAL_RECORDS) {
+        historicalData.shift();
+    }
+    
+    // Save to LocalStorage
+    try {
+        localStorage.setItem('energyHistoricalData', JSON.stringify(historicalData));
+    } catch (e) {
+        console.error('LocalStorage save error:', e);
+    }
+}
+
+function loadHistoricalData() {
+    try {
+        const stored = localStorage.getItem('energyHistoricalData');
+        if (stored) {
+            historicalData = JSON.parse(stored);
+            log(`Loaded ${historicalData.length} historical records`, 'info');
+        }
+    } catch (e) {
+        console.error('LocalStorage load error:', e);
+    }
+}
+
+// ==================== Alert Notifications ====================
+let notificationsEnabled = false;
+
+function requestNotificationPermission() {
+    if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                notificationsEnabled = true;
+                log('Browser notifications enabled', 'success');
+            }
+        });
+    } else if (Notification.permission === 'granted') {
+        notificationsEnabled = true;
+    }
+}
+
+function checkThresholdsAndAlert(v, i, p) {
+    const alerts = [];
+    
+    if (v > THRESHOLDS.voltage.max) {
+        alerts.push(`Overvoltage: ${v.toFixed(1)}V`);
+    } else if (v < THRESHOLDS.voltage.min) {
+        alerts.push(`Undervoltage: ${v.toFixed(1)}V`);
+    }
+    
+    if (i > THRESHOLDS.current.max) {
+        alerts.push(`Overcurrent: ${i.toFixed(2)}A`);
+    }
+    
+    if (p > THRESHOLDS.power.max) {
+        alerts.push(`Overpower: ${p.toFixed(1)}W`);
+    }
+    
+    if (alerts.length > 0 && notificationsEnabled) {
+        const message = alerts.join(', ');
+        new Notification('⚠️ Energy Alert', {
+            body: message,
+            icon: '/favicon.ico',
+            badge: '/favicon.ico'
+        });
+        log('Alert: ' + message, 'error');
+    }
+}
+
+// ==================== Internationalization ====================
+function switchLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('preferredLanguage', lang);
+    
+    // Update document direction for RTL languages
+    if (lang === 'ar') {
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.documentElement.setAttribute('lang', 'ar');
+    } else {
+        document.documentElement.setAttribute('dir', 'ltr');
+        document.documentElement.setAttribute('lang', 'en');
+    }
+    
+    // Update UI text (would need data-i18n attributes in HTML)
+    log(`Language switched to ${lang === 'ar' ? 'Arabic' : 'English'}`, 'info');
+}
+
+function loadLanguagePreference() {
+    const savedLang = localStorage.getItem('preferredLanguage');
+    if (savedLang && translations[savedLang]) {
+        switchLanguage(savedLang);
+    }
+}
+
 // ==================== Initialization ====================
+loadHistoricalData();
+loadLanguagePreference();
+requestNotificationPermission();
+
 log('Gestell Energy Dashboard initialized', 'success');
 log('Click "Demo Mode" to test, or "Connect Device" for real data', 'info');

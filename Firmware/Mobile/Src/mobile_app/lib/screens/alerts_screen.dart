@@ -126,7 +126,7 @@ class AlertsScreen extends StatelessWidget {
         // Remove alert (this would need implementation in provider)
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Alert dismissed'),
+            content: const Text('Alert dismissed'),
             action: SnackBarAction(
               label: 'Undo',
               onPressed: () {
@@ -195,7 +195,7 @@ class AlertsScreen extends StatelessWidget {
                             Container(
                               width: 8,
                               height: 8,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: AppTheme.primaryColor,
                                 shape: BoxShape.circle,
                               ),

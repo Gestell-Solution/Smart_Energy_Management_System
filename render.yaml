@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: energy-dashboard
+    env: node
+    plan: free
+    rootDir: Firmware/Dashboard/Src/Dashboard
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: HOST
+        value: 0.0.0.0

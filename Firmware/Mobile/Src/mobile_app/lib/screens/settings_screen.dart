@@ -268,12 +268,12 @@ class SettingsScreen extends StatelessWidget {
               'App Version',
               style: TextStyle(fontWeight: FontWeight.w600),
             ),
-            subtitle: Text(AppConstants.appVersion),
+            subtitle: const Text(AppConstants.appVersion),
           ),
           const Divider(height: 1),
-          ListTile(
-            leading: const Icon(Icons.business, color: AppTheme.primaryColor),
-            title: const Text(
+          const ListTile(
+            leading: Icon(Icons.business, color: AppTheme.primaryColor),
+            title: Text(
               'Developed by',
               style: TextStyle(fontWeight: FontWeight.w600),
             ),

@@ -100,7 +100,7 @@ class BluetoothService {
   // Connect to device
   Future<bool> connect(String deviceAddress) async {
     try {
-      final scanResults = await FlutterBluePlus.lastScanResults;
+      final scanResults = FlutterBluePlus.lastScanResults;
       final deviceResult = scanResults.firstWhere(
         (result) => result.device.remoteId.toString() == deviceAddress,
         orElse: () => throw Exception('Device not found'),

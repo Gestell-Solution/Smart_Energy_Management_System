@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'dart:io';
+import 'package:csv/csv.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../providers/energy_provider.dart';
 import '../providers/theme_provider.dart';
 import '../config/theme.dart';
+import '../database/energy_database.dart';
 import 'history_screen.dart';
 import 'alerts_screen.dart';
 import 'settings_screen.dart';
@@ -30,10 +35,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       body: _screens[_selectedIndex],
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: const Color(0x1A000000),
+              color: Color(0x1A000000),
               blurRadius: 10,
             ),
           ],
@@ -102,7 +107,7 @@ class _DashboardView extends StatelessWidget {
                 ),
                 centerTitle: true,
                 background: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: AppTheme.primaryGradient,
                   ),
                 ),
@@ -479,8 +484,8 @@ class _DashboardView extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0x33FFFFFF),
+              decoration: const BoxDecoration(
+                color: Color(0x33FFFFFF),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -535,12 +540,9 @@ class _DashboardView extends StatelessWidget {
                   'Export',
                   Icons.download,
                   AppTheme.successColor,
-                  () {
+                  () async {
                     // Export data
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Export feature coming soon!')),
-                    );
+                    await _exportDataToCSV(context);
                   },
                 ),
               ],
@@ -617,5 +619,78 @@ class _DashboardView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _exportDataToCSV(BuildContext context) async {
+    try {
+      final db = EnergyDatabase();
+
+      // Get historical data from database
+      final historyData = await db.getEnergyHistory(limit: 500);
+
+      if (historyData.isEmpty) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('No data to export')),
+          );
+        }
+        return;
+      }
+
+      // Create CSV content
+      List<List<dynamic>> rows = [
+        [
+          'Timestamp',
+          'Voltage (V)',
+          'Current (A)',
+          'Power (W)',
+          'Energy (kWh)',
+          'Status'
+        ]
+      ];
+
+      for (var record in historyData) {
+        rows.add([
+          record['timestamp'],
+          (record['voltage'] as double).toStringAsFixed(2),
+          (record['current'] as double).toStringAsFixed(2),
+          (record['power'] as double).toStringAsFixed(2),
+          (record['energy'] as double).toStringAsFixed(2),
+          record['status'],
+        ]);
+      }
+
+      String csvData = const ListToCsvConverter().convert(rows);
+
+      // Save to file
+      final directory = await getApplicationDocumentsDirectory();
+      final timestamp = DateTime.now()
+          .toIso8601String()
+          .replaceAll(':', '-')
+          .split('.')
+          .first;
+      final path = '${directory.path}/energy_data_$timestamp.csv';
+      final file = File(path);
+      await file.writeAsString(csvData);
+
+      // Share the file
+      await Share.shareXFiles(
+        [XFile(path)],
+        subject: 'Energy Data Export',
+        text: 'CSV export of ${historyData.length} energy records',
+      );
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Exported ${historyData.length} records')),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Export failed: $e')),
+        );
+      }
+    }
   }
 }

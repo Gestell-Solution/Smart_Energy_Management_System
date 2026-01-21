@@ -38,7 +38,7 @@ class EnergyData {
     try {
       final parts = data.split(',');
       if (parts.length < 5) {
-        throw FormatException('Invalid data format');
+        throw const FormatException('Invalid data format');
       }
       
       return EnergyData(
