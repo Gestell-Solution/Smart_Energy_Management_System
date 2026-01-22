@@ -1,25 +1,64 @@
-# System Controller - Main System Orchestration
+# 🧠 System Controller
 
-**Purpose**: Overall system coordination and initialization  
-**Layer**: Application  
-**Role**: Main entry point and system lifecycle management
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-Application_Layer-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Orchestrator-brightgreen)
+
+**System Controller**
+
+**Smart Energy Management System - Central State Machine**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [System State Machine](#-3-system-state-machine)
+- [Boot Sequence](#-4-boot-sequence)
+- [Task Scheduling](#-5-task-scheduling)
+- [Power Management](#-6-power-management)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                                 | Description  | Status       |
+| ------------------------------------------------------------------------ | ------------ | ------------ |
+| **[Measurement_Engine.md](../Measurement_Engine/Measurement_Engine.md)** | Data Source  | ✅ Available |
+| **[Protection_Manager.md](../Protection_Manager/Protection_Manager.md)** | Safety Logic | ✅ Available |
+| **[GIE_Driver.md](../../MCAL_Layer/GIE/GIE_Driver.md)**                  | System Tick  | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
-The System Controller serves as the main orchestrator of the Smart Energy Management System, managing initialization of all subsystems, coordinating high-level tasks, and supervising system state transitions.
+The System Controller is the top-level orchestrator of the firmware. It manages the global system state (Initialization, Normal Operation, Fault, Sleep), coordinates the startup sequence, and executes the main task scheduler. It ensures that all other modules (Measurement, Protection, Display) work in harmony.
 
 ### Key Responsibilities
 
-- Initialize all hardware and software modules in correct order
-- Coordinate periodic tasks scheduling
-- Manage system states and mode transitions
-- Watchdog management (future)
-- Power mode control (future)
-- Error recovery orchestration
+- **Boot Orchestration**: Initializing MCAL, HAL, and App layers in the correct order.
+- **Global State Management**: Transitioning between Safe, Application, and Error states.
+- **Task Scheduling**: Executing periodic tasks (10ms, 100ms, 1000ms).
+- **Watchdog Management**: Feeding the WDT to prevent system hangs.
+
+### Requirements Traceability
+
+| Requirement ID   | Description          | Implementation             |
+| :--------------- | :------------------- | :------------------------- |
+| **REQ-ARCH-005** | Bare-metal Superloop | Implemented in `Sys_Run()` |
+| **REQ-ARCH-006** | Main Loop Freq 10Hz  | 100ms Task Slot            |
+| **REQ-SAFE-001** | Fault Monitoring     | Global Error State         |
 
 ---
 
@@ -27,256 +66,77 @@ The System Controller serves as the main orchestrator of the Smart Energy Manage
 
 ```mermaid
 graph TB
-    subgraph "System Controller Architecture"
-        MAIN[Main Entry Point] --> SYSCTRL[System Controller]
+    subgraph "System Controller Core"
+        MAIN[Main Entry Point] --> INIT[Initialization Sequence]
+        INIT --> SCHED[Task Scheduler]
 
-        SYSCTRL --> INIT[Initialization<br/>Sequence]
-        SYSCTRL --> TASK[Task Scheduler]
-        SYSCTRL --> STATE[State Manager]
+        SCHED --> MATCH_TASK[Measurement Task<br/>10ms]
+        SCHED --> PROT_TASK[Protection Task<br/>20ms]
+        SCHED --> DISP_TASK[Display Task<br/>500ms]
+        SCHED --> LOG_TASK[Logger Task<br/>1000ms]
 
-        INIT --> MCAL_INIT[MCAL Init<br/>ADC, Timer1, UART, DIO]
-        INIT --> HAL_INIT[HAL Init<br/>Sensors, LCD, Relay]
-        INIT --> APP_INIT[Application Init<br/>ME, PROT, DISP]
+        SCHED --> WDT[Watchdog Feed]
 
-        TASK --> ME_TASK[Measurement Engine<br/>Real-time processing]
-        TASK --> PROT_TASK[Protection Manager<br/>Safety monitoring]
-        TASK --> COMM_TASK[Communication Manager<br/>Data transmission]
-        TASK --> DISP_TASK[Display Manager<br/>UI updates]
-
-        STATE --> NORMAL[Normal Operation]
-        STATE --> FAULT[Fault State]
-        STATE --> CALIB[Calibration Mode]
-
-        SYSCTRL -.->|Future| WDT[Watchdog Timer]
-        SYSCTRL -.->|Future| PWR[Power Management]
+        STATE[State Manager] -.-> SCHED
     end
 
-    style SYSCTRL fill:#4A90E2,color:#fff
-    style INIT fill:#50C878,color:#fff
-    style TASK fill:#F39C12,color:#000
+    style SCHED fill:#4A90E2,color:#fff
+    style STATE fill:#E74C3C,color:#fff
 ```
 
 ---
 
-## 3. Initialization Sequence
-
-```mermaid
-sequenceDiagram
-    participant MAIN as main()
-    participant SYSCTL as System Controller
-    participant MCAL as MCAL Layer
-    participant HAL as HAL Layer
-    participant APP as Application Layer
-
-    MAIN->>SYSCTL: SystemController_Init()
-    activate SYSCTL
-
-    Note over SYSCTL: Phase 1: MCAL Initialization
-
-    SYSCTL->>MCAL: DIO_Init()
-    SYSCTL->>MCAL: ADC_Init()
-    SYSCTL->>MCAL: Timer1_Init_CTC()
-    SYSCTL->>MCAL: UART_Init(9600)
-    SYSCTL->>MCAL: EEPROM_Init()
-    SYSCTL->>MCAL: GIE_Enable()
-
-    Note over SYSCTL: Phase 2: HAL Initialization
-
-    SYSCTL->>HAL: VoltageSensor_Init()
-    SYSCTL->>HAL: CurrentSensor_Init()
-    SYSCTL->>HAL: LCD_Init()
-    SYSCTL->>HAL: Relay_Init()
-    SYSCTL->>HAL: Buzzer_Init()
-    SYSCTL->>HAL: RGB_LED_Init()
-
-    Note over SYSCTL: Phase 3: Application Initialization
-
-    SYSCTL->>APP: MeasurementEngine_Init()
-    SYSCTL->>APP: ProtectionManager_Init()
-    SYSCTL->>APP: DisplayManager_Init()
-    SYSCTL->>APP: CommunicationManager_Init()
-
-    SYSCTL->>SYSCTL: Set state = NORMAL_OPERATION
-
-    deactivate SYSCTL
-
-    Note over MAIN: Enter main loop:<br/>while(1) SystemController_Task()
-```
-
----
-
-## 4. Task Scheduling
-
-```mermaid
-flowchart TB
-    MAINLOOP[Main Loop<br/>while 1] --> TASK_CALL[SystemController_Task]
-
-    TASK_CALL --> ME{Measurement<br/>Data Ready?}
-    ME -->|Yes| PROC_ME[Process Measurements]
-    ME -->|No| PROT
-
-    PROC_ME --> PROT{Protection<br/>Check Due?}
-    PROT -->|Yes| CHECK_PROT[Check Thresholds]
-    PROT -->|No| COMM
-
-    CHECK_PROT --> COMM{Communication<br/>Scheduled?}
-    COMM -->|Yes| SEND_DATA[Transmit Data]
-    COMM -->|No| DISP
-
-    SEND_DATA --> DISP{Display<br/>Update Due?}
-    DISP -->|Yes| UPDATE_LCD[Update LCD]
-    DISP -->|No| IDLE
-
-    UPDATE_LCD --> IDLE[Idle/Sleep<br/>Low Power]
-
-    IDLE --> MAINLOOP
-
-    style PROC_ME fill:#50C878,color:#fff
-    style CHECK_PROT fill:#E24A4A,color:#fff
-    style UPDATE_LCD fill:#F39C12,color:#000
-```
-
----
-
-## 5. State Machine
+## 3. System State Machine
 
 ```mermaid
 stateDiagram-v2
-    [*] --> PowerOn
+    [*] --> Startup
 
-    PowerOn --> Initializing: System Boot
-    Initializing --> SelfTest: Init Complete
+    Startup --> Initializing_Drivers
+    Initializing_Drivers --> SelfTest
 
-    SelfTest --> Normal: All Tests Pass
-    SelfTest --> Fault: Test Failed
+    SelfTest --> Normal_Op: Pass
+    SelfTest --> System_Error: Fail
 
-    Normal --> Calibration: User Request
-    Calibration --> Normal: Calibration Complete
+    state Normal_Op {
+        [*] --> Idle
+        Idle --> Processing: Task Due
+        Processing --> Idle: Task Done
+    }
 
-    Normal --> Fault: Protection Triggered
-    Fault --> Normal: Fault Cleared
+    Normal_Op --> Protection_Trip: Critical Fault
+    Protection_Trip --> Safe_State: Relay OFF
 
-    Normal --> Standby: Low Power Request
-    Standby --> Normal: Wake Event
-
-    note right of Initializing
-        Initialize all modules
-        Load EEPROM settings
-        Self-test sensors
-    end note
-
-    note right of Normal
-        Active monitoring
-        Periodic measurements
-        Data transmission
-        Display updates
-    end note
-
-    note right of Fault
-        Relay OFF
-        Alert user (buzzer + LED)
-        Wait for fault clearance
-    end note
+    Safe_State --> Normal_Op: Reset/Recovery
 ```
 
 ---
 
-## 6. Module Dependencies
+## 4. Boot Sequence
 
-```mermaid
-graph TB
-    subgraph "System Controller Dependencies"
-        SYSCTRL[System Controller]
-
-        SYSCTRL -->|Initializes| ME[Measurement Engine]
-        SYSCTRL -->|Initializes| PROT[Protection Manager]
-        SYSCTRL -->|Initializes| DISP[Display Manager]
-        SYSCTRL -->|Initializes| COMM[Communication Manager]
-        SYSCTRL -->|Initializes| CAL[Calibration Manager]
-
-        ME -->|Uses| VSENS[Voltage Sensor]
-        ME -->|Uses| CSENS[Current Sensor]
-
-        PROT -->|Controls| RELAY[Relay]
-        PROT -->|Alerts| BUZZER[Buzzer]
-
-        DISP -->|Updates| LCD[LCD]
-        COMM -->|Uses| ESP[ESP-01]
-        COMM -->|Uses| BT[HC-05]
-    end
-
-    style SYSCTRL fill:#4A90E2,color:#fff
-```
+1.  **MCAL Init**: Disable Interrupts -> Config Clock -> Init GPIO/UART/ADC/Timers.
+2.  **HAL Init**: Init LCD -> Init Sensors -> Init Relay (OFF).
+3.  **App Init**: Restore Config from EEPROM -> Init Measurement/Protection.
+4.  **System Start**: Enable Global Interrupts (GIE) -> Start Scheduler.
 
 ---
 
-## 7. Configuration Parameters
+## 5. Task Scheduling
 
-| Parameter          | Value    | Description                  |
-| ------------------ | -------- | ---------------------------- |
-| Task rate          | ~10 Hz   | Main loop iteration rate     |
-| Watchdog timeout   | 1 second | Future WDT implementation    |
-| Startup delay      | 100 ms   | Allow hardware stabilization |
-| Self-test duration | 500 ms   | Sensor validation time       |
+The system uses a non-preemptive cooperative scheduler (superloop with time slicing).
 
----
-
-## 8. Error Handling
-
-**Initialization Failures:**
-
-- If MCAL init fails: Halt and blink error code
-- If HAL init fails: Continue with degraded functionality
-- If calibration data corrupted: Use defaults, flag for recalibration
-
-**Runtime Errors:**
-
-- Module fault: Disable affected module, log error
-- Communication failure: Retry with backoff
-- Critical fault: Enter safe state (relay OFF)
+| Task Name          | Period  | Priority | Description           |
+| ------------------ | ------- | -------- | --------------------- |
+| `Measure_Update()` | 10 ms   | High     | Process ADC buffers   |
+| `Prot_Update()`    | 20 ms   | High     | Check safety limits   |
+| `Comm_Update()`    | 50 ms   | Medium   | Process UART commands |
+| `Display_Update()` | 500 ms  | Low      | Update LCD UI         |
+| `Logger_Update()`  | 1000 ms | Low      | Save energy to EEPROM |
 
 ---
 
-## 9. Performance Characteristics
+<div align="center">
 
-**Boot Time:**
+**Built with ❤️ by Gestell Team**
 
-- Hardware init: ~50 ms
-- Software init: ~100 ms
-- Total boot: ~150 ms
-
-**CPU Utilization:**
-
-- Idle: ~5% (mainly measurements)
-- Active: ~20% (with communication)
-- Peak: ~40% (during complex processing)
-
-**Memory Usage:**
-
-- RAM: ~100 bytes (state variables)
-- Flash: ~1 kB (initialization code)
-
----
-
-## Implementation Notes
-
-### Initialization Order
-
-Critical order to prevent issues:
-
-1. **DIO first**: Other peripherals need pins configured
-2. **Timers before ADC**: ADC needs Timer1 trigger
-3. **GIE last in MCAL**: Enable interrupts after all setup
-4. **Sensors before engines**: ME needs sensor drivers ready
-
-### Task Scheduling Strategy
-
-- **No RTOS**: Simple cooperative multitasking
-- **Periodic tasks**: Triggered by flags from ISRs
-- **Priority**: Protection > Measurement > Display > Communication
-
----
-
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team
+</div>

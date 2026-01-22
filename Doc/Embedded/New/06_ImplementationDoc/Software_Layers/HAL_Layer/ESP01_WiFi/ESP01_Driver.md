@@ -1,276 +1,323 @@
-# ESP-01 WiFi Module Driver
+# 📶 ESP-01 Driver
 
-**Module**: ESP-01 (ESP8266)  
-**Interface**: UART (AT Commands)  
-**Purpose**: WiFi connectivity for cloud integration and remote monitoring
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-HAL_Layer-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Network_Driver-brightgreen)
+
+**ESP-01 Driver**
+
+**Smart Energy Management System - WiFi & IoT Interface**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Hardware Architecture](#-2-hardware-architecture)
+- [AT Command Protocol](#-3-at-command-protocol)
+- [Socket & Network State Machine](#-4-socket-and-network-state-machine)
+- [HTTP Implementation](#-5-http-protocol-implementation)
+- [Sequence Diagrams](#-6-sequence-diagrams)
+- [Buffer & Data Handling](#-7-buffer-and-data-handling)
+- [Configuration](#-8-configuration-parameters)
+- [Troubleshooting](#-10-troubleshooting-guide)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                                                               | Description   | Status       |
+| ------------------------------------------------------------------------------------------------------ | ------------- | ------------ |
+| **[UART_Driver.md](../../MCAL_Layer/UART/UART_Driver.md)**                                             | Serial Bus    | ✅ Available |
+| **[Communication_Manager.md](../../Application_Layer/Communication_Manager/Communication_Manager.md)** | Network Logic | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
-The ESP-01 driver provides WiFi connectivity through the ESP8266 module, enabling the Smart Energy Management System to transmit data to cloud platforms, mobile apps, and web dashboards.
+The ESP-01 Driver is the gateway between the isolated embedded system and the Cloud. It manages the ESP8266 Wi-Fi module using a serial AT command interface. This driver encapsulates the complexity of asynchronous network events (disconnections, latencies, partial data packets) and provides a clean, synchronous-like API to the Application Layer.
 
 ### Key Responsibilities
 
-- WiFi network connection management
-- AT command protocol handling
-- TCP/IP data transmission
-- Connection status monitoring
-- Error recovery and reconnection
-
-### Hardware Component
-
-- SoC: ESP8266 WiFi chip
-- WiFi: 802.11 b/g/n (2.4 GHz)
-- Modes: Station (client) or Access Point
-- Interface: AT commands via UART
-- Power: 3.3V (requires level shifter from 5V MCU)
+- **WiFi Management**: Scanning, Connecting, and Auto-reconnecting to Access Points (AP).
+- **Protocol Stack**: Implementing TCP/IP socket lifecycle (Open, Send, Receive, Close).
+- **Data Parsing**: Extracting meaningful payloads (JSON) from raw AT streams.
+- **Hardware Control**: Hard-resetting the module via GPIO if software hangs occur.
+- **Power Management**: putting the radio to sleep when not in use.
 
 ---
 
-## 2. Architecture Diagram
+## 2. Hardware Architecture
+
+### 2.1 Connection Schematic
+
+The ESP-01 logic level is **3.3V**, while the ATmega32 is **5V**. Direct connection is risky.
 
 ```mermaid
-graph TB
-    subgraph "ESP-01 Driver Architecture"
-        APP[Application/<br/>Communication Manager] -->|Send Data| ESP_API[ESP-01 Driver]
-
-        ESP_API --> AT_CMD[AT Command<br/>Generator]
-        ESP_API --> STATE[Connection<br/>State Machine]
-        ESP_API --> PARSER[Response<br/>Parser]
-
-        AT_CMD --> UART[UART Driver<br/>9600/115200 baud]
-
-        UART -->|TX| LEVEL[Level Shifter<br/>5V→3.3V]
-        LEVEL --> ESP_TX[ESP-01 RX Pin]
-
-        ESP_RX[ESP-01 TX Pin] -->|3.3V| UART_RX[UART RX<br/>Direct Connection]
-
-        ESP_TX --> ESP_MODULE[ESP8266<br/>WiFi Module]
-        ESP_RX --> ESP_MODULE
-
-        ESP_MODULE --> WIFI[WiFi Network<br/>802.11 b/g/n]
-
-        WIFI --> CLOUD[Cloud Server<br/>Mobile App]
+graph LR
+    subgraph "ATmega32 (5V Domain)"
+        TX[UART TX Pin]
+        RX[UART RX Pin]
+        EN[GPIO / Reset Pin]
     end
 
-    style ESP_API fill:#4A90E2,color:#fff
-    style ESP_MODULE fill:#E24A4A,color:#fff
-    style CLOUD fill:#50C878,color:#fff
+    subgraph "Level Shifter"
+        R1[Resistor 1kΩ]
+        R2[Resistor 2.2kΩ]
+    end
+
+    subgraph "ESP-01 (3.3V Domain)"
+        ESP_RX[RX Pin]
+        ESP_TX[TX Pin]
+        ESP_CH[CH_PD Pin]
+        ESP_VCC[VCC Pin]
+    end
+
+    TX --> R1
+    R1 --> ESP_RX
+    R1 --> R2
+    R2 --> GND
+
+    ESP_TX --> RX
+    EN --> ESP_CH
+
+    POWER[3.3V LDO Regulator] --> ESP_VCC
+
+    style ESP_VCC fill:#E67E22,color:#fff
 ```
+
+**Critical Note**: The ESP-01 can draw spikes of **300mA**. The ATmega32's 5V pin cannot supply this. A dedicated AMS1117-3.3 regulator is mandatory.
 
 ---
 
 ## 3. AT Command Protocol
 
-### Common Commands
+The driver interacts with the module using a Request-Response structure.
 
-| Command     | Purpose              | Response     | Example                         |
-| ----------- | -------------------- | ------------ | ------------------------------- |
-| AT          | Test communication   | OK           | Basic connectivity check        |
-| AT+GMR      | Get firmware version | Version info | Firmware verification           |
-| AT+CWJAP    | Connect to WiFi      | OK or ERROR  | AT+CWJAP="SSID","password"      |
-| AT+CIFSR    | Get IP address       | IP address   | Check connection status         |
-| AT+CIPSTART | Start TCP connection | OK/CONNECT   | AT+CIPSTART="TCP","server",port |
-| AT+CIPSEND  | Send data            | SEND OK      | AT+CIPSEND=length, then data    |
-| AT+CIPCLOSE | Close connection     | CLOSED       | Disconnect from server          |
+### 3.1 Command Table
 
----
-
-## 4. Connection Sequence
-
-```mermaid
-sequenceDiagram
-    participant APP as Application
-    participant ESP as ESP-01 Driver
-    participant MOD as ESP8266 Module
-    participant WIFI as WiFi Network
-    participant SRV as Server
-
-    APP->>ESP: Initialize WiFi
-    ESP->>MOD: AT (test)
-    MOD->>ESP: OK
-
-    ESP->>MOD: AT+CWJAP="SSID","password"
-    MOD->>WIFI: Connect request
-    WIFI->>MOD: Connected
-    MOD->>ESP: OK
-
-    ESP->>MOD: AT+CIFSR (get IP)
-    MOD->>ESP: IP: 192.168.1.100
-
-    APP->>ESP: Send data to server
-    ESP->>MOD: AT+CIPSTART="TCP","server.com",8080
-    MOD->>SRV: TCP connection
-    SRV->>MOD: ACK
-    MOD->>ESP: CONNECT
-
-    ESP->>MOD: AT+CIPSEND=50
-    MOD->>ESP: >
-    ESP->>MOD: {JSON data payload}
-    MOD->>SRV: Transmit data
-    SRV->>MOD: ACK
-    MOD->>ESP: SEND OK
-
-    ESP->>MOD: AT+CIPCLOSE
-    MOD->>SRV: Close connection
-    MOD->>ESP: CLOSED
-```
+| Command                | Description        | Time Limit | Expected Response |
+| ---------------------- | ------------------ | ---------- | ----------------- |
+| `AT`                   | Test communication | 100ms      | `OK`              |
+| `AT+RST`               | Software Reset     | 2000ms     | `ready`           |
+| `AT+CWMODE=1`          | Set Station Mode   | 200ms      | `OK`              |
+| `AT+CWJAP="SSID","PW"` | Connect to AP      | 15000ms    | `WIFI CONNECTED`  |
+| `AT+CIFSR`             | Get IP Address     | 500ms      | `192.168.x.x`     |
+| `AT+CIPSTART=...`      | Open TCP Socket    | 5000ms     | `CONNECT`         |
+| `AT+CIPSEND=Length`    | Prepare Send       | 200ms      | `>`               |
+| `AT+CIPCLOSE`          | Close Socket       | 500ms      | `CLOSED`          |
 
 ---
 
-## 5. State Machine
+## 4. Socket and Network State Machine
+
+The driver implements a robust state machine to handle network instability.
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Disconnected
+    [*] --> Hardware_Reset
 
-    Disconnected --> Initializing: Power ON
-    Initializing --> Ready: AT OK
+    Hardware_Reset --> Wait_Ready: CH_PD High
+    Wait_Ready --> Init_Config: Got 'ready'
 
-    Ready --> Connecting: CWJAP command
-    Connecting --> Connected: WiFi joined
-    Connecting --> Disconnected: Timeout/Error
+    Init_Config --> Connecting_WiFi: Set Mode=1
 
-    Connected --> TCPOpen: CIPSTART
-    TCPOpen --> DataTransmit: CIPSEND
-    DataTransmit --> TCPOpen: SEND OK
-    TCPOpen --> Connected: CIPCLOSE
+    state Connecting_WiFi {
+        [*] --> Send_CWJAP
+        Send_CWJAP --> Wait_Connect
+        Wait_Connect --> Connected: "WIFI GOT IP"
+        Wait_Connect --> Failed: Timeout/Error
+    }
 
-    Connected --> Disconnected: Connection lost
+    Connected --> Idle: Ready for TCP
 
-    note right of Initializing
-        AT command test
-        Firmware version check
-        Set mode
-    end note
+    Idle --> Socket_Open: Request Data Send
 
-    note right of Connecting
-        Connect to AP
-        Wait for IP
-        Timeout: 10 seconds
-    end note
+    state Socket_Open {
+        Connect_TCP --> Send_Data
+        Send_Data --> Wait_Response
+        Wait_Response --> Close_Socket
+    }
+
+    Close_Socket --> Idle: Done
+
+    Connected --> Connecting_WiFi: Link Lost
+    Failed --> Hardware_Reset: Retry Limit Exceeded
+```
+
+### Automatic Recovery
+
+- **Level 1**: AT Command retry (3 times).
+- **Level 2**: Software Reset (`AT+RST`).
+- **Level 3**: Hardware Power Cycle (`CH_PD` Low -> High).
+- **Level 4**: System Fault Report (Red LED).
+
+---
+
+## 5. HTTP Protocol Implementation
+
+Since the ESP-01 only provides raw TCP, the driver must construct valid HTTP headers manually.
+
+### 5.1 POST Request Structure
+
+**Goal**: Send JSON data `{"v":220}` to `api.server.com/log`.
+
+1.  **Calculate Content Length**: `{"v":220}` is 9 bytes.
+2.  **Construct Header**:
+    ```http
+    POST /log HTTP/1.1\r\n
+    Host: api.server.com\r\n
+    Content-Type: application/json\r\n
+    Content-Length: 9\r\n
+    \r\n
+    {"v":220}
+    ```
+3.  **Command Sequence**:
+    - `AT+CIPSEND=(HeaderSize + BodySize)`
+    - Wait for `>` prompt.
+    - Send the constructed string.
+
+### 5.2 GET Request Structure
+
+**Goal**: Fetch configuration.
+
+```http
+GET /config HTTP/1.1\r\n
+Host: api.server.com\r\n
+Connection: close\r\n
+\r\n
 ```
 
 ---
 
-## 6. Configuration Parameters
+## 6. Sequence Diagrams
 
-| Parameter      | Value         | Description                     |
-| -------------- | ------------- | ------------------------------- |
-| UART Baud Rate | 9600 / 115200 | Configurable (9600 more stable) |
-| WiFi Mode      | Station       | Connect to existing network     |
-| IP Assignment  | DHCP          | Automatic IP from router        |
-| TCP Timeout    | 30 seconds    | Connection timeout              |
-| Max Retry      | 3 attempts    | Reconnection attempts           |
-| Keep-alive     | 60 seconds    | Periodic ping                   |
+### 6.1 Successful Data Upload
+
+```mermaid
+sequenceDiagram
+    participant APP as App_Layer
+    participant DRV as ESP_Driver
+    participant UART as UART_HAL
+    participant ESP as ESP8266
+
+    APP->>DRV: Send(Data, Len)
+    activate DRV
+
+    DRV->>UART: AT+CIPSTART="TCP",IP,80
+    UART->>ESP: TX bytes
+    ESP-->>UART: CONNECT / OK
+
+    DRV->>UART: AT+CIPSEND=TotalLen
+    ESP-->>UART: >
+
+    DRV->>UART: Send(Headers + Body)
+    ESP-->>UART: SEND OK
+
+    Note over ESP: Waiting for Server...
+
+    ESP-->>UART: +IPD,Length:HTTP/1.1 200 OK...
+    Note left of UART: Async Callback Triggered
+
+    DRV->>DRV: ParseResponse()
+
+    ESP-->>UART: CLOSED
+
+    DRV->>APP: Success_Callback()
+    deactivate DRV
+```
 
 ---
 
-## 7. Power Management
+## 7. Buffer and Data Handling
 
-**Power Requirements:**
+One of the biggest challenges is the limited RAM on the ATmega32 (2KB).
 
-- Operating voltage: 3.3V ± 0.3V (strict)
-- Peak current: 200-300 mA (transmission)
-- Average current: 80 mA (connected)
-- Minimum regulator capacity: 500 mA
+### 7.1 Circular Buffer Strategy
 
-**Level Shifting:**
+Since the ESP-01 might send data faster than the MCU can process:
 
-- TX (MCU→ESP): Voltage divider (5V→3.3V)
-- RX (ESP→MCU): Direct connection (3.3V recognized as HIGH)
+- **RX Interrupt**: Pushes byte into `RingBuffer` (size 128 bytes).
+- **Main Loop**: Polls `RingBuffer`, parsing line-by-line looking for delimiters (`\r\n`).
+
+### 7.2 Zero-Copy Transmission
+
+To avoid duplicating the large HTTP buffer (which might exceed RAM):
+
+- The driver sends the **Header** (stored in Flash/PROGMEM) directly to UART.
+- Then sends the **Payload** (from RAM) directly to UART.
+- This avoids creating a massive concatenated string in memory.
 
 ---
 
-## 8. Error Handling
+## 8. Configuration Parameters
 
-**Connection Failures:**
+Configured in `ESP_Config.h`.
 
-- Wrong password: Retry with correct credentials
-- Network unavailable: Wait and retry
-- Weak signal: Move closer or change antenna
-
-**Communication Errors:**
-
-- AT timeout: Module reset required
-- Garbled response: Baud rate mismatch
-- No response: Power supply issue
-
-**Recovery Procedure:**
-
-1. Detect error condition
-2. Log error type
-3. Close connections
-4. Reset module (toggle power or RST pin)
-5. Re-initialize
-6. Retry connection
+| Parameter     | Default       | Description                                     |
+| ------------- | ------------- | ----------------------------------------------- |
+| `WIFI_SSID`   | "Gestell_IoT" | Target Network Name.                            |
+| `WIFI_PASS`   | "****\*****"" | Network Password.                               |
+| `SERVER_IP`   | "192.168.1.5" | Remote Server IP (or Domain).                   |
+| `SERVER_PORT` | `80`          | Port (80 for HTTP, 443 Not supported directly). |
+| `RX_BUF_SIZE` | `128`         | Bytes. Increase for large JSON responses.       |
+| `CMD_TIMEOUT` | `5000`        | Milliseconds to wait for OK.                    |
 
 ---
 
 ## 9. Module Dependencies
 
 ```mermaid
-graph TB
-    COMM[Communication Manager] -->|WiFi Data| ESP[ESP-01 Driver]
-    CLOUD[Cloud Integration] -->|MQTT/HTTP| COMM
+graph TD
+    ESP[ESP Driver] --> UART[UART Driver]
+    ESP --> TIM[Timer Driver]
+    ESP --> DIO[DIO Driver]
 
-    ESP -->|AT Commands| UART[UART Driver]
-    ESP -.->|Reset Control| DIO[DIO Driver]
+    APP[Comm Manager] --> ESP
 
-    style ESP fill:#4A90E2,color:#fff
+    style ESP fill:#F39C12,color:#000
+    style UART fill:#4A90E2,color:#fff
 ```
 
----
-
-## 10. Performance Characteristics
-
-**Data Throughput:**
-
-- Maximum: ~1 Mbps (802.11b)
-- Typical: 100-300 kbps (depends on signal)
-- Latency: 50-200 ms (to internet)
-
-**Resource Usage:**
-
-- RAM: ~100 bytes (buffers, state)
-- Flash: ~800 bytes
-- UART: Shared with HC-05 (software mux required)
-
-**Reliability:**
-
-- Connection uptime: 95%+ (good signal)
-- Packet loss: < 1% (typical)
-- Reconnect time: 5-10 seconds
+- **Timer**: Used for non-blocking timeout measurement.
+- **UART**: Must be configured for 115200 baud (default for most ESPs) or 9600.
 
 ---
 
-## Implementation Notes
+## 10. Troubleshooting Guide
 
-### Stability Considerations
+### 10.1 "Garbage" Characters
 
-**Power Supply:**
+- **Cause**: Baud rate mismatch.
+- **Fix**: Verify if ESP is 9600 or 115200. Send `AT+UART_DEF=9600,8,1,0,0` to force it to a slower speed compatible with 8MHz AVRs.
 
-- Low-ESR capacitors: 100µF + 10µF close to module
-- Stable 3.3V regulator essential
-- Poor power = frequent resets
+### 10.2 "Busy s..." or Freeze
 
-**AT Command Timing:**
+- **Cause**: Power supply droop.
+- **Fix**: Add 100µF capacitor directly on ESP VCC/GND pins.
 
-- Wait for response before next command
-- Timeout: 1-5 seconds per command
-- Buffer responses (may arrive in chunks)
+### 10.3 Scan finds APs, but fails to join
 
-**Baud Rate Selection:**
-
-- 9600: More stable, lower speed
-- 115200: Faster, may have errors
-- Default often 115200, change to 9600 for reliability
+- **Cause**: Weak signal or WPA3 security (ESP8266 supports WPA2).
+- **Fix**: Move router closer. Check router security settings.
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

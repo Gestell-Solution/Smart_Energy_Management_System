@@ -1,12 +1,44 @@
-# TWI Driver - Two-Wire Interface (I²C)
+# 🕸️ TWI Driver - Two-Wire Interface (I²C)
 
-**MCU**: ATmega32  
-**Purpose**: Multi-master, multi-slave serial bus communication  
-**Status**: Reserved for future expansion (RTC, temperature sensors, I²C displays)
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Reserved-yellow)
+![Platform](https://img.shields.io/badge/Platform-ATmega32_I2C-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-MCAL_Driver-brightgreen)
+
+**TWI Driver**
+
+**Smart Energy Management System - I²C Communication Bus**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Hardware Interface](#-3-hardware-interface)
+- [Data Flow](#-4-data-flow-diagram)
+- [State Machine](#-5-state-machine)
+- [Sequence Diagrams](#-6-sequence-diagrams)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                  | Description | Status       |
+| ----------------------------------------- | ----------- | ------------ |
+| **[DIO_Driver.md](../DIO/DIO_Driver.md)** | Pin Config  | ✅ Available |
+| **[GIE_Driver.md](../GIE/GIE_Driver.md)** | Interrupts  | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
@@ -21,6 +53,13 @@ The TWI (Two-Wire Interface) driver, also known as I²C (Inter-Integrated Circui
 - 7-bit and 10-bit addressing support
 - Clock stretching and bus recovery
 - Up to 400 kHz (Fast Mode) communication
+
+### Requirements Traceability (Future)
+
+| Requirement ID   | Description          | Implementation                          |
+| :--------------- | :------------------- | :-------------------------------------- |
+| **REQ-ARCH-002** | Layered Architecture | Module implemented for future expansion |
+| **REQ-MOD-001**  | Module Breakdown     | Reserved in SRS                         |
 
 ### Hardware Peripheral
 
@@ -432,8 +471,37 @@ SCL_Frequency = F_CPU / (16 + 2 × TWBR × Prescaler)
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Status**: Reserved for Future Use  
-**Maintained By**: Gestell Engineering Team  
-**Related Documents**: DIO_Driver.md, RTC_Driver.md (future)
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                    |
+| -------------------- | ------------------------ |
+| **Document Type**    | TWI Driver Documentation |
+| **Document Status**  | Reserved                 |
+| **Document Version** | 2.0                      |
+| **Last Updated**     | January 2026             |
+| **Prepared By**      | Gestell Engineering Team |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

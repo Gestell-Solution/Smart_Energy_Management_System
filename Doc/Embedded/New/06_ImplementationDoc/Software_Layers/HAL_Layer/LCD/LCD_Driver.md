@@ -1,228 +1,300 @@
-# LCD Driver - HD44780 Character Display
+# 🖥️ LCD Driver
 
-**Display**: 16×2 Character LCD  
-**Controller**: HD44780 Compatible  
-**Interface**: 4-bit parallel mode  
-**Purpose**: User interface display for real-time system information
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-HAL_Layer-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Hardware_Driver-brightgreen)
+
+**LCD Driver**
+
+**Smart Energy Management System - HD44780 Character Display Interface**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Hardware Architecture](#-2-hardware-architecture)
+- [Communication Protocol](#-3-communication-protocol-4-bit-mode)
+- [Memory Organization (DDRAM)](#-4-memory-organization-ddram)
+- [Custom Graphics (CGRAM)](#-5-custom-graphics-cgram)
+- [Initialization Sequence](#-6-initialization-sequence)
+- [Optimization Strategies](#-7-optimization-strategies)
+- [Configuration](#-8-configuration-parameters)
+- [Dependencies](#-9-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                  | Description  | Status       |
+| --------------------------------------------------------- | ------------ | ------------ |
+| **[DIO_Driver.md](../../MCAL_Layer/DIO/DIO_Driver.md)**   | Pin Control  | ✅ Available |
+| **[Common_Layer.md](../../Common_Layer/Common_Layer.md)** | Delays/Types | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
-The LCD driver controls a 16×2 character display for presenting system information including voltage, current, power, energy consumption, and system status to users.
+The LCD Driver allows the system to communicate with standard alphanumeric liquid crystal displays (16x2, 20x4) powered by the Hitachi HD44780 controller (or compatible clones). It is the primary readout for the Energy Management System, displaying real-time voltage, current, power, and connection status.
 
 ### Key Responsibilities
 
-- Initialize LCD in 4-bit mode
-- Display text strings on 2 lines
-- Cursor positioning and control
-- Special character support
-- Screen clearing and updating
-
-### Hardware Component
-
-- Type: 16 characters × 2 lines alphanumeric
-- Controller: Hitachi HD44780 or compatible
-- Interface: 4-bit data bus (D4-D7)
-- Supply: 5V DC
-- Current: 1-2 mA (display) + 15-20 mA (backlight)
+- **Abstraction**: Hiding the complex command sequences required to position the cursor or clear the screen.
+- **Pin Management**: Handling the nibble-swapping required for 4-bit parallel communication.
+- **Timing Compliance**: Ensuring all control signals meet the microsecond-level setup and hold times mandated by the HD44780 datasheet.
+- **Customization**: Uploading user-defined icons (e.g., WiFi Bars, Battery Level) to the display's volatile memory.
 
 ---
 
-## 2. Architecture Diagram
+## 2. Hardware Architecture
 
-```mermaid
-graph TB
-    subgraph "LCD Driver Architecture"
-        APP[Application/<br/>Display Manager] -->|Display Commands| LCD_API[LCD Driver API]
+### 2.1 Interface Logic
 
-        LCD_API --> INIT[Initialization<br/>Sequence]
-        LCD_API --> CMD[Command Mode]
-        LCD_API --> DATA[Data Mode]
-        LCD_API --> CURSOR[Cursor Control]
-
-        CMD --> PROTOCOL[4-Bit Protocol<br/>Handler]
-        DATA --> PROTOCOL
-
-        PROTOCOL --> DIO[DIO Driver]
-
-        DIO --> RS[RS Pin<br/>PD2]
-        DIO --> EN[EN Pin<br/>PD3]
-        DIO --> D4_7[Data Pins<br/>PD4-PD7]
-
-        RS --> LCD_HW[HD44780<br/>LCD Controller]
-        EN --> LCD_HW
-        D4_7 --> LCD_HW
-
-        LCD_HW --> DISPLAY[16×2 Character<br/>Display]
-    end
-
-    style LCD_API fill:#4A90E2,color:#fff
-    style PROTOCOL fill:#E24A4A,color:#fff
-    style DISPLAY fill:#50C878,color:#fff
-```
-
----
-
-## 3. Pin Connections
-
-| LCD Pin | Function        | MCU Pin       | Description                     |
-| ------- | --------------- | ------------- | ------------------------------- |
-| RS      | Register Select | PD2           | 0=Command, 1=Data               |
-| E       | Enable          | PD3           | Falling edge triggers operation |
-| D4-D7   | Data Bus        | PD4-PD7       | 4-bit parallel data             |
-| RW      | Read/Write      | GND           | Write-only mode                 |
-| VDD/VSS | Power           | +5V/GND       | Power supply                    |
-| V0      | Contrast        | Potentiometer | Contrast adjustment             |
-| A/K     | Backlight       | +5V/GND       | LED backlight                   |
-
----
-
-## 4. 4-Bit Interface Protocol
-
-```mermaid
-sequenceDiagram
-    participant CPU as MCU
-    participant LCD as LCD Controller
-
-    Note over CPU,LCD: Send Byte in 4-Bit Mode
-
-    CPU->>LCD: Set RS (0=CMD / 1=DATA)
-    CPU->>LCD: Put HIGH nibble on D4-D7
-    CPU->>LCD: Pulse EN: HIGH→LOW
-    Note over LCD: Latch upper nibble
-
-    CPU->>LCD: Put LOW nibble on D4-D7
-    CPU->>LCD: Pulse EN: HIGH→LOW
-    Note over LCD: Latch lower nibble
-
-    Note over LCD: Combine nibbles<br/>Execute command/display char
-
-    CPU->>CPU: Wait 40µs (command exec)
-```
-
----
-
-## 5. Initialization Sequence
-
-```mermaid
-flowchart TB
-    START[Power ON] --> WAIT1[Wait 40ms<br/>VDD stabilize]
-    WAIT1 --> CMD1[Send 0x03<br/>8-bit mode attempt]
-    CMD1 --> WAIT2[Wait 4.1ms]
-    WAIT2 --> CMD2[Send 0x03 again]
-    CMD2 --> WAIT3[Wait 100µs]
-    WAIT3 --> CMD3[Send 0x03 third time]
-    CMD3 --> CMD4[Send 0x02<br/>Switch to 4-bit]
-    CMD4 --> CONF1[Send 0x28<br/>4-bit, 2 lines, 5×8]
-    CONF1 --> CONF2[Send 0x0C<br/>Display ON, Cursor OFF]
-    CONF2 --> CONF3[Send 0x06<br/>Increment, No shift]
-    CONF3 --> CLEAR[Send 0x01<br/>Clear display]
-    CLEAR --> WAIT4[Wait 2ms<br/>Clear complete]
-    WAIT4 --> READY[LCD Ready]
-
-    style READY fill:#50C878,color:#fff
-```
-
----
-
-## 6. Display Memory Layout
+To conserve microcontroller pins, the driver operates in **4-bit Mode**.
 
 ```mermaid
 graph LR
-    subgraph "DD RAM Addresses"
-        L1[Line 1: 0x00-0x0F<br/>16 characters]
-        L2[Line 2: 0x40-0x4F<br/>16 characters]
+    subgraph "Microcontroller (ATmega32)"
+        RS[RS Pin<br/>(Register Select)]
+        EN[EN Pin<br/>(Enable)]
+        D4[Data Pin 4]
+        D5[Data Pin 5]
+        D6[Data Pin 6]
+        D7[Data Pin 7]
     end
 
-    L1 -.->|Cursor wraps| L2
+    subgraph "LCD Module (HD44780)"
+        L_RS[RS]
+        L_RW[RW (Grounded)]
+        L_EN[EN]
+        L_D4[DB4]
+        L_D5[DB5]
+        L_D6[DB6]
+        L_D7[DB7]
+        L_VO[V0 Contrast]
+    end
+
+    RS --> L_RS
+    EN --> L_EN
+    GND --> L_RW
+
+    D4 --> L_D4
+    D5 --> L_D5
+    D6 --> L_D6
+    D7 --> L_D7
+
+    POT[10k Potentiometer] --> L_VO
+
+    style L_RS fill:#2ECC71,color:#fff
+    style L_D4 fill:#3498DB,color:#fff
 ```
 
-**Cursor Positioning:**
+### 2.2 Contrast Circuit (V0)
 
-- Line 1, Column 0: Address 0x00, Command 0x80
-- Line 2, Column 0: Address 0x40, Command 0xC0
-- Line 2, Column 5: Address 0x45, Command 0xC5
-
----
-
-## 7. Common Commands
-
-| Operation       | Command     | Execution Time | Description               |
-| --------------- | ----------- | -------------- | ------------------------- |
-| Clear Display   | 0x01        | 1.64ms         | Clear screen, home cursor |
-| Return Home     | 0x02        | 1.64ms         | Cursor to position 0      |
-| Display ON      | 0x0C        | 40µs           | Enable display            |
-| Display OFF     | 0x08        | 40µs           | Blank display             |
-| Cursor Position | 0x80 + addr | 40µs           | Set DD RAM address        |
+- **Pin V0 (Pin 3)** controls the contrast voltage driving the liquid crystals.
+- **Requirement**: A variable voltage typically between 0V and 1.5V relative to VDD.
+- **Implementation**: A 10kΩ potentiometer acts as a voltage divider.
+  - Too High Voltage -> Ghost rectangles (Pixels always ON).
+  - Too Low Voltage -> Invisible text (Pixels always OFF).
 
 ---
 
-## 8. Timing Requirements
+## 3. Communication Protocol (4-Bit Mode)
 
-| Parameter            | Minimum | Typical | Notes              |
-| -------------------- | ------- | ------- | ------------------ |
-| Enable pulse width   | 230ns   | 500ns   | HIGH state         |
-| Enable cycle time    | 500ns   | 1µs     | Total pulse        |
-| Command execution    | 40µs    | 50µs    | Most commands      |
-| Clear/Home execution | 1.64ms  | 2ms     | Special commands   |
-| Inter-command delay  | 40µs    | 50µs    | Between operations |
+Sending a byte (8 bits) requires two separate write cycles ("Nibbles").
 
-**Safe Implementation**: Use 50µs delays between operations, 2ms after clear/home.
+### 3.1 Write Timing Diagram
+
+```mermaid
+sequenceDiagram
+    participant MCU
+    participant LCD
+
+    Note over MCU: Sending 0x41 ('A') -> 0100 0001
+
+    MCU->>LCD: Set RS = HIGH (Data)
+    MCU->>LCD: Set RW = LOW (Write)
+
+    rect rgb(200, 240, 200)
+        Note right of MCU: High Nibble (0100)
+        MCU->>LCD: Write D7..D4 = 0100
+        MCU->>LCD: Pulse EN HIGH
+        Note over LCD: Reads D7..D4 on Falling Edge
+        MCU->>LCD: Set EN LOW
+    end
+
+    Note over MCU: 1µs Delay
+
+    rect rgb(200, 200, 240)
+        Note right of MCU: Low Nibble (0001)
+        MCU->>LCD: Write D7..D4 = 0001
+        MCU->>LCD: Pulse EN HIGH
+        Note over LCD: Reads D7..D4 on Falling Edge
+        MCU->>LCD: Set EN LOW
+    end
+
+    Note over LCD: Busy Processing (40µs)
+```
+
+### 3.2 Critical Timings
+
+- **Enable Pulse Width**: Min 450ns.
+- **Data Setup Time**: Min 80ns before Enable falls.
+- **Execution Time**:
+  - Normal Command/Data: 37µs - 1.52ms.
+  - Clear Display: **> 1.52ms** (Very slow!). The driver _must_ incorporate a blocking delay here or poll the Busy Flag (check D7).
+
+---
+
+## 4. Memory Organization (DDRAM)
+
+The HD44780 has 80 bytes of Display Data RAM (DDRAM). The visible screen is a "window" into this memory.
+
+### 4.1 Address Map (20x4 Display)
+
+| Line      | start (Col 0) | End (Col 19) | Invisible Area (Storage) |
+| --------- | ------------- | ------------ | ------------------------ |
+| **Row 0** | `0x00`        | `0x13`       | `0x14` ... `0x27`        |
+| **Row 1** | `0x40`        | `0x53`       | `0x54` ... `0x67`        |
+| **Row 2** | `0x14`        | `0x27`       | `0x28` ... `0x3F`        |
+| **Row 3** | `0x54`        | `0x67`       | `0x68` ... `0x7F`        |
+
+> **Addressing Quirk**: Note that Row 2 is logically continuous with Row 0, and Row 3 with Row 1. Simply incrementing the address from `0x13` (end of Row 0) jumps to `0x14` (start of Row 2) on a 20x4 display logic! The driver handles `LCD_SetCursor(row, col)` to manage these non-linear jumps.
+
+---
+
+## 5. Custom Graphics (CGRAM)
+
+The LCD supports 8 user-definable characters (5x8 pixels). These are stored in CGRAM (Character Generator RAM).
+
+### 5.1 Bitmap Design
+
+Example: **WiFi Icon**
+
+```text
+Pixel Map   Binary    Hex
+...#...     00100     0x04
+..#.#..     01010     0x0A
+.#...#.     10001     0x11
+.......     00000     0x00
+...#...     00100     0x04
+.......     00000     0x00
+.......     00000     0x00
+.......     00000     0x00
+```
+
+### 5.2 Upload Sequence
+
+1.  **Set Address**: Send Command `0x40 + (Index * 8)`.
+    - Index 0 -> 0x40
+    - Index 1 -> 0x48
+2.  **Write Data**: Send 8 bytes of bitmap data sequentially.
+3.  **Reset**: Send Command `0x80` to return to DDRAM mode (normal printing).
+
+---
+
+## 6. Initialization Sequence
+
+The "Power-On" initialization is notoriously tricky. If the LCD is in an unknown state (e.g., after a brown-out), it requires a specific "Knock" sequence to force it into 4-bit mode.
+
+```mermaid
+flowchart TD
+    Start[Power On] --> Wait[Wait >15ms]
+    Wait --> Cmd1[Send 0x03<br/>(Function Set)]
+    Cmd1 --> Wait1[Wait >4.1ms]
+    Wait1 --> Cmd2[Send 0x03<br/>(Function Set)]
+    Cmd2 --> Wait2[Wait >100us]
+    Wait2 --> Cmd3[Send 0x03<br/>(Function Set)]
+
+    Cmd3 --> Set4Bit[Send 0x02<br/>(Switch to 4-bit)]
+
+    Set4Bit --> Config[Function Set:<br/>2 Lines, 5x8 Font]
+    Config --> DispOff[Display OFF]
+    DispOff --> Clear[Clear Display]
+    Clear --> EntryMode[Entry Mode:<br/>Inc Cursor, No Shift]
+    EntryMode --> DispOn[Display ON]
+    DispOn --> Ready([Ready])
+
+    style Cmd1 fill:#E74C3C,color:#fff
+    style Set4Bit fill:#F39C12,color:#fff
+```
+
+---
+
+## 7. Optimization Strategies
+
+### 7.1 "Dirty" Display Buffer
+
+Writing to the LCD is slow (~2ms per screen). To improve system responsiveness:
+
+1.  **Shadow Buffer**: Maintain a `char screen_buffer[4][20]` in the MCU RAM.
+2.  **Comparison**: Before writing, compare new character with current buffer content.
+3.  **Skip**: If `new == old`, do nothing.
+4.  **Result**: Only changed digits (e.g., last digit of voltage) are transmitted. Updates take 50µs instead of 20ms.
+
+### 7.2 Busy Flag Polling (Future)
+
+Instead of hard-coded delays (e.g., `_delay_ms(2)`), read the **Busy Flag** (BF, Bit 7) from the LCD.
+
+- Set RW=Read, RS=Command.
+- Read D7. If 1, LCD is busy. If 0, LCD is ready.
+- _Requires RW pin to be connected to MCU (currently grounded in our schematic)._
+
+---
+
+## 8. Configuration Parameters
+
+Configured in `LCD_Config.h`.
+
+| Parameter       | Default | Description               |
+| --------------- | ------- | ------------------------- |
+| `LCD_DATA_PORT` | `PORTA` | Port connected to D4-D7.  |
+| `LCD_CTRL_PORT` | `PORTB` | Port connected to RS, EN. |
+| `RS_PIN`        | `PIN1`  | Register Select pin mask. |
+| `EN_PIN`        | `PIN2`  | Enable pin mask.          |
+| `D4_PIN`        | `PIN4`  | Data Bit 4 pin mask.      |
+| `LCD_MODE`      | `4BIT`  | 4BIT / 8BIT selector.     |
+| `LCD_ROWS`      | `4`     | 2 or 4 rows.              |
+| `LCD_COLS`      | `20`    | 16 or 20 columns.         |
 
 ---
 
 ## 9. Module Dependencies
 
 ```mermaid
-graph TB
-    DISPLAY[Display Manager] -->|Format Text| LCD[LCD Driver]
-    ME[Measurement Engine] -->|Values| DISPLAY
+graph TD
+    APP[Display Manager] -->|High Level API| LCD[LCD Driver]
 
-    LCD -->|Pin Control| DIO[DIO Driver]
+    LCD -->|SetPin/ClearPin| DIO[DIO Driver]
+    LCD -->|Busy Wait| DELAY[Delay Functions]
 
-    style LCD fill:#4A90E2,color:#fff
+    subgraph "Hardware"
+        HD44780[LCD Controller]
+    end
+
+    LCD -->|4-Bit Bus| HD44780
+
+    style LCD fill:#F39C12,color:#000
+    style DIO fill:#4A90E2,color:#fff
 ```
 
 ---
 
-## 10. Performance Characteristics
+<div align="center">
 
-**Display Update:**
+**Built with ❤️ by Gestell Team**
 
-- Single character: ~100µs
-- Full line (16 chars): ~1.6ms
-- Full screen (32 chars): ~3.2ms
-- Refresh rate: Typically 2-5 Hz
+_Professional Embedded Systems Engineering_
 
-**Resource Usage:**
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
 
-- RAM: ~50 bytes (driver state)
-- Flash: ~600 bytes
-- Pins: 6 GPIO (RS, EN, D4-D7)
-
----
-
-## Implementation Notes
-
-### Character Write Procedure
-
-1. Set RS=HIGH (data mode)
-2. Send high nibble + pulse EN
-3. Send low nibble + pulse EN
-4. Wait 40µs
-5. Cursor auto-advances
-
-### String Display
-
-- Loop through characters
-- Position cursor first if needed
-- Auto-wrap at position 15 to line 2
-
----
-
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team
+</div>

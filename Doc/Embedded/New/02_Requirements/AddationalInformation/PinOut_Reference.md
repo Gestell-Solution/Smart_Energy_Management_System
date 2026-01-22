@@ -1,12 +1,44 @@
-# PinOut Reference - ATmega32
+# 📌 PinOut Reference - ATmega32
 
-**Project**: Smart Energy Management System  
-**Component**: ATmega32 Pin Assignment  
-**Version**: 1.0
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-ATmega32-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-PinOut_Reference-brightgreen)
+
+**Smart Energy Management System**
+
+**ATmega32 Complete Pin Assignment**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Overview
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Pin Assignment Summary](#-pin-assignment-summary)
+- [Detailed Pin Descriptions](#-detailed-pin-descriptions)
+- [Unused Pins](#-unused-pins-reserved)
+- [Pin Protection](#-pin-protection)
+- [Default Pin States](#-default-pin-states)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                                            | Description           | Status       |
+| ----------------------------------------------------------------------------------- | --------------------- | ------------ |
+| **[HRS.md](../HRS/HRS.md)**                                                         | Hardware Requirements | ✅ Available |
+| **[CRS.md](../CRS/CRS.md)**                                                         | Customer Requirements | ✅ Available |
+| **[BSP_Overview.md](../../06_ImplementationDoc/BSP_Documentation/BSP_Overview.md)** | Board Support Package | ✅ Available |
+
+---
+
+## 📖 Overview
 
 This document provides the complete pin assignment for the ATmega32 microcontroller in the Smart Energy Management System.
 
@@ -210,6 +242,38 @@ All I/O pins include:
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+**LinkedIn Company Page**: https://www.linkedin.com/company/gestell-company
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                    |
+| -------------------- | ------------------------ |
+| **Document Type**    | Pin Assignment Reference |
+| **Document Status**  | Active                   |
+| **Document Version** | 1.0                      |
+| **Last Updated**     | January 2026             |
+| **Prepared By**      | Gestell Engineering Team |
+| **Target Platform**  | ATmega32 Microcontroller |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

@@ -1,12 +1,47 @@
-# Regulatory Requirements
+# ⚖️ Regulatory Requirements
 
-**Project**: Smart Energy Management System  
-**Component**: Embedded System  
-**Version**: 1.0
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Project](https://img.shields.io/badge/Project-Smart_Energy_Management-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Regulatory_Requirements-brightgreen)
+
+**Smart Energy Management System**
+
+**Regulatory & Compliance Requirements**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Overview
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Electrical Safety Standards](#-electrical-safety-standards)
+- [Electromagnetic Compatibility](#-electromagnetic-compatibility-emc)
+- [Energy Metering Standards](#-energy-metering-standards)
+- [Environmental Compliance](#-environmental-compliance)
+- [Product Marking Requirements](#-product-marking-requirements)
+- [Egyptian Market Compliance](#-egyptian-market-compliance)
+- [Installation Requirements](#-installation-requirements)
+- [Compliance Verification](#-compliance-verification)
+- [Out of Scope](#-out-of-scope)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                    | Description           | Status       |
+| --------------------------- | --------------------- | ------------ |
+| **[CRS.md](../CRS/CRS.md)** | Customer Requirements | ✅ Available |
+| **[HRS.md](../HRS/HRS.md)** | Hardware Requirements | ✅ Available |
+
+---
+
+## 📖 Overview
 
 This document outlines regulatory and compliance requirements applicable to the Smart Energy Management System for residential and small commercial installations.
 
@@ -153,6 +188,37 @@ The following standards are **not applicable** to this residential monitoring sy
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+**LinkedIn Company Page**: https://www.linkedin.com/company/gestell-company
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                    |
+| -------------------- | ------------------------ |
+| **Document Type**    | Regulatory Requirements  |
+| **Document Status**  | Active                   |
+| **Document Version** | 1.0                      |
+| **Last Updated**     | January 2026             |
+| **Prepared By**      | Gestell Engineering Team |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

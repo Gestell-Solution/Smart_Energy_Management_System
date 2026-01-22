@@ -1,372 +1,291 @@
-# Timer0 Driver - 8-bit Timer/Counter
+# ⏱️ Timer0 Driver - 8-bit Timer/Counter
 
-**MCU**: ATmega32  
-**Type**: 8-bit Timer/Counter  
-**Purpose**: Reserved for software PWM, general timing, and auxiliary functions  
-**Status**: Currently unused, available for future expansion
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-MCAL_Layer-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Hardware_Driver-brightgreen)
+
+**Timer0 Driver**
+
+**Smart Energy Management System - Precision Timing & PWM Generation**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Hardware Architecture](#-2-hardware-architecture)
+- [Operating Modes](#-3-operating-modes)
+- [PWM Frequency Tables](#-4-pwm-frequency-calculation-tables)
+- [Interrupt Handling](#-5-interrupt-handling)
+- [State Machine](#-6-state-machine)
+- [Sequence Diagrams](#-7-sequence-diagrams)
+- [Configuration](#-8-configuration-parameters)
+- [Dependencies](#-9-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                           | Description | Status       |
+| ------------------------------------------------------------------ | ----------- | ------------ |
+| **[Buzzer_Driver.md](../../HAL_Layer/Buzzer/Buzzer_Driver.md)**    | Uses PWM    | ✅ Available |
+| **[RGB_LED_Driver.md](../../HAL_Layer/RGB_LED/RGB_LED_Driver.md)** | Uses PWM    | ✅ Available |
+| **[GIE_Driver.md](../GIE/GIE_Driver.md)**                          | Interrupts  | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
-Timer0 is an 8-bit general-purpose timer/counter peripheral that complements Timer1 (16-bit) by providing additional timing and PWM capabilities. While currently unused in the Smart Energy Management System, Timer0 is reserved for future features such as software PWM generation, additional periodic tasks, or precise timing measurements that don't require 16-bit resolution.
+Timer0 is an 8-bit general-purpose timer/counter peripheral on the ATmega32. It is the workhorse for generating accurate time bases and Pulse Width Modulation (PWM) signals. In the Smart Energy System, Timer0 is primarily dedicated to **Waveform Generation** (for the Buzzer or Red LED channel) or **System Ticking** (if Timer1 is busy).
 
-### Key Responsibilities (Future)
+### Key Responsibilities
 
-- Generate software PWM signals (e.g., buzzer tones, fan control)
-- Provide fast periodic interrupts for housekeeping tasks
-- Implement timeout mechanisms
-- Measure short time intervals
-- Support phase-correct PWM for motor control (future)
+- **Precision Delays**: Generating hardware-timed delays independent of software execution.
+- **PWM Output**: Driving Pin PB3 (OC0) with Phase Correct or Fast PWM signals.
+- **Event Counting**: Counting external events on Pin T0 (PB0) (Alternative mode).
+- **System Heartbeat**: Generating a 1ms or 10ms OS tick interrupt.
 
-### Hardware Peripheral
+### Requirements Traceability
 
-Utilizes ATmega32's Timer0:
-
-- **8-bit resolution**: Counter range 0-255
-- **Multiple operating modes**: Normal, CTC, PWM (Fast/Phase-Correct)
-- **Prescaler options**: 1, 8, 64, 256, 1024
-- **Two interrupts**: Overflow and Compare Match
-- **One PWM output**: OC0 (PB3) for hardware PWM
+| Requirement ID   | Description            | Implementation             |
+| :--------------- | :--------------------- | :------------------------- |
+| **REQ-IO-007**   | Buzzer Control Pin PB4 | PWM / Frequency Generation |
+| **REQ-DISP-013** | Buzzer Duration Config | Timer Delay functions      |
+| **REQ-DISP-010** | RGB LED PWM (PB3)      | Timer0 OC0 Output          |
 
 ---
 
-## 2. Architecture Diagram
+## 2. Hardware Architecture
+
+### 2.1 Block Diagram
 
 ```mermaid
 graph TB
-    subgraph "Timer0 Module Architecture (Future Use)"
-        direction TB
-
-        CLK[System Clock<br/>16 MHz] --> PRESC[Prescaler<br/>1/8/64/256/1024]
-
-        PRESC --> CNT[8-bit Counter<br/>TCNT0<br/>0x00 to 0xFF]
-
-        CNT --> CMP[Comparator]
-        OCR0[OCR0 Register<br/>Compare Value] --> CMP
-
-        CNT --> OVF_DET[Overflow Detector<br/>255→0 Rollover]
-
-        CMP -->|Match| CMP_FLAG[OCF0 Flag<br/>Compare Match]
-        OVF_DET -->|Overflow| OVF_FLAG[TOV0 Flag<br/>Timer Overflow]
-
-        CMP_FLAG -.->|Optional| CMP_INT[TIMER0_COMP_vect<br/>Compare ISR]
-        OVF_FLAG -.->|Optional| OVF_INT[TIMER0_OVF_vect<br/>Overflow ISR]
-
-        CMP -->|In PWM Mode| OC0_PIN[OC0 Pin PB3<br/>PWM Output]
-
-        MODE[Mode Control<br/>WGM01:00] -.-> CNT
-        MODE -.-> CMP
-
-        subgraph "Operating Modes"
-            NORMAL[Normal Mode<br/>Free-running]
-            CTC[CTC Mode<br/>Clear on Compare]
-            PWM_FAST[Fast PWM<br/>High-frequency]
-            PWM_PC[Phase Correct PWM<br/>Symmetric]
-        end
+    subgraph "Clock Source"
+        XTAL[Crystal 16MHz] --> PRESC[Prescaler<br/>/1, /8, /64, /256, /1024]
     end
 
-    style CNT fill:#4A90E2,color:#fff
-    style CMP fill:#E24A4A,color:#fff
-    style OC0_PIN fill:#50C878,color:#fff
+    subgraph "Timer0 Core"
+        PRESC --> MUX[Clock Select<br/>CS02:00]
+        MUX --> TCNT0[TCNT0 Counter<br/>8-bit (0-255)]
+
+        TCNT0 --> COMP[Comparator ==]
+        OCR0[OCR0 Register<br/>Compare Value] --> COMP
+
+        TCNT0 --> OVF[Overflow Logic<br/>0xFF -> 0x00]
+    end
+
+    subgraph "Outputs"
+        COMP --> WAVE[Waveform Gen]
+        WAVE --> OC0_PIN[Pin PB3]
+
+        COMP --> OCF0[Interrupt Flag<br/>Compare Match]
+        OVF --> TOV0[Interrupt Flag<br/>Overflow]
+    end
+
+    style TCNT0 fill:#3498DB,color:#fff
+    style OCR0 fill:#E74C3C,color:#fff
 ```
 
----
+### 2.2 Register Map
 
-## 3. Hardware Interface
-
-### Register Overview
-
-**TCNT0 (Timer/Counter Register):**
-
-- 8-bit counter value (0-255)
-- Increments every timer clock cycle
-- Can be read/written directly
-
-**OCR0 (Output Compare Register):**
-
-- 8-bit compare value
-- Triggers compare match when TCNT0 = OCR0
-- Used for CTC timing or PWM duty cycle
-
-**TCCR0 (Timer/Counter Control Register):**
-
-- **FOC0** (bit 7): Force Output Compare (non-PWM modes)
-- **WGM00, WGM01** (bits 6, 3): Waveform Generation Mode
-- **COM01:00** (bits 5-4): Compare Output Mode (OC0 pin behavior)
-- **CS02:00** (bits 2-0): Clock Select (prescaler)
-
-**TIMSK (Timer Interrupt Mask Register):**
-
-- **OCIE0** (bit 1): Output Compare Match Interrupt Enable
-- **TOIE0** (bit 0): Overflow Interrupt Enable
-
-**TIFR (Timer Interrupt Flag Register):**
-
-- **OCF0** (bit 1): Output Compare Match Flag
-- **TOV0** (bit 0): Timer Overflow Flag
-
-### Pin Configuration
-
-| Pin | Function | Mode   | Future Use                                 |
-| --- | -------- | ------ | ------------------------------------------ |
-| PB3 | OC0      | Output | Hardware PWM for buzzer tones, LED dimming |
+- **TCNT0**: The actual counter value.
+- **OCR0**: The "trigger" value. When TCNT0 matches this, an event occurs.
+- **TCCR0**: Control register (Mode Selection, Prescaler, Output behavior).
+- **TIMSK**: Interrupt Mask (Enable/Disable ISRs).
+- **TIFR**: Interrupt Flags (Status).
 
 ---
 
-## 4. Data Flow Diagram
+## 3. Operating Modes
+
+### 3.1 Normal Mode
+
+- Counter runs 0 to 255, then rolls over.
+- Used for: Generating Overflow Interrupts (System Tick).
+- frequency: $f_{OVF} = f_{clk} / (256 \times N)$
+
+### 3.2 CTC (Clear Timer on Compare)
+
+- Counter runs 0 to OCR0, then resets to 0.
+- Used for: Precise frequency generation (e.g., 2.5kHz for Buzzer).
+- frequency: $f_{OC0} = f_{clk} / (2 \times N \times (1+OCR0))$
+
+### 3.3 Fast PWM
+
+- Counter runs 0 to 255.
+- Output transitions High/Low at match.
+- Used for: Motor Control, LED Brightness.
+- frequency: $f_{PWM} = f_{clk} / (256 \times N)$
+
+### 3.4 Phase Correct PWM
+
+- Counter counts Up (0->255) then Down (255->0).
+- Used for: High-precision motor control (less noise).
+- frequency: $f_{PWM} = f_{clk} / (510 \times N)$
+
+---
+
+## 4. PWM Frequency Calculation Tables
+
+For $F_{CPU} = 16 MHz$.
+
+### 4.1 Fast PWM Mode (Modulus 256)
+
+| Prescaler (N) | Calculation   | Output Frequency | Suitable For                |
+| ------------- | ------------- | ---------------- | --------------------------- |
+| **1**         | $16M / 256$   | **62.50 kHz**    | DC-DC Converters            |
+| **8**         | $2M / 256$    | **7.81 kHz**     | LED Dimming (High Speed)    |
+| **64**        | $250k / 256$  | **976 Hz**       | Motor Control, LED Standard |
+| **256**       | $62.5k / 256$ | **244 Hz**       | Relays (Avoid)              |
+| **1024**      | $15.6k / 256$ | **61 Hz**        | Visual Blink                |
+
+### 4.2 CTC Mode (Variable Modulus)
+
+_Example Target: 2500 Hz (Buzzer)_
+
+1.  Try N=64.
+2.  $2500 = 16000000 / (2 \times 64 \times (1+OCR))$
+3.  $1+OCR = 125000 / 2500 = 50$
+4.  $OCR = 49$.
+5.  **Perfect Match**.
+
+---
+
+## 5. Interrupt Handling
+
+Timer0 provides two interrupt vectors.
 
 ```mermaid
-flowchart TB
-    subgraph "Normal Mode (Future)"
-        SYSCLK_N[System Clock] --> PS_N[Prescaler]
-        PS_N --> CNT_N[TCNT0 Increment<br/>0→255]
-        CNT_N --> OVF_N{Overflow?<br/>255→0}
-        OVF_N -->|Yes| ISR_OVF[Overflow ISR<br/>Every 256 counts]
-        OVF_N -->|No| CNT_N
-        ISR_OVF -->|Optional| APP_OVF[Application<br/>Periodic Task]
-    end
+flowchart TD
+    Event[Timer Event] --> Check_Type{Type?}
 
-    subgraph "CTC Mode (Future)"
-        SYSCLK_C[System Clock] --> PS_C[Prescaler]
-        PS_C --> CNT_C[TCNT0 Increment]
-        CNT_C --> CMP_C{TCNT0=OCR0?}
-        CMP_C -->|Yes| RESET_C[Reset TCNT0=0]
-        CMP_C -->|Yes| ISR_CMP[Compare ISR<br/>Precise Timing]
-        CMP_C -->|No| CNT_C
-        RESET_C --> CNT_C
-        ISR_CMP -->|Optional| APP_CMP[Application<br/>Timed Event]
-    end
+    Check_Type -->|Overflow| Vector_OVF[TIMER0_OVF_vect<br/>Address 0x012]
+    Check_Type -->|Compare| Vector_COMP[TIMER0_COMP_vect<br/>Address 0x010]
 
-    subgraph "PWM Mode (Future)"
-        SYSCLK_P[System Clock] --> PS_P[Prescaler]
-        PS_P --> PWM_GEN[PWM Generator]
-        OCR0_P[OCR0<br/>Duty Cycle] --> PWM_GEN
-        PWM_GEN --> OC0[OC0 Pin PB3<br/>PWM Signal]
-        OC0 --> BUZZER[Buzzer<br/>Tone Generation]
-    end
-
-    style ISR_OVF fill:#E24A4A,color:#fff
-    style ISR_CMP fill:#50C878,color:#fff
-    style OC0 fill:#F39C12,color:#000
+    Vector_OVF --> Save_Context[Push CPU Regs]
+    Save_Context --> Call_CB[Call User Callback<br/>"Tick_Handler()"]
+    Call_CB --> Restore_Context[Pop CPU Regs]
+    Restore_Context --> RETI[Return from Interrupt]
 ```
+
+**Latency Warning**: An ISR executes every $1/f_{freq}$. At 62.5kHz, the ISR fires every 16µs. If the ISR takes 20µs to run, the system hangs (Starvation). **Always use Prescalers to keep ISR rate manageable (< 5kHz).**
 
 ---
 
-## 5. State Machine
+## 6. State Machine
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Stopped: Power On / Reset
+    [*] --> Stopped
 
-    Stopped --> Configured: Timer0_Init()
+    Stopped --> Running: Timer0_Init()
 
-    Configured --> Running: Set Clock Source<br/>(CS02:00 ≠ 000)
+    state Running {
+        [*] --> Counting
+        Counting --> Match_Event: TCNT0 == OCR0
+        Match_Event --> Reset_Count: Mode == CTC
+        Match_Event --> Counting: Mode == PWM
 
-    Running --> Counting: Counter Incrementing
+        Counting --> Overflow_Event: TCNT0 == 255
+        Overflow_Event --> Zero_Count: Mode == Normal
+    }
 
-    Counting --> CompareMatch: TCNT0 = OCR0<br/>(in CTC/PWM)
-    Counting --> Overflow: TCNT0 = 255→0<br/>(in Normal mode)
+    Running --> Stopped: Timer0_Stop()
 
-    CompareMatch --> ResetCounter: CTC Mode
-    CompareMatch --> PWM_Update: PWM Mode
-    CompareMatch --> ISR_Compare: Interrupt Enabled
-
-    Overflow --> ISR_Overflow: Interrupt Enabled
-
-    ResetCounter --> Counting: TCNT0 = 0
-    PWM_Update --> Counting: Update OC0 pin
-    ISR_Compare --> Counting: ISR Complete
-    ISR_Overflow --> Counting: ISR Complete
-
-    Running --> Stopped: Clear Clock Source
-
-    note right of Configured
-        - Mode selected (Normal/CTC/PWM)
-        - Prescaler configured
-        - Interrupts enabled (optional)
-        - OCR0 value set
-    end note
-
-    note right of CompareMatch
-        CTC: Reset counter
-        PWM: Update output pin
-        Interrupt: Fire ISR (optional)
+    note right of Match_Event
+        Toggle OC0 Pin
+        Set OCF0 Flag
+        Trigger ISR
     end note
 ```
 
 ---
 
-## 6. Sequence Diagrams
+## 7. Sequence Diagrams
 
-### Future CTC Mode Initialization
+### 7.1 Software Delay Implementation
 
 ```mermaid
 sequenceDiagram
     participant APP as Application
-    participant DRV as Timer0 Driver
-    participant HW as Timer0 Hardware
+    participant TMR as Timer0 Driver
+    participant REG as Hardware Registers
 
-    APP->>DRV: Timer0_Init_CTC(prescaler_64, OCR=250)
-    activate DRV
+    APP->>TMR: Timer0_SetDelay_ms(100)
+    activate TMR
 
-    DRV->>HW: Stop Timer (CS=000)
-    DRV->>HW: Clear TCNT0 = 0
-    DRV->>HW: Set WGM01:00 = 10 (CTC Mode)
-    DRV->>HW: Set OCR0 = 250
-    DRV->>HW: Set CS02:00 = 011 (Prescaler /64)
+    TMR->>REG: TCCR0 = 0 (Stop)
+    TMR->>REG: TCNT0 = 0
+    TMR->>REG: OCR0 = 249 (1ms match @ /64)
+    TMR->>REG: TIMSK |= OCIE0 (Enable Int)
+    TMR->>REG: TCCR0 = 0x03 (Start /64)
 
-    Note over HW: Timer starts counting<br/>0→250→0 (Period = 251 counts)
-
-    DRV->>APP: Initialization Complete
-    deactivate DRV
-
-    Note over HW: Frequency = 16MHz/(64×251) ≈ 997 Hz
-```
-
----
-
-## 7. Module Dependencies
-
-### Dependency Diagram
-
-```mermaid
-graph TB
-    subgraph "Future Applications"
-        BUZZ[Buzzer Driver<br/>Tone Generation]
-        FAN[Fan Control<br/>PWM Speed]
-        TASK[Fast Periodic Tasks<br/>< 1ms intervals]
+    loop 100 Times
+        REG-->>TMR: Interrupt (Compare Match)
+        TMR->>TMR: Ticks--
     end
 
-    subgraph "MCAL Layer"
-        TIMER0[Timer0 Driver]
-        GIE[GIE Driver]
-    end
-
-    BUZZ -.->|May Use| TIMER0
-    FAN -.->|May Use| TIMER0
-    TASK -.->|May Use| TIMER0
-
-    TIMER0 -->|If Using Interrupts| GIE
-
-    style TIMER0 fill:#4A90E2,color:#fff
+    TMR->>REG: TCCR0 = 0 (Stop)
+    TMR->>APP: Delay Complete
+    deactivate TMR
 ```
 
 ---
 
 ## 8. Configuration Parameters
 
-### Prescaler Options
+Configured in `Timer0_Config.h`.
 
-| CS02:00 | Prescaler     | Timer Clock @ 16MHz | Max Period (8-bit) | Use Case       |
-| ------- | ------------- | ------------------- | ------------------ | -------------- |
-| 000     | Timer stopped | 0 Hz                | -                  | Disabled       |
-| 001     | 1             | 16 MHz              | 16 µs              | High-speed PWM |
-| 010     | 8             | 2 MHz               | 128 µs             | Fast timing    |
-| 011     | 64            | 250 kHz             | 1.024 ms           | Medium timing  |
-| 100     | 256           | 62.5 kHz            | 4.096 ms           | Slow timing    |
-| 101     | 1024          | 15.625 kHz          | 16.384 ms          | Very slow      |
-
-### Operating Modes
-
-| WGM01:00 | Mode              | Description          | TOP  | Update OCR |
-| -------- | ----------------- | -------------------- | ---- | ---------- |
-| 00       | Normal            | Free-running counter | 0xFF | Immediate  |
-| 01       | PWM Phase Correct | Symmetric PWM        | 0xFF | On TOP     |
-| 10       | CTC               | Clear on Compare     | OCR0 | Immediate  |
-| 11       | Fast PWM          | High-frequency PWM   | 0xFF | On BOTTOM  |
+| Parameter          | Options                                  | Default        | Description               |
+| ------------------ | ---------------------------------------- | -------------- | ------------------------- |
+| `TIMER0_MODE`      | `NORMAL`, `CTC`, `FAST_PWM`, `PHASE_PWM` | `CTC`          | Waveform generation mode. |
+| `TIMER0_PRESCALER` | `1`, `8`, `64`, `256`, `1024`            | `64`           | Clock division factor.    |
+| `TIMER0_OC0_MODE`  | `DISCONNECTED`, `TOGGLE`, `CLEAR`, `SET` | `DISCONNECTED` | Pin PB3 behavior.         |
+| `TIMER0_INTERRUPT` | `ENABLE`, `DISABLE`                      | `DISABLE`      | Global interrupt usage.   |
 
 ---
 
-## 9. Error Handling Strategy
+## 9. Module Dependencies
 
-### Potential Issues (Future)
+```mermaid
+graph TD
+    APP[Scheduler] --> TMR0[Timer0 Driver]
 
-**Frequency Aliasing (PWM):**
+    TMR0 --> GIE[GIE Driver]
 
-- 8-bit resolution limits PWM frequency range
-- Too high frequency reduces duty cycle resolution
-- Too low frequency creates visible flicker
+    HAL_BUZZ[Buzzer] -.->|Depends on| TMR0
+    HAL_LED[RGB LED] -.->|Depends on| TMR0
 
-**Overflow Too Fast:**
+    style TMR0 fill:#4A90E2,color:#fff
+```
 
-- High-speed clock with no prescaler overflows every 16 µs
-- ISR overhead may exceed period
-- Solution: Use prescaler
+### 9.1 Conflict Resolution
 
----
+Since Timer0 is shared hardware, it cannot simultaneously be a System Tick (Normal Mode) AND a Buzzer Driver (Fast PWM Mode).
+**Solution**:
 
-## 10. Performance Characteristics
-
-### Timing Capabilities
-
-**Maximum Frequency:**
-
-- Prescaler 1: 16 MHz / 256 = 62.5 kHz overflow rate
-- Fast PWM: Up to 62.5 kHz
-
-**Minimum Frequency:**
-
-- Prescaler 1024: 16 MHz / (1024 × 256) ≈ 61 Hz
-
-**Resolution:**
-
-- 8 bits = 256 discrete levels
-- PWM duty cycle: 0-100% in 256 steps (0.39% per step)
-
-### Resource Usage (Future)
-
-- RAM: ~4 bytes (callback pointers)
-- Flash: ~150 bytes (minimal driver)
-- CPU: < 0.1% (periodic ISR @ moderate rate)
+- **System Tick**: Use Timer1 (16-bit) or Watchdog Timer.
+- **Buzzer/LED**: Give exclusive access of Timer0 to them.
+- **Driver Lock**: The driver implements an internal `IsBusy` flag to prevent overwriting configuration while active.
 
 ---
 
-## Implementation Notes
+<div align="center">
 
-### Future Use Cases
+**Built with ❤️ by Gestell Team**
 
-**1. Buzzer Tone Generation:**
+_Professional Embedded Systems Engineering_
 
-- Fast PWM mode on OC0 (PB3)
-- Frequency = 16 MHz / (prescaler × 256)
-- Example: Prescaler 64 → 2 kHz tone
-- Duty cycle 50% via OCR0 = 128
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
 
-**2. Software PWM:**
-
-- CTC mode with compare match ISR
-- Manually toggle GPIO pins
-- Supports multiple PWM channels (software-based)
-
-**3. Timeout Watchdog:**
-
-- Normal mode with overflow interrupt
-- Reset counter on activity
-- Overflow indicates timeout
-
-**4. Fast Housekeeping Tasks:**
-
-- CTC mode for precise intervals
-- Fast periodic checks (< 1 ms)
-- Complements Timer1's 10 ms rate
-
-### Comparison: Timer0 vs Timer1
-
-| Feature        | Timer0 (8-bit)            | Timer1 (16-bit)          |
-| -------------- | ------------------------- | ------------------------ |
-| Resolution     | 256 levels                | 65,536 levels            |
-| Maximum Period | 16.38 ms @ prescaler 1024 | 4.19 s @ prescaler 1024  |
-| PWM Outputs    | 1 (OC0)                   | 2 (OC1A, OC1B)           |
-| Complexity     | Simple                    | Advanced features        |
-| Current Use    | **Reserved**              | **Active (ADC trigger)** |
-
----
-
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Status**: Reserved for Future Use  
-**Maintained By**: Gestell Engineering Team  
-**Related Documents**: Timer1_Driver.md, Buzzer_Driver.md
+</div>

@@ -1,12 +1,44 @@
-# ADC Driver - Analog to Digital Converter
+# 📡 ADC Driver - Analog to Digital Converter
 
-**MCU**: ATmega32  
-**Resolution**: 10-bit (1024 discrete levels)  
-**Purpose**: Convert analog sensor signals to digital values for energy measurement processing
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-ATmega32_ADC-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-MCAL_Driver-brightgreen)
+
+**ADC Driver**
+
+**Smart Energy Management System - Analog Interface**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Hardware Interface](#-3-hardware-interface)
+- [Data Flow](#-4-data-flow-diagram)
+- [State Machine](#-5-state-machine)
+- [Sequence Diagrams](#-6-sequence-diagrams)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                           | Description    | Status       |
+| -------------------------------------------------- | -------------- | ------------ |
+| **[Timer1_Driver.md](../Timer1/Timer1_Driver.md)** | Trigger Source | ✅ Available |
+| **[GIE_Driver.md](../GIE/GIE_Driver.md)**          | Interrupts     | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
@@ -23,6 +55,15 @@ The ADC (Analog-to-Digital Converter) driver is a critical component in the Smar
 - Interrupt-driven data acquisition
 - Reference voltage management
 - Noise reduction through hardware and software techniques
+
+### Requirements Traceability
+
+| Requirement ID   | Description                       | Implementation                          |
+| :--------------- | :-------------------------------- | :-------------------------------------- | ------------ | ---------- | ----------- |
+| **REQ-MEAS-002** | Voltage Range 0-300V, Channel PA0 | Configured Channel 0, 10-bit resolution |
+| **REQ-MEAS-006** | Current Range 0-30A, Channel PA1  | Configured Channel 1, 10-bit resolution |
+| **REQ-IO-002**   | ADC Clock Prescaler /128          | `ADCSRA                                 | = (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0)` |
+| **REQ-IO-004**   | Hardware/Software Filtering       | Moving Average Algorithm implemented    |
 
 ### Hardware Peripheral
 
@@ -790,7 +831,37 @@ graph TB
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team  
-**Related Documents**: Timer1_Driver.md, Measurement_Engine.md, Calibration_Manager.md
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                    |
+| -------------------- | ------------------------ |
+| **Document Type**    | ADC Driver Documentation |
+| **Document Status**  | Active                   |
+| **Document Version** | 2.0                      |
+| **Last Updated**     | January 2026             |
+| **Prepared By**      | Gestell Engineering Team |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

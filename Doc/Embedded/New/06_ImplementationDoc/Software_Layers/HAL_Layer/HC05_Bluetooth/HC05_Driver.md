@@ -1,314 +1,281 @@
-# HC-05 Bluetooth Module Driver
+# 🔵 HC-05 Bluetooth Module Driver
 
-**Module**: HC-05 Bluetooth 2.0  
-**Interface**: UART (AT Commands + Data)  
-**Purpose**: Bluetooth connectivity for mobile app communication
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-HAL_Layer-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Hardware_Driver-brightgreen)
+
+**HC-05 Driver**
+
+**Smart Energy Management System - Serial Wireless Bridge**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Hardware Architecture](#-2-hardware-architecture)
+- [Operating Modes](#-3-operating-modes)
+- [AT Command Set](#-4-at-command-reference)
+- [Packet Protocol](#-5-packet-protocol-structure)
+- [State Machine](#-6-state-machine)
+- [Sequence Diagrams](#-7-sequence-diagrams)
+- [Configuration](#-8-configuration-parameters)
+- [Dependencies](#-9-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                                                               | Description    | Status       |
+| ------------------------------------------------------------------------------------------------------ | -------------- | ------------ |
+| **[UART_Driver.md](../../MCAL_Layer/UART/UART_Driver.md)**                                             | Serial Bus     | ✅ Available |
+| **[Communication_Manager.md](../../Application_Layer/Communication_Manager/Communication_Manager.md)** | Protocol Logic | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
-The HC-05 driver provides Bluetooth Classic connectivity, enabling wireless communication with mobile applications for real-time monitoring, control, and configuration.
+The HC-05 Driver facilitates wireless serial communication between the Energy Meter and an Android/iOS mobile application. It acts as a transparent bridge, converting UART serial frames into Bluetooth 2.0 (Classic) radio packets.
+
+This module is essential for the "Technician Mode", allowing field engineers to configure thresholds, read error logs, and calibrate sensors without physical access to the device (up to 10 meters).
 
 ### Key Responsibilities
 
-- Bluetooth pairing and connection management
-- Transparent serial data transmission
-- AT command mode configuration
-- Connection status monitoring
-- Mobile app data exchange
-
-### Hardware Component
-
-- Bluetooth: Version 2.0 + EDR
-- Range: ~10 meters (Class 2)
-- Interface: UART (transparent serial)
-- Default baud: 9600 or 38400
-- Power: 3.3V (built-in regulator, 5V tolerant)
+- **Transparent Bridge**: Passing bytes from UART Rx to Bluetooth Air, and Air to UART Tx.
+- **Configuration**: Entering AT Mode to set Name, PIN, and Baud Rate.
+- **State Monitoring**: Detecting connection status via the STATE pin.
+- **Security**: Managing PIN pairing (default "1234").
 
 ---
 
-## 2. Architecture Diagram
+## 2. Hardware Architecture
+
+### 2.1 Interface Schematic
 
 ```mermaid
-graph TB
-    subgraph "HC-05 Driver Architecture"
-        APP[Application/<br/>Communication Manager] -->|Send/Receive| HC05_API[HC-05 Driver]
-
-        HC05_API --> DATA[Data Mode<br/>Transparent UART]
-        HC05_API --> AT_MODE[AT Mode<br/>Configuration]
-        HC05_API --> STATE[Connection<br/>State Monitor]
-
-        DATA --> UART[UART Driver<br/>9600 baud]
-        AT_MODE --> UART
-
-        UART --> HC05_MOD[HC-05 Module<br/>Bluetooth Transceiver]
-
-        STATUS[STATE Pin] --> STATE
-
-        HC05_MOD <-->|Bluetooth 2.0| MOBILE[Mobile Device<br/>Android/iOS App]
+graph LR
+    subgraph "Microcontroller (5V)"
+        TX[UART TX]
+        RX[UART RX]
+        KEY[Key/EN Pin]
+        STATE[State Pin]
     end
 
-    style HC05_API fill:#4A90E2,color:#fff
-    style HC05_MOD fill:#E24A4A,color:#fff
-    style MOBILE fill:#50C878,color:#fff
+    subgraph "Level Shifter"
+        R1[1 kΩ]
+        R2[2.2 kΩ]
+    end
+
+    subgraph "HC-05 (3.3V Logic)"
+        BT_RX[RXD Pin]
+        BT_TX[TXD Pin]
+        BT_KEY[Key Pin]
+        BT_STATE[State Pin]
+    end
+
+    TX --> R1
+    R1 --> BT_RX
+    R1 --> R2
+    R2 --> GND
+
+    BT_TX --> RX
+
+    KEY --> BT_KEY
+    BT_STATE --> STATE
+
+    style BT_RX fill:#E67E22,color:#fff
 ```
+
+### 2.2 Pin Descriptions
+
+1.  **RXD (HC-05)**: Receiving Data. **3.3V Logic Limit!** Requires divider.
+2.  **TXD (HC-05)**: Transmitting Data. 3.3V Logic, but safe for 5V MCU input ($V_{IH} > 2.0V$).
+3.  **KEY**: Pull HIGH during power-on to enter AT Command Mode.
+4.  **STATE**: LOW = Disconnected. HIGH = Connected. Used by driver to pause transmission if link is lost.
 
 ---
 
 ## 3. Operating Modes
 
-### Data Mode (Normal Operation)
+The HC-05 has two distinct operational states.
 
-**Characteristics:**
+| Mode          | Entry Condition | LED Pattern                                     | Baud Rate         | Function         |
+| ------------- | --------------- | ----------------------------------------------- | ----------------- | ---------------- |
+| **Data Mode** | Standard Boot   | Fast Blink (Pairing) / Double Blink (Connected) | Configured (9600) | Transparent Data |
+| **AT Mode**   | KEY High @ Boot | Slow Blink (2s period)                          | Fixed (38400)     | Configuration    |
 
-- Transparent serial bridge
-- Data sent via UART appears on Bluetooth
-- Data received via Bluetooth appears on UART
-- No AT commands (except when disconnected)
-- Automatic mode when paired and connected
-
-### AT Command Mode
-
-**Entry Methods:**
-
-1. **Before pairing**: HC-05 accepts AT commands when not connected
-2. **KEY pin**: Pull HIGH before power-on (hardware mode)
-
-**Common AT Commands:**
-
-| Command | Purpose            | Response | Example             |
-| ------- | ------------------ | -------- | ------------------- |
-| AT      | Test communication | OK       | Basic test          |
-| AT+NAME | Set device name    | OK       | AT+NAME=EnergyMeter |
-| AT+PSWD | Set PIN code       | OK       | AT+PSWD=1234        |
-| AT+UART | Set baud rate      | OK       | AT+UART=9600,0,0    |
-| AT+ROLE | Set master/slave   | OK       | AT+ROLE=0 (slave)   |
+> **Driver Strategy**: The driver operates primarily in Data Mode. AT Mode is only used during "Factory Reset" or generic setup, requiring a specific boot sequence.
 
 ---
 
-## 4. Connection Sequence
+## 4. AT Command Reference
 
-```mermaid
-sequenceDiagram
-    participant APP as Mobile App
-    participant HC05 as HC-05 Module
-    participant DRV as HC-05 Driver
-    participant SYS as System
+Although rarely used in runtime, these commands are essential for setup.
 
-    Note over HC05: Power ON (advertising)
+| Command    | Description     | Parameter Example      | Response |
+| ---------- | --------------- | ---------------------- | -------- |
+| `AT`       | Test            | -                      | `OK`     |
+| `AT+NAME`  | Set Device Name | `AT+NAME=GestellMeter` | `OK`     |
+| `AT+PSWD`  | Set Pairing PIN | `AT+PSWD=8888`         | `OK`     |
+| `AT+UART`  | Set Baud Rate   | `AT+UART=9600,0,0`     | `OK`     |
+| `AT+ROLE`  | Master/Slave    | `0`=Slave, `1`=Master  | `OK`     |
+| `AT+RESET` | Soft Reboot     | -                      | `OK`     |
+| `AT+ORGL`  | Restore Factory | -                      | `OK`     |
 
-    APP->>HC05: Bluetooth scan
-    HC05->>APP: Device found: "EnergyMeter"
+---
 
-    APP->>HC05: Pair request
-    HC05->>APP: PIN required
-    APP->>HC05: Enter PIN: 1234
-    HC05->>APP: Paired successfully
+## 5. Packet Protocol Structure
 
-    APP->>HC05: Connect
-    HC05->>HC05: STATE pin goes HIGH
+To ensure data integrity over the noisy wireless link, we use a simple frame structure.
 
-    HC05->>DRV: Connection established
-    DRV->>SYS: Notify: BT connected
+### 5.1 JSON Frame (ASCII)
 
-    Note over HC05,APP: Data mode active<br/>Transparent serial
+User readable, easy to debug.
 
-    APP->>HC05: JSON command: {"relay":"ON"}
-    HC05->>DRV: UART data received
-    DRV->>SYS: Parse and execute
-
-    SYS->>DRV: Response: {"status":"OK"}
-    DRV->>HC05: UART transmit
-    HC05->>APP: Bluetooth data
-
-    APP->>HC05: Disconnect
-    HC05->>HC05: STATE pin goes LOW
-    HC05->>DRV: Connection lost
+```json
+{
+  "T": "DATA",
+  "V": 220.5,
+  "I": 5.12,
+  "E": 150
+}
 ```
 
+- **Overhead**: High.
+- **Parsing**: Requires `scanf` or parser.
+- **Usage**: Technician Dashboard.
+
+### 5.2 Binary Frame (Hex)
+
+Compact, efficient.
+
+| Start Byte | Cmd ID | Payload Len | Payload [0..N] | Checksum (XOR) | End Byte |
+| ---------- | ------ | ----------- | -------------- | -------------- | -------- |
+| `0xAA`     | `0x01` | `0x04`      | `00 00 00 00`  | `0x55`         | `0xFF`   |
+
+- **Overhead**: Low (4 bytes).
+- **Usage**: Firmware Upload, Raw Logging.
+
 ---
 
-## 5. State Machine
+## 6. State Machine
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Powered_OFF
+    [*] --> Disconnected
 
-    Powered_OFF --> Initializing: Power ON
-    Initializing --> Idle: Init complete
+    Disconnected --> Pairing: Power On
 
-    Idle --> Discoverable: Advertising
-    Discoverable --> Pairing: Pair request
-    Pairing --> Paired: PIN accepted
-    Pairing --> Discoverable: PIN rejected
+    state Pairing {
+        [*] --> Scanning
+    }
 
-    Paired --> Connecting: Connect request
-    Connecting --> Connected: Link established
+    Pairing --> Connected: Mobile Device Links
 
-    Connected --> DataTransfer: Exchanging data
-    DataTransfer --> Connected: Idle
+    state Connected {
+        Idle --> Transmitting: Send Data
+        Transmitting --> Idle: Complete
 
-    Connected --> Paired: Disconnect
-    Paired --> Discoverable: Unpair
+        Idle --> Receiving: RX Interrupt
+        Receiving --> Parsing: End of Frame
+        Parsing --> Idle: Valid/Invalid
+    }
 
-    note right of Discoverable
-        Visible to devices
-        Accepting pair requests
-        STATE pin LOW
-    end note
-
-    note right of Connected
-        Link active
-        Data mode
-        STATE pin HIGH
-    end note
+    Connected --> Disconnected: Link Lost (State Pin Low)
+    Connected --> AT_Config: Mode Switch Request
 ```
 
 ---
 
-## 6. Pin Connections
+## 7. Sequence Diagrams
 
-| HC-05 Pin | MCU Pin  | Function | Description                                         |
-| --------- | -------- | -------- | --------------------------------------------------- |
-| VCC       | 5V       | Power    | Module has 3.3V regulator                           |
-| GND       | GND      | Ground   | Common ground                                       |
-| TXD       | PD0 (RX) | Transmit | HC-05 → MCU (3.3V level, OK for 5V MCU)             |
-| RXD       | PD1 (TX) | Receive  | MCU → HC-05 (needs level shift or resistor divider) |
-| STATE     | GPIO     | Status   | HIGH=connected, LOW=disconnected                    |
-| EN/KEY    | GPIO     | AT mode  | HIGH=AT mode (optional)                             |
+### 7.1 Connection & Data Exchange
 
-**Level Shifting (TX → RXD):**
+```mermaid
+sequenceDiagram
+    participant MOBILE as Android App
+    participant HC05 as HC-05 Module
+    participant DRV as Driver
+    participant APP as Main App
 
-- Voltage divider: 1kΩ + 2kΩ (5V → 3.3V)
-- Or dedicated level shifter IC
+    Note over HC05: Blinking Fast (Pairing)
+
+    MOBILE->>HC05: Connect (PIN 1234)
+    HC05->>HC05: Verify PIN
+    HC05-->>MOBILE: Connected
+
+    HC05->>DRV: Set STATE Pin HIGH
+    DRV->>APP: Event: BT_CONNECTED
+
+    Note over HC05: Blinking Slowly (Connected)
+
+    APP->>DRV: Send_Telemetry(220V)
+    DRV->>HC05: UART TX "220.0"
+    HC05->>MOBILE: RF Data "220.0"
+
+    MOBILE->>HC05: CMD "RELAY_OFF"
+    HC05->>DRV: UART RX "RELAY_OFF"
+    DRV->>APP: Callback("RELAY_OFF")
+```
 
 ---
 
-## 7. Configuration Parameters
+## 8. Configuration Parameters
 
-### Default Settings
+Configured in `HC05_Cfg.h`.
 
-| Parameter   | Default    | Configurable  |
-| ----------- | ---------- | ------------- |
-| Device name | HC-05      | Yes (AT+NAME) |
-| PIN code    | 1234       | Yes (AT+PSWD) |
-| Baud rate   | 9600/38400 | Yes (AT+UART) |
-| Role        | Slave      | Yes (AT+ROLE) |
-| Parity      | None       | Yes           |
-
-### Recommended Settings for Energy Meter
-
-- Name: "EnergyMeter" or "SmartPower"
-- PIN: Custom 4-digit code (e.g., 5678)
-- Baud: 9600 (stable, compatible with UART shared with ESP-01)
-- Role: Slave (mobile app connects to it)
-
----
-
-## 8. Data Protocol
-
-**Mobile App ← System (Telemetry):**
-
-```
-JSON format:
-{
-  "voltage": 220.5,
-  "current": 5.2,
-  "power": 1146.6,
-  "energy": 12.5,
-  "status": "normal"
-}
-```
-
-**Mobile App → System (Commands):**
-
-```
-JSON format:
-{
-  "command": "relay",
-  "value": "ON" / "OFF"
-}
-
-{
-  "command": "threshold",
-  "current": 10.0
-}
-```
+| Parameter        | Default  | Description                        |
+| ---------------- | -------- | ---------------------------------- |
+| `BT_UART_BAUD`   | `9600`   | Must match module setting.         |
+| `STATE_PIN`      | `PIN_D4` | Connection monitor input.          |
+| `KEY_PIN`        | `PIN_D5` | AT Mode control output.            |
+| `RX_BUFFER_SIZE` | `64`     | RAM buffer for incoming commands.  |
+| `TX_BUFFER_SIZE` | `64`     | RAM buffer for outgoing telemetry. |
 
 ---
 
 ## 9. Module Dependencies
 
 ```mermaid
-graph TB
-    APP_MOBILE[Mobile App] <-->|Bluetooth| HC05[HC-05 Driver]
-    COMM[Communication Manager] <-->|Data Exchange| HC05
+graph TD
+    HC05[HC-05 Driver] --> UART[UART Driver]
+    HC05 --> DIO[DIO Driver]
 
-    HC05 -->|Serial Data| UART[UART Driver]
-    HC05 -.->|Status Monitor| DIO[DIO - STATE pin]
+    APP[Comm Manager] --> HC05
 
-    style HC05 fill:#4A90E2,color:#fff
+    style HC05 fill:#F39C12,color:#000
+    style UART fill:#4A90E2,color:#fff
 ```
 
----
+### 9.1 UART Conflict
 
-## 10. Performance Characteristics
+**Issue**: The ATmega32 has only one UART.
+**Conflict**: ESP-01 and HC-05 both need UART.
+**Solution**:
 
-**Bluetooth Range:**
+1.  **Multiplexing**: Use logic gates to switch TX/RX lines based on a `SELECT` pin.
+2.  **Software UART**: Use a Bit-Banging driver for the slower device (HC-05 @ 9600).
+3.  **Exclusive Mode**: User selects "WiFi Mode" OR "Bluetooth Mode" via button.
 
-- Line of sight: ~10 meters
-- Through walls: ~5 meters
-- Class 2 device
-
-**Data Rate:**
-
-- Maximum: ~1 Mbps (Bluetooth 2.0 EDR)
-- Practical UART: 9600 bps = 960 bytes/sec
-- Throughput: ~800 bytes/sec (with protocol overhead)
-
-**Power Consumption:**
-
-- Active (connected): ~40 mA
-- Discoverable: ~30 mA
-- Idle (paired, not connected): ~8 mA
-
-**Resource Usage:**
-
-- RAM: ~50 bytes
-- Flash: ~400 bytes
-- UART: Shared with ESP-01
+> **Current Implementation**: **Exclusive Mode**. The system boots in WiFi mode by default. Holding a button switches to Bluetooth mode (swapping RX/TX ISR focus).
 
 ---
 
-## Implementation Notes
+<div align="center">
 
-### UART Sharing
+**Built with ❤️ by Gestell Team**
 
-**Challenge**: Both HC-05 and ESP-01 use UART
-**Solutions:**
+_Professional Embedded Systems Engineering_
 
-1. Software UART for one module (bit-banging)
-2. Hardware UART multiplexer (analog switch)
-3. Time-division: Use one module at a time
-4. **Recommended**: Use HC-05 for local, ESP-01 for cloud (mutually exclusive)
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
 
-### Pairing Security
-
-- Change default PIN from 1234
-- Use device name to identify correct module
-- Implement authentication at application protocol level
-
-### Connection Monitoring
-
-- Monitor STATE pin to detect connection status
-- Auto-reconnect logic in mobile app
-- Timeout disconnected connections (power saving)
-
----
-
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team
+</div>

@@ -1,12 +1,43 @@
-# Configuration Reference
+# ⚙️ Configuration Reference
 
-**Project**: Smart Energy Management System  
-**Component**: Embedded System Configuration Parameters  
-**Version**: 1.0
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Project](https://img.shields.io/badge/Project-Smart_Energy_Management-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Configuration_Reference-brightgreen)
+
+**Smart Energy Management System**
+
+**Configuration Parameters Reference**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Overview
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Configuration Parameters](#-configuration-parameters)
+- [Factory Defaults](#-factory-defaults)
+- [Configuration Access](#-configuration-access)
+- [Configuration Validation](#-configuration-validation)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                    | Description           | Status       |
+| --------------------------- | --------------------- | ------------ |
+| **[CRS.md](../CRS/CRS.md)** | Customer Requirements | ✅ Available |
+| **[SRS.md](../SRS/SRS.md)** | Software Requirements | ✅ Available |
+| **[HRS.md](../HRS/HRS.md)** | Hardware Requirements | ✅ Available |
+
+---
+
+## 📖 Overview
 
 This document defines all configurable parameters for the Smart Energy Management System. Parameters are stored in EEPROM and can be modified via Mobile App or Web Dashboard.
 
@@ -137,6 +168,38 @@ Invalid configuration values default to factory settings.
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+**LinkedIn Company Page**: https://www.linkedin.com/company/gestell-company
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                    |
+| -------------------- | ------------------------ |
+| **Document Type**    | Configuration Reference  |
+| **Document Status**  | Active                   |
+| **Document Version** | 1.0                      |
+| **Last Updated**     | January 2026             |
+| **Prepared By**      | Gestell Engineering Team |
+| **Target Platform**  | ATmega32 Microcontroller |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

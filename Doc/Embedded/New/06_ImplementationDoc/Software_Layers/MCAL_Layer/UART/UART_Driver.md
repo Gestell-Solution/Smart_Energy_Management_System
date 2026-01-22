@@ -1,12 +1,45 @@
-# UART Driver - Universal Asynchronous Receiver/Transmitter
+# 📡 UART Driver - Serial Communication
 
-**MCU**: ATmega32  
-**Purpose**: Serial communication with external modules (HC-05 Bluetooth, ESP-01 WiFi)  
-**Protocol**: Asynchronous serial communication
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-ATmega32_UART-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-MCAL_Driver-brightgreen)
+
+**UART Driver**
+
+**Smart Energy Management System - Wireless Connectivity Interface**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Hardware Interface](#-3-hardware-interface)
+- [Data Flow](#-4-data-flow-diagram)
+- [State Machine](#-5-state-machine)
+- [Sequence Diagrams](#-6-sequence-diagrams)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                      | Description | Status       |
+| --------------------------------------------- | ----------- | ------------ |
+| **[GIE_Driver.md](../GIE/GIE_Driver.md)**     | Interrupts  | ✅ Available |
+| **[HC-05](../Config_Files/HC05_Driver.md)**   | Bluetooth   | ⏳ Planned   |
+| **[ESP-01](../Config_Files/ESP01_Driver.md)** | WiFi        | ⏳ Planned   |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
@@ -20,6 +53,14 @@ The UART (Universal Asynchronous Receiver/Transmitter) driver provides bidirecti
 - Blocking and non-blocking transmission modes
 - Frame formatting (start bit, data bits, parity, stop bits)
 - Error detection (framing, parity, overrun)
+
+### Requirements Traceability
+
+| Requirement ID   | Description        | Implementation                |
+| :--------------- | :----------------- | :---------------------------- |
+| **REQ-COMM-002** | Baud Rate 9600 bps | `UBRR = 103` (@16MHz)         |
+| **REQ-IO-010**   | PD0 (RX), PD1 (TX) | HW UART Pin Mapping           |
+| **REQ-IO-011**   | Update Rate 1Hz    | Non-blocking ISR architecture |
 
 ### Hardware Peripheral
 
@@ -961,7 +1002,37 @@ graph TB
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team  
-**Related Documents**: HC05_Driver.md, ESP01_Driver.md, Communication_Manager.md
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                     |
+| -------------------- | ------------------------- |
+| **Document Type**    | UART Driver Documentation |
+| **Document Status**  | Active                    |
+| **Document Version** | 2.0                       |
+| **Last Updated**     | January 2026              |
+| **Prepared By**      | Gestell Engineering Team  |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

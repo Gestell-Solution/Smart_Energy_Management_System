@@ -1,332 +1,269 @@
-# Display Manager
+# 📺 Display Manager
 
-**Purpose**: User interface management via LCD and status indicators  
-**Components**: LCD, RGB LED, Buzzer  
-**Update Rate**: 100ms (main loop), Screen rotation every 2 seconds
+<div align="center">
 
----
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-Application_Layer-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-UI_Controller-brightgreen)
 
-## Overview
+**Display Manager**
 
-The Display Manager module coordinates all user-facing output devices to provide real-time system status, measurement values, and fault indications. It manages three synchronized display outputs: LCD text display, RGB LED status indication, and buzzer audio alerts.
+**Smart Energy Management System - User Interface & Visualization**
 
----
+_Developed by Gestell Company - Professional Embedded Solutions_
 
-## Hardware Resources
-
-**LCD Display**: 16×2 character LCD (HD44780 compatible)  
-**RGB LED**: Common cathode RGB LED for status indication  
-**Buzzer**: Active 5V buzzer for audio alerts  
-**Control Interface**: Managed via HAL layer drivers
+</div>
 
 ---
 
-## Screen Management
+## 📋 Table of Contents
 
-### Screen Rotation Strategy
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Screen Layouts](#-3-screen-layout-specifications)
+- [Formatting Logic](#-4-data-formatting-logic)
+- [State Machine](#-5-state-machine)
+- [Sequence Diagrams](#-6-sequence-diagrams)
+- [Configuration](#-7-configuration-parameters)
+- [Performance](#-8-performance-characteristics)
 
-**Automatic Rotation**: Display cycles through multiple information screens to show all data on limited 16×2 display.
+---
 
-**Rotation Timing**: Each screen displayed for 2 seconds before advancing to next.
+## 🔗 Related Documentation
 
-**Rotation Sequence**:
+| Document                                                                 | Description      | Status       |
+| ------------------------------------------------------------------------ | ---------------- | ------------ |
+| **[LCD_Driver.md](../../HAL_Layer/LCD/LCD_Driver.md)**                   | Hardware Control | ✅ Available |
+| **[Measurement_Engine.md](../Measurement_Engine/Measurement_Engine.md)** | Data Source      | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
+
+### Purpose and Role
+
+The Display Manager is responsible for the human-machine interface (HMI). It abstracts the underlying LCD hardware, providing a set of "Screens" or "Pages" that the user can navigate. It handles the formatting of raw floating-point numbers into human-readable strings, manages screen refresh rates to prevent flicker, and displays system alerts with high priority.
+
+### Key Responsibilities
+
+- **Page Management**: Switching between "Main Dashboard", "Energy Stats", and "System Info".
+- **Data Formatting**: Converting `220.5123` to `"220.5V"`.
+- **Symbol Rendering**: Placing custom icons (WiFi strength, Load status) dynamically.
+- **Alert Overlay**: Temporarily replacing the screen content during a Fault event (e.g., "OVER VOLTAGE").
+
+### Requirements Traceability
+
+| Requirement ID   | Description      | Implementation                    |
+| :--------------- | :--------------- | :-------------------------------- |
+| **REQ-DISP-001** | 16x2 LCD Display | 20x4 Driver Support (Expanded)    |
+| **REQ-DISP-003** | Screen Content   | Main/Stats/Info Pages Implemented |
+| **REQ-DISP-006** | Update Rate 1Hz  | 500ms Refresh Rate Configured     |
+
+---
+
+## 2. Architecture Diagram
+
+```mermaid
+graph TB
+    subgraph "Display Manager Architecture"
+        SRC[Measurement Engine] -->|Float Data| FORMAT[Format Engine]
+
+        FORMAT -->|String Buffer| PAGES[Page Renderer]
+
+        subgraph "Page Logic"
+            MAIN[Main Screen]
+            STAT[Stats Screen]
+            INFO[Info Screen]
+        end
+
+        PAGES --> MAIN
+        PAGES --> STAT
+        PAGES --> INFO
+
+        PAGES -->|Line Buffer| DRIVER[LCD HAL]
+
+        DRIVER -->|4-bit Data| HOW[Hardware]
+
+        PROT[Protection Mgr] -->|Override| ALERT[Alert System]
+        ALERT --> DRIVER
+    end
+
+    style FORMAT fill:#F39C12,color:#000
+    style PAGES fill:#4A90E2,color:#fff
+    style DRIVER fill:#2ECC71,color:#fff
+```
+
+### Rendering Pipeline
+
+1.  **Fetch**: Get latest values from Measurement Engine struct.
+2.  **Format**: Convert floats to fixed-width char arrays (`sprintf` optimization).
+3.  **Construct**: Assemble the 20x4 grid in a local RAM buffer.
+4.  **Diff**: Compare with current screen content (Optional optimization).
+5.  **Flush**: Send only changed characters to the LCD Driver.
+
+---
+
+## 3. Screen Layout Specifications
+
+The system uses a 20x4 Character LCD.
+
+### Screen 1: Main Dashboard (Default)
+
+Overview of instantaneous electrical parameters.
+
+```text
++--------------------+
+| V: 220.5V  I: 05.2A|  <- Row 0: Voltage & Current
+| P: 1150W   E: 12kWh|  <- Row 1: Power & Energy
+| [WiFi] Connected   |  <- Row 2: Connectivity Status
+| Load: ON   [Plug]  |  <- Row 3: Relay State
++--------------------+
+```
+
+### Screen 2: System Info
+
+Device metadata for technicians.
+
+```text
++--------------------+
+| Gen-4 Energy Meter |
+| FW: v2.1.0  HW: B2 |
+| ID: A4F2-3C91      |
+| [Gestell Company]  |
++--------------------+
+```
+
+### Screen 3: Fault Alert (Overlay)
+
+Flashes when Protection Manager triggers a trip.
+
+```text
++--------------------+
+|  !!! WARNING !!!   |
+|                    |
+| ** OVER VOLTAGE ** |
+|                    |
++--------------------+
+```
+
+---
+
+## 4. Data Formatting Logic
+
+Standard `printf` is expensive in flash memory. Custom lightweight formatters are used.
+
+### Float-to-String Strategy
+
+To display `220.5`:
+
+1.  **Cast to Int**: `int part1 = (int)val` -> `220`.
+2.  **Get Decimal**: `int part2 = (val - part1) * 10` -> `5`.
+3.  **Print**: `itoa(part1) + "." + itoa(part2)`.
+
+| Value  | Format   | Result | Notes                       |
+| ------ | -------- | ------ | --------------------------- |
+| 5.123  | `%04.1f` | `05.1` | Pad zero, 1 decimal         |
+| 12.55  | `%04.1f` | `12.5` | Truncate/Round              |
+| 1050.2 | `%4d`    | `1050` | No decimal for Watts > 1000 |
+
+---
+
+## 5. State Machine
 
 ```mermaid
 stateDiagram-v2
-    [*] --> SCREEN_V_I
-    SCREEN_V_I --> SCREEN_P_E: 2 seconds elapsed
-    SCREEN_P_E --> SCREEN_STATUS: 2 seconds elapsed
-    SCREEN_STATUS --> SCREEN_V_I: 2 seconds elapsed
+    [*] --> Init
 
-    note right of SCREEN_V_I
-        Line 1: Voltage (V)
-        Line 2: Current (A)
-    end note
+    Init --> Show_Logo: Boot
+    Show_Logo --> Main_Dash: 2 Seconds
 
-    note right of SCREEN_P_E
-        Line 1: Power (W)
-        Line 2: Energy (kWh)
-    end note
+    state Main_Dash {
+        [*] --> Update_Values
+        Update_Values --> Idle
+        Idle --> Update_Values: Timer(500ms)
+    }
 
-    note right of SCREEN_STATUS
-        Line 1: System Status
-        Line 2: Relay State
-    end note
+    Main_Dash --> Fault_Screen: Protection Event
+    Fault_Screen --> Main_Dash: Fault Cleared
+
+    Main_Dash --> Info_Screen: User Button (Long Press)
+    Info_Screen --> Main_Dash: Timeout (10s)
 ```
 
----
+### Interaction Logic
 
-## Screen Content Definitions
-
-### Screen 1: Voltage & Current
-
-**Purpose**: Display real-time electrical measurements
-
-**Line 1 Format**: `V: XXX.X V`
-
-- Example: `V: 220.5 V      `
-- Range: 0.0 to 999.9 V
-- Precision: 0.1V resolution
-
-**Line 2 Format**: `I: XX.XX A`
-
-- Example: `I: 05.23 A      `
-- Range: 0.00 to 30.00 A
-- Precision: 0.01A resolution
-
-**Update Frequency**: Every 100ms with latest measurements
+- **Auto-Scroll**: Can be enabled to cycle Main -> Stats -> Info every 5 seconds.
+- **Fault Override**: Fault state ignores all button presses and forces the Fault Screen until resolved.
 
 ---
 
-### Screen 2: Power & Energy
+## 6. Sequence Diagrams
 
-**Purpose**: Display calculated power consumption and accumulated energy
-
-**Line 1 Format**: `P: XXXX.X W`
-
-- Example: `P: 1152.3 W     `
-- Range: 0.0 to 9999.9 W
-- Precision: 0.1W resolution
-
-**Line 2 Format**: `E: XXX.XX kWh`
-
-- Example: `E: 002.45 kWh   `
-- Range: 0.00 to 999.99 kWh
-- Precision: 0.01 kWh resolution
-
-**Energy Counter**: Continuously accumulates, persists in EEPROM
-
----
-
-### Screen 3: System Status
-
-**Purpose**: Display system operational state and relay status
-
-**Line 1 - System Status Messages**:
-
-- `NORMAL          ` - All systems operating normally
-- `OVERLOAD!       ` - Overcurrent protection triggered
-- `OVERVOLT!       ` - Overvoltage protection triggered
-- `CALIBRATING...  ` - Calibration procedure active
-- `COMM ACTIVE     ` - Data transmission in progress
-
-**Line 2 - Relay Status**:
-
-- `Relay: ON       ` - Load connected
-- `Relay: OFF      ` - Load disconnected (safe state)
-- `Relay: FAULT    ` - Protection active, manual reset required
-
----
-
-## LCD Content Formatting
-
-### Number Formatting Rules
-
-**Voltage Display**:
-
-- Always 3 integer digits + 1 decimal place
-- Leading zeros suppressed except for tens place
-- Examples: `220.5`, `18.3`, `0.0`
-
-**Current Display**:
-
-- Always 2 integer digits + 2 decimal places
-- Leading zero preserved for ones place
-- Examples: `05.23`, `15.47`, `00.00`
-
-**Power Display**:
-
-- Up to 4 integer digits + 1 decimal place
-- Examples: `1152.3`, `45.0`, `0.0`
-
-**Energy Display**:
-
-- Always 3 integer digits + 2 decimal places
-- Leading zeros preserved
-- Examples: `002.45`, `123.78`, `000.00`
-
-**Padding**: All strings right-padded with spaces to fill 16-character line width, ensuring clean display with no residual characters.
-
----
-
-## RGB LED Status Indication
-
-The RGB LED provides instant visual feedback synchronized with system state.
-
-**Color States**:
-
-**GREEN** (Normal Operation):
-
-- Condition: No faults, measurements within limits
-- RGB Values: R=0, G=255, B=0
-- Meaning: System operating safely
-
-**YELLOW** (Warning):
-
-- Condition: Approaching protection threshold (>90% of limit)
-- RGB Values: R=255, G=255, B=0
-- Meaning: Caution, monitor closely
-
-**RED** (Fault/Protection):
-
-- Condition: Overcurrent or overvoltage protection triggered
-- RGB Values: R=255, G=0, B=0
-- Meaning: Load disconnected, manual reset required
-- Flashing: 1 Hz flash rate during fault state
-
-**BLUE** (Communication Active):
-
-- Condition: UART transmission/reception in progress
-- RGB Values: R=0, G=0, B=255
-- Meaning: Data exchange with mobile/dashboard
-- Duration: Brief flash (200ms) during communication
-
-**CYAN** (Calibration Mode):
-
-- Condition: Calibration procedure active
-- RGB Values: R=0, G=255, B=255
-- Meaning: User calibration in progress
-
----
-
-## Buzzer Alert Management
-
-**Alert Types and Patterns**:
-
-**Overcurrent Alert** (3 beeps):
-
-- Trigger: Overcurrent protection activated
-- Pattern: BEEP (100ms) - GAP (100ms) - BEEP - GAP - BEEP
-- Total duration: 500ms
-- Synchronization: Triggered once per protection event
-
-**Overvoltage Alert** (5 beeps):
-
-- Trigger: Overvoltage protection activated
-- Pattern: BEEP (100ms) - GAP (100ms) × 5
-- Total duration: 900ms
-- Distinct from overcurrent for fault identification
-
-**Configuration Confirmation** (2 short beeps):
-
-- Trigger: User configuration change accepted
-- Pattern: BEEP (50ms) - GAP (50ms) - BEEP (50ms)
-- Total duration: 150ms
-- Non-intrusive acknowledgment
-
-**Calibration Start/End** (1 long beep):
-
-- Trigger: Calibration initiated or completed
-- Pattern: Single BEEP (300ms)
-- Clear start/end indication
-
----
-
-## Display Update Flow
-
-**Update Execution Sequence**:
+### 6.1 Screen Refresh Cycle
 
 ```mermaid
-flowchart TD
-    START[Display Manager Update Called] --> CHECK_TIME{2 seconds<br/>elapsed?}
-    CHECK_TIME -->|Yes| ROTATE[Rotate to Next Screen]
-    CHECK_TIME -->|No| SKIP_ROTATE[Keep Current Screen]
-    ROTATE --> UPDATE_LCD[Update LCD Content]
-    SKIP_ROTATE --> UPDATE_LCD
-    UPDATE_LCD --> GET_DATA[Get Latest Measurements]
-    GET_DATA --> FORMAT[Format Data Strings]
-    FORMAT --> WRITE_LCD[Write to LCD Display]
-    WRITE_LCD --> UPDATE_RGB[Update RGB LED]
-    UPDATE_RGB --> CHECK_STATE{System<br/>State?}
-    CHECK_STATE -->|Normal| RGB_GREEN[Set RGB Green]
-    CHECK_STATE -->|Warning| RGB_YELLOW[Set RGB Yellow]
-    CHECK_STATE -->|Fault| RGB_RED[Set RGB Red Flashing]
-    CHECK_STATE -->|Comm| RGB_BLUE[Brief Blue Flash]
-    RGB_GREEN --> COMPLETE[Update Complete]
-    RGB_YELLOW --> COMPLETE
-    RGB_RED --> COMPLETE
-    RGB_BLUE --> COMPLETE
+sequenceDiagram
+    participant SCHED as Scheduler
+    participant DISP as Display Mgr
+    participant ME as Measure Engine
+    participant LCD as LCD HAL
+
+    SCHED->>DISP: UpdateTask() (Every 500ms)
+
+    DISP->>ME: GetReadings()
+    ME-->>DISP: {220.5, 5.2, ...}
+
+    DISP->>DISP: FormatStrings()
+    Note right of DISP: "220.5V", "05.2A"
+
+    DISP->>LCD: SetCursor(0,0)
+    LCD->>LCD: WriteCmd
+
+    DISP->>LCD: PrintString("V: 220.5V")
+    LCD->>LCD: WriteData...
+
+    DISP->>SCHED: Return
 ```
 
-**Update Timing**: Called every 100ms from main loop  
-**Screen Rotation**: Timer incremented each call, rotates at 2000ms intervals  
-**Non-Blocking**: All operations complete within 5ms budget
+---
+
+## 7. Configuration Parameters
+
+Configured in `Display_Config.h`.
+
+| Parameter           | Value | Description                                             |
+| ------------------- | ----- | ------------------------------------------------------- |
+| `REFRESH_RATE_MS`   | 500   | Update interval. Faster = Blur. Slower = Lag.           |
+| `SCROLL_DELAY_MS`   | 5000  | Time per screen in auto-scroll mode.                    |
+| `BACKLIGHT_TIMEOUT` | 30000 | Turn off backlight after 30s inactivity (Power saving). |
 
 ---
 
-## Fault Display Prioritization
+## 8. Performance Characteristics
 
-When multiple conditions occur simultaneously, display priority:
+### Rendering Cost
 
-1. **Protection Faults** (highest priority)
-   - Overcurrent or overvoltage fault messages override all others
-   - Displayed immediately, screen rotation paused during fault
+- **Full Screen Refresh**: 20x4 = 80 characters.
+  - Writing 1 char ~40µs (4-bit mode).
+  - 80 chars \* 40µs = 3.2ms (Hardware limit).
+  - Software Overhead (formatting): ~1ms.
+  - **Total**: ~5ms per update.
+  - **Impact**: Negligible on main loop (approx 1% load at 2Hz).
 
-2. **Calibration Mode**
-   - "CALIBRATING..." message shown
-   - Normal measurement display paused
+### Memory Usage
 
-3. **Communication Active**
-   - Brief status indication
-   - Does not interrupt main display, only RGB flash
-
-4. **Normal Operation** (lowest priority)
-   - Standard screen rotation resumes
+- **Display Buffer**: 80 bytes (Shadow RAM) optional.
+- **String Buffers**: ~32 bytes generic buffer for `sprintf`.
 
 ---
 
-## Integration with Other Modules
+<div align="center">
 
-**Data Sources**:
+**Built with ❤️ by Gestell Team**
 
-- **Measurement Engine**: Provides V, I, P, E values
-- **Protection Manager**: Provides fault state flags
-- **Energy Logger**: Provides accumulated energy
-- **Communication Manager**: Signals active transmission
+_Professional Embedded Systems Engineering_
 
-**Control Outputs**:
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
 
-- **LCD HAL**: Character display commands
-- **RGB LED HAL**: Color setting commands
-- **Buzzer HAL**: Beep pattern requests
-
----
-
-## Performance Characteristics
-
-**LCD Update Time**: < 2ms for full screen write (16 characters × 2 lines)  
-**RGB Update Time**: < 50µs (simple GPIO writes)  
-**Buzzer Trigger Time**: < 10µs (GPIO set)  
-**Total Update Budget**: < 5ms worst-case
-
-**CPU Utilization**: < 5% of available processing time
-
----
-
-## Configuration Options
-
-**Adjustable Parameters** (stored in EEPROM):
-
-**Screen Rotation Interval**:
-
-- Default: 2 seconds
-- Range: 1-10 seconds
-- Allows user preference for viewing time
-
-**RGB Brightness**:
-
-- Default: 100% (255/255)
-- Range: 10%-100%
-- Reduces brightness for night operation
-
-**Buzzer Enable/Disable**:
-
-- Default: Enabled
-- Option to silence audio alerts
-- Visual indications remain active
-
----
-
-**Document Version**: 1.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team
+</div>

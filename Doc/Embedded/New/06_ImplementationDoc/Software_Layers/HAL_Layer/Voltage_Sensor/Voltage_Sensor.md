@@ -1,12 +1,44 @@
-# Voltage Sensor Driver - AC Mains Voltage Measurement
+# ⚡ Voltage Sensor Driver - AC Mains
 
-**Hardware**: Voltage Divider + Precision Rectifier  
-**Interface**: ADC Channel 0 (PA0)  
-**Purpose**: Safe high-voltage AC measurement for energy monitoring and protection
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-Voltage_Sensor-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-HAL_Driver-brightgreen)
+
+**Voltage Sensor Driver**
+
+**Smart Energy Management System - AC Mains Measurement**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Hardware Interface](#-3-hardware-interface)
+- [Data Flow](#-4-data-flow-diagram)
+- [State Machine](#-5-state-machine)
+- [Calibration](#-6-sequence-diagrams)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                                   | Description  | Status       |
+| -------------------------------------------------------------------------- | ------------ | ------------ |
+| **[ADC_Driver.md](../../MCAL_Layer/ADC/ADC_Driver.md)**                    | Analog Input | ✅ Available |
+| **[Current_Sensor_Driver.md](../Current_Sensor/Current_Sensor_Driver.md)** | Current      | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
@@ -419,7 +451,37 @@ graph TB
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team  
-**Related Documents**: ADC_Driver.md, Measurement_Engine.md, Current_Sensor.md
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                               |
+| -------------------- | ----------------------------------- |
+| **Document Type**    | Voltage Sensor Driver Documentation |
+| **Document Status**  | Active                              |
+| **Document Version** | 2.0                                 |
+| **Last Updated**     | January 2026                        |
+| **Prepared By**      | Gestell Engineering Team            |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

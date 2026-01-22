@@ -1,12 +1,44 @@
-# GIE Driver - Global Interrupt Enable
+# 🌐 GIE Driver - Global Interrupt Enable
 
-**MCU**: ATmega32  
-**Purpose**: Master interrupt system control  
-**Scope**: System-wide interrupt enable/disable mechanism
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-ATmega32_Interrupts-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-MCAL_Driver-brightgreen)
+
+**GIE Driver**
+
+**Smart Energy Management System - Master Interrupt Control**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Hardware Interface](#-3-hardware-interface)
+- [Data Flow](#-4-data-flow-diagram)
+- [State Machine](#-5-state-machine)
+- [Sequence Diagrams](#-6-sequence-diagrams)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                                            | Description      | Status       |
+| ----------------------------------------------------------------------------------- | ---------------- | ------------ |
+| **[Interrupt_Management.md](../../Embedded_System_Config/Interrupt_Management.md)** | Interrupt Policy | ✅ Available |
+| **[Common_Layer.md](../../Common_Layer/Common_Layer.md)**                           | Common Types     | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
@@ -19,6 +51,14 @@ The GIE (Global Interrupt Enable) driver provides centralized control over the A
 - Protect critical code sections from interruption
 - Coordinate with peripheral interrupt enables
 - Provide atomic operation support
+
+### Requirements Traceability
+
+| Requirement ID   | Description             | Implementation              |
+| :--------------- | :---------------------- | :-------------------------- |
+| **REQ-ARCH-007** | ISR usage (UART, Timer) | Master Enable (SEI/CLI)     |
+| **REQ-IO-010**   | UART Interrupts         | Required for RX ISR         |
+| **REQ-SAFE-001** | Atomic Operations       | Critical Section Protection |
 
 ### Hardware Peripheral
 
@@ -506,7 +546,37 @@ Instead of blind enable/disable, save and restore previous state.
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team  
-**Related Documents**: All interrupt-based drivers
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                    |
+| -------------------- | ------------------------ |
+| **Document Type**    | GIE Driver Documentation |
+| **Document Status**  | Active                   |
+| **Document Version** | 2.0                      |
+| **Last Updated**     | January 2026             |
+| **Prepared By**      | Gestell Engineering Team |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

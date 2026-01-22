@@ -1,13 +1,44 @@
-# Current Sensor Driver - ACS712-30A Hall-Effect Sensor
+# ⚡ Current Sensor Driver - ACS712
 
-**Sensor**: Allegro ACS712-30A  
-**Technology**: Hall-effect based current sensing  
-**Interface**: ADC Channel 1 (PA1)  
-**Purpose**: Non-invasive AC current measurement for energy monitoring
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-ACS712_HAL-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-HAL_Driver-brightgreen)
+
+**Current Sensor Driver**
+
+**Smart Energy Management System - Non-Invasive Sensing**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Hardware Interface](#-3-hardware-interface)
+- [Data Flow](#-4-data-flow-diagram)
+- [State Machine](#-5-state-machine)
+- [Sequence Diagrams](#-6-sequence-diagrams)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                     | Description  | Status       |
+| ------------------------------------------------------------ | ------------ | ------------ |
+| **[ADC_Driver.md](../../MCAL_Layer/ADC/ADC_Driver.md)**      | Analog Input | ✅ Available |
+| **[Voltage_Sensor.md](../Voltage_Sensor/Voltage_Sensor.md)** | Voltage      | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
@@ -432,7 +463,37 @@ where N = 128 samples
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team  
-**Related Documents**: ADC_Driver.md, Measurement_Engine.md, Voltage_Sensor.md
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                               |
+| -------------------- | ----------------------------------- |
+| **Document Type**    | Current Sensor Driver Documentation |
+| **Document Status**  | Active                              |
+| **Document Version** | 2.0                                 |
+| **Last Updated**     | January 2026                        |
+| **Prepared By**      | Gestell Engineering Team            |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

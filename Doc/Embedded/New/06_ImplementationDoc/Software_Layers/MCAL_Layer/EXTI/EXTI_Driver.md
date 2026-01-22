@@ -1,12 +1,44 @@
-# EXTI Driver - External Interrupts
+# ⚡ EXTI Driver - External Interrupts
 
-**MCU**: ATmega32  
-**Purpose**: External interrupt handling for asynchronous event detection  
-**Status**: Reserved for future use (button inputs, external signals)
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Reserved-yellow)
+![Platform](https://img.shields.io/badge/Platform-ATmega32_EXTI-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-MCAL_Driver-brightgreen)
+
+**EXTI Driver**
+
+**Smart Energy Management System - Event Handling**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Hardware Interface](#-3-hardware-interface)
+- [Data Flow](#-4-data-flow-diagram)
+- [State Machine](#-5-state-machine)
+- [Sequence Diagrams](#-6-sequence-diagrams)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                  | Description | Status       |
+| ----------------------------------------- | ----------- | ------------ |
+| **[GIE_Driver.md](../GIE/GIE_Driver.md)** | Interrupts  | ✅ Available |
+| **[DIO_Driver.md](../DIO/DIO_Driver.md)** | Pin Config  | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
@@ -19,6 +51,13 @@ The EXTI (External Interrupt) driver provides hardware-triggered interrupt capab
 - Register user callback functions for interrupt events
 - Manage interrupt priority and enabling
 - Provide debouncing support (software-based)
+
+### Requirements Traceability (Reserved)
+
+| Requirement ID   | Description         | Implementation                 |
+| :--------------- | :------------------ | :----------------------------- |
+| **REQ-ARCH-007** | External Interrupts | Support for INT0/INT1/INT2     |
+| **REQ-IO-005**   | Button Inputs       | Optional interrupt-driven mode |
 
 ### Hardware Peripheral
 
@@ -414,7 +453,37 @@ graph TB
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Status**: Reserved for Future Use  
-**Maintained By**: Gestell Engineering Team
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                     |
+| -------------------- | ------------------------- |
+| **Document Type**    | EXTI Driver Documentation |
+| **Document Status**  | Reserved                  |
+| **Document Version** | 2.0                       |
+| **Last Updated**     | January 2026              |
+| **Prepared By**      | Gestell Engineering Team  |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

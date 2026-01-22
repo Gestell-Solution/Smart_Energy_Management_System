@@ -1,13 +1,43 @@
-# Relay Driver - Load Switching Control
+# 🔌 Relay Driver - Load Control
 
-**Hardware**: 5V SPDT Relay  
-**Driver IC**: ULN2003 Darlington Array  
-**Control Pin**: PB0  
-**Purpose**: Safe electrical isolation and load switching for AC mains control
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-Relay_Module-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-HAL_Driver-brightgreen)
+
+**Relay Driver**
+
+**Smart Energy Management System - Load Switching Control**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Hardware Interface](#-3-hardware-interface)
+- [Data Flow](#-4-data-flow-diagram)
+- [State Machine](#-5-state-machine)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                                                      | Description       | Status       |
+| --------------------------------------------------------------------------------------------- | ----------------- | ------------ |
+| **[DIO_Driver.md](../../MCAL_Layer/DIO/DIO_Driver.md)**                                       | GPIO Control      | ✅ Available |
+| **[Protection_Manager.md](../../Application_Layer/Protection_Manager/Protection_Manager.md)** | Emergency Control | ⏳ Planned   |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
@@ -20,6 +50,14 @@ The Relay driver provides electrical isolation and safe switching of AC mains po
 - Protection command execution (emergency shutdown)
 - Load state management and monitoring
 - Mechanical contact bounce handling
+
+### Requirements Traceability
+
+| Requirement ID   | Description           | Implementation               |
+| :--------------- | :-------------------- | :--------------------------- |
+| **REQ-PROT-010** | Relay Control Pin PB0 | Configured via DIO Driver    |
+| **REQ-PROT-011** | Safety State OFF      | Default Initialization State |
+| **REQ-SAFE-004** | Disconnection Time    | Optimized Switching Logic    |
 
 ### Hardware Components
 
@@ -441,7 +479,37 @@ graph TB
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team  
-**Related Documents**: DIO_Driver.md, Protection_Manager.md, System_Controller.md
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                      |
+| -------------------- | -------------------------- |
+| **Document Type**    | Relay Driver Documentation |
+| **Document Status**  | Active                     |
+| **Document Version** | 2.0                        |
+| **Last Updated**     | January 2026               |
+| **Prepared By**      | Gestell Engineering Team   |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

@@ -1,12 +1,44 @@
-# EEPROM Driver - Non-Volatile Memory
+# 💾 EEPROM Driver - Non-Volatile Memory
 
-**MCU**: ATmega32  
-**Capacity**: 1 KB (1024 bytes)  
-**Purpose**: Non-volatile storage for system configuration, calibration data, and energy logs
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-ATmega32_EEPROM-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-MCAL_Driver-brightgreen)
+
+**EEPROM Driver**
+
+**Smart Energy Management System - Data Persistent Storage**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Hardware Interface](#-3-hardware-interface)
+- [Data Flow](#-4-data-flow-diagram)
+- [State Machine](#-5-state-machine)
+- [Sequence Diagrams](#-6-sequence-diagrams)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                                      | Description   | Status       |
+| ----------------------------------------------------------------------------- | ------------- | ------------ |
+| **[GIE_Driver.md](../GIE/GIE_Driver.md)**                                     | Interrupts    | ✅ Available |
+| **[Memory_Management.md](../../Embedded_System_Config/Memory_Management.md)** | Memory Config | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
@@ -20,6 +52,14 @@ The EEPROM (Electrically Erasable Programmable Read-Only Memory) driver provides
 - Protect against write operations to invalid addresses
 - Handle EEPROM endurance limitations
 - Provide atomic operations to prevent corruption
+
+### Requirements Traceability
+
+| Requirement ID     | Description                   | Implementation                    |
+| :----------------- | :---------------------------- | :-------------------------------- |
+| **REQ-EEPROM-001** | Storage Items (Energy, Calib) | Memory Map defined in Section 3   |
+| **REQ-EEPROM-006** | Wear Leveling (>100k cycles)  | Circular Buffer Strategy for Logs |
+| **REQ-ARCH-009**   | Non-volatile Config           | Driver provides Read/Write API    |
 
 ### Hardware Peripheral
 
@@ -846,7 +886,37 @@ graph TB
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team  
-**Related Documents**: Calibration_Manager.md, Energy_Logger.md, Configuration_Manager.md
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                       |
+| -------------------- | --------------------------- |
+| **Document Type**    | EEPROM Driver Documentation |
+| **Document Status**  | Active                      |
+| **Document Version** | 2.0                         |
+| **Last Updated**     | January 2026                |
+| **Prepared By**      | Gestell Engineering Team    |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

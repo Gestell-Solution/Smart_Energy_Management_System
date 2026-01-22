@@ -1,12 +1,44 @@
-# DIO Driver - Digital Input/Output
+# 🔌 DIO Driver - Digital Input/Output
 
-**MCU**: ATmega32  
-**Purpose**: General-purpose digital pin control for all peripheral interfaces  
-**Scope**: Foundation layer for all hardware abstraction layer (HAL) drivers
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-ATmega32_GPIO-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-MCAL_Driver-brightgreen)
+
+**DIO Driver**
+
+**Smart Energy Management System - GPIO Control**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. Module Overview
+## 📋 Table of Contents
+
+- [Module Overview](#-1-module-overview)
+- [Architecture](#-2-architecture-diagram)
+- [Hardware Interface](#-3-hardware-interface)
+- [Data Flow](#-4-data-flow-diagram)
+- [State Machine](#-5-state-machine)
+- [Sequence Diagrams](#-6-sequence-diagrams)
+- [Dependencies](#-7-module-dependencies)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                           | Description     | Status       |
+| ------------------------------------------------------------------ | --------------- | ------------ |
+| **[System_Overview.md](../../../01_Managment/System_Overview.md)** | System Overview | ✅ Available |
+| **[Common_Layer.md](../../Common_Layer/Common_Layer.md)**          | Common Types    | ✅ Available |
+
+---
+
+## 📋 1. Module Overview
 
 ### Purpose and Role
 
@@ -25,10 +57,19 @@ The DIO (Digital Input/Output) driver provides low-level control of the ATmega32
 
 Utilizes ATmega32's four 8-bit I/O ports:
 
-- **Port A (PA0-PA7)**: 8 pins, ADC inputs, general I/O
-- **Port B (PB0-PB7)**: 8 pins, SPI, PWM, general I/O
-- **Port C (PC0-PC7)**: 8 pins, TWI, JTAG, general I/O
-- **Port D (PD0-PD7)**: 8 pins, UART, timers, interrupts, general I/O
+- **Port A (PA0-PA1)**: Analog Sensors (Voltage, Current). PA2-PA7 Reserved.
+- **Port B (PB0-PB4)**: Actuators (Relay, RED, GREEN, BLUE, BUZZER) + ISP (PB5-7).
+- **Port C (PC0-PC7)**: Fully Reserved for expansion.
+- **Port D (PD0-PD1)**: UART (Combined HC-05/ESP-01).
+- **Port D (PD2-PD7)**: LCD Interface (Control + Data).
+
+### Requirements Traceability
+
+| Requirement ID | Description                      | Implementation                |
+| :------------- | :------------------------------- | :---------------------------- |
+| **REQ-IO-007** | Output Pins (Relay, LED, Buzzer) | Configured PB0-PB4 as Output  |
+| **REQ-IO-008** | LCD Interface (4-bit)            | Configured PD2-PD7 as Output  |
+| **REQ-IO-010** | UART Pinout                      | Configured PD0 (RX), PD1 (TX) |
 
 Total: 32 GPIO pins available
 
@@ -827,7 +868,37 @@ graph TB
 
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team  
-**Related Documents**: All HAL layer drivers (Relay, LED, LCD, Buzzer, etc.)
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                    |
+| -------------------- | ------------------------ |
+| **Document Type**    | DIO Driver Documentation |
+| **Document Status**  | Active                   |
+| **Document Version** | 2.0                      |
+| **Last Updated**     | January 2026             |
+| **Prepared By**      | Gestell Engineering Team |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>
