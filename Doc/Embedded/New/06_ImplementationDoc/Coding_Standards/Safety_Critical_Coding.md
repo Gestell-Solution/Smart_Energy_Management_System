@@ -1,8 +1,39 @@
 # 🛡️ Safety-Critical Coding Guidelines
 
-**Project**: Smart Energy Management System  
-**Safety Level**: Protection System Critical  
-**Version**: 1.0
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-Safety_Systems-red)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Critical_Standard-brightgreen)
+
+**Safety-Critical Coding Guidelines**
+
+**Smart Energy Management System - Protection Logic Rules**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
+
+---
+
+## 📋 Table of Contents
+
+- [Core Safety Principles](#-core-safety-principles-for-energy-management)
+- [Undefined Behavior](#-2-avoid-undefined-behavior)
+- [Defensive Programming](#-3-defensive-programming-for-protection)
+- [Type Safety](#-5-explicit-type-safety)
+- [Critical Sections](#-14-critical-section-protection)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                        | Description      | Status       |
+| --------------------------------------------------------------- | ---------------- | ------------ |
+| **[Coding_Standards.md](Coding_Standards.md)**                  | Coding Standards | ✅ Available |
+| **[Code_Review_Checklist.md](Code_Review_Checklist.md)**        | Review Checklist | ✅ Available |
+| **[Risk_Management.md](../../01_Managment/Risk_Management.md)** | Risk Management  | ✅ Available |
 
 ---
 
@@ -626,24 +657,36 @@ Rapid Change Detection:
 
 ---
 
-## 📞 Contact & Support
+## 📞 Support & Contact
 
-**Email**: Hisham4Ahmed@gmail.com  
-**Company**: Gestell - Professional Embedded Solutions  
-**LinkedIn**: https://www.linkedin.com/company/gestell-company
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team
+## 📄 Document Control
+
+| Attribute                  | Value                      |
+| -------------------------- | -------------------------- |
+| **Document Type**          | Safety Critical Guidelines |
+| **Document Status**        | Active                     |
+| **Document Version**       | 1.0                        |
+| **Last Updated**           | January 2026               |
+| **Prepared By**            | Gestell Engineering Team   |
+| **Safety Integrity Level** | Critical Protection        |
 
 ---
 
 <div align="center">
 
-**Gestell Company © 2026**
+**Built with ❤️ by Gestell Team**
 
-_Safety First, Always - Professional Industrial Control Solutions_
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
 
 </div>

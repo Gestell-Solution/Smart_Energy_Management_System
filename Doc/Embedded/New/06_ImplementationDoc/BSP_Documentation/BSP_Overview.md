@@ -1,8 +1,42 @@
-# BSP Overview
+# 📄 BSP Overview
 
-**Project**: Smart Energy Management System  
-**Component**: Board Support Package  
-**Version**: 1.0
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-ATmega32-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Implementation_Doc-brightgreen)
+
+**Board Support Package (BSP) Overview**
+
+**Smart Energy Management System - Hardware Abstraction**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
+
+---
+
+## 📋 Table of Contents
+
+- [Introduction](#-1-introduction)
+- [BSP Components](#-2-bsp-components)
+- [Fuse Bit Configuration](#-3-fuse-bit-configuration)
+- [Peripheral Initialization Order](#-4-peripheral-initialization-order)
+- [Board-Specific Pin Mapping](#-5-board-specific-pin-mapping)
+- [BSP Programming Interface](#-6-bsp-programming-interface)
+- [Hardware Dependencies](#-7-hardware-dependencies)
+- [Related Documentation](#-8-see-also)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                                                   | Description      | Status       |
+| -------------------------------------------------------------------------- | ---------------- | ------------ |
+| **[Peripheral_Configuration_Guide.md](Peripheral_Configuration_Guide.md)** | Peripheral Guide | ✅ Available |
+| **[Clock_Configuration.md](Clock_Configuration.md)**                       | Clock Setup      | ✅ Available |
+| **[Pin_Configuration.md](Pin_Configuration.md)**                           | Pin Mapping      | ✅ Available |
 
 ---
 
@@ -233,6 +267,38 @@ This function activates the watchdog timer with minimum timeout and enters an in
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: January 2026  
-**Maintained By**: Gestell Engineering Team
+---
+
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                    |
+| -------------------- | ------------------------ |
+| **Document Type**    | BSP Overview             |
+| **Document Status**  | Active                   |
+| **Document Version** | 1.0                      |
+| **Last Updated**     | January 2026             |
+| **Prepared By**      | Gestell Engineering Team |
+| **Target Platform**  | ATmega32 Microcontroller |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

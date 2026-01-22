@@ -4,28 +4,29 @@
 
 ## Doxygen Comments
 
-**Function Header**:
-```c
-/**
- * @brief Calculate RMS value from samples
- * @param samples Pointer to sample buffer
- * @param count Number of samples
- * @return RMS value (float)
- */
-float calculateRMS(uint16_t* samples, uint8_t count);
-```
+**Function Header Format**:
 
-**File Header**:
-```c
-/**
- * @file       module.c
- * @brief      Module brief description
- * @author     Author Name
- * @date       YYYY-MM-DD
- * @version    1.0
- * @copyright  Copyright (c) 2025 Gestell Company
- */
-```
+| Tag       | Purpose                    | Example                              |
+| --------- | -------------------------- | ------------------------------------ |
+| `@brief`  | Short function description | "Calculate RMS value from samples"   |
+| `@param`  | Parameter description      | "samples - Pointer to sample buffer" |
+| `@param`  | Parameter description      | "count - Number of samples"          |
+| `@return` | Return value description   | "RMS value (float)"                  |
+
+**Example**: Function `calculateRMS` that takes samples pointer and count, returns float RMS value
+
+---
+
+**File Header Format**:
+
+| Tag          | Purpose            | Example                              |
+| ------------ | ------------------ | ------------------------------------ |
+| `@file`      | Source filename    | "module.c"                           |
+| `@brief`     | Module description | "Module brief description"           |
+| `@author`    | Developer name     | "Author Name"                        |
+| `@date`      | Creation date      | "YYYY-MM-DD"                         |
+| `@version`   | Version number     | "1.0"                                |
+| `@copyright` | Copyright notice   | "Copyright (c) 2025 Gestell Company" |
 
 ---
 

@@ -31,24 +31,18 @@ Example: `AdcChannel_t`, `UartConfig_t`
 
 ## Example Module Structure
 
-```c
-// Module_Interface.h
-#ifndef MODULE_INTERFACE_H
-#define MODULE_INTERFACE_H
+| File                 | Purpose              | Contains                                                           |
+| -------------------- | -------------------- | ------------------------------------------------------------------ |
+| `Module_Interface.h` | Public API           | Header guard, function declarations (Init, GetValue), public types |
+| `Module_Private.h`   | Internal definitions | Private types, internal macros, static function declarations       |
+| `Module.c`           | Implementation       | Includes both headers, function implementations                    |
 
-void MODULE_Init(void);
-uint8_t MODULE_GetValue(void);
+**Typical Module Components**:
 
-#endif
-
-// Module.c
-#include "Module_Interface.h"
-#include "Module_Private.h"
-
-void MODULE_Init(void) {
-    // Implementation
-}
-```
+- **Init function**: Initializes module state and hardware
+- **Get/Set functions**: Public interface for data access
+- **Private functions**: Internal helper functions (static)
+- **Header guards**: Prevent multiple inclusion
 
 ---
 

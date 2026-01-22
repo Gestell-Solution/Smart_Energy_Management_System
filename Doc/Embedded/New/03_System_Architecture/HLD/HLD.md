@@ -1,12 +1,45 @@
-# High-Level Design (HLD)
+# 🏗️ High-Level Design (HLD)
 
-**Project**: Smart Energy Management System  
-**Component**: Embedded System Architecture  
-**Version**: 1.0
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-ATmega32-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Architecture_Document-brightgreen)
+
+**High-Level Design (HLD)**
+
+**Smart Energy Management System - Software Architecture**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. System Overview
+## 📋 Table of Contents
+
+- [System Overview](#-system-overview)
+- [Software Architecture](#-software-architecture)
+- [Key Components](#-key-components)
+- [Data Flow](#-data-flow)
+- [Execution Model](#-execution-model)
+- [State Machines](#-state-machine-protection-manager)
+- [Safety Considerations](#-safety-considerations)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                       | Description           | Status       |
+| ---------------------------------------------- | --------------------- | ------------ |
+| **[CRS.md](../../02_Requirements/CRS/CRS.md)** | Customer Requirements | ✅ Available |
+| **[SRS.md](../../02_Requirements/SRS/SRS.md)** | Software Requirements | ✅ Available |
+| **[LLD.md](../LLD/LLD.md)**                    | Low-Level Design      | 📅 Planned   |
+
+---
+
+## 📖 System Overview
 
 The Smart Energy Management System is a **real-time energy monitoring and protection device** based on **ATmega32 microcontroller** with capabilities for voltage/current measurement, power/energy calculation, protection (overcurrent/overvoltage), and wireless communication.
 
@@ -206,28 +239,17 @@ flowchart LR
 
 ## 5. Execution Model
 
-**Bare-Metal Superloop**:
-
-```c
-main() {
-    // Init
-    GIE_Enable();
-    ME_Init();
-    PM_Init();
-    EL_Init();
-    DM_Init();
-    CM_Init();
-
-    // Superloop (10 Hz)
-    while(1) {
-        ME_Update();           // Measure
-        PM_Update();           // Check protection
-        DM_Update();           // Update display
-        EL_Task();             // Save to EEPROM
-        CM_Task();             // Handle commands
-        _delay_ms(100);        // 100ms cycle
-    }
-}
+```mermaid
+flowchart TD
+    Start((Start)) --> Init[Initialize System<br/>GIE, ME, PM, EL, DM, CM]
+    Init --> Loop{Superloop<br/>10 Hz}
+    Loop --> ME[ME_Update: Measure]
+    ME --> PM[PM_Update: Check Protection]
+    PM --> DM[DM_Update: Update Display]
+    DM --> EL[EL_Task: Save to EEPROM]
+    EL --> CM[CM_Task: Handle Commands]
+    CM --> Delay[Delay 100ms]
+    Delay --> Loop
 ```
 
 **Interrupts**:
@@ -279,5 +301,38 @@ stateDiagram-v2
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: January 2026
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+**LinkedIn Company Page**: https://www.linkedin.com/company/gestell-company
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                    |
+| -------------------- | ------------------------ |
+| **Document Type**    | High-Level Design (HLD)  |
+| **Document Status**  | Active                   |
+| **Document Version** | 1.0                      |
+| **Last Updated**     | January 2026             |
+| **Prepared By**      | Gestell Engineering Team |
+| **Target Platform**  | ATmega32 Microcontroller |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

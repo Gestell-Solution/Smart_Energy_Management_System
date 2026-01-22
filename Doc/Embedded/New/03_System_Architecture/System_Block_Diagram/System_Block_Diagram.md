@@ -1,11 +1,43 @@
-# System Block Diagram
+# 📊 System Block Diagram
 
-**Project**: Smart Energy Management System  
-**Version**: 1.0
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Platform](https://img.shields.io/badge/Platform-ATmega32-blue)
+![License](https://img.shields.io/badge/License-Gestell-orange)
+![Type](https://img.shields.io/badge/Type-Architecture_Document-brightgreen)
+
+**System Block Diagram**
+
+**Smart Energy Management System - System Overview Diagrams**
+
+_Developed by Gestell Company - Professional Embedded Solutions_
+
+</div>
 
 ---
 
-## 1. System Overview Diagram
+## 📋 Table of Contents
+
+- [System Overview Diagram](#-system-overview-diagram)
+- [Hardware Architecture](#-hardware-architecture)
+- [Software Block Diagram](#-software-block-diagram)
+- [Data Flow](#-data-flow)
+- [Communication Variants](#-communication-variants)
+
+---
+
+## 🔗 Related Documentation
+
+| Document                                       | Description           | Status       |
+| ---------------------------------------------- | --------------------- | ------------ |
+| **[HLD.md](../HLD/HLD.md)**                    | High-Level Design     | ✅ Available |
+| **[CRS.md](../../02_Requirements/CRS/CRS.md)** | Customer Requirements | ✅ Available |
+| **[HRS.md](../../02_Requirements/HRS/HRS.md)** | Hardware Requirements | ✅ Available |
+
+---
+
+## 📐 System Overview Diagram
 
 ```mermaid
 flowchart TB
@@ -215,5 +247,38 @@ Dashboard ←→ WiFi/WebSocket ←→ ESP-01 ←→ UART ←→ ATmega32
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: January 2026
+## 📞 Support & Contact
+
+**Project Information**:
+
+- **Project Name**: Smart Energy Management System
+- **Development Company**: Gestell - Professional Embedded Solutions
+
+**Technical Support**: Hisham4Ahmed@gmail.com
+
+**LinkedIn Company Page**: https://www.linkedin.com/company/gestell-company
+
+---
+
+## 📄 Document Control
+
+| Attribute            | Value                    |
+| -------------------- | ------------------------ |
+| **Document Type**    | System Block Diagram     |
+| **Document Status**  | Active                   |
+| **Document Version** | 1.0                      |
+| **Last Updated**     | January 2026             |
+| **Prepared By**      | Gestell Engineering Team |
+| **Target Platform**  | ATmega32 Microcontroller |
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Gestell Team**
+
+_Professional Embedded Systems Engineering_
+
+**Copyright © 2025-2026 Gestell Company - All Rights Reserved**
+
+</div>

@@ -7,6 +7,7 @@
 **Active Mode Only**: No sleep/idle currently implemented
 
 **Power Consumption**:
+
 - HC-05 version: ~250mA
 - ESP-01 version: ~370mA (peak during WiFi TX)
 
@@ -16,13 +17,16 @@
 
 **Idle Mode**: Sleep CPU between 100ms cycles (reduce ~30% power)
 
-**Implementation**:
-```c
-// After main loop tasks
-set_sleep_mode(SLEEP_MODE_IDLE);
-sleep_mode();
-// Wake on Timer1 or UART interrupt
-```
+**Configuration**:
+
+| Setting       | Value                   | Description                            |
+| ------------- | ----------------------- | -------------------------------------- |
+| Sleep Mode    | IDLE                    | CPU sleep, peripherals active          |
+| Trigger Point | After main loop tasks   | Before waiting for next cycle          |
+| Wake Sources  | Timer1, UART interrupts | Auto-wake on peripheral event          |
+| Power Savings | ~30% reduction          | CPU clock stopped, peripherals running |
+
+**Process**: Set sleep mode → Enter sleep → Wake on interrupt → Resume execution
 
 ---
 
