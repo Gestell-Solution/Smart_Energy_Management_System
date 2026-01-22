@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'dart:io';
+import 'dart:ui';
 import 'package:csv/csv.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -33,44 +34,61 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true, // For transparency behind navbar
       body: _screens[_selectedIndex],
       bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
+          color: AppTheme.secondaryColor.withOpacity(0.95),
+          border: Border(
+            top: BorderSide(
+              color: AppTheme.primaryColor.withOpacity(0.2),
+              width: 1,
+            ),
+          ),
           boxShadow: [
             BoxShadow(
-              color: Color(0x1A000000),
-              blurRadius: 10,
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 20,
+              offset: const Offset(0, -5),
             ),
           ],
         ),
-        child: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: AppTheme.primaryColor,
-          unselectedItemColor: Colors.grey,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard),
-              label: 'Dashboard',
+        child: ClipRRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: BottomNavigationBar(
+              currentIndex: _selectedIndex,
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              selectedItemColor: AppTheme.primaryColor,
+              unselectedItemColor: AppTheme.textLight,
+              selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.dashboard_rounded),
+                  label: 'Dashboard',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.history_rounded),
+                  label: 'History',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.notifications_active_rounded),
+                  label: 'Alerts',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.settings_rounded),
+                  label: 'Settings',
+                ),
+              ],
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.history),
-              label: 'History',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Alerts',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -82,170 +100,177 @@ class _DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final isDark = context.watch<ThemeProvider>().isDarkMode;
 
     return Container(
       decoration: BoxDecoration(
-        gradient: isDark ? AppTheme.darkGradient : null,
-        color: isDark ? null : const Color(0xFFF8FAFC),
+        color: isDark ? null : AppTheme.background,
       ),
       child: SafeArea(
+        bottom: false,
         child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
           slivers: [
             // App Bar
             SliverAppBar(
-              expandedHeight: 120,
+              expandedHeight: 140,
               floating: false,
               pinned: true,
               backgroundColor: Colors.transparent,
+              elevation: 0,
               flexibleSpace: FlexibleSpaceBar(
-                title: const Text(
+                title: Text(
                   'Energy Dashboard',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).appBarTheme.titleTextStyle,
                 ),
                 centerTitle: true,
                 background: Container(
-                  decoration: const BoxDecoration(
-                    gradient: AppTheme.primaryGradient,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppTheme.primaryColor.withOpacity(0.1),
+                        Colors.transparent,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
                   ),
                 ),
               ),
               actions: [
-                // Connection Status
-                Consumer<EnergyProvider>(
-                  builder: (context, provider, _) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: Center(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: provider.isConnected
-                                ? const Color(0x3310B981)
-                                : const Color(0x33EF4444),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                width: 8,
-                                height: 8,
-                                decoration: BoxDecoration(
-                                  color: provider.isConnected
-                                      ? AppTheme.successColor
-                                      : AppTheme.errorColor,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                provider.isConnected ? 'Connected' : 'Offline',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: provider.isConnected
-                                      ? AppTheme.successColor
-                                      : AppTheme.errorColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
+                _buildConnectionBadge(context),
+                IconButton(
+                  icon: Icon(Icons.notifications_outlined,
+                      color: theme.iconTheme.color),
+                  onPressed: () => Navigator.pushNamed(context, '/alerts'),
                 ),
+                const SizedBox(width: 8),
               ],
             ),
 
-            // Content
             SliverPadding(
               padding: const EdgeInsets.all(16),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
-                  // Gauges Row
+                  // Welcome / Status Section
+                  _buildGreetingSection(context),
+                  const SizedBox(height: 24),
+
+                  // Key Metrics Grid
+                  const Text("Live Metrics",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 12),
+
                   Consumer<EnergyProvider>(
                     builder: (context, provider, _) {
                       final data = provider.currentData;
+                      // Calculate PF safely
+                      double pf = 0.0;
+                      if (data != null &&
+                          data.voltage > 0 &&
+                          data.current > 0) {
+                        pf = data.power / (data.voltage * data.current);
+                        if (pf > 1.0) pf = 1.0; // Cap at 1.0
+                      }
 
                       return Column(
                         children: [
-                          // Voltage and Current Gauges
+                          // Main Gauges Row
                           Row(
                             children: [
                               Expanded(
-                                child: _buildGaugeCard(
+                                child: _buildMinimalGauge(
+                                    context,
+                                    'Voltage',
+                                    data?.voltage ?? 0.0,
+                                    'V',
+                                    260,
+                                    AppTheme.primaryColor),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: _buildMinimalGauge(
+                                    context,
+                                    'Current',
+                                    data?.current ?? 0.0,
+                                    'A',
+                                    30,
+                                    const Color(0xFF00C853)),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+
+                          // Secondary Metrics Grid
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildInfoCard(
                                   context,
-                                  'Voltage',
-                                  data?.voltage ?? 0.0,
-                                  'V',
-                                  260,
+                                  'Power',
+                                  '${(data?.power ?? 0.0).toStringAsFixed(1)} kW',
+                                  Icons.bolt_rounded,
                                   AppTheme.accentColor,
                                 ),
                               ),
                               const SizedBox(width: 16),
                               Expanded(
-                                child: _buildGaugeCard(
+                                child: _buildInfoCard(
                                   context,
-                                  'Current',
-                                  data?.current ?? 0.0,
-                                  'A',
-                                  30,
+                                  'Energy',
+                                  '${(data?.energy ?? 0.0).toStringAsFixed(1)} kWh',
+                                  Icons.electric_meter_rounded,
+                                  AppTheme.success,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildInfoCard(
+                                  context,
+                                  'Power Factor',
+                                  pf.toStringAsFixed(2),
+                                  Icons.pie_chart_rounded,
+                                  const Color(0xFF9C27B0),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: _buildInfoCard(
+                                  context,
+                                  'Status',
+                                  data?.status ?? 'N/A',
+                                  Icons.info_outline_rounded,
                                   AppTheme.primaryColor,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
-
-                          // Power and Energy Cards
-                          Row(
-                            children: [
-                              Expanded(
-                                child: _buildValueCard(
-                                  context,
-                                  'Power',
-                                  data?.power ?? 0.0,
-                                  'W',
-                                  Icons.bolt,
-                                  AppTheme.warningColor,
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: _buildValueCard(
-                                  context,
-                                  'Energy',
-                                  data?.energy ?? 0.0,
-                                  'kWh',
-                                  Icons.energy_savings_leaf,
-                                  AppTheme.successColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-
-                          // Relays Control
-                          _buildRelaysCard(context),
-                          const SizedBox(height: 16),
-
-                          // Cost Card
-                          _buildCostCard(context, provider.currentCost),
-                          const SizedBox(height: 16),
-
-                          // Quick Actions
-                          _buildQuickActions(context),
                         ],
                       );
                     },
                   ),
+
+                  const SizedBox(height: 24),
+                  const Text("Quick Controls",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 12),
+                  _buildRelaysSection(context),
+
+                  const SizedBox(height: 24),
+                  const Text("Estimated Cost",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 12),
+                  _buildCostCard(context),
+
+                  const SizedBox(height: 80), // Bottom padding
                 ]),
               ),
             ),
@@ -255,442 +280,391 @@ class _DashboardView extends StatelessWidget {
     );
   }
 
-  Widget _buildRelaysCard(BuildContext context) {
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Relay Control',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 16),
-            Consumer<EnergyProvider>(
-              builder: (context, provider, _) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: List.generate(4, (index) {
-                    final isOn = provider.relayStates[index];
-                    return Column(
-                      children: [
-                        Switch(
-                          value: isOn,
-                          onChanged: provider.isConnected
-                              ? (value) => provider.toggleRelay(index)
-                              : null,
-                          activeThumbColor: AppTheme.successColor,
-                        ),
-                        Text(
-                          'Relay ${index + 1}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildGaugeCard(
-    BuildContext context,
-    String title,
-    double value,
-    String unit,
-    double max,
-    Color color,
-  ) {
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              height: 150,
-              child: SfRadialGauge(
-                axes: [
-                  RadialAxis(
-                    minimum: 0,
-                    maximum: max,
-                    ranges: [
-                      GaugeRange(
-                        startValue: 0,
-                        endValue: max * 0.7,
-                        color: AppTheme.successColor,
-                        startWidth: 10,
-                        endWidth: 10,
-                      ),
-                      GaugeRange(
-                        startValue: max * 0.7,
-                        endValue: max * 0.9,
-                        color: AppTheme.warningColor,
-                        startWidth: 10,
-                        endWidth: 10,
-                      ),
-                      GaugeRange(
-                        startValue: max * 0.9,
-                        endValue: max,
-                        color: AppTheme.errorColor,
-                        startWidth: 10,
-                        endWidth: 10,
-                      ),
-                    ],
-                    pointers: [
-                      NeedlePointer(
-                        value: value,
-                        needleColor: color,
-                        knobStyle: KnobStyle(
-                          color: color,
-                        ),
-                      ),
-                    ],
-                    annotations: [
-                      GaugeAnnotation(
-                        widget: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              value.toStringAsFixed(1),
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              unit,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
-                        ),
-                        angle: 90,
-                        positionFactor: 0.5,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildValueCard(
-    BuildContext context,
-    String title,
-    double value,
-    String unit,
-    IconData icon,
-    Color color,
-  ) {
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(icon, color: color, size: 24),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Text(
-              value.toStringAsFixed(2),
-              style: const TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              unit,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey[600],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCostCard(BuildContext context, double cost) {
-    return Card(
-      elevation: 2,
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          gradient: AppTheme.primaryGradient,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Total Cost',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  '${cost.toStringAsFixed(2)} EGP',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: const BoxDecoration(
-                color: Color(0x33FFFFFF),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.attach_money,
-                color: Colors.white,
-                size: 32,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildQuickActions(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Quick Actions',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildActionButton(
-                  context,
-                  'Refresh',
-                  Icons.refresh,
-                  AppTheme.primaryColor,
-                  () {
-                    // Refresh data
-                    context.read<EnergyProvider>().scanForDevices();
-                  },
-                ),
-                _buildActionButton(
-                  context,
-                  'Reset',
-                  Icons.restore,
-                  AppTheme.warningColor,
-                  () {
-                    // Reset energy counter
-                    _showResetDialog(context);
-                  },
-                ),
-                _buildActionButton(
-                  context,
-                  'Export',
-                  Icons.download,
-                  AppTheme.successColor,
-                  () async {
-                    // Export data
-                    await _exportDataToCSV(context);
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildActionButton(
-    BuildContext context,
-    String label,
-    IconData icon,
-    Color color,
-    VoidCallback onPressed,
-  ) {
-    return InkWell(
-      onTap: onPressed,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(icon, color: color, size: 28),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: color,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showResetDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Reset Energy Counter'),
-        content: const Text(
-            'Are you sure you want to reset the energy counter? This action cannot be undone.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+  Widget _buildGreetingSection(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppTheme.primaryColor,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.primaryColor.withOpacity(0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
           ),
-          ElevatedButton(
-            onPressed: () {
-              context.read<EnergyProvider>().resetEnergyCounter();
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('Energy counter reset successfully')),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppTheme.errorColor,
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2),
+              shape: BoxShape.circle,
             ),
-            child: const Text('Reset'),
+            child: const Icon(Icons.home_filled, color: Colors.white, size: 32),
+          ),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text(
+                "System Online",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "Monitoring active",
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  Future<void> _exportDataToCSV(BuildContext context) async {
-    try {
-      final db = EnergyDatabase();
-
-      // Get historical data from database
-      final historyData = await db.getEnergyHistory(limit: 500);
-
-      if (historyData.isEmpty) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('No data to export')),
-          );
-        }
-        return;
-      }
-
-      // Create CSV content
-      List<List<dynamic>> rows = [
-        [
-          'Timestamp',
-          'Voltage (V)',
-          'Current (A)',
-          'Power (W)',
-          'Energy (kWh)',
-          'Status'
-        ]
-      ];
-
-      for (var record in historyData) {
-        rows.add([
-          record['timestamp'],
-          (record['voltage'] as double).toStringAsFixed(2),
-          (record['current'] as double).toStringAsFixed(2),
-          (record['power'] as double).toStringAsFixed(2),
-          (record['energy'] as double).toStringAsFixed(2),
-          record['status'],
-        ]);
-      }
-
-      String csvData = const ListToCsvConverter().convert(rows);
-
-      // Save to file
-      final directory = await getApplicationDocumentsDirectory();
-      final timestamp = DateTime.now()
-          .toIso8601String()
-          .replaceAll(':', '-')
-          .split('.')
-          .first;
-      final path = '${directory.path}/energy_data_$timestamp.csv';
-      final file = File(path);
-      await file.writeAsString(csvData);
-
-      // Share the file
-      await Share.shareXFiles(
-        [XFile(path)],
-        subject: 'Energy Data Export',
-        text: 'CSV export of ${historyData.length} energy records',
-      );
-
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Exported ${historyData.length} records')),
+  Widget _buildConnectionBadge(BuildContext context) {
+    return Consumer<EnergyProvider>(
+      builder: (context, provider, _) {
+        final isConnected = provider.isConnected;
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(
+            color: isConnected
+                ? AppTheme.success.withOpacity(0.1)
+                : AppTheme.error.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: isConnected ? AppTheme.success : AppTheme.error,
+              width: 1,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  color: isConnected ? AppTheme.success : AppTheme.error,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                isConnected ? 'Online' : 'Offline',
+                style: TextStyle(
+                  color: isConnected ? AppTheme.success : AppTheme.error,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         );
-      }
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Export failed: $e')),
+      },
+    );
+  }
+
+  Widget _buildMinimalGauge(BuildContext context, String title, double value,
+      String unit, double max, Color color) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.cardTheme.color,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 100,
+            child: SfRadialGauge(
+              axes: <RadialAxis>[
+                RadialAxis(
+                  minimum: 0,
+                  maximum: max,
+                  showLabels: false,
+                  showTicks: false,
+                  startAngle: 180,
+                  endAngle: 0,
+                  radiusFactor: 0.9,
+                  canScaleToFit: true,
+                  axisLineStyle: AxisLineStyle(
+                    thickness: 12,
+                    cornerStyle: CornerStyle.bothCurve,
+                    color: theme.scaffoldBackgroundColor,
+                  ),
+                  pointers: <GaugePointer>[
+                    RangePointer(
+                      value: value,
+                      width: 12,
+                      color: color,
+                      cornerStyle: CornerStyle.bothCurve,
+                      enableAnimation: true,
+                    ),
+                  ],
+                  annotations: <GaugeAnnotation>[
+                    GaugeAnnotation(
+                      angle: 90,
+                      positionFactor: 0.1,
+                      widget: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            value.toStringAsFixed(1),
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: theme.textTheme.bodyLarge?.color,
+                            ),
+                          ),
+                          Text(
+                            unit,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: theme.textTheme.bodyMedium?.color,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(title, style: theme.textTheme.bodyMedium),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoCard(BuildContext context, String title, String value,
+      IconData icon, Color iconColor) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.cardTheme.color,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: iconColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: iconColor, size: 24),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            title,
+            style: theme.textTheme.bodyMedium,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRelaysSection(BuildContext context) {
+    return Consumer<EnergyProvider>(
+      builder: (context, provider, _) {
+        final relays = provider.relayStates;
+        return Column(
+          children: [
+            // First Row
+            Row(
+              children: [
+                Expanded(
+                    child: _buildRelayToggle(context, 'Load 1', relays[0],
+                        (v) => provider.toggleRelay(0))),
+                const SizedBox(width: 16),
+                Expanded(
+                    child: _buildRelayToggle(context, 'Load 2', relays[1],
+                        (v) => provider.toggleRelay(1))),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Second Row
+            Row(
+              children: [
+                Expanded(
+                    child: _buildRelayToggle(context, 'Load 3', relays[2],
+                        (v) => provider.toggleRelay(2))),
+                const SizedBox(width: 16),
+                Expanded(
+                    child: _buildRelayToggle(context, 'Load 4', relays[3],
+                        (v) => provider.toggleRelay(3))),
+              ],
+            ),
+          ],
         );
-      }
-    }
+      },
+    );
+  }
+
+  Widget _buildRelayToggle(BuildContext context, String label, bool isActive,
+      Function(bool) onChanged) {
+    return InkWell(
+      onTap: () => onChanged(!isActive),
+      borderRadius: BorderRadius.circular(24),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: isActive
+              ? AppTheme.primaryColor
+              : Theme.of(context).cardTheme.color,
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: isActive
+                  ? AppTheme.primaryColor.withOpacity(0.3)
+                  : Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                color: isActive
+                    ? Colors.white
+                    : Theme.of(context).textTheme.bodyLarge?.color,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Icon(
+              isActive
+                  ? Icons.power_settings_new_rounded
+                  : Icons.circle_outlined,
+              color: isActive ? Colors.white : Colors.grey,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCostCard(BuildContext context) {
+    return Consumer<EnergyProvider>(
+      builder: (context, provider, _) {
+        final cost = provider.currentCost;
+        return Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: AppTheme.success.withOpacity(0.3)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: AppTheme.success.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Icon(Icons.attach_money_rounded,
+                    color: AppTheme.success, size: 32),
+              ),
+              const SizedBox(width: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Total Cost",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    "\$${cost.toStringAsFixed(2)}",
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.success,
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              TextButton(
+                onPressed: () => _showResetDialog(context),
+                child: const Text("Reset"),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showResetDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Reset Energy Data?'),
+        content: const Text(
+            'This will reset all accumulated energy and cost counters.'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Provider.of<EnergyProvider>(context, listen: false)
+                  .resetEnergyCounter();
+              Navigator.of(ctx).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Energy data reset successfully')),
+              );
+            },
+            child: const Text('Reset'),
+          ),
+        ],
+      ),
+    );
   }
 }

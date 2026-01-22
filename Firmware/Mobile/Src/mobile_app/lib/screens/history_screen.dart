@@ -128,7 +128,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: isSelected ? Colors.white : Colors.grey[600],
+            color: isSelected ? AppTheme.secondaryColor : AppTheme.textLight,
           ),
         ),
       ),
@@ -163,7 +163,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             'Peak',
             '${maxPower.toStringAsFixed(0)} W',
             Icons.trending_up,
-            AppTheme.warningColor,
+            AppTheme.warning,
           ),
         ),
         const SizedBox(width: 12),
@@ -172,7 +172,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             'Total',
             '${totalEnergy.toStringAsFixed(2)} kWh',
             Icons.energy_savings_leaf,
-            AppTheme.successColor,
+            AppTheme.success,
           ),
         ),
       ],
@@ -275,7 +275,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   dotData: const FlDotData(show: false),
                   belowBarData: BarAreaData(
                     show: true,
-                    color: const Color(0x1A6366F1),
+                    color: AppTheme.primaryColor.withOpacity(0.15),
                   ),
                 ),
               ],
@@ -346,7 +346,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   barRods: [
                     BarChartRodData(
                       toY: entry.value['value'],
-                      color: AppTheme.successColor,
+                      color: AppTheme.success,
                       width: 20,
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(4),

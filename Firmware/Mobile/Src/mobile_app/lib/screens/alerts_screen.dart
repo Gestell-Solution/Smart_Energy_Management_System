@@ -43,13 +43,13 @@ class AlertsScreen extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(12),
-                  color: const Color(0x1A6366F1),
+                  color: AppTheme.primaryColor.withOpacity(0.15),
                   child: Text(
                     '${provider.unreadAlertsCount} unread alert${provider.unreadAlertsCount > 1 ? 's' : ''}',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: AppTheme.primaryColor,
+                      color: AppTheme.secondaryColor,
                     ),
                   ),
                 ),
@@ -114,7 +114,7 @@ class AlertsScreen extends StatelessWidget {
         padding: const EdgeInsets.only(right: 20),
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          color: AppTheme.errorColor,
+          color: AppTheme.error,
           borderRadius: BorderRadius.circular(12),
         ),
         child: const Icon(
@@ -165,7 +165,7 @@ class AlertsScreen extends StatelessWidget {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: Color(alert.color).withValues(alpha: 0.1),
+                    color: Color(alert.color).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(
@@ -312,7 +312,7 @@ class AlertsScreen extends StatelessWidget {
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppTheme.errorColor,
+              backgroundColor: AppTheme.error,
             ),
             child: const Text('Clear All'),
           ),

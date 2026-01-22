@@ -71,8 +71,8 @@ class SettingsScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: provider.isConnected
-                        ? const Color(0x1A10B981)
-                        : const Color(0x1AEF4444),
+                        ? AppTheme.primaryColor.withOpacity(0.15)
+                        : AppTheme.error.withOpacity(0.15),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
@@ -80,8 +80,8 @@ class SettingsScreen extends StatelessWidget {
                         ? Icons.bluetooth_connected
                         : Icons.bluetooth_disabled,
                     color: provider.isConnected
-                        ? AppTheme.successColor
-                        : AppTheme.errorColor,
+                        ? AppTheme.success
+                        : AppTheme.error,
                   ),
                 ),
                 title: Text(
@@ -103,7 +103,7 @@ class SettingsScreen extends StatelessWidget {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppTheme.errorColor,
+                          backgroundColor: AppTheme.error,
                         ),
                         child: const Text('Disconnect'),
                       )
@@ -148,7 +148,7 @@ class SettingsScreen extends StatelessWidget {
             secondary: Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: const Color(0x1A6366F1),
+                color: AppTheme.primaryColor.withOpacity(0.15),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
@@ -179,12 +179,12 @@ class SettingsScreen extends StatelessWidget {
             leading: Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: const Color(0x1AF59E0B),
+                color: AppTheme.warning.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Icon(
                 Icons.attach_money,
-                color: AppTheme.warningColor,
+                color: AppTheme.warning,
               ),
             ),
             title: const Text(
@@ -256,12 +256,12 @@ class SettingsScreen extends StatelessWidget {
             leading: Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: const Color(0x1A3B82F6),
+                color: AppTheme.primaryColor.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Icon(
                 Icons.info,
-                color: AppTheme.infoColor,
+                color: AppTheme.primaryColor,
               ),
             ),
             title: const Text(
