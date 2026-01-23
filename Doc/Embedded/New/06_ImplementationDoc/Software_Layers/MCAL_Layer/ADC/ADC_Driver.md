@@ -425,27 +425,27 @@ sequenceDiagram
 ```mermaid
 gantt
     title ADC Conversion Timing (100 Hz Sampling Rate)
-    dateFormat X
+    dateFormat  SSS
     axisFormat %L ms
 
     section Timer1
-    Trigger 1 :milestone, 0, 0ms
-    Waiting :10ms
-    Trigger 2 :milestone, 10, 10ms
-    Waiting :10ms
-    Trigger 3 :milestone, 20, 20ms
+    Trigger 1 :milestone, m1, 0, 0
+    Waiting   :w1, after m1, 10ms
+    Trigger 2 :milestone, m2, 10, 0
+    Waiting   :w2, after m2, 10ms
+    Trigger 3 :milestone, m3, 20, 0
 
     section ADC
-    Conv CH0 :crit, 0, 0.104ms
-    Idle :0.104, 9.896ms
-    Conv CH1 :crit, 10, 0.104ms
-    Idle :10.104, 9.896ms
-    Conv CH0 :crit, 20, 0.104ms
+    Conv CH0  :crit, c1, 0, 1ms
+    Idle      :i1, after c1, 9ms
+    Conv CH1  :crit, c2, 10, 1ms
+    Idle      :i2, after c2, 9ms
+    Conv CH0  :crit, c3, 20, 1ms
 
     section ISR
-    Process V :active, 0.104, 0.005ms
-    Process I :active, 10.104, 0.005ms
-    Process V :active, 20.104, 0.005ms
+    Process V :active, p1, 1, 1ms
+    Process I :active, p2, 11, 1ms
+    Process V :active, p3, 21, 1ms
 ```
 
 ---
