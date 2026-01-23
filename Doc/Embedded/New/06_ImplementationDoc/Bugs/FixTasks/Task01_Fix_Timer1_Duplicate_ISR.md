@@ -93,7 +93,7 @@ sequenceDiagram
 
     Note over Hardware: TCNT1 reaches 1250 (10ms elapsed)
 
-    rect rgb(255, 200, 200)
+    rect rgb(0, 0, 0)
         Note right of Hardware: CRITICAL BUG HAPPENS HERE
         Hardware->>ISR_7: Trigger Compare Match A
         ISR_7->>App: Call App_Update()
