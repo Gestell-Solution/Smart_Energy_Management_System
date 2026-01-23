@@ -167,15 +167,15 @@ Timer0 provides two interrupt vectors.
 
 ```mermaid
 flowchart TD
-    Event[Timer Event] --> Check_Type{Type?}
+    Event["Timer Event"] --> Check_Type{Type?}
 
-    Check_Type -->|Overflow| Vector_OVF[TIMER0_OVF_vect<br/>Address 0x012]
-    Check_Type -->|Compare| Vector_COMP[TIMER0_COMP_vect<br/>Address 0x010]
+    Check_Type -->|Overflow| Vector_OVF["TIMER0_OVF_vect<br/>Address 0x012"]
+    Check_Type -->|Compare| Vector_COMP["TIMER0_COMP_vect<br/>Address 0x010"]
 
-    Vector_OVF --> Save_Context[Push CPU Regs]
-    Save_Context --> Call_CB[Call User Callback<br/>"Tick_Handler()"]
-    Call_CB --> Restore_Context[Pop CPU Regs]
-    Restore_Context --> RETI[Return from Interrupt]
+    Vector_OVF --> Save_Context["Push CPU Regs"]
+    Save_Context --> Call_CB["Call User Callback<br/>'Tick_Handler()'"]
+    Call_CB --> Restore_Context["Pop CPU Regs"]
+    Restore_Context --> RETI["Return from Interrupt"]
 ```
 
 **Latency Warning**: An ISR executes every $1/f_{freq}$. At 62.5kHz, the ISR fires every 16µs. If the ISR takes 20µs to run, the system hangs (Starvation). **Always use Prescalers to keep ISR rate manageable (< 5kHz).**
