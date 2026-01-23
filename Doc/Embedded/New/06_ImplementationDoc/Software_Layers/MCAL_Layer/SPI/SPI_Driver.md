@@ -164,24 +164,24 @@ graph TB
 flowchart TB
     subgraph "Master Transmit/Receive (Future)"
         direction LR
-        APP_TX[Application<br/>Send Byte] --> SS_LOW[Assert SS<br/>(Pin LOW)]
-        SS_LOW --> WRITE[Write to SPDR]
-        WRITE --> SHIFT[Hardware Shift<br/>8 clock cycles]
-        SHIFT --> MOSI[MOSI: TX Data Out<br/>MSB first]
-        SHIFT --> MISO[MISO: RX Data In<br/>Simultaneous]
-        MOSI --> SLAVE[Slave Device]
+        APP_TX["Application<br/>Send Byte"] --> SS_LOW["Assert SS<br/>(Pin LOW)"]
+        SS_LOW --> WRITE["Write to SPDR"]
+        WRITE --> SHIFT["Hardware Shift<br/>8 clock cycles"]
+        SHIFT --> MOSI["MOSI: TX Data Out<br/>MSB first"]
+        SHIFT --> MISO["MISO: RX Data In<br/>Simultaneous"]
+        MOSI --> SLAVE["Slave Device"]
         SLAVE --> MISO
-        SHIFT --> WAIT{SPIF Set?}
+        SHIFT --> WAIT{"SPIF Set?"}
         WAIT -->|No| WAIT
-        WAIT -->|Yes| READ[Read SPDR<br/>Received Data]
-        READ --> SS_HIGH[Deassert SS<br/>(Pin HIGH)]
-        SS_HIGH --> APP_RX[Return Data<br/>to Application]
+        WAIT -->|Yes| READ["Read SPDR<br/>Received Data"]
+        READ --> SS_HIGH["Deassert SS<br/>(Pin HIGH)"]
+        SS_HIGH --> APP_RX["Return Data<br/>to Application"]
     end
 
     subgraph "Clock Timing"
         direction TB
-        CLK_SRC[System Clock<br/>16 MHz] --> DIV[Divider<br/>/2, /4, /8, /16, /32, /64, /128]
-        DIV --> SCK_OUT[SCK Output<br/>Up to 8 MHz]
+        CLK_SRC["System Clock<br/>16 MHz"] --> DIV["Divider<br/>/2, /4, /8, /16, /32, /64, /128"]
+        DIV --> SCK_OUT["SCK Output<br/>Up to 8 MHz"]
     end
 
     style SHIFT fill:#E24A4A,color:#fff
