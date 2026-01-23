@@ -47,18 +47,23 @@ If we write to EEPROM every 10ms (system tick), we will burn out the memory in:
 ## 🔍 Visual Analysis (Wear Leveling Logic)
 
 ```mermaid
-flowchart TD
-    Start["Update Loop (10ms)"] --> CheckTime{"Timer > 10 Min?"}
-    Start --> ["CheckDelta{"Delta Energy > 0.1?"}"]
+graph LR
+    Input[Inputs] --> V[V_RMS]
+    Input --> I[I_RMS]
 
-    CheckTime -- Yes --> Save["Write to EEPROM"]
-    CheckDelta -- Yes --> Save
+    V & I --> Apparent["S = V * I <br/>(Apparent Power VA)"]
 
-    CheckTime -- No --> Keep["In RAM Only"]
-    CheckDelta -- No -- Keep
+    Apparent --> PF_Check{PF Config}
 
-    Save --> Backup["Write Backup Copy"]
-    Backup --> Reset["Reset Timer"]
+    PF_Check -- Default --> Fixed["Use PF = 0.85"]
+    PF_Check -- Advanced --> Measure["Calculate Phase Shift"]
+
+    Fixed --> Real["P = S * 0.85 <br/>(Real Power W)"]
+
+    Real --> Energy["Integration <br/> E += P * dt"]
+
+    style Real fill:#2ECC71,color:#000
+    style Apparent fill:#2ECC71,color:#000
 ```
 
 ---
