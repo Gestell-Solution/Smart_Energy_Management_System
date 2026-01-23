@@ -124,7 +124,7 @@ sequenceDiagram
     MCU->>LCD: Set RS = HIGH (Data)
     MCU->>LCD: Set RW = LOW (Write)
 
-    rect rgb(200, 240, 200)
+    rect rgb(40, 54, 71)
         Note right of MCU: High Nibble (0100)
         MCU->>LCD: Write D7..D4 = 0100
         MCU->>LCD: Pulse EN HIGH
@@ -134,7 +134,7 @@ sequenceDiagram
 
     Note over MCU: 1µs Delay
 
-    rect rgb(200, 200, 240)
+    rect rgb(40, 54, 71)
         Note right of MCU: Low Nibble (0001)
         MCU->>LCD: Write D7..D4 = 0001
         MCU->>LCD: Pulse EN HIGH
@@ -209,13 +209,13 @@ The "Power-On" initialization is notoriously tricky. If the LCD is in an unknown
 ```mermaid
 flowchart TD
     Start[Power On] --> Wait[Wait >15ms]
-    Wait --> Cmd1[Send 0x03<br/>(Function Set)]
+    Wait --> Cmd1["Send 0x03<br/>(Function Set)"]
     Cmd1 --> Wait1[Wait >4.1ms]
-    Wait1 --> Cmd2[Send 0x03<br/>(Function Set)]
+    Wait1 --> Cmd2["Send 0x03<br/>(Function Set)"]
     Cmd2 --> Wait2[Wait >100us]
-    Wait2 --> Cmd3[Send 0x03<br/>(Function Set)]
+    Wait2 --> Cmd3["Send 0x03<br/>(Function Set)"]
 
-    Cmd3 --> Set4Bit[Send 0x02<br/>(Switch to 4-bit)]
+    Cmd3 --> Set4Bit["Send 0x02<br/>(Switch to 4-bit)"]
 
     Set4Bit --> Config[Function Set:<br/>2 Lines, 5x8 Font]
     Config --> DispOff[Display OFF]
