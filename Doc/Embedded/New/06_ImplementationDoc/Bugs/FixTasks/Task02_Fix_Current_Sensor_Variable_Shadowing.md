@@ -116,7 +116,7 @@ graph TB
 
     style Inner1 fill:#282869,stroke:#333,stroke-width:2px
     style Inner2 fill:#282869,stroke:#333,stroke-width:2px
-    style Outer fill:#000000,stroke:#333,stroke-width:2px
+    style Outer fill:#282869,stroke:#333,stroke-width:2px
 ```
 
 ---
