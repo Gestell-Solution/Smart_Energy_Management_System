@@ -81,7 +81,7 @@ sequenceDiagram
 graph TD
     CMD{Command ID?}
 
-    CMD -- "0x05 (Mobile)" --> INT[Convert to INT (x10)]
+    CMD -- "0x05 (Mobile)" --> INT["Convert to INT (x10)"]
     INT --> SWAP[Swap Endianness (Big)]
     SWAP --> SEND1[Send: [08 9D] (2205)]
 
