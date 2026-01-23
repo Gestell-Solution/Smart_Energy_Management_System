@@ -177,28 +177,28 @@ graph TB
 flowchart TB
     subgraph "Master Write Transaction (Future)"
         direction TB
-        START_W[Send START<br/>Condition] --> ADDR_W[Send Device Address<br/>+ Write Bit (0)]
-        ADDR_W --> ACK_A{ACK<br/>Received?}
-        ACK_A -->|Yes| DATA1_W[Send Data Byte 1]
-        ACK_A -->|No| ERR_W[NACK Error<br/>Device not responding]
-        DATA1_W --> ACK_D1{ACK?}
-        ACK_D1 -->|Yes| DATA2_W[Send Data Byte 2]
-        ACK_D1 -->|No| ERR_WD[NACK Error<br/>Write failed]
-        DATA2_W --> STOP_W[Send STOP<br/>Condition]
-        STOP_W --> DONE_W[Transaction Complete]
+        START_W["Send START<br/>Condition"] --> ADDR_W["Send Device Address<br/>+ Write Bit (0)"]
+        ADDR_W --> ACK_A{"ACK<br/>Received?"}
+        ACK_A -->|Yes| DATA1_W["Send Data Byte 1"]
+        ACK_A -->|No| ERR_W["NACK Error<br/>Device not responding"]
+        DATA1_W --> ACK_D1{"ACK?"}
+        ACK_D1 -->|Yes| DATA2_W["Send Data Byte 2"]
+        ACK_D1 -->|No| ERR_WD["NACK Error<br/>Write failed"]
+        DATA2_W --> STOP_W["Send STOP<br/>Condition"]
+        STOP_W --> DONE_W["Transaction Complete"]
     end
 
     subgraph "Master Read Transaction (Future)"
         direction TB
-        START_R[Send START<br/>Condition] --> ADDR_R[Send Device Address<br/>+ Read Bit (1)]
-        ADDR_R --> ACK_AR{ACK?}
-        ACK_AR -->|Yes| READ1[Read Data Byte 1]
-        ACK_AR -->|No| ERR_R[NACK Error]
-        READ1 --> SEND_ACK[Send ACK<br/>(More data)]
-        SEND_ACK --> READ2[Read Data Byte 2]
-        READ2 --> SEND_NACK[Send NACK<br/>(Last byte)]
-        SEND_NACK --> STOP_R[Send STOP]
-        STOP_R --> DONE_R[Transaction Complete]
+        START_R["Send START<br/>Condition"] --> ADDR_R["Send Device Address<br/>+ Read Bit (1)"]
+        ADDR_R --> ACK_AR{"ACK?"}
+        ACK_AR -->|Yes| READ1["Read Data Byte 1"]
+        ACK_AR -->|No| ERR_R["NACK Error"]
+        READ1 --> SEND_ACK["Send ACK<br/>(More data)"]
+        SEND_ACK --> READ2["Read Data Byte 2"]
+        READ2 --> SEND_NACK["Send NACK<br/>(Last byte)"]
+        SEND_NACK --> STOP_R["Send STOP"]
+        STOP_R --> DONE_R["Transaction Complete"]
     end
 
     style START_W fill:#E24A4A,color:#fff
