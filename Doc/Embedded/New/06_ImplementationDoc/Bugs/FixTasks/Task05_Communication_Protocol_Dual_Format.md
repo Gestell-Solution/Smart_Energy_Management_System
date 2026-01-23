@@ -82,11 +82,11 @@ graph TD
     CMD{Command ID?}
 
     CMD -- "0x05 (Mobile)" --> INT["Convert to INT (x10)"]
-    INT --> SWAP[Swap Endianness (Big)]
-    SWAP --> SEND1[Send: [08 9D] (2205)]
+    INT --> SWAP["Swap Endianness (Big)"]
+    SWAP --> SEND1["Send: [08 9D] (2205)"]
 
-    CMD -- "0x15 (Dash)" --> FLOAT[Keep as Float]
-    FLOAT --> SEND2[Send: [00 80 5C 43]]
+    CMD -- "0x15 (Dash)" --> FLOAT["Keep as Float"]
+    FLOAT --> SEND2["Send: [00 80 5C 43]"]
 ```
 
 ---
