@@ -64,23 +64,23 @@ To conserve microcontroller pins, the driver operates in **4-bit Mode**.
 ```mermaid
 graph LR
     subgraph "Microcontroller (ATmega32)"
-        RS[RS Pin<br/>(Register Select)]
-        EN[EN Pin<br/>(Enable)]
-        D4[Data Pin 4]
-        D5[Data Pin 5]
-        D6[Data Pin 6]
-        D7[Data Pin 7]
+        RS["RS Pin<br/>(Register Select)"]
+        EN["EN Pin<br/>(Enable)"]
+        D4["Data Pin 4"]
+        D5["Data Pin 5"]
+        D6["Data Pin 6"]
+        D7["Data Pin 7"]
     end
 
     subgraph "LCD Module (HD44780)"
         L_RS[RS]
-        L_RW[RW (Grounded)]
+        L_RW["RW (Grounded)"]
         L_EN[EN]
         L_D4[DB4]
         L_D5[DB5]
         L_D6[DB6]
         L_D7[DB7]
-        L_VO[V0 Contrast]
+        L_VO["V0 Contrast"]
     end
 
     RS --> L_RS
@@ -92,7 +92,7 @@ graph LR
     D6 --> L_D6
     D7 --> L_D7
 
-    POT[10k Potentiometer] --> L_VO
+    POT["10k Potentiometer"] --> L_VO
 
     style L_RS fill:#2ECC71,color:#fff
     style L_D4 fill:#3498DB,color:#fff
