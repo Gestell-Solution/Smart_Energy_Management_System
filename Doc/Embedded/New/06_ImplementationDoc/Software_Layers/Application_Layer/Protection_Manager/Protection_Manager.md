@@ -283,7 +283,7 @@ graph TD
     Level2 --> OV[Over Voltage]
     Level2 --> UV[Under Voltage]
 
-    Level3 --> OL[Overload (Mild)]
+    Level3 --> OL["Overload (Mild)"]
     Level3 --> TEMP[High Temp]
 
     style Level1 fill:#E74C3C,color:#fff
