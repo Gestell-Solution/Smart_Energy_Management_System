@@ -51,9 +51,9 @@ graph TD
     PF[Power Factor]
 
     subgraph "Calculations"
-        S[Apparent Power = V * I]
-        P[Real Power = S * PF]
-        Q[Reactive Power = S * sin(phi)]
+        S["Apparent Power = V * I"]
+        P["Real Power = S * PF"]
+        Q["Reactive Power = S * sin(phi)"]
     end
 
     V & I --> S
