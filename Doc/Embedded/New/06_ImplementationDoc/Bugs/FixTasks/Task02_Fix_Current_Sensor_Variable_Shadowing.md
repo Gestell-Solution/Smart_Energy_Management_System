@@ -114,9 +114,9 @@ graph TB
         FinalAssign --> Result
     end
 
-    style Inner1 fill:#ffaaaa,stroke:#333,stroke-width:2px
-    style Inner2 fill:#ffaaaa,stroke:#333,stroke-width:2px
-    style Outer fill:#aaffaa,stroke:#333,stroke-width:2px
+    style Inner1 fill:#282869,stroke:#333,stroke-width:2px
+    style Inner2 fill:#282869,stroke:#333,stroke-width:2px
+    style Outer fill:#000000,stroke:#333,stroke-width:2px
 ```
 
 ---
