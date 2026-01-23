@@ -158,34 +158,34 @@ flowchart TB
     subgraph "Current Measurement Flow"
         direction TB
 
-        AC_CURRENT[AC Current<br/>in Wire] --> MAG_FIELD[Magnetic Field<br/>Generated]
-        MAG_FIELD --> HALL_DET[Hall Effect<br/>Detection]
-        HALL_DET --> ANALOG_V[Analog Voltage<br/>0.5V - 4.5V]
+        AC_CURRENT["AC Current<br/>in Wire"] --> MAG_FIELD["Magnetic Field<br/>Generated"]
+        MAG_FIELD --> HALL_DET["Hall Effect<br/>Detection"]
+        HALL_DET --> ANALOG_V["Analog Voltage<br/>0.5V - 4.5V"]
 
-        ANALOG_V --> ADC_CONV[ADC Conversion<br/>10-bit]
-        ADC_CONV --> DIGITAL[Digital Value<br/>0-1023]
+        ANALOG_V --> ADC_CONV["ADC Conversion<br/>10-bit"]
+        ADC_CONV --> DIGITAL["Digital Value<br/>0-1023"]
 
-        DIGITAL --> VOLTAGE_CALC[Convert to Voltage<br/>V = ADC × 5.0 / 1024]
+        DIGITAL --> VOLTAGE_CALC["Convert to Voltage<br/>V = ADC × 5.0 / 1024"]
 
-        VOLTAGE_CALC --> ZERO_SUB[Subtract Zero Offset<br/>ΔV = V - V_zero]
+        VOLTAGE_CALC --> ZERO_SUB["Subtract Zero Offset<br/>ΔV = V - V_zero"]
 
-        ZERO_OFFSET[Zero Offset<br/>from EEPROM] --> ZERO_SUB
+        ZERO_OFFSET["Zero Offset<br/>from EEPROM"] --> ZERO_SUB
 
-        ZERO_SUB --> CURR_CALC[Calculate Current<br/>I = ΔV / 0.066]
+        ZERO_SUB --> CURR_CALC["Calculate Current<br/>I = ΔV / 0.066"]
 
-        CURR_CALC --> SAMPLE_BUF[Sample Buffer<br/>128 samples]
+        CURR_CALC --> SAMPLE_BUF["Sample Buffer<br/>128 samples"]
 
-        SAMPLE_BUF --> RMS_CALC[RMS Calculation<br/>√(Σ(I²)/N)]
+        SAMPLE_BUF --> RMS_CALC["RMS Calculation<br/>sqrt(sum(I^2)/N)"]
 
-        RMS_CALC --> OUTLIER[Outlier Rejection<br/>±3σ filter]
+        RMS_CALC --> OUTLIER["Outlier Rejection<br/>±3σ filter"]
 
-        OUTLIER --> FINAL[Final RMS Current]
+        OUTLIER --> FINAL["Final RMS Current"]
 
-        FINAL --> APP_LAYER[Application Layer]
+        FINAL --> APP_LAYER["Application Layer"]
     end
 
     style HALL_DET fill:#E24A4A,color:#fff
-    style RMS_CALC fill:#50C878,color:#fff
+    style RMS_CALC fill:#50C878,color:#000
     style FINAL fill:#F39C12,color:#000
 ```
 
