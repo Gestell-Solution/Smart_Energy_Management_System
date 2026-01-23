@@ -49,7 +49,7 @@ If we write to EEPROM every 10ms (system tick), we will burn out the memory in:
 ```mermaid
 flowchart TD
     Start["Update Loop (10ms)"] --> CheckTime{"Timer > 10 Min?"}
-    Start --> CheckDelta{"Delta Energy > 0.1?"}
+    Start --> ["CheckDelta{"Delta Energy > 0.1?"}"]
 
     CheckTime -- Yes --> Save["Write to EEPROM"]
     CheckDelta -- Yes --> Save
