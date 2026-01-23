@@ -243,16 +243,16 @@ graph LR
     Input[Inputs] --> V[V_RMS]
     Input --> I[I_RMS]
 
-    V & I --> Apparent[S = V * I <br/>(Apparent Power VA)]
+    V & I --> Apparent["S = V * I <br/>(Apparent Power VA)"]
 
     Apparent --> PF_Check{PF Config}
 
     PF_Check -->|Default| Fixed[Use PF = 0.85]
     PF_Check -->|Advanced| Measure[Calculate Phase Shift]
 
-    Fixed --> Real[P = S * 0.85 <br/>(Real Power W)]
+    Fixed --> Real["P = S * 0.85 <br/>(Real Power W)"]
 
-    Real --> Energy[Integration <br/> E += P * dt]
+    Real --> Energy["Integration <br/> E += P * dt"]
 
     style Real fill:#2ECC71,color:#fff
     style Apparent fill:#F39C12,color:#000
