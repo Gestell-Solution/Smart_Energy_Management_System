@@ -51,14 +51,14 @@ flowchart TD
     Start["Update Loop (10ms)"] --> CheckTime{"Timer > 10 Min?"}
     Start --> CheckDelta{"Delta Energy > 0.1?"}
 
-    CheckTime -- Yes --> Save[Write to EEPROM]
+    CheckTime -- Yes --> Save["Write to EEPROM"]
     CheckDelta -- Yes --> Save
 
-    CheckTime -- No --> Keep[In RAM Only]
+    CheckTime -- No --> Keep["In RAM Only"]
     CheckDelta -- No -- Keep
 
-    Save --> Backup[Write Backup Copy]
-    Backup --> Reset[Reset Timer]
+    Save --> Backup["Write Backup Copy"]
+    Backup --> Reset["Reset Timer"]
 ```
 
 ---
