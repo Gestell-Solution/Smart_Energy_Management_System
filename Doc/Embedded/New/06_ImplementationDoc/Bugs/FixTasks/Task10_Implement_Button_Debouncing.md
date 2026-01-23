@@ -1,4 +1,4 @@
-# Task 10: Implement Button Debouncing
+# 🛠️ Task 10: Implement Button Debouncing
 
 <div align="center">
 
@@ -6,78 +6,105 @@
 ![Priority](https://img.shields.io/badge/Priority-Medium-yellow)
 ![Assignee](https://img.shields.io/badge/Assigned-Mohamed_Abdelgaber-blue)
 ![Timeline](<https://img.shields.io/badge/Timeline-Day_5_(Jan_28)-orange>)
+![Tech Stack](https://img.shields.io/badge/Tech-HAL_Logic-black)
 
-**User Input Reliability Optimization**
+**HAL Layer Driver | UX Improvement**
 
 </div>
 
 ---
 
-## 📋 Task Information
+## 📋 Task Overview & Metadata
 
-| Attribute        | Details                                                      |
-| :--------------- | :----------------------------------------------------------- |
-| **Priority**     | ⚠️ **MEDIUM**                                                |
-| **Assignee**     | Mohamed Abdelgaber                                           |
-| **Component**    | HAL Layer - Button Driver                                    |
-| **Bug Type**     | Signal Noise / Mechanical Bounce                             |
-| **Impact**       | Menu navigation double-clicks or skips screens unexpectedly. |
-| **Dependencies** | 🏁 **None** (HAL Driver Issue)                               |
-| **Blocker**      | ❌ **NO** - Annoyance, but functional.                       |
-| **Deadline**     | **Wednesday, Jan 28, 2026**                                  |
-
----
-
-## 🐛 Problem Description
-
-### Current Issue
-
-Mechanical buttons (Mode, Reset, Config) generate **noise** (bounce) when pressed. The microcontroller interprets these <5ms spikes as multiple presses, causing the menu to skip items or settings to toggle rapidly.
-
-### Impact
-
-- ❌ **Poor UX**: Menu navigation is jumpy.
-- ❌ **Accidental Actions**: Double-clicks might trigger wrong functions.
+| Attribute        | Details                              |
+| :--------------- | :----------------------------------- |
+| **Task ID**      | `FIX-009`                            |
+| **Priority**     | ⚠️ **MEDIUM**                        |
+| **Assignee**     | **Mohamed Abdelgaber**               |
+| **Component**    | **HAL** > **Button Driver**          |
+| **Bug Type**     | **Signal Noise / Mechanical Bounce** |
+| **Impact**       | Poor UX (Skipping menu items).       |
+| **Dependencies** | 🏁 **None**                          |
+| **Blocker**      | ❌ **NO** (Enhancement)              |
+| **Deadline**     | **Wednesday, Jan 28, 2026**          |
 
 ---
 
-## 🔍 Visual Analysis
+## 🐛 Detailed Problem Description
+
+### Context
+
+Mechanical buttons use metal contacts. When pressed blocking, the metal pieces vibrate/bounce for **5ms to 20ms** before making solid contact. The microcontroller (running at MHz speed) sees these bounces as logic transitions: `High -> Low -> High -> Low`.
+
+---
+
+## 🔍 Visual Analysis (Signal Cleanup)
 
 ```mermaid
 graph TD
-    A[Raw Button Press] --> B{Is Input High?}
-    B -- Yes --> C[Wait 50ms (Debounce)]
-    C --> D{Is Input STILL High?}
-    D -- Yes --> E[CONFIRMED PRESS]
-    D -- No --> F[Ignore (Noise)]
-    B -- No --> G[No Action]
+    Raw[Raw Input Signal] --> Glitch{Is Stable?}
 
-    style E fill:#9f9,stroke:#333
-    style F fill:#f9f,stroke:#333
+    Glitch -- No (Bounce) --> Ignore[Ignore Glitch]
+    Glitch -- Yes (>50ms) --> Valid[Valid Press]
+
+    Valid --> Action[Execute Menu Action]
+
+    subgraph "Debounce Algorithm"
+    Read1[Read Pin] --> Wait[Wait 50ms]
+    Wait --> Read2[Read Pin Again]
+    Read2 --> Compare{Match?}
+    Compare -- Yes --> Confirmed
+    Compare -- No --> Noise
+    end
 ```
 
 ---
 
 ## 🛠️ Implementation Plan
 
-### Update Button Driver
+### Step 1: Implement Blocking Debounce (Simplest)
+
+Since our system tick is 10ms, we can use a small delay inside the button read function.
+
+**Preferred Method: State Verification**
+Check the button. If active, wait **50ms**. Check again. If STILL active, it's a real press.
 
 **File**: `Hal/Button/hButton_Program.c`
 
-Use a **double-check method** with a delay or a **state counter** to verify stability of the input signal before returning `BTN_PRESSED`.
+```c
+ButtonState_t hButton_GetState(Button_t btn)
+{
+    if (GPIO_Read(btn.Pin) == PRESSED)
+    {
+        // Detected an edge. Wait for stability.
+        _delay_ms(50);
+
+        // Check again
+        if (GPIO_Read(btn.Pin) == PRESSED)
+        {
+            // Wait for Release? (Optional)
+            while(GPIO_Read(btn.Pin) == PRESSED);
+
+            return BTN_CLICKED;
+        }
+    }
+    return BTN_IDLE;
+}
+```
 
 ---
 
-## ✅ Verification Plan
+## 🧪 Verification & Testing Plan
 
-### Test Case 10.1: Menu Navigation
+### Test 1: Navigation Test
 
-1. Enter Config Menu.
-2. Press "Next" button 20 times rapidly.
-3. Verify menu skips match physical clicks exactly.
+1.  **Action**: Open Configuration Menu.
+2.  **Input**: Press "UP" button 10 times quickly.
+3.  **Result**: Selection moves exactly 10 slots.
+4.  **Fail**: Selection moves 15-20 slots.
 
 ---
 
 <div align="center">
-**Gestell Company - Internal Task Document**
+**Gestell Company - Internal Engineering Document**
 </div>

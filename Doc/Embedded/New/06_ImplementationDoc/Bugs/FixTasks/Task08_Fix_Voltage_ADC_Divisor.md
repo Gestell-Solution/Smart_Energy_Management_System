@@ -1,4 +1,4 @@
-# Task 08: Fix Voltage Sensor ADC Divisor
+# 🛠️ Task 08: Fix Voltage Sensor ADC Divisor (Precision)
 
 <div align="center">
 
@@ -6,86 +6,116 @@
 ![Priority](https://img.shields.io/badge/Priority-Medium-yellow)
 ![Assignee](https://img.shields.io/badge/Assigned-Ahmed_Ashraf-blue)
 ![Timeline](<https://img.shields.io/badge/Timeline-Day_3_4_(Jan_26_27)-orange>)
+![Tech Stack](https://img.shields.io/badge/Tech-Mathematics-black)
 
-**Bug Fix Task - Voltage Sensor Accuracy**
+**HAL Layer Precision Fix | Math Error**
 
 </div>
 
 ---
 
-## 📋 Task Information
+## 📋 Task Overview & Metadata
 
-| Attribute        | Details                                                       |
-| :--------------- | :------------------------------------------------------------ |
-| **Priority**     | ⚠️ **MEDIUM**                                                 |
-| **Assignee**     | Ahmed Ashraf                                                  |
-| **Component**    | HAL Layer - Voltage Sensor Driver                             |
-| **Bug Type**     | Mathematical Error / Precision Defect                         |
-| **Impact**       | **0.1% Error** in voltage (Reads 220.22V instead of 220.00V). |
-| **Dependencies** | 🏁 **None** (Isolated Math Error)                             |
-| **Blocker**      | ❌ **NO** - Minimal impact, but violates precision standards. |
-| **Deadline**     | **Tuesday, Jan 27, 2026**                                     |
-
----
-
-## 🐛 Problem Description
-
-### Current Issue
-
-The voltage calculation uses **1023** as the ADC divisor, which is mathematically incorrect for a 10-bit ADC (0-1023 range means 1024 unique levels).
-
-### Impact
-
-- ❌ **0.1% Systemic Error**: Consistently over-reports voltage.
-- ❌ **Example**: At 220V, error is ~0.22V.
+| Attribute        | Details                                        |
+| :--------------- | :--------------------------------------------- |
+| **Task ID**      | `FIX-005`                                      |
+| **Priority**     | ⚠️ **MEDIUM**                                  |
+| **Assignee**     | **Ahmed Ashraf**                               |
+| **Component**    | **HAL** > **Voltage Sensor Driver**            |
+| **Bug Type**     | **Mathematical Precision Error**               |
+| **Impact**       | Consistently over-reports voltage by **0.1%**. |
+| **Dependencies** | 🏁 **None**                                    |
+| **Blocker**      | ❌ **NO** (Minor Accuracy Issue)               |
+| **Deadline**     | **Tuesday, Jan 27, 2026**                      |
 
 ---
 
-## 🔍 Visual Analysis
+## 🐛 Detailed Problem Description
+
+### The Math
+
+The ATmega32 ADC is **10-bit**. It produces values from **0 to 1023**.
+The number of distinct "steps" or levels is **1024** ($2^{10}$).
+
+### The Defect
+
+The code divides by the maximum value (1023) instead of the number of steps (1024).
+
+---
+
+## 🔍 Visual Analysis (Resolution Scaling)
 
 ```mermaid
 graph LR
-    A[Analog Signal] -->|Sampling| B(ADC Hardware)
-    B -->|0 - 1023| C{Conversion}
-    C -->|Old: / 1023| D[Wrong Step Size]
-    C -->|New: / 1024| E[Correct Step Size]
-    D -->|Overestimation| F[Voltage + 0.1%]
-    E -->|Precision| G[True Voltage]
+    Input[Analog Input (2.5V)] --> ADC[ADC Hardware (10-Bit)]
+    ADC --> Reading[Read Value: 512]
 
-    style D fill:#f9f,stroke:#333
-    style E fill:#9f9,stroke:#333
+    Reading --> WRONG{Divide by 1023}
+    Reading --> CORRECT{Divide by 1024}
+
+    WRONG --> ERR[50.05% of Scale]
+    CORRECT --> ACC[50.00% of Scale]
+
+    ERR --> OUT_ERR[Output: 2.502 V]
+    ACC --> OUT_ACC[Output: 2.500 V]
+
+    style OUT_ERR fill:#ffcccc
+    style OUT_ACC fill:#ccffcc
 ```
 
 ---
 
 ## 🛠️ Implementation Plan
 
-### Fix Code (HAL)
+### Step 1: Update Config
+
+**File**: `Hal/VoltageSensor/hVoltage_Config.h` or `Program.c`
+
+Find the macro used for calculation.
+
+**Change This:**
+
+```c
+#define ADC_MAX_VALUE    1023.0f
+```
+
+**To This:**
+
+```c
+#define ADC_RESOLUTION   1024.0f
+```
+
+### Step 2: Update Formula
 
 **File**: `Hal/VoltageSensor/hVoltage_Program.c`
 
 ```c
-#include "hVoltage_Config.h"
+float hVoltage_GetInstant(void)
+{
+    u16 adc_reading = ADC_Read(VOLTAGE_CHANNEL);
 
-// Correct divisor
-#define ADC_RESOLUTION_MAX    1024.0f
+    // Calculation
+    // formula: (ADC / 1024) * Vref * DividerRatio
+    float voltage = ((float)adc_reading / ADC_RESOLUTION) * VREF_VOLTAGE * VOLTAGE_DIVIDER_RATIO;
 
-float instant_voltage = Voltage_Value * (5.0f / ADC_RESOLUTION_MAX) * Voltage_Divider_Ratio;
+    return voltage;
+}
 ```
 
 ---
 
-## ✅ Verification Plan
+## 🧪 Verification & Testing Plan
 
-### Test Case 8.1: Reference Comparison
+### Test 1: Precision Check
 
-| Setup             | Measurement | Error     |
-| :---------------- | :---------- | :-------- |
-| **Before (1023)** | `220.21 V`  | +0.10%    |
-| **After (1024)**  | `220.00 V`  | **0.00%** |
+1.  **Setup**: Use a Fluke Multimeter to inject exactly 2.500V into the ADC pin.
+2.  **Expected ADC**: 512.
+3.  **Calculation Check**:
+    - Old: `2.5V * (512/1023)` = **2.502V** (Error)
+    - New: `2.5V * (512/1024)` = **2.500V** (Perfect)
 
 ---
 
 <div align="center">
-**Gestell Company - Internal Task Document**
+**Gestell Company - Internal Engineering Document**
 </div>

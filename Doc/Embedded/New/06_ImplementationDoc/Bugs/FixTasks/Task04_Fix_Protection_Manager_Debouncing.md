@@ -1,4 +1,4 @@
-# Task 04: Fix Protection Manager Debouncing
+# 🛠️ Task 04: Fix Protection Manager Debouncing (Inrush Handling)
 
 <div align="center">
 
@@ -6,90 +6,169 @@
 ![Priority](https://img.shields.io/badge/Priority-Critical-red)
 ![Assignee](https://img.shields.io/badge/Assignee-Mohamed_Abdelgaber-blue)
 ![Timeline](<https://img.shields.io/badge/Timeline-Day_5_(Jan_28)-orange>)
+![Tech Stack](https://img.shields.io/badge/Tech-Control_Logic-black)
 
-**Application Layer Critical Fix**
+**Application Layer Critical Fix | Safety & Reliability**
 
 </div>
 
 ---
 
-## 📋 Task Information
+## 📋 Task Overview & Metadata
 
-| Attribute        | Details                                                           |
-| :--------------- | :---------------------------------------------------------------- |
-| **Priority**     | 🔴 **CRITICAL**                                                   |
-| **Assignee**     | Mohamed Abdelgaber                                                |
-| **Component**    | Application Layer - Protection Manager                            |
-| **Bug Type**     | Signal Noise / Inrush Current Handling                            |
-| **Impact**       | System trips falsely on motor startup (Inrush Current).           |
-| **Dependencies** | 🔗 **Task 01** (Timer1), **Task 02** (Current Readings)           |
-| **Blocker**      | 🚀 **YES** - Prevents operation of motors/pumps (False Positive). |
-| **Deadline**     | **Wednesday, Jan 28, 2026**                                       |
+| Attribute        | Details                                                          |
+| :--------------- | :--------------------------------------------------------------- |
+| **Task ID**      | `FIX-007`                                                        |
+| **Priority**     | 🔴 **CRITICAL**                                                  |
+| **Assignee**     | **Mohamed Abdelgaber**                                           |
+| **Component**    | **App** > **Protection Manager**                                 |
+| **Bug Type**     | **Transient Signal Misinterpretation**                           |
+| **Impact**       | False trips on motor inrush currents -> **Unusable for Motors**. |
+| **Dependencies** | 🔗 **Task 01** & **Task 02**                                     |
+| **Blocker**      | 🚀 **YES** (Must fix for Industrial usage)                       |
+| **Deadline**     | **Wednesday, Jan 28, 2026**                                      |
 
 ---
 
-## 🐛 Problem Description
+## 🐛 Detailed Problem Description
 
-### Current Issue
+### Context
 
-The Protection Manager **immediately cuts power** on the first high reading, causing **false trips** during normal inrush currents (motor startup, transformer energization).
+Electrical protection systems must distinguish between **Real Faults** (Short Circuits, Sustained Overloads) and **Transient Events** (Inrush Currents, Noise Spikes).
 
-### Impact
+- **Inrush Current**: When a motor starts, it can draw 5x-10x its rated current for a short duration (e.g., 50ms - 100ms).
+- **Noise**: An ADC spike due to EMI might last 1-2 samples (10-20ms).
 
-- ❌ **False trips during motor startup** (inrush current)
-- ❌ **Nuisance tripping on ADC noise**
-- ❌ **Poor user experience** - appliances randomly shut off
+### The Defect
 
-### Root Cause
+The current `PM_Update` function logic is too simplistic:
 
 ```c
-// Current code:
-if (current > threshold)  // ❌ Single sample!
+if (Current > Max_Current_Threshold) {
+    Trigger_Trip(); // ❌ TOO FAST!
+}
+```
+
+If the threshold is 10A, and a 5A motor starts (drawing 25A for 50ms), the system trips instantly.
+
+### The Solution: Hysteresis & Debouncing
+
+We need a **Time-Based Filter** (Debouncer). The condition must persist for a strictly defined duration (e.g., **100ms**) before we authorize a trip.
+
+---
+
+## 🔍 Visual Analysis (State Machine)
+
+```mermaid
+stateDiagram-v2
+    [*] --> Normal_State
+
+    state Normal_State {
+        [*] --> Monitoring
+    }
+
+    Normal_State --> Fault_Detected: Current > Threshold
+
+    state Fault_Detected {
+        [*] --> Counting_Up
+
+        Counting_Up --> Trip_Authorized: Counter >= 10 (100ms)
+        Counting_Up --> Recovery: Current < Threshold
+
+        Recovery --> Normal_State: Counter resets to 0
+    }
+
+    Trip_Authorized --> TRIP_ACTION: Cut Relay
+    TRIP_ACTION --> [*]
+```
+
+---
+
+## 🛠️ Step-by-Step Implementation Plan
+
+### Step 1: Update Configuration
+
+**File**: `App/ProtectionManager/ProtectionManager_Config.h`
+Define the timing parameters. Since the system tick is 10ms (from Timer1):
+
+- 100ms Debounce = 10 Ticks.
+
+```c
+/* Debounce Settings */
+#define PM_TRIP_DELAY_TICKS      10      // 10 * 10ms = 100ms Tolerated Overload
+#define PM_RESET_DELAY_TICKS     20      // 20 * 10ms = 200ms Stability required to reset
+#define PM_CURRENT_HYSTERESIS    1.0f    // 1 Amp drop required to stop counting
+```
+
+### Step 2: Implement Logic
+
+**File**: `App/ProtectionManager/ProtectionManager_Program.c`
+
+Modify the update loop to use a static counter.
+
+```c
+static uint8_t Fault_Counter = 0;
+
+void PM_Update(void)
 {
-    CUT_POWER();  // Immediate trip
+    float current = ME_GetRmsCurrent();
+
+    // Check for Over-Current
+    if (current > PM_MAX_CURRENT_THRESHOLD)
+    {
+        Fault_Counter++;
+
+        // Only Trip if condition persists
+        if (Fault_Counter >= PM_TRIP_DELAY_TICKS)
+        {
+            PM_ExecuteTrip("Over Current");
+            Fault_Counter = PM_TRIP_DELAY_TICKS; // Clamp
+        }
+    }
+    else
+    {
+        // Gradual Decay (or Instant Reset)
+        if (Fault_Counter > 0)
+        {
+            Fault_Counter--;
+        }
+    }
+}
+```
+
+### Step 3: Short Circuit Exception (Optional but Smart)
+
+If the current is MASSIVE (e.g., > 50A), we should trip **instantly** without waiting 100ms, as this is likely a dead short, not a motor startup.
+
+```c
+// Instant Trip for Short Circuit (Safety)
+if (current > (PM_MAX_CURRENT_THRESHOLD * 3))
+{
+    PM_ExecuteTrip("Short Circuit");
 }
 ```
 
 ---
 
-## 🛠️ Implementation Plan
+## 🧪 Verification & Testing Plan
 
-### Step 1: Design Debouncing Algorithm
+### Test 1: Noise Immunity
 
-**Debounce Strategy:**
+1.  **Setup**: Inject a single 20A pulse (lasting 10ms/1 cycle) using a signal generator or test code.
+2.  **Expected**: `Fault_Counter` becomes 1, then goes back to 0. **NO TRIP**.
 
-```
-TRIP Logic:
-- Counter increments when value > threshold
-- Trips when counter >= TRIP_DEBOUNCE_COUNT (e.g., 100ms)
+### Test 2: Motor Simulation (Inrush)
 
-RESET Logic:
-- Counter decrements when value < (threshold - hysteresis)
-- Resets when counter == 0 (e.g., 200ms normal)
-```
+1.  **Setup**: Inject 20A for 60ms (6 cycles), then drop to 2A.
+2.  **Expected**: `Fault_Counter` reaches 6. Threshold is 10. **NO TRIP**.
 
-### Step 2: Update Protection Config
+### Test 3: True Overload
 
-**File**: `App/ProtectionManager/ProtectionManager_Config.h`
-
-```c
-#define PM_TRIP_DEBOUNCE_COUNT       10  // 100ms
-#define PM_RESET_DEBOUNCE_COUNT      20  // 200ms
-#define PM_CURRENT_HYSTERESIS        2.0f   // 2A
-```
-
----
-
-## 🧪 Verification Plan
-
-| Test Case         | Procedure                               | Expected Result               |
-| :---------------- | :-------------------------------------- | :---------------------------- |
-| **Motor Startup** | Start 1HP Motor (Inrush ~15A for 50ms). | System **IGNORES** spike.     |
-| **Real Overload** | Sustained 20A Load (>100ms).            | System **TRIPS** after 0.1s.  |
-| **Auto-Reset**    | Reduce load below threshold-hysteresis. | System **RESETS** after 0.2s. |
+1.  **Setup**: Inject 12A (Assumes 10A Limit) for 200ms.
+2.  **Expected**: `Fault_Counter` climbs... 1, 2... at Tick 10 (100ms), System **TRIPS**. Relay opens.
 
 ---
 
 <div align="center">
-**Gestell Company - Internal Task Document**
+**Gestell Company - Internal Engineering Document**
 </div>
