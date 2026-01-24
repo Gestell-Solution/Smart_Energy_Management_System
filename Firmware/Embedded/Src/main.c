@@ -56,6 +56,7 @@
 #include "App/DM_Driver/DisplayManager_Interface.h"
 #include "App/ProtectionManager/ProtectionManager_Interface.h"
 #include <util/delay.h>
+#include "../Tests/UnitTest/Mcal/Timer1/"
 
 int main(void)
 {
