@@ -84,12 +84,12 @@ float ME_GetCurrentRMS(void);
 
 /*============================================================================*/
 /**
- * @fn         float ME_GetPower(void)
+ * @fn         float ME_GetActivePower(void)
  * @brief      Returns the instantaneous active power.
  * @details    Computes the active power based on voltage and current RMS values.
  * @return     float  Active power in watts (W).
  */
-float ME_GetPower(void);
+float ME_GetActivePower(void);
 
 /*============================================================================*/
 /**

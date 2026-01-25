@@ -99,7 +99,7 @@ float ME_GetCurrentRMS(void)
  * @brief      Getter for the calculated Active Power.
  * @return     float Power in Watts (W).
  */
-float ME_GetPower(void)      
+float ME_GetActivePower(void)      
 { 
     return ME_Active_Power; 
 }
