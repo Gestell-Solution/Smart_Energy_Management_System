@@ -51,4 +51,10 @@
  * @brief Number of samples to take for voltage calibration.
  */
 #define Voltage_Calibration_Samples 200
+
+/**
+ * @def ADC_Max_Resolution
+ * @brief Maximum resolution of the ADC (1024 for 10-bit ADC).
+ */
+#define ADC_Max_Resolution 1024.0f
 #endif
