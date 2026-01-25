@@ -22,6 +22,32 @@
  */
 #define ME_SAMPLE_INTERVAL   0.01f   
 
+/**
+ * @def Resistive_Load_PF
+ * @brief Power Factor for Resistive Loads.
+ */
+#define Resistive_Load_PF 1.0f
+/**
+ * @def AVG_Residential_Load_PF
+ * @brief Average Power Factor for Residential Loads, Assumed to be 0.85.
+ */
+#define AVG_Residential_Load_PF 0.85f
 
+/**
+ * @def Load_Type
+ * @brief Type of load connected to the system.
+ */
+#define Load_Type AVG_Residential_Load
+
+/**
+ * @def Resistive_Load
+ * @brief Identifier for Resistive Load type.
+ */
+#define Resistive_Load 1
+/**
+ * @def AVG_Residential_Load
+ * @brief Identifier for Average Residential Load type.
+ */
+#define AVG_Residential_Load 2
 
 #endif /* MEASUREMENT_ENGINE_CONFIG_H */
