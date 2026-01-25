@@ -30,12 +30,13 @@ static float ME_Vrms = 0.0f;
 /** @brief Latest calculated RMS Current (Amperes). */
 static float ME_Irms = 0.0f;
 
-/** @brief Latest calculated Active Power (Watts). */
-static float ME_Power = 0.0f;
+/** @brief Latest calculated Apparent Power (VA). */
+static float ME_Apparent_Power = 0.0f;
 
 /** @brief Accumulated Energy (Joules/Watt-seconds). */
 static float ME_Energy = 0.0f;
-
+/** @brief Latest calculated Active Power (Watts). */
+static float ME_Active_Power = 0.0f;
 /*============================================================================
  *                                 Function Definitions
  *============================================================================*/
@@ -66,10 +67,14 @@ void ME_Update(void)
     ME_Vrms = hVoltage_ReadRMS();
     ME_Irms = hCurrent_ReadRMS();
 
-    ME_Power = ME_Vrms * ME_Irms;
-
+    ME_Apparent_Power = ME_Vrms * ME_Irms;
+#if Load_Type == Resistive_Load
+    ME_Active_Power = ME_Apparent_Power * Resistive_Load_PF;
+#elif Load_Type == AVG_Residential_Load
+    ME_Active_Power = ME_Apparent_Power * AVG_Residential_Load_PF ;
+#endif
     /* Energy accumulation: Energy (J) = Power (W) * Time (s) */
-    ME_Energy += ME_Power * ME_SAMPLE_INTERVAL;
+    ME_Energy += ME_Active_Power * ME_SAMPLE_INTERVAL;
 }
 
 /**
@@ -96,7 +101,7 @@ float ME_GetCurrentRMS(void)
  */
 float ME_GetPower(void)      
 { 
-    return ME_Power; 
+    return ME_Active_Power; 
 }
 
 /**
@@ -116,4 +121,9 @@ float ME_GetEnergy(void)
 void ME_ResetEnergy(void)
 {
     ME_Energy = 0.0f;
+}
+
+float ME_GetApparentPower(void)
+{
+    return ME_Apparent_Power;
 }
