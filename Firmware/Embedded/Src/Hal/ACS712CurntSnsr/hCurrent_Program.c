@@ -138,12 +138,12 @@ void hCurrent_Calibrate(void) // Adjust zero offset at no load
     if (Calibration_Actions.Callibration_Samples_Num < RMS_Nominal_Samples_Num)
     {
 
-        float VoltageConversion = (Calibration_Actions.Previous_ADC_Avrg_Value / ADC_MAX) * Vref;
+        VoltageConversion = (Calibration_Actions.Previous_ADC_Avrg_Value / ADC_MAX) * Vref;
     }
     else
     {
 
-        float VoltageConversion = (Calibration_Actions.Current_ADC_Avrg_Value / ADC_MAX) * Vref;
+        VoltageConversion = (Calibration_Actions.Current_ADC_Avrg_Value / ADC_MAX) * Vref;
     }
 
     ACS712_ZERO_OFFSET = VoltageConversion;
