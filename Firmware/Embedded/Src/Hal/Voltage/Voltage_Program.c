@@ -51,7 +51,9 @@ void hVoltage_Init(void)
 
 float hVoltage_ReadInstant(void)
 {
-    return Voltage_Value;
+    uint16_t ADC_Value = mADC_Read(Voltage_Pin);
+    float instant_voltage = ADC_Value * (1.0f / ADC_Max_Resolution) * Voltage_REF * Voltage_Scaling_Factor;
+    return instant_voltage;
 }
 
 float hVoltage_ReadRMS(void)
@@ -67,7 +69,7 @@ float hVoltage_ReadRMS(void)
         }
 
         New_Sample_Flag = 0;
-        float instant_voltage = Voltage_Value * (1.0f / 1023.0f) * Voltage_REF * Voltage_Scaling_Factor;
+        float instant_voltage = Voltage_Value * (1.0f / ADC_Max_Resolution) * Voltage_REF * Voltage_Scaling_Factor;
         Voltage_RMS.sumOfSquares += (instant_voltage * instant_voltage);
         Voltage_RMS.sampleCount++;
     }
