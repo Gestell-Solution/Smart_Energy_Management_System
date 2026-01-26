@@ -5,17 +5,20 @@
  *             and executing protective actions (tripping relays, activating buzzer/LED) when
  *             safe limits are exceeded. It implements a latching protection mechanism that requires
  *             a manual reset or specific condition to clear.
- * @version    1.0
+ * @version    2.0
  * @date       2025-11-11
  * @author     Developer: Ahmed Ashraf (ahmedashraf2022222@gmail.com)
+ * @author     Developer(Bug Fixing) : Mohamed Abdelgaber (mohamedabdelgaber247@gmail.com)
  * @author     Reviewer:  Mohamed Diaa (mohammeddiaato@gmail.com)
  * @copyright  Copyright (c) 2025, Gestell Company
  */
 
 #include "../../Common/Config.h"
+#include"../../Mcal/Atmega32RegistersAddress.h"
 
 #if ProtectionManager == Enable
 #include "ProtectionManager_Interface.h"
+#include "../../Mcal/GIE/GIE_Interface.h"
 
 /*============================================================================
  *                                 Global Variables
@@ -26,6 +29,10 @@
  * @details Used to update the latest fault values (Voltage, Current, Power) when a trip occurs.
  */
 extern SystemData_t g_SystemData;
+
+/* Fix-007 Test Injection Current Variable for Main.c compatibility */
+float PM_Test_Current = 0.0f; 
+
 
 /*============================================================================
  *                                 Private Variables
@@ -48,7 +55,30 @@ static uint8_t Protection_State = Safe;
  * - `Not_Fixed`: Fault persists or reset not yet requested.
  */
 static uint8_t Fix_Check = 0;
+/*============================================================================
+ *                                Helper Function 
+ *============================================================================*/
 
+/* Fix-007 Helper to avoid repeat */
+static void PM_Trip_Action
+(void)
+{
+     if (Protection_State == Safe)
+     {
+          Protection_State = Danger;
+          /* Trip all relays */
+          for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
+          {
+               hRelay_Off(Relay_id);
+          }
+          /* Visual and Audio Alarm */
+          hRGB_SetState(RGB_RED);
+          DM_ShowProtectionState(Danger);
+          Buzzer_On();
+          
+          Fix_Check = Not_Fixed;
+     }
+}
 /*============================================================================
  *                                 Function Definitions
  *============================================================================*/
@@ -73,12 +103,24 @@ void PM_Init()
      hVoltage_Init();        /* Initialize Voltage Sensor */
      hRGB_Init();            /* Initialize Status LED */
      DM_Init();              /* Initialize Display */
+
+    /* Fix-007 Turn ON Relays at startup (Start Safe) */
+    for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
+    {
+        hRelay_Init(Relay_id);
+        hRelay_On(Relay_id);
+    }
+
      
      /* Configure External Interrupt for RESET button */
      mEXTI_Init(EXT1_Macro, EXT_RISING_EDGE);
      mDIO_SetDirectionForPin(GroupD, PIN3, Input);
      mDIO_WritePin(GroupD, PIN3, High); /* Enable Pull-up */
      mEXTI_setCallback(EXT1_Macro, PM_Reset);
+
+    /* Fix-007 Force Enable Global Interrupts */
+    /* To ensure the Reset button response */
+     mGIE_Enable();     
      
      mADC_StartGroup();      /* Start ADC conversions */
      hRGB_SetState(RGB_GREEN); /* Default to Safe State */
@@ -100,50 +142,66 @@ void PM_Init()
  */
 void PM_Update()
 {
-     ME_Update(); /* Refresh measurements */
-     
-     float RMS_voltage_Read = ME_GetVoltageRMS();
-     float RMS_Current_Read = ME_GetCurrentRMS();
-     float Power_Read = ME_GetPower();
-     
-     /* Check Thresholds */
-     if (ME_GetVoltageRMS() > Vrms_Threshold || 
-         ME_GetCurrentRMS() > Irms_Threshold || 
-         ME_GetPower() > P_Threshold)
-     {
-          Protection_State = Danger;
+     static uint8_t overCurrentCounter = 0;
+     ME_Update();
 
-          /* Trip all relays */
-          for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
+     /* Fix-007 Use Test Variable instead of Sensor for Logic Testing */
+     float RMS_voltage_Read = ME_GetVoltageRMS();
+     float Power_Read = ME_GetActivePower();
+     float RMS_Current_Read =ME_GetCurrentRMS();// We Can Replace ME_GetCurrentRMS(); by Varaible PM_Test for injecting 
+     //different values of current.
+     
+     /* 1.Trip for Voltage or Power */
+     if (RMS_voltage_Read > Vrms_Threshold || Power_Read > P_Threshold)
+     {
+          PM_Trip_Action();
+          return;
+     }
+
+     /* 2. Short Circuit Protection (Immediate Trip) */
+     if (RMS_Current_Read >= (Irms_Threshold * PM_SHORT_CIRCUIT_MULTIPLIER))
+     {
+          PM_Trip_Action();
+          overCurrentCounter = PM_TRIP_DELAY_TICKS; /* Max out counter */
+          return;
+     }
+
+     /* 3. Overload Protection (Debounced) */
+     if (RMS_Current_Read > Irms_Threshold)
+     {
+          if (overCurrentCounter < PM_TRIP_DELAY_TICKS)
           {
-               hRelay_Off(Relay_id);
+               overCurrentCounter++;
+          }
+
+          if (overCurrentCounter >= PM_TRIP_DELAY_TICKS)
+          {
+               PM_Trip_Action();
+               
+               /* Snapshot fault values */
+               g_SystemData.Current_RMS = RMS_Current_Read;
+          }
+     }
+     else
+     {
+          /* HYSTERESIS */
+          if (overCurrentCounter > 0)
+          {
+               overCurrentCounter--;
           }
           
-          /* Visual and Audio Alarm */
-          hRGB_SetState(RGB_RED);
-          DM_ShowProtectionState(Danger);
-          Buzzer_On();
-          
-          Fix_Check = 1; /* Mark as Tripped */
-          
-          /* Snapshot fault values */
-          g_SystemData.Voltage_RMS = RMS_voltage_Read;
-          g_SystemData.Current_RMS = RMS_Current_Read;
-          g_SystemData.Power = Power_Read;
-     }
-     else if (Fix_Check == Fixed)
-     {
-          /* Condition Cleared and Reset Pressed */
-          Protection_State = Safe;
-          DM_ShowProtectionState(Safe);
-     }
-     else if (Fix_Check == Not_Fixed)
-     {
-          /* Prompt user to Reset */
-          hLCD_SendCommand(0x01);
-          hLCD_WriteString("Fixed ");
-          hLCD_SetCursor(2, 0);
-          hLCD_WriteString("Press Reset");
+          /* Handle Fixed State Display */
+          if (Fix_Check == Not_Fixed)
+          {
+               /* user to Reset if tripped */
+               if (Protection_State == Danger) 
+               {
+                    hLCD_SendCommand(0x01);
+                    hLCD_WriteString("Status: TRIPPED");
+                    hLCD_SetCursor(2, 0);
+                    hLCD_WriteString("Press Reset");
+               }
+          }
      }
 }
 
@@ -173,8 +231,9 @@ void PM_Reset()
      /* Logic here implies we can only reset if we are effectively 'Safe' or forcing it.
         The original logic checks 'Protection_State == Safe' which might be set by Update?
         Or perhaps this is meant to Force Reset. */
-     if (Protection_State == Safe)
+     if (Protection_State == Danger)
      {
+          Protection_State = Safe;
           for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
           {
                hRelay_On(Relay_id);
@@ -182,8 +241,9 @@ void PM_Reset()
           Buzzer_Off();
           hRGB_SetState(RGB_GREEN);
           DM_ShowProtectionState(Safe);
+          Fix_Check = Fixed; /* Flag that reset was attempted/successful */
      }
-     Fix_Check = Fixed; /* Flag that reset was attempted/successful */
+     
 }
 
 #endif /* ProtectionManager == Enable */
