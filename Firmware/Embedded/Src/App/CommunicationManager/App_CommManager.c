@@ -96,7 +96,7 @@ void Comm_SendMobileData(void)
     Comm_PackUint16_BigEndian(energ_int, buffer, 4);
     Comm_PackUint16_BigEndian(Pow_int, buffer, 6);
 
-    UART_SendBuffer(buffer, 10);
+    mUART_SendBuffer(buffer, 10);
 }
 /**
  * @brief   It gets the value of curr,volt, power, energy and Send them to the dashboard
@@ -110,19 +110,19 @@ void Comm_SendDashboardData(void)
     // Get the value from the Measurement Engine
     float v = ME_GetVoltageRMS();
     // Send raw bytes (AVR is Little Endian by default)
-    UART_SendBuffer((uint8_t *)&v, 4);
+    mUART_SendBuffer((uint8_t *)&v, 4);
 
     v = ME_GetCurrentRMS();
 
-    UART_SendBuffer((uint8_t *)&v, 4);
+    mUART_SendBuffer((uint8_t *)&v, 4);
 
     v = ME_GetEnergy();
 
-    UART_SendBuffer((uint8_t *)&v, 4);
+    mUART_SendBuffer((uint8_t *)&v, 4);
 
     v = ME_GetPower();
 
-    UART_SendBuffer((uint8_t *)&v, 4);
+    mUART_SendBuffer((uint8_t *)&v, 4);
 }
 /**
  * @brief      Converts a string payload into a 16-bit integer.
