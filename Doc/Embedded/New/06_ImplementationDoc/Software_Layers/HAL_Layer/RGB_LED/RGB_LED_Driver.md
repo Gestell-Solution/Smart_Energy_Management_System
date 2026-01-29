@@ -97,7 +97,7 @@ graph TB
         LED_R[Red Die]
         LED_G[Green Die]
         LED_B[Blue Die]
-        COMMON[Common Anode<br/>VCC (+5V)]
+        COMMON["Common Anode<br/>VCC (+5V)"]
     end
 
     COMMON --> LED_R
@@ -264,14 +264,14 @@ sequenceDiagram
         SCHED->>DRV: RGB_Update()
         activate DRV
 
-        alt Mode == RAINBOW
+        alt "Mode == RAINBOW"
             DRV->>DRV: Hue++
-            if Hue > 360: Hue = 0
+            Note over DRV: "if Hue > 360: Hue = 0"
 
-            DRV->>ALG: HSV_to_RGB(Hue, 100, 100)
-            ALG-->>DRV: New {R, G, B}
+            DRV->>ALG: "HSV_to_RGB(Hue, 100, 100)"
+            ALG-->>DRV: "New {R, G, B}"
 
-            DRV->>DRV: SetPWM(R, G, B)
+            DRV->>DRV: "SetPWM(R, G, B)"
         end
 
         deactivate DRV

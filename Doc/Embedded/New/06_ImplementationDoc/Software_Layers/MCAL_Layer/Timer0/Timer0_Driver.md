@@ -71,25 +71,25 @@ Timer0 is an 8-bit general-purpose timer/counter peripheral on the ATmega32. It 
 ```mermaid
 graph TB
     subgraph "Clock Source"
-        XTAL[Crystal 16MHz] --> PRESC[Prescaler<br/>/1, /8, /64, /256, /1024]
+        XTAL["Crystal 16MHz"] --> PRESC["Prescaler<br/>/1, /8, /64, /256, /1024"]
     end
 
     subgraph "Timer0 Core"
-        PRESC --> MUX[Clock Select<br/>CS02:00]
-        MUX --> TCNT0[TCNT0 Counter<br/>8-bit (0-255)]
+        PRESC --> MUX["Clock Select<br/>CS02:00"]
+        MUX --> TCNT0["TCNT0 Counter<br/>8-bit (0-255)"]
 
-        TCNT0 --> COMP[Comparator ==]
-        OCR0[OCR0 Register<br/>Compare Value] --> COMP
+        TCNT0 --> COMP["Comparator =="]
+        OCR0["OCR0 Register<br/>Compare Value"] --> COMP
 
-        TCNT0 --> OVF[Overflow Logic<br/>0xFF -> 0x00]
+        TCNT0 --> OVF["Overflow Logic<br/>0xFF -> 0x00"]
     end
 
     subgraph "Outputs"
-        COMP --> WAVE[Waveform Gen]
-        WAVE --> OC0_PIN[Pin PB3]
+        COMP --> WAVE["Waveform Gen"]
+        WAVE --> OC0_PIN["Pin PB3"]
 
-        COMP --> OCF0[Interrupt Flag<br/>Compare Match]
-        OVF --> TOV0[Interrupt Flag<br/>Overflow]
+        COMP --> OCF0["Interrupt Flag<br/>Compare Match"]
+        OVF --> TOV0["Interrupt Flag<br/>Overflow"]
     end
 
     style TCNT0 fill:#3498DB,color:#fff
@@ -167,15 +167,15 @@ Timer0 provides two interrupt vectors.
 
 ```mermaid
 flowchart TD
-    Event[Timer Event] --> Check_Type{Type?}
+    Event["Timer Event"] --> Check_Type{Type?}
 
-    Check_Type -->|Overflow| Vector_OVF[TIMER0_OVF_vect<br/>Address 0x012]
-    Check_Type -->|Compare| Vector_COMP[TIMER0_COMP_vect<br/>Address 0x010]
+    Check_Type -->|Overflow| Vector_OVF["TIMER0_OVF_vect<br/>Address 0x012"]
+    Check_Type -->|Compare| Vector_COMP["TIMER0_COMP_vect<br/>Address 0x010"]
 
-    Vector_OVF --> Save_Context[Push CPU Regs]
-    Save_Context --> Call_CB[Call User Callback<br/>"Tick_Handler()"]
-    Call_CB --> Restore_Context[Pop CPU Regs]
-    Restore_Context --> RETI[Return from Interrupt]
+    Vector_OVF --> Save_Context["Push CPU Regs"]
+    Save_Context --> Call_CB["Call User Callback<br/>'Tick_Handler()'"]
+    Call_CB --> Restore_Context["Pop CPU Regs"]
+    Restore_Context --> RETI["Return from Interrupt"]
 ```
 
 **Latency Warning**: An ISR executes every $1/f_{freq}$. At 62.5kHz, the ISR fires every 16µs. If the ISR takes 20µs to run, the system hangs (Starvation). **Always use Prescalers to keep ISR rate manageable (< 5kHz).**

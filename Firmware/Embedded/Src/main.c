@@ -56,6 +56,7 @@
 #include "App/DM_Driver/DisplayManager_Interface.h"
 #include "App/ProtectionManager/ProtectionManager_Interface.h"
 #include <util/delay.h>
+#include "../Tests/UnitTest/Mcal/Timer1/Timer1_test_Interface.h"
 
 int main(void)
 {
@@ -79,7 +80,7 @@ int main(void)
     
     /* Communication Manager: Initializes Buffer and State machines */
     App_CommManager_Init();
-
+    void Timer1_Test_Init();
     /* 3. Main Superloop */
     while (1)
     {

@@ -156,29 +156,29 @@ All three must be true for ISR to execute:
 ```mermaid
 flowchart TB
     subgraph "Interrupt Enable Flow"
-        INIT[System Initialization] --> PERIPH[Initialize Peripherals<br/>Set individual enables]
-        PERIPH --> GIE_EN[mGIE_Enable()<br/>Execute SEI instruction]
-        GIE_EN --> I_SET[SREG I-bit = 1]
-        I_SET --> SYS_RDY[System Ready<br/>Interrupts Active]
+        INIT["System Initialization"] --> PERIPH["Initialize Peripherals<br/>Set individual enables"]
+        PERIPH --> GIE_EN["mGIE_Enable()<br/>Execute SEI instruction"]
+        GIE_EN --> I_SET["SREG I-bit = 1"]
+        I_SET --> SYS_RDY["System Ready<br/>Interrupts Active"]
     end
 
     subgraph "Interrupt Disable Flow (Critical Section)"
-        CRIT_START[Enter Critical Section] --> GIE_DIS[mGIE_Disable()<br/>Execute CLI instruction]
-        GIE_DIS --> I_CLR[SREG I-bit = 0]
-        I_CLR --> ATOMIC[Atomic Operation<br/>No ISR can run]
-        ATOMIC --> GIE_EN2[mGIE_Enable()<br/>Execute SEI instruction]
-        GIE_EN2 --> CRIT_END[Exit Critical Section]
+        CRIT_START["Enter Critical Section"] --> GIE_DIS["mGIE_Disable()<br/>Execute CLI instruction"]
+        GIE_DIS --> I_CLR["SREG I-bit = 0"]
+        I_CLR --> ATOMIC["Atomic Operation<br/>No ISR can run"]
+        ATOMIC --> GIE_EN2["mGIE_Enable()<br/>Execute SEI instruction"]
+        GIE_EN2 --> CRIT_END["Exit Critical Section"]
     end
 
     subgraph "ISR Execution Flow"
-        EVENT[Peripheral Event] --> FLAG[Set Interrupt Flag]
-        FLAG --> CHECK{I-bit = 1?<br/>Peripheral EN = 1?}
-        CHECK -->|Yes| SAVE_I[Auto Clear I-bit<br/>Save SREG to stack]
-        CHECK -->|No| IGNORE[Ignore Interrupt]
-        SAVE_I --> EXEC_ISR[Execute ISR]
-        EXEC_ISR --> RETI[RETI Instruction]
-        RETI --> RESTORE_I[Restore I-bit from stack]
-        RESTORE_I --> CONT[Continue Main Program]
+        EVENT["Peripheral Event"] --> FLAG["Set Interrupt Flag"]
+        FLAG --> CHECK{"I-bit = 1?<br/>Peripheral EN = 1?"}
+        CHECK -->|Yes| SAVE_I["Auto Clear I-bit<br/>Save SREG to stack"]
+        CHECK -->|No| IGNORE["Ignore Interrupt"]
+        SAVE_I --> EXEC_ISR["Execute ISR"]
+        EXEC_ISR --> RETI["RETI Instruction"]
+        RETI --> RESTORE_I["Restore I-bit from stack"]
+        RESTORE_I --> CONT["Continue Main Program"]
     end
 
     style I_SET fill:#50C878,color:#fff

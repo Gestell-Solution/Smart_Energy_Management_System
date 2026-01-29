@@ -84,12 +84,12 @@ float ME_GetCurrentRMS(void);
 
 /*============================================================================*/
 /**
- * @fn         float ME_GetPower(void)
+ * @fn         float ME_GetActivePower(void)
  * @brief      Returns the instantaneous active power.
  * @details    Computes the active power based on voltage and current RMS values.
  * @return     float  Active power in watts (W).
  */
-float ME_GetPower(void);
+float ME_GetActivePower(void);
 
 /*============================================================================*/
 /**
@@ -109,6 +109,15 @@ float ME_GetEnergy(void);
  */
 void ME_ResetEnergy(void);
 
+/*============================================================================*/
+/**
+ * @fn ME_GetApparentPower(void)
+ * @brief      Returns the instantaneous apparent power.
+ * @details    Computes the apparent power based on voltage and current RMS values.
+ * @return     float  Apparent power in volt-amperes (VA).
+ */
+
+float ME_GetApparentPower(void);
 /** @} */ /* End of MeasurementEngine group */
 
 

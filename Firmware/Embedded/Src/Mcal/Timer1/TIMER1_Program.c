@@ -50,7 +50,7 @@ void mTIMER1_Init(void)
         TCCR1B_Temp|=Timer1_Prescaler;
         
         // enabling the interrupt
-        CompareMatch1B_InterruptEnable;
+        CompareMatch1B_InterruptDisable;
         CompareMatch1A_InterruptEnable;
         //setting the registers
         OCR1A_Reg=Timer1_Sampling_Clks;
@@ -101,15 +101,15 @@ void __vector_7()
         }
 
 }
-void __vector_8(void) __attribute__((signal));
-void __vector_8()
-{
-        if(Timer1_Global_Callback!=Null)
-        {
-                Timer1_Global_Callback();
-        }
-        else {
+// void __vector_8(void) __attribute__((signal));
+// void __vector_8()
+// {
+//         if(Timer1_Global_Callback!=Null)
+//         {
+//                 Timer1_Global_Callback();
+//         }
+//         else {
                 
-        }
+//         }
 
-}
+// }

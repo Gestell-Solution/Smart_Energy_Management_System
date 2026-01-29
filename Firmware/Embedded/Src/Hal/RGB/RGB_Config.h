@@ -40,28 +40,28 @@
  * @def RGB_RED_GROUP
  * @brief Defines the DIO group (port) used for the red LED.
  */
-#define RGB_RED_GROUP          GroupA
+#define RGB_RED_GROUP          GroupD
 
 /*============================================================================*/
 /**
  * @def RGB_GREEN_GROUP
  * @brief Defines the DIO group (port) used for the green LED.
  */
-#define RGB_GREEN_GROUP        GroupA
+#define RGB_GREEN_GROUP        GroupC
 
 /*============================================================================*/
 /**
  * @def RGB_RED_PIN
  * @brief Defines the pin number for the red LED connection.
  */
-#define RGB_RED_PIN            PIN2
+#define RGB_RED_PIN            PIN7
 
 /*============================================================================*/
 /**
  * @def RGB_GREEN_PIN
  * @brief Defines the pin number for the green LED connection.
  */
-#define RGB_GREEN_PIN          PIN3
+#define RGB_GREEN_PIN          PIN7
 
 /** @} */ /* End of RGB_Config group */
 

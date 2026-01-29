@@ -73,7 +73,7 @@ graph TB
     subgraph "Measurement Engine Pipeline"
         ADC[ADC Driver] -->|Raw Samples| ISR[Sample ISR]
 
-        ISR -->|Fill| BUF_RAW[Raw Sample Buffers<br/>(Ping-Pong)]
+        ISR -->|Fill| BUF_RAW["Raw Sample Buffers<br/>(Ping-Pong)"]
 
         BUF_RAW -->|Process| DSP[DSP Core]
 
@@ -114,26 +114,26 @@ graph TB
 
 ```mermaid
 flowchart LR
-    Channel_0[Voltage ADC] -->|Sample| Array_V[V_Buffer[64]]
-    Channel_1[Current ADC] -->|Sample| Array_I[I_Buffer[64]]
+    Channel_0["Voltage ADC"] -->|Sample| Array_V["V_Buffer[64]"]
+    Channel_1["Current ADC"] -->|Sample| Array_I["I_Buffer[64]"]
 
-    Array_V -->|High Pass Filter| Fltr_V[Filtered V]
-    Array_I -->|High Pass Filter| Fltr_I[Filtered I]
+    Array_V -->|High Pass Filter| Fltr_V["Filtered V"]
+    Array_I -->|High Pass Filter| Fltr_I["Filtered I"]
 
-    Fltr_V -->|Square| Sq_V[V²]
-    Fltr_I -->|Square| Sq_I[I²]
+    Fltr_V -->|Square| Sq_V["V²"]
+    Fltr_I -->|Square| Sq_I["I²"]
 
-    Sq_V -->|Accumulate| Sum_V[∑V²]
-    Sq_I -->|Accumulate| Sum_I[∑I²]
+    Sq_V -->|Accumulate| Sum_V["∑V²"]
+    Sq_I -->|Accumulate| Sum_I["∑I²"]
 
-    Sum_V -->|Divide & Sqrt| RMS_V[V_RMS Raw]
-    Sum_I -->|Divide & Sqrt| RMS_I[I_RMS Raw]
+    Sum_V -->|Divide & Sqrt| RMS_V["V_RMS Raw"]
+    Sum_I -->|Divide & Sqrt| RMS_I["I_RMS Raw"]
 
-    RMS_V -->|Multiply Gain| Result_V[Voltage (V)]
-    RMS_I -->|Multiply Gain| Result_I[Current (A)]
+    RMS_V -->|Multiply Gain| Result_V["Voltage (V)"]
+    RMS_I -->|Multiply Gain| Result_I["Current (A)"]
 
-    Result_V & Result_I -->|Multiply| Power[Power (W)]
-    Power -->|Integrate| Energy[Energy (Wh)]
+    Result_V & Result_I -->|Multiply| Power["Power (W)"]
+    Power -->|Integrate| Energy["Energy (Wh)"]
 ```
 
 ---

@@ -27,11 +27,11 @@
 #define CompareMatch1A_InterruptEnable SetBit(TIMSK_Reg, OCIE1A_Bit)
 
 /**
- * @def CompareMatch1B_InterruptEnable
- * @brief Enables Timer1 Compare Match B interrupt.
+ * @def CompareMatch1B_InterruptDisable
+ * @brief Disables Timer1 Compare Match B interrupt.
  * @details Sets the OCIE1B bit in the TIMSK register.
  */
-#define CompareMatch1B_InterruptEnable SetBit(TIMSK_Reg, OCF1B_Bit)
+#define CompareMatch1B_InterruptDisable ClearBit(TIMSK_Reg, OCF1B_Bit)
 
 /**
  * @def Timer1_Prescaler

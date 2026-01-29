@@ -89,8 +89,8 @@ graph TD
         Note2[Accurate & Fair]
     end
 
-    style Note1 fill:#ffdddd
-    style Note2 fill:#ddffdd
+    style Note1 fill:#282869
+    style Note2 fill:#282869
 ```
 
 ---

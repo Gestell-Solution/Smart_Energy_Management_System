@@ -77,8 +77,8 @@ flowchart TD
     Check -- No (Ready) --> Write[Perform Write Sequence]
     Write --> Success[Return OK]
 
-    style Error fill:#ff9999
-    style Success fill:#99ff99
+    style Error fill:#282869
+    style Success fill:#282869
 ```
 
 ---

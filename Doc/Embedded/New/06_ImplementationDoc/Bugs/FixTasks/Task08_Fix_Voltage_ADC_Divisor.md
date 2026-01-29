@@ -47,7 +47,7 @@ The code divides by the maximum value (1023) instead of the number of steps (102
 
 ```mermaid
 graph LR
-    Input[Analog Input (2.5V)] --> ADC[ADC Hardware (10-Bit)]
+    Input["Analog Input (2.5V)"] --> ADC["ADC Hardware (10-Bit)"]
     ADC --> Reading[Read Value: 512]
 
     Reading --> WRONG{Divide by 1023}
@@ -59,8 +59,8 @@ graph LR
     ERR --> OUT_ERR[Output: 2.502 V]
     ACC --> OUT_ACC[Output: 2.500 V]
 
-    style OUT_ERR fill:#ffcccc
-    style OUT_ACC fill:#ccffcc
+    style OUT_ERR fill:#282869
+    style OUT_ACC fill:#282869
 ```
 
 ---
