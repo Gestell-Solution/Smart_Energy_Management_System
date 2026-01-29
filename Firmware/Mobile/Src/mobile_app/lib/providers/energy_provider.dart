@@ -68,6 +68,20 @@ class EnergyProvider with ChangeNotifier {
     // Load paired device
     _connectedDevice = _storageService.getPairedDevice();
 
+    if (_connectedDevice != null) {
+      try {
+        final success =
+            await _bluetoothService.connect(_connectedDevice!.address);
+        if (success) {
+          _connectedDevice =
+              _connectedDevice!.copyWith(isConnected: true);
+          _isConnected = true;
+        }
+      } catch (e) {
+        _connectionError = 'Auto-connect failed: $e';
+      }
+    }
+
     // Subscribe to streams
     _dataSubscription =
         _bluetoothService.dataStream.listen(_handleIncomingData);
