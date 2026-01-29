@@ -531,6 +531,8 @@ class BluetoothService {
       _isConnected = true;
       _connectionStateController.add(true);
       print('[BT] ✓ Connected successfully to $deviceAddress');
+      print('[BT] Connection object state: isConnected=${_connection?.isConnected}');
+      print('[BT] Internal _isConnected flag: $_isConnected');
 
       // Listen to incoming data
       _connection!.input!.listen(
@@ -542,6 +544,7 @@ class BluetoothService {
           print('[BT] Connection closed');
           _isConnected = false;
           _connectionStateController.add(false);
+          print('[BT] onDone: set _isConnected=false and emitted false');
           _connection = null; // Important: Clear connection object
         },
         onError: (error) {

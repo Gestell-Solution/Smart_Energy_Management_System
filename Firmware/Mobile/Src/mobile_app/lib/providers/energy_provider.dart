@@ -135,6 +135,7 @@ class EnergyProvider with ChangeNotifier {
   // Handle connection state change
   void _handleConnectionChange(bool connected) {
     _isConnected = connected;
+    print('[Provider] Connection state changed: connected=$connected');
 
     if (connected) {
       // Start requesting data periodically
