@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/energy_provider.dart';
@@ -252,6 +254,7 @@ class SettingsScreen extends StatelessWidget {
     return Card(
       child: Column(
         children: [
+          // App Info Header
           ListTile(
             leading: Container(
               padding: const EdgeInsets.all(10),
@@ -265,12 +268,26 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             title: const Text(
-              'App Version',
+              'Gestell Smart Energy',
               style: TextStyle(fontWeight: FontWeight.w600),
             ),
-            subtitle: const Text(AppConstants.appVersion),
+            subtitle: const Text('Real-time Energy Monitoring System'),
           ),
           const Divider(height: 1),
+
+          // Version
+          const ListTile(
+            leading: Icon(Icons.update, color: AppTheme.primaryColor),
+            title: Text(
+              'Version',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            subtitle: Text(
+                '${AppConstants.appVersion} (Build ${AppConstants.buildNumber})\n${AppConstants.buildDate}'),
+          ),
+          const Divider(height: 1),
+
+          // Company
           const ListTile(
             leading: Icon(Icons.business, color: AppTheme.primaryColor),
             title: Text(
@@ -278,6 +295,173 @@ class SettingsScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w600),
             ),
             subtitle: Text(AppConstants.companyName),
+          ),
+          const Divider(height: 1),
+
+          // Development Team - Expandable
+          const ExpansionTile(
+            leading: Icon(Icons.group, color: AppTheme.primaryColor),
+            title: Text(
+              'Development Team',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            children: [
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Managers Section
+                    Row(
+                      children: [
+                        Icon(Icons.manage_accounts,
+                            size: 20, color: AppTheme.primaryColor),
+                        SizedBox(width: 8),
+                        Text(
+                          'Managers',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.primaryColor,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Padding(
+                      padding: EdgeInsets.only(left: 28),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('• Hesham Ahmed',
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.bold)),
+                          Text('  (Project Manager)',
+                              style:
+                                  TextStyle(fontSize: 11, color: Colors.grey)),
+                          SizedBox(height: 8),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 12),
+
+                    // Embedded Team Section
+                    Row(
+                      children: [
+                        Icon(Icons.memory,
+                            size: 20, color: AppTheme.primaryColor),
+                        SizedBox(width: 8),
+                        Text(
+                          'Embedded',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.primaryColor,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Padding(
+                      padding: EdgeInsets.only(left: 28),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('• Mohamed Abdelgaber',
+                              style: TextStyle(fontSize: 13)),
+                          SizedBox(height: 6),
+                          Text('• Ahmed Twap', style: TextStyle(fontSize: 13)),
+                          SizedBox(height: 6),
+                          Text('• Ahmed Ashraf',
+                              style: TextStyle(fontSize: 13)),
+                          SizedBox(height: 6),
+                          Text('• Basma Khaled',
+                              style: TextStyle(fontSize: 13)),
+                          SizedBox(height: 6),
+                          Text('• Mohammed Diaa',
+                              style: TextStyle(fontSize: 13)),
+                          SizedBox(height: 8),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 12),
+
+                    // Mobile Team Section
+                    Row(
+                      children: [
+                        Icon(Icons.phone_android,
+                            size: 20, color: AppTheme.primaryColor),
+                        SizedBox(width: 8),
+                        Text(
+                          'Mobile',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.primaryColor,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Padding(
+                      padding: EdgeInsets.only(left: 28),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('• Aya Mohamed', style: TextStyle(fontSize: 13)),
+                          SizedBox(height: 6),
+                          Text('• Salma Tarek', style: TextStyle(fontSize: 13)),
+                          SizedBox(height: 8),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          const Divider(height: 1),
+
+          // Project Description
+          const ExpansionTile(
+            leading:
+                Icon(Icons.description, color: AppTheme.primaryColor),
+            title: Text(
+              'About Project',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            children: [
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  'The Gestell Smart Energy Management System is an advanced IoT solution '
+                  'for real-time monitoring and control of electrical energy consumption. '
+                  '\n\n🎯 Project Goals:\n'
+                  '• Reduce energy waste through intelligent monitoring\n'
+                  '• Protect electrical appliances from damage\n'
+                  '• Enable data-driven energy decisions\n'
+                  '• Provide cost analysis and savings tracking'
+                  '\n\n✨ Key Features:\n'
+                  '• Real-time voltage, current, and power monitoring\n'
+                  '• Energy consumption tracking and history\n'
+                  '• Intelligent relay control and scheduling\n'
+                  '• Alert system for electrical anomalies\n'
+                  '• Bluetooth connectivity (HC-05 module)\n'
+                  '• Cost calculation and analysis\n'
+                  '• Historical data logging and export'
+                  '\n\n🔧 Technical Stack:\n'
+                  '• Embedded: AVR ATmega32, ACS712, ZMPT101B\n'
+                  '• Mobile: Flutter Framework (Dart)\n'
+                  '• Communication: Bluetooth Classic (SPP)\n'
+                  '• Database: SQLite local storage',
+                  style: TextStyle(fontSize: 13, height: 1.5),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -293,17 +477,123 @@ class SettingsScreen extends StatelessWidget {
         title: const Text('Scan for Devices'),
         content: SizedBox(
           width: double.maxFinite,
-          height: 300,
+          height: 320,
           child: Consumer<EnergyProvider>(
             builder: (context, provider, _) {
               if (provider.isScanning) {
-                return const Center(
+                if (provider.availableDevices.isEmpty) {
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                        SizedBox(height: 16),
+                        Text('Scanning for devices...'),
+                        SizedBox(height: 8),
+                        Text(
+                          'This may take up to 15 seconds',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return Column(
+                  children: [
+                    const LinearProgressIndicator(),
+                    const SizedBox(height: 12),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: provider.availableDevices.length,
+                        itemBuilder: (context, index) {
+                          final device = provider.availableDevices[index];
+                          return ListTile(
+                            leading: const Icon(Icons.bluetooth),
+                            title: Text(device.name),
+                            subtitle: Text(device.address),
+                            trailing: Text('${device.rssi} dBm'),
+                            onTap: () async {
+                              Navigator.pop(context);
+                              final success =
+                                  await provider.connectToDevice(device);
+
+                              if (context.mounted) {
+                                final errorMessage =
+                                    provider.connectionError.isNotEmpty
+                                        ? provider.connectionError
+                                        : 'Failed to connect';
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      success
+                                          ? 'Connected to ${device.name}'
+                                          : errorMessage,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              }
+
+              // Show scan error if any
+              if (provider.scanError.isNotEmpty) {
+                return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircularProgressIndicator(),
-                      SizedBox(height: 16),
-                      Text('Scanning for devices...'),
+                      Icon(
+                        Icons.error_outline,
+                        size: 48,
+                        color: AppTheme.error,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Scan Error',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppTheme.error,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          provider.scanError,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Troubleshooting tips:',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          '• Enable Bluetooth & Location\n'
+                          '• Grant Bluetooth permissions\n'
+                          '• Ensure devices are discoverable\n'
+                          '• Move closer to devices',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -311,7 +601,31 @@ class SettingsScreen extends StatelessWidget {
 
               if (provider.availableDevices.isEmpty) {
                 return const Center(
-                  child: Text('No devices found'),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.bluetooth_disabled,
+                        size: 48,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        'No devices found',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Try scanning again or check device settings',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ],
+                  ),
                 );
               }
 
@@ -329,12 +643,15 @@ class SettingsScreen extends StatelessWidget {
                       final success = await provider.connectToDevice(device);
 
                       if (context.mounted) {
+                        final errorMessage = provider.connectionError.isNotEmpty
+                            ? provider.connectionError
+                            : 'Failed to connect';
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
                               success
                                   ? 'Connected to ${device.name}'
-                                  : 'Failed to connect',
+                                  : errorMessage,
                             ),
                           ),
                         );
@@ -349,14 +666,15 @@ class SettingsScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Close'),
           ),
-          ElevatedButton(
-            onPressed: () {
-              provider.scanForDevices();
-            },
-            child: const Text('Scan'),
-          ),
+          if (!provider.isScanning)
+            ElevatedButton(
+              onPressed: () {
+                provider.scanForDevices();
+              },
+              child: const Text('Scan Again'),
+            ),
         ],
       ),
     );

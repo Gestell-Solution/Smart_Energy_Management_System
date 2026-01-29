@@ -31,7 +31,6 @@ class AppTheme {
       primary: primaryColor,
       secondary: secondaryColor,
       surface: surface,
-      background: background,
       error: error,
       onSurface: textDark,
       onPrimary: secondaryColor, // Dark text on Vivid Green
@@ -146,7 +145,6 @@ class AppTheme {
       primary: primaryColor,
       secondary: primaryColor,
       surface: Color(0xFF1A1A1A),
-      background: secondaryColor,
       error: error,
       onPrimary: secondaryColor,
     ),

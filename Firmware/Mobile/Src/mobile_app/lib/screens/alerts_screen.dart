@@ -47,7 +47,7 @@ class AlertsScreen extends StatelessWidget {
                   child: Text(
                     '${provider.unreadAlertsCount} unread alert${provider.unreadAlertsCount > 1 ? 's' : ''}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       color: AppTheme.secondaryColor,
                     ),

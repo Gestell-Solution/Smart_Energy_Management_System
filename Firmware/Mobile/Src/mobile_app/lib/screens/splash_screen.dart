@@ -117,7 +117,7 @@ class _SplashScreenState extends State<SplashScreen>
                           ),
                         ],
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.bolt_rounded,
                         size: 60,
                         color: AppTheme.secondaryColor,
@@ -158,7 +158,7 @@ class _SplashScreenState extends State<SplashScreen>
                   const SizedBox(height: 50),
 
                   // Loading Indicator
-                  SizedBox(
+                  const SizedBox(
                     width: 40,
                     height: 40,
                     child: CircularProgressIndicator(

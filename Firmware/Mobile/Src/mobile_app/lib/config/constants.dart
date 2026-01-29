@@ -3,6 +3,8 @@ class AppConstants {
   // App Info
   static const String appName = 'Smart Energy';
   static const String appVersion = '1.0.0';
+  static const String buildNumber = '1';
+  static const String buildDate = '29 January 2026';
   static const String companyName = 'Gestell Company';
 
   // Device Configuration

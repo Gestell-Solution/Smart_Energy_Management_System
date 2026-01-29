@@ -5,7 +5,6 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:csv/csv.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 import '../providers/energy_provider.dart';
 import '../providers/theme_provider.dart';
 import '../config/theme.dart';
@@ -38,6 +37,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: _screens[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
+          // ignore: deprecated_member_use
           color: AppTheme.secondaryColor.withOpacity(0.95),
           border: Border(
             top: BorderSide(
@@ -305,9 +305,9 @@ class _DashboardView extends StatelessWidget {
             child: const Icon(Icons.home_filled, color: Colors.white, size: 32),
           ),
           const SizedBox(width: 16),
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 "System Online",
                 style: TextStyle(

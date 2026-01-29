@@ -25,7 +25,15 @@ class EnergyProvider with ChangeNotifier {
   StreamSubscription? _dataSubscription;
   StreamSubscription? _connectionSubscription;
   StreamSubscription? _devicesSubscription;
+  StreamSubscription? _scanErrorSubscription;
+  StreamSubscription? _connectionErrorSubscription;
   Timer? _dataRequestTimer;
+  
+  // Scan error state
+  String _scanError = '';
+
+  // Connection error state
+  String _connectionError = '';
 
   // Getters
   EnergyData? get currentData => _currentData;
@@ -36,6 +44,8 @@ class EnergyProvider with ChangeNotifier {
   bool get isConnected => _isConnected;
   bool get isScanning => _isScanning;
   double get energyCostRate => _energyCostRate;
+  String get scanError => _scanError;
+  String get connectionError => _connectionError;
 
   // Computed values
   double get currentCost => _currentData?.calculateCost(_energyCostRate) ?? 0.0;
@@ -65,6 +75,10 @@ class EnergyProvider with ChangeNotifier {
         _bluetoothService.connectionState.listen(_handleConnectionChange);
     _devicesSubscription =
         _bluetoothService.devicesStream.listen(_handleDevicesUpdate);
+    _scanErrorSubscription =
+        _bluetoothService.scanErrorStream.listen(_handleScanError);
+    _connectionErrorSubscription =
+        _bluetoothService.connectionErrorStream.listen(_handleConnectionError);
 
     notifyListeners();
   }
@@ -140,6 +154,18 @@ class EnergyProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // Handle scan errors
+  void _handleScanError(String error) {
+    _scanError = error;
+    notifyListeners();
+  }
+
+  // Handle connection errors
+  void _handleConnectionError(String error) {
+    _connectionError = error;
+    notifyListeners();
+  }
+
   // Start periodic data requests
   void _startDataRequests() {
     _dataRequestTimer?.cancel();
@@ -166,10 +192,14 @@ class EnergyProvider with ChangeNotifier {
 
   // Connect to device
   Future<bool> connectToDevice(app_models.BluetoothDevice device) async {
+    _connectionError = '';
+    notifyListeners();
     final success = await _bluetoothService.connect(device.address);
 
     if (success) {
       _connectedDevice = device.copyWith(isConnected: true);
+      _isConnected = true;
+      notifyListeners();
       await _storageService.setPairedDevice(_connectedDevice!);
     }
 
@@ -180,6 +210,7 @@ class EnergyProvider with ChangeNotifier {
   Future<void> disconnect() async {
     await _bluetoothService.disconnect();
     _connectedDevice = null;
+    _isConnected = false;
     await _storageService.clearPairedDevice();
     notifyListeners();
   }
@@ -248,6 +279,8 @@ class EnergyProvider with ChangeNotifier {
     _dataSubscription?.cancel();
     _connectionSubscription?.cancel();
     _devicesSubscription?.cancel();
+    _scanErrorSubscription?.cancel();
+    _connectionErrorSubscription?.cancel();
     _dataRequestTimer?.cancel();
     _bluetoothService.dispose();
     super.dispose();
