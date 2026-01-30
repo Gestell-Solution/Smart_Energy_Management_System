@@ -1,4 +1,4 @@
-#include "../../Common/Config.h"
+#include "../../../../Src/Common/Config.h"
 
 #if LcdAndDisplayManager_TestModule == Enable
 

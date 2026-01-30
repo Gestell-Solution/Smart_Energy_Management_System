@@ -55,8 +55,8 @@
 #include "App/CommunicationManager/App_CommManager.h"
 #include "App/DM_Driver/DisplayManager_Interface.h"
 #include "App/ProtectionManager/ProtectionManager_Interface.h"
+
 #include <util/delay.h>
-#include "../Tests/UnitTest/Mcal/Timer1/Timer1_test_Interface.h"
 
 int main(void)
 {
@@ -91,7 +91,7 @@ int main(void)
         /* Retrieve latest values */
         float V = ME_GetVoltageRMS();
         float I = ME_GetCurrentRMS();
-        float P = ME_GetPower();
+        float P = ME_GetActivePower();
         float E_Joules = ME_GetEnergy();
         
         /* Convert Joules to kWh for Logging and Display */

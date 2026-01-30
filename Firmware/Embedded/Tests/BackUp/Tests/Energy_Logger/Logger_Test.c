@@ -1,16 +1,16 @@
-#include "../../Common/Config.h"
+#include "../../../../Src/Common/Config.h"
 
 #if EnergyLogger_TestModule == Enable
 
-#include "../../App/EnergyLogger/EnergyLogger_Interface.h"
-#include "../../Mcal/EEPROM/EEPROM_Interface.h"
-#include "../../Mcal/Timer1/TIMER1_Interface.h"  
+#include "../../../../Src/App/EnergyLogger/EnergyLogger_Interface.h"
+#include "../../../../Src/Mcal/EEPROM/EEPROM_Interface.h"
+#include "../../../../Src/Mcal/Timer1/TIMER1_Interface.h"  
 
-#include "../../Hal/Voltage/Voltage_Interface.h"
-#include "../../Hal/ACS712CurntSnsr/hCurrent_Interface.h" 
+#include "../../../../Src/Hal/Voltage/Voltage_Interface.h"
+#include "../../../../Src/Hal/ACS712CurntSnsr/hCurrent_Interface.h" 
 
-#include "../../Mcal/DIO/DIO_Interface.h"
-#include "../../Hal/LCD/LCD_Interface.h"
+#include "../../../../Src/Mcal/DIO/DIO_Interface.h"
+#include "../../../../Src/Hal/LCD/LCD_Interface.h"
 
 
 

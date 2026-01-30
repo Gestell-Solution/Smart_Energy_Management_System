@@ -4,17 +4,16 @@
  * @author Basma khaled
  * @date 2025-12-12
  */
-#include "../../Common/Config.h"
+#include "../../../../Src/Common/Config.h"
 
 #if EEPROM_TestModule == Enable
 
 #include <stdint.h>
-#include "../../App/EnergyLogger/EnergyLogger_Interface.h"
-#include "../../Common/SystemDataManager/SystemDataManager.h"
-#include "../../Hal/LCD/LCD_Interface.h"
-#include "../../Mcal/DIO/DIO_Interface.h"
-#include "../../Mcal/EEPROM/EEPROM_Interface.h"
-
+#include "../../../../Src/App/EnergyLogger/EnergyLogger_Interface.h"
+#include "../../../../Src/Common/SystemDataManager/SystemDataManager.h"
+#include "../../../../Src/Hal/LCD/LCD_Interface.h"
+#include "../../../../Src/Mcal/DIO/DIO_Interface.h"
+#include "../../../../Src/Mcal/EEPROM/EEPROM_Interface.h"
 
 
 void IntegrationTest1_logging(void)

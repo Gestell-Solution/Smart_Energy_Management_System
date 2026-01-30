@@ -1,12 +1,12 @@
-#include "../../Common/Config.h"
+#include "../../../../Src/Common/Config.h"
 
 #if Uart_TestModule == Enable
 
-#include "../../Mcal/UART/UART_Tx.h"
-#include "../../Mcal/UART/UART_Rx.h"
-#include "../../Mcal/UART/UART_Init.h"
-#include "../../Mcal/GIE/GIE_Interface.h"
-#include "../../Mcal/DIO/DIO_Interface.h"
+#include "../../../../Src/UART/UART_Tx.h"
+#include "../../../../Src/Mcal/UART/UART_Rx.h"
+#include "../../../../Src/Mcal/UART/UART_Init.h"
+#include "../../../../Src/Mcal/GIE/GIE_Interface.h"
+#include "../../../../Src/Mcal/DIO/DIO_Interface.h"
 #include <util/delay.h>
 void UartTestMain()
 {

@@ -17,8 +17,7 @@
  *                                 Includes
  *============================================================================*/
 #include "MeasurementEngine_Interface.h"
-#include "MeasurementEngine_Config.h"
-#include "MeasurementEngine_Private.h"
+
 
 /*============================================================================
  *                                 Private Variables
