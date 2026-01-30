@@ -34,7 +34,7 @@
  * @def ADC_MAX
  * @brief Defines the maximum ADC value for a 10-bit ADC.
  */
-#define ADC_MAX 1023.0
+#define ADC_MAX 1024.0
 
 /**
  * @def ACS712_Initial_ZERO_OFFSET

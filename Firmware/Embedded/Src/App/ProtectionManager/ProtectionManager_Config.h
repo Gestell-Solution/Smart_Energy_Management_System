@@ -20,12 +20,12 @@
  * @def Irms_Threshold
  * @brief Current RMS Threshold which if exceeded System Takes a Protection Action
  */
-#define Irms_Threshold 10
+#define Irms_Threshold 11
 /**
  * @def P_Threshold
  * @brief Power Threshold which if exceeded System Takes a Protection Action
  */
-#define P_Threshold 2500
+#define P_Threshold 7500
 /**
  *@def Reset_BTN_Group
  *@brief Reset Button Group/Port
@@ -52,7 +52,7 @@
  * @brief Multiplier for Immediate Trip threshold.
  * @details If Current > (Irms_Threshold * 3.0), trip instantly ignoring delay.
  */
-#define PM_SHORT_CIRCUIT_MULTIPLIER  3.0f
+#define PM_SHORT_CIRCUIT_MULTIPLIER  3
 
 /**
  * @def PM_RESET_DELAY_TICKS

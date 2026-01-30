@@ -43,7 +43,6 @@ void hLCD_Init(void)
         _delay_ms( POWER_ON_WAIT);
         hLCD_SendCommand(Function_Set_Command_1);
         hLCD_SendCommand(Function_Set_Command_2);
-        hLCD_SendCommand(Function_Set_Command_3);
         _delay_us( FUNCTION_SET_WAIT);
         hLCD_SendCommand(Display_Control_1);
         hLCD_SendCommand(Display_Control_2);
@@ -65,7 +64,7 @@ void hLCD_SendCommand(uint8_t Command)
     
     mDIO_WritePin(LCD_Group, EN_Pin, High);
     
-    _delay_us( Enable_Pulse_Wait);
+    _delay_ms( Enable_Pulse_Wait);
     mDIO_WritePin(LCD_Group, EN_Pin, Low);
     
     mDIO_WritePin(LCD_Group, RS_Pin, Low);
@@ -75,7 +74,7 @@ void hLCD_SendCommand(uint8_t Command)
 
     mDIO_WritePin(LCD_Group, EN_Pin, High);
 
-    _delay_us( Enable_Pulse_Wait);
+    _delay_ms( Enable_Pulse_Wait);
 
     mDIO_WritePin(LCD_Group, EN_Pin, Low);
 }
@@ -105,14 +104,14 @@ void hLCD_WriteChar(char Character)
     LCD_Port_Output &= LowerBitMaskDeletion;
     LCD_Port_Output |= Upper_Nibble_Masking(Character);
     mDIO_WritePin(LCD_Group, EN_Pin, High);
-    _delay_us(Enable_Pulse_Wait);
+    _delay_ms(Enable_Pulse_Wait);
     mDIO_WritePin(LCD_Group, EN_Pin, Low);
     
     mDIO_WritePin(LCD_Group, RS_Pin, High);
     LCD_Port_Output &= LowerBitMaskDeletion;
     LCD_Port_Output |= Lower_Nibble_Masking(Character);
     mDIO_WritePin(LCD_Group, EN_Pin, High);
-    _delay_us(Enable_Pulse_Wait);
+    _delay_ms(Enable_Pulse_Wait);
     mDIO_WritePin(LCD_Group, EN_Pin, Low);
 
 

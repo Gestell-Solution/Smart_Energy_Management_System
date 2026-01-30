@@ -167,7 +167,7 @@ void PM_Update()
      }
 
      /* 3. Overload Protection (Debounced) */
-     if (RMS_Current_Read > Irms_Threshold)
+     if (RMS_Current_Read > Irms_Threshold *PM_SHORT_CIRCUIT_MULTIPLIER)
      {
           if (overCurrentCounter < PM_TRIP_DELAY_TICKS)
           {

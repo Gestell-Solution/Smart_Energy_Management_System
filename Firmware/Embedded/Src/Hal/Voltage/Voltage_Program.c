@@ -15,7 +15,7 @@
 #include <math.h>
 extern uint8_t isADC_Initialized;
 
-static float Voltage_Scaling_Factor = (R_With_GND + R_WITH_Vcc) / R_With_GND;
+
 float calibrationFactor = 1.0f;
 static float Voltage_Value = 0.0f;
 
@@ -51,16 +51,17 @@ void hVoltage_Init(void)
 
 float hVoltage_ReadInstant(void)
 {
-    uint16_t ADC_Value = mADC_Read(Voltage_Pin);
-    float instant_voltage = ADC_Value * (1.0f / ADC_Max_Resolution) * Voltage_REF * Voltage_Scaling_Factor;
-    return instant_voltage;
+    float analog_voltage = (Voltage_Value / ADC_Max_Resolution) * Voltage_REF ;
+
+    float Voltage = (analog_voltage-V_Offset) * AC_Ratio;
+    return Voltage;
 }
 
 float hVoltage_ReadRMS(void)
 {
     Voltage_RMS.sumOfSquares = 0.0f;
     Voltage_RMS.sampleCount = 0;
-
+float instant_voltage=0;
     while (Voltage_RMS.sampleCount < Voltage_Calibration_Samples)
     {
         while (New_Sample_Flag == 0)
@@ -69,8 +70,8 @@ float hVoltage_ReadRMS(void)
         }
 
         New_Sample_Flag = 0;
-        float instant_voltage = Voltage_Value * (1.0f / ADC_Max_Resolution) * Voltage_REF * Voltage_Scaling_Factor;
-        Voltage_RMS.sumOfSquares += (instant_voltage * instant_voltage);
+         instant_voltage = hVoltage_ReadInstant();
+         Voltage_RMS.sumOfSquares += (instant_voltage * instant_voltage);
         Voltage_RMS.sampleCount++;
     }
 
@@ -81,18 +82,18 @@ float hVoltage_ReadRMS(void)
 }
 void hVoltage_Calibrate(float ref)
 {
-    float currentVoltage;
-    if (Voltage_Calibration.Callibration_Count < Voltage_Calibration_Samples)
-    {
-        currentVoltage = Voltage_Calibration.Voltage_Prev_Value;
-    }
-    else
-    {
-        currentVoltage = Voltage_Calibration.Voltage_Current_Value;
-    }
-    calibrationFactor = ref / currentVoltage;
+    // float currentVoltage;
+    // if (Voltage_Calibration.Callibration_Count < Voltage_Calibration_Samples)
+    // {
+    //     currentVoltage = Voltage_Calibration.Voltage_Prev_Value;
+    // }
+    // else
+    // {
+    //     currentVoltage = Voltage_Calibration.Voltage_Current_Value;
+    // }
+    // calibrationFactor = ref / currentVoltage;
     // Update the scaling factor
-    Voltage_Scaling_Factor *= calibrationFactor;
+    // Voltage_Scaling_Factor *= calibrationFactor;
 }
 
 void hVoltage_Callback(uint16_t dummy)
