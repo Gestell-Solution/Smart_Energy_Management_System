@@ -68,10 +68,10 @@ class EnergyData {
   // Parse from JSON
   factory EnergyData.fromJson(Map<String, dynamic> json) {
     return EnergyData(
-      voltage: json['voltage'] as double,
-      current: json['current'] as double,
-      power: json['power'] as double,
-      energy: json['energy'] as double,
+      voltage: (json['voltage'] as num).toDouble(),
+      current: (json['current'] as num).toDouble(),
+      power: (json['power'] as num).toDouble(),
+      energy: (json['energy'] as num).toDouble(),
       status: json['status'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),
     );

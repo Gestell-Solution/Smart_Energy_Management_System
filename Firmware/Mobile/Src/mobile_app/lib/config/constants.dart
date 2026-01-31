@@ -33,6 +33,7 @@ class AppConstants {
   static const String keyEnergyCostRate = 'energy_cost_rate';
   static const String keyPairedDevice = 'paired_device';
   static const String keyEnergyHistory = 'energy_history';
+  static const String keyEnergyHistoryMigrated = 'energy_history_migrated';
   static const String keyAlertHistory = 'alert_history';
 
   // ========== Embedded Protocol Constants ==========
@@ -53,4 +54,7 @@ class AppConstants {
   static const int cmdProtectionSafe = 0x0A;
   static const int cmdControlRelay =
       0x09; // Same as CuttOFF - relay control command
+
+  // Device Information (new)
+  static const int cmdGetDeviceInfo = 0x0C;
 }

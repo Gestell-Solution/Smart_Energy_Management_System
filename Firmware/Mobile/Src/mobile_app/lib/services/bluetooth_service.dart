@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:location/location.dart';
 import '../models/device.dart' as app_models;
 import '../models/energy_data.dart';
+import '../models/device_info.dart';
 import '../config/constants.dart';
 
 /// Bluetooth service for managing device connections and data communication.
@@ -29,6 +30,7 @@ class BluetoothService {
   // Stream controllers
   final _connectionStateController = StreamController<bool>.broadcast();
   final _dataController = StreamController<EnergyData>.broadcast();
+  final _deviceInfoController = StreamController<DeviceInfo>.broadcast();
   final _devicesController =
       StreamController<List<app_models.BluetoothDevice>>.broadcast();
   final _scanErrorController = StreamController<String>.broadcast();
@@ -40,12 +42,24 @@ class BluetoothService {
   bool _isConnected = false;
   app_models.BluetoothDevice? _connectedDevice;
 
+  DateTime? _lastDataReceivedAt;
+  int _receivedBytesCount = 0;
+
   // Frame buffer for protocol
   final List<int> _frameBuffer = [];
 
   // Getters
-  Stream<bool> get connectionState => _connectionStateController.stream;
+  Stream<bool> get connectionState => Stream<bool>.multi((controller) {
+        controller.add(_isConnected);
+        final sub = _connectionStateController.stream.listen(
+          controller.add,
+          onError: controller.addError,
+          onDone: controller.close,
+        );
+        controller.onCancel = () => sub.cancel();
+      });
   Stream<EnergyData> get dataStream => _dataController.stream;
+  Stream<DeviceInfo> get deviceInfoStream => _deviceInfoController.stream;
   Stream<List<app_models.BluetoothDevice>> get devicesStream =>
       _devicesController.stream;
   Stream<String> get scanErrorStream => _scanErrorController.stream;
@@ -85,9 +99,15 @@ class BluetoothService {
 
       // Listen to state changes
       _bluetooth.onStateChanged().listen((state) {
-        if (state != BluetoothState.STATE_ON) {
-          _isConnected = false;
-          _connectionStateController.add(false);
+        print('[BT] Adapter state changed: $state');
+
+        if (state == BluetoothState.STATE_OFF ||
+            state == BluetoothState.STATE_TURNING_OFF) {
+          if (_isConnected) {
+            _isConnected = false;
+            _connectedDevice = null;
+            _connectionStateController.add(false);
+          }
         }
       });
     } catch (e) {
@@ -284,7 +304,7 @@ class BluetoothService {
       // Start discovery for nearby devices
       print('[BT] Starting discovery for nearby devices...');
       int discoveryCount = 0;
-      StreamSubscription? discoverySubscription;
+      late final StreamSubscription discoverySubscription;
       
       try {
         discoverySubscription = _bluetooth.startDiscovery().listen(
@@ -328,10 +348,8 @@ class BluetoothService {
         await Future.delayed(timeout);
         
         // Cancel discovery if still running
-        if (discoverySubscription != null) {
-          await discoverySubscription.cancel();
-          print('[BT] Discovery subscription cancelled');
-        }
+        await discoverySubscription.cancel();
+        print('[BT] Discovery subscription cancelled');
 
         try {
           await _bluetooth.cancelDiscovery();
@@ -490,10 +508,13 @@ class BluetoothService {
         print('[BT] cancelDiscovery() before connect failed: $e');
       }
 
+      await Future.delayed(const Duration(milliseconds: 350));
+
       // Disconnect if already connected
       if (_connection != null) {
         print('[BT] Disconnecting from current device...');
         await disconnect();
+        await Future.delayed(const Duration(milliseconds: 500));
       }
 
       bool isBonded = false;
@@ -509,26 +530,71 @@ class BluetoothService {
         try {
           final bonded = await _bluetooth.bondDeviceAtAddress(deviceAddress);
           if (bonded != true) {
-            _connectionErrorController.add(
-                'Pairing failed. Please pair the device from Android Bluetooth settings first (PIN 1234/0000), then try again.');
-            return false;
+            print('[BT] bondDeviceAtAddress returned false. Will still try SPP connect.');
           }
         } catch (e) {
-          _connectionErrorController.add(
-              'Pairing failed: $e. Please pair the device from Android Bluetooth settings first (PIN 1234/0000), then try again.');
-          return false;
+          // Some devices (especially laptops/PCs) can already appear "connected" or paired at the OS level,
+          // yet bondDeviceAtAddress may fail. Bonding is not always required to attempt an RFCOMM/SPP socket.
+          print('[BT] Pairing attempt failed (non-fatal): $e');
+        }
+
+        await Future.delayed(const Duration(milliseconds: 900));
+
+        final bondedConfirmed = await _waitUntilBonded(deviceAddress);
+        if (!bondedConfirmed) {
+          // Non-fatal: still attempt SPP connect.
+          print('[BT] Device still not listed as bonded. Will still try SPP connect.');
         }
       }
 
-      // Create connection
-      _connection = await BluetoothConnection.toAddress(deviceAddress)
-          .timeout(const Duration(seconds: 20));
+      await Future.delayed(const Duration(milliseconds: 250));
+
+      BluetoothConnection? connection;
+      Object? lastConnectError;
+
+      for (int attempt = 1; attempt <= 3; attempt++) {
+        try {
+          print('[BT] SPP connect attempt $attempt/3 to $deviceAddress');
+          connection = await BluetoothConnection.toAddress(deviceAddress)
+              .timeout(const Duration(seconds: 20));
+          if (connection.isConnected) {
+            break;
+          }
+        } catch (e) {
+          lastConnectError = e;
+          print('[BT] SPP connect attempt $attempt failed: $e');
+          await Future.delayed(Duration(milliseconds: 500 * attempt));
+        }
+      }
+
+      _connection = connection;
 
       if (_connection == null || !_connection!.isConnected) {
-        throw Exception('Failed to establish connection');
+        throw Exception(lastConnectError ?? 'Failed to establish connection');
       }
 
       _isConnected = true;
+      _lastDataReceivedAt = null;
+      _receivedBytesCount = 0;
+      try {
+        final bondedDevices = await _bluetooth.getBondedDevices();
+        final matched = bondedDevices.where((d) => d.address == deviceAddress);
+        final btDevice = matched.isNotEmpty ? matched.first : null;
+        _connectedDevice = app_models.BluetoothDevice(
+          name: btDevice?.name ?? 'Unknown Device',
+          address: deviceAddress,
+          rssi: 0,
+          isConnected: true,
+        );
+      } catch (e) {
+        _connectedDevice = app_models.BluetoothDevice(
+          name: 'Unknown Device',
+          address: deviceAddress,
+          rssi: 0,
+          isConnected: true,
+        );
+        print('[BT] getBondedDevices() after connect failed: $e');
+      }
       _connectionStateController.add(true);
       print('[BT] ✓ Connected successfully to $deviceAddress');
       print('[BT] Connection object state: isConnected=${_connection?.isConnected}');
@@ -538,17 +604,28 @@ class BluetoothService {
       _connection!.input!.listen(
         (Uint8List data) {
           print('[BT] Received ${data.length} bytes');
+          _receivedBytesCount += data.length;
+          _lastDataReceivedAt = DateTime.now();
           _handleIncomingData(data);
         },
         onDone: () {
           print('[BT] Connection closed');
+          final hadAnyData = _receivedBytesCount > 0;
+          if (!hadAnyData) {
+            _connectionErrorController.add(
+                'Connection closed immediately by remote device. Ensure the device supports Bluetooth Classic SPP (HC-05/HC-06) and no other app is connected.');
+          }
+          _stopPeriodicDataRequest();
           _isConnected = false;
+          _connectedDevice = null;
           _connectionStateController.add(false);
           print('[BT] onDone: set _isConnected=false and emitted false');
           _connection = null; // Important: Clear connection object
         },
         onError: (error) {
           print('[BT] Connection error: $error');
+          _connectionErrorController.add('Connection error: $error');
+          _stopPeriodicDataRequest();
           disconnect();
         },
       );
@@ -560,11 +637,40 @@ class BluetoothService {
       return true;
     } catch (e) {
       print('[BT] ✗ Connection failed: $e');
-      _connectionErrorController.add('Connection failed: $e');
+      final msg = e.toString();
+      final isSocketConnectError =
+          msg.contains('connect_error') || msg.contains('BluetoothSocket');
+      if (isSocketConnectError) {
+        _connectionErrorController.add(
+            'Connection failed: could not open Bluetooth Classic SPP (Serial Port) socket.\n\nIf you are connecting to a Laptop/PC:\n- Linux/Windows must expose an SPP/RFCOMM Serial Port service (e.g. Incoming COM port on Windows, rfcomm/sdptool on Linux).\n- "Connected" in Bluetooth settings may be audio (e.g. aptX) or generic pairing, not Serial/SPP.\n\nIf you are connecting to HC-05/HC-06:\n- Ensure the module is Classic SPP (not BLE)\n- Disconnect it from any other phone/app (SPP usually allows 1 connection)\n- Forget device then pair again (PIN 1234/0000)\n- Power-cycle the module and try again');
+      } else {
+        _connectionErrorController.add('Connection failed: $e');
+      }
+      _stopPeriodicDataRequest();
       _isConnected = false;
+      _connectedDevice = null;
       _connectionStateController.add(false);
       return false;
     }
+  }
+
+  Future<bool> _waitUntilBonded(
+    String deviceAddress, {
+    Duration timeout = const Duration(seconds: 10),
+    Duration pollInterval = const Duration(milliseconds: 300),
+  }) async {
+    final endAt = DateTime.now().add(timeout);
+    while (DateTime.now().isBefore(endAt)) {
+      try {
+        final bondedDevices = await _bluetooth.getBondedDevices();
+        final isBonded = bondedDevices.any((d) => d.address == deviceAddress);
+        if (isBonded) return true;
+      } catch (e) {
+        print('[BT] _waitUntilBonded getBondedDevices() failed: $e');
+      }
+      await Future.delayed(pollInterval);
+    }
+    return false;
   }
 
   // Disconnect from device
@@ -587,19 +693,23 @@ class BluetoothService {
   }
 
   // Send framed command to device
-  Future<void> sendCommand(int commandId, [List<int>? data]) async {
+  Future<bool> sendCommand(int commandId, [List<int>? data]) async {
     try {
-      if (_connection != null && _isConnected && _connection!.isConnected) {
-        final frame = _buildFrame(commandId, data ?? []);
-        print(
-            '[BT] Sending command 0x${commandId.toRadixString(16).padLeft(2, '0')}: ${frame.map((b) => '0x${b.toRadixString(16).padLeft(2, '0')}').join(' ')}');
-        _connection!.output.add(Uint8List.fromList(frame));
-        await _connection!.output.allSent;
-      } else {
-        print('[BT] Cannot send command: Not connected');
+      if (_connection == null || !_isConnected || !_connection!.isConnected) {
+        _connectionErrorController.add('Not connected');
+        return false;
       }
+
+      final frame = _buildFrame(commandId, data ?? []);
+      print(
+          '[BT] Sending command 0x${commandId.toRadixString(16).padLeft(2, '0')}: ${frame.map((b) => '0x${b.toRadixString(16).padLeft(2, '0')}').join(' ')}');
+      _connection!.output.add(Uint8List.fromList(frame));
+      await _connection!.output.allSent;
+      return true;
     } catch (e) {
       print('[BT] Send command error: $e');
+      _connectionErrorController.add('Send command error: $e');
+      return false;
     }
   }
 
@@ -684,6 +794,11 @@ class BluetoothService {
 
         _dataController.add(energyData);
       }
+
+      if (commandId == AppConstants.cmdGetDeviceInfo) {
+        final info = DeviceInfo.fromPayload(data);
+        _deviceInfoController.add(info);
+      }
     } catch (e) {
       print('[BT] Command processing error: $e');
     }
@@ -722,23 +837,30 @@ class BluetoothService {
     await sendCommand(AppConstants.cmdGetRmsData);
   }
 
+  Future<bool> requestDeviceInfo() async {
+    return await sendCommand(AppConstants.cmdGetDeviceInfo);
+  }
+
   // Reset energy counter
-  Future<void> resetEnergyCounter() async {
-    await sendCommand(AppConstants.cmdWriteEeprom, [0x00, 0x00, 0x00, 0x00]);
+  Future<bool> resetEnergyCounter() async {
+    return await sendCommand(
+        AppConstants.cmdWriteEeprom, [0x00, 0x00, 0x00, 0x00]);
   }
 
   // Control Relay
-  Future<void> controlRelay(int relayIndex, bool state) async {
-    await sendCommand(
+  Future<bool> controlRelay(int relayIndex, bool state) async {
+    return await sendCommand(
         AppConstants.cmdControlRelay, [relayIndex, state ? 1 : 0]);
   }
 
   // Dispose
   void dispose() {
-    _stopPeriodicDataRequest();
+    stopScan();
+    disconnect();
     _connection?.close();
     _connectionStateController.close();
     _dataController.close();
+    _deviceInfoController.close();
     _devicesController.close();
     _scanErrorController.close();
     _connectionErrorController.close();

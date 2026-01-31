@@ -15,6 +15,7 @@ class ThemeProvider with ChangeNotifier {
   bool get isDarkMode => _isDarkMode;
   ThemeMode get themeMode => _isDarkMode ? ThemeMode.dark : ThemeMode.light;
   bool get isInitialized => _isInitialized;
+  bool get isToggling => _isToggling;
 
   ThemeProvider() {
     _loadThemeMode();
@@ -59,6 +60,7 @@ class ThemeProvider with ChangeNotifier {
     }
 
     _isToggling = true;
+    notifyListeners();
     _lastToggleTime = now;
     final previousMode = _isDarkMode;
 
@@ -78,6 +80,7 @@ class ThemeProvider with ChangeNotifier {
       notifyListeners();
     } finally {
       _isToggling = false;
+      notifyListeners();
     }
   }
 
@@ -101,6 +104,7 @@ class ThemeProvider with ChangeNotifier {
     }
 
     _isToggling = true;
+    notifyListeners();
     final previousMode = _isDarkMode;
 
     try {
@@ -114,6 +118,7 @@ class ThemeProvider with ChangeNotifier {
       notifyListeners();
     } finally {
       _isToggling = false;
+      notifyListeners();
     }
   }
 }

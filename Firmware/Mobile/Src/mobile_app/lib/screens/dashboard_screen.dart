@@ -23,18 +23,20 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = [
-    const _DashboardView(),
-    const HistoryScreen(),
-    const AlertsScreen(),
-    const SettingsScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final screens = <Widget>[
+      const _DashboardView(key: PageStorageKey('dashboard_tab')),
+      const HistoryScreen(key: PageStorageKey('history_tab')),
+      const SettingsScreen(key: PageStorageKey('settings_tab')),
+    ];
+
     return Scaffold(
       extendBody: true, // For transparency behind navbar
-      body: _screens[_selectedIndex],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: screens,
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           // ignore: deprecated_member_use
@@ -79,10 +81,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   label: 'History',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications_active_rounded),
-                  label: 'Alerts',
-                ),
-                BottomNavigationBarItem(
                   icon: Icon(Icons.settings_rounded),
                   label: 'Settings',
                 ),
@@ -96,7 +94,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 }
 
 class _DashboardView extends StatelessWidget {
-  const _DashboardView();
+  const _DashboardView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +115,12 @@ class _DashboardView extends StatelessWidget {
               expandedHeight: 140,
               floating: false,
               pinned: true,
-              backgroundColor: Colors.transparent,
+              backgroundColor: theme.scaffoldBackgroundColor,
+              surfaceTintColor: Colors.transparent,
               elevation: 0,
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
-                  'Energy Dashboard',
+                  'Smart Energy Dashboard',
                   style: Theme.of(context).appBarTheme.titleTextStyle,
                 ),
                 centerTitle: true,
@@ -143,7 +142,13 @@ class _DashboardView extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.notifications_outlined,
                       color: theme.iconTheme.color),
-                  onPressed: () => Navigator.pushNamed(context, '/alerts'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const AlertsScreen(),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(width: 8),
               ],
@@ -210,7 +215,7 @@ class _DashboardView extends StatelessWidget {
                                 child: _buildInfoCard(
                                   context,
                                   'Power',
-                                  '${(data?.power ?? 0.0).toStringAsFixed(1)} kW',
+                                  '${(data?.power ?? 0.0).toStringAsFixed(1)} W',
                                   Icons.bolt_rounded,
                                   AppTheme.accentColor,
                                 ),
@@ -588,10 +593,11 @@ class _DashboardView extends StatelessWidget {
     return Consumer<EnergyProvider>(
       builder: (context, provider, _) {
         final cost = provider.currentCost;
+        final theme = Theme.of(context);
         return Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: theme.cardTheme.color,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(color: AppTheme.success.withOpacity(0.3)),
           ),
@@ -610,15 +616,12 @@ class _DashboardView extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "Total Cost",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
+                    style: theme.textTheme.bodyMedium,
                   ),
                   Text(
-                    "\$${cost.toStringAsFixed(2)}",
+                    "${cost.toStringAsFixed(2)} EGP",
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -653,12 +656,18 @@ class _DashboardView extends StatelessWidget {
             child: const Text('Cancel'),
           ),
           ElevatedButton(
-            onPressed: () {
-              Provider.of<EnergyProvider>(context, listen: false)
-                  .resetEnergyCounter();
+            onPressed: () async {
+              final provider =
+                  Provider.of<EnergyProvider>(context, listen: false);
+              await provider.resetEnergyCounter();
               Navigator.of(ctx).pop();
+
+              if (!context.mounted) return;
+              final message = provider.connectionError.isEmpty
+                  ? 'Energy data reset successfully'
+                  : provider.connectionError;
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Energy data reset successfully')),
+                SnackBar(content: Text(message)),
               );
             },
             child: const Text('Reset'),

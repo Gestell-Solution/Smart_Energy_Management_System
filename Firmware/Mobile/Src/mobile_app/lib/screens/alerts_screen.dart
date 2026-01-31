@@ -123,14 +123,19 @@ class AlertsScreen extends StatelessWidget {
         ),
       ),
       onDismissed: (direction) {
-        // Remove alert (this would need implementation in provider)
+        final removedAlert = alert;
+        final removedIndexRaw =
+            provider.alerts.indexWhere((a) => a.id == alert.id);
+        final removedIndex = removedIndexRaw < 0 ? 0 : removedIndexRaw;
+        provider.removeAlert(alert.id);
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('Alert dismissed'),
             action: SnackBarAction(
               label: 'Undo',
               onPressed: () {
-                // Undo functionality
+                provider.restoreAlert(removedAlert, index: removedIndex);
               },
             ),
           ),
@@ -153,7 +158,7 @@ class AlertsScreen extends StatelessWidget {
               border: Border.all(
                 color: alert.isRead
                     ? Colors.transparent
-                    : Color(alert.color).withValues(alpha: 0.3),
+                    : Color(alert.color).withOpacity(0.3),
                 width: 2,
               ),
             ),
