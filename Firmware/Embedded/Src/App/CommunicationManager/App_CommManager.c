@@ -77,7 +77,10 @@ void Comm_PackUint16_BigEndian(uint16_t value, uint8_t *buffer, uint8_t index)
     // High Byte First
     buffer[index] = (uint8_t)((value >> 8) & 0xFF);
     // Low Byte Second
-    buffer[index + 1] = (uint8_t)(value & 0xFF);
+    if ((index + 1) != 10)
+    {
+        buffer[index + 1] = (uint8_t)(value & 0xFF);
+    }
 }
 /**
  * @brief   It gets the value of curr,volt, power, energy and Send them to the dashboard
@@ -89,20 +92,50 @@ void Comm_PackUint16_BigEndian(uint16_t value, uint8_t *buffer, uint8_t index)
  */
 void Comm_SendMobileData(void)
 {
-    uint8_t buffer[10];
+    float v = ME_GetVoltageRMS();
+    float i = ME_GetCurrentRMS();
+    float p = ME_GetActivePower();
+    float e_j = ME_GetEnergy();
+    /* Mobile expects energy/100; commonly Wh. So send (Wh * 100) as uint32 big-endian. */
+    uint32_t e_wh_x100 = (uint32_t)((e_j / (1000.0f * 3600.0f)) * 100.0f);
 
-    uint16_t volt_int = (uint16_t)(ME_GetVoltageRMS() * 10.0f);
-    uint16_t curr_int = (uint16_t)(ME_GetCurrentRMS() * 100.0f);
-    uint16_t energ_int = (uint16_t)(ME_GetEnergy() * 100.0f);
-    uint16_t Pow_int = (uint16_t)(ME_GetActivePower() * 10.0f);
+    uint16_t v16 = (uint16_t)(v * 10.0f);
+    uint16_t i16 = (uint16_t)(i * 100.0f);
+    uint16_t p16 = (uint16_t)(p * 10.0f);
 
-    // Pack (Big Endian)
-    Comm_PackUint16_BigEndian(volt_int, buffer, 0);
-    Comm_PackUint16_BigEndian(curr_int, buffer, 2);
-    Comm_PackUint16_BigEndian(energ_int, buffer, 4);
-    Comm_PackUint16_BigEndian(Pow_int, buffer, 6);
-
-    App_CommManager_SendFrame(buffer, 0x05, 8);
+    uint8_t rmsPayload[10];
+    rmsPayload[0] = (uint8_t)(v16 >> 8);
+    rmsPayload[1] = (uint8_t)(v16 & 0xFF);
+    rmsPayload[2] = (uint8_t)(i16 >> 8);
+    rmsPayload[3] = (uint8_t)(i16 & 0xFF);
+    rmsPayload[4] = (uint8_t)(p16 >> 8);
+    rmsPayload[5] = (uint8_t)(p16 & 0xFF);
+    rmsPayload[6] = (uint8_t)(e_wh_x100 >> 24);
+    rmsPayload[7] = (uint8_t)(e_wh_x100 >> 16);
+    rmsPayload[8] = (uint8_t)(e_wh_x100 >> 8);
+    rmsPayload[9] = (uint8_t)(e_wh_x100 & 0xFF);
+    App_CommManager_SendFrame(rmsPayload, GET_RMS_DATA, 10);
+}
+/**
+ * @brief   TBD
+ * @details TBD
+ *
+ * @return  Does not return any value
+ */
+void Comm_SendDeviceInfo(void)
+{
+    uint8_t devPayload[7];
+    devPayload[0] = g_SystemData.DeviceID;
+    uint16_t vmax = g_SystemData.OvervoltageLimit;
+    uint16_t imax = g_SystemData.OvercurrentLimit;
+    uint16_t pmax = (uint16_t)(vmax * imax);
+    devPayload[1] = (uint8_t)(vmax >> 8);
+    devPayload[2] = (uint8_t)(vmax & 0xFF);
+    devPayload[3] = (uint8_t)(imax >> 8);
+    devPayload[4] = (uint8_t)(imax & 0xFF);
+    devPayload[5] = (uint8_t)(pmax >> 8);
+    devPayload[6] = (uint8_t)(pmax & 0xFF);
+    App_CommManager_SendFrame(devPayload, GET_DEVICE_INFO, 7);
 }
 /**
  * @brief   It gets the value of curr,volt, power, energy and Send them to the dashboard
@@ -314,40 +347,28 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
     */
     switch (NonHeadered_frame[1])
     {
+    case SendToDashboard:
+        //     Comm_SendDashboardData();
+        //     break;
     case GET_RMS_DATA:
         Comm_SendMobileData();
         break;
-        // case SendToDashboard:
-        //     Comm_SendDashboardData();
-        //     break;
 
     case Get_Logged_DATA:
         // App_EnergyLogger_ReadLog(stringtoNumber(NonHeadered_frame), &Status.RamData);
         // App_CommManager_SendFrame((uint8_t *)"Done", SystemController.CmdID, 4);
         break;
     case GET_DEVICE_INFO:
-    {
-        uint8_t devPayload[7];
-        devPayload[0] = g_SystemData.DeviceID;
-        uint16_t vmax = g_SystemData.OvervoltageLimit;
-        uint16_t imax = g_SystemData.OvercurrentLimit;
-        uint16_t pmax = (uint16_t)(vmax * imax);
-        devPayload[1] = (uint8_t)(vmax >> 8);
-        devPayload[2] = (uint8_t)(vmax & 0xFF);
-        devPayload[3] = (uint8_t)(imax >> 8);
-        devPayload[4] = (uint8_t)(imax & 0xFF);
-        devPayload[5] = (uint8_t)(pmax >> 8);
-        devPayload[6] = (uint8_t)(pmax & 0xFF);
-        App_CommManager_SendFrame(devPayload, GET_DEVICE_INFO, 7);
-    }
-
+        Comm_SendDeviceInfo();
+        break;
     case Update_EEPROM:
-        App_EnergyLogger_Update(&Status.RamData);
-        App_CommManager_SendFrame((uint8_t *)UpdatedEEPROM_Message, SystemController.CmdID, UpdatedEEPROM_Message_length);
+        // App_EnergyLogger_Update(&Status.RamData);
+        // App_CommManager_SendFrame((uint8_t *)UpdatedEEPROM_Message, SystemController.CmdID, UpdatedEEPROM_Message_length);
         break;
 
     case CuttOFF:
         App_CommManager_SendFrame((uint8_t *)CuttoFF_Message, SystemController.CmdID, Cutoff_message_length);
+
         break;
 
     case Calibrate_Sensors:
