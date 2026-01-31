@@ -26,6 +26,11 @@
 #include "../../Mcal/DIO/DIO_Interface.h"
 #include "../../Mcal/UART/UART_Rx.h"
 
+// added
+#include "../MeasurementEngine/MeasurementEngine_Interface.h"
+#include "../../Common/SystemDataManager/SystemDataManager.h"
+#include "../../Hal/RelayControl/RELAY_Interface.h"
+#include "../../Hal/RelayControl/RELAY_Config.h"
 /*============================================================================
  *                                 Global Variables
  *============================================================================*/
@@ -51,6 +56,8 @@ extern SystemEvent_t SystemController;
 /** @brief External System State Object. */
 extern SystemState_t Status;
 
+/** @brief Global persistent system data (EEPROM-mirrored). */
+extern SystemData_t g_SystemData;
 /*============================================================================
  *                                 Helper Functions
  *============================================================================*/
@@ -84,10 +91,9 @@ void Comm_SendMobileData(void)
 {
     uint8_t buffer[10];
 
-    // Scale and Cast
     uint16_t volt_int = (uint16_t)(ME_GetVoltageRMS() * 10.0f);
     uint16_t curr_int = (uint16_t)(ME_GetCurrentRMS() * 100.0f);
-    uint16_t energ_int = (uint16_t)(ME_GetEnergy() * 10.0f);
+    uint16_t energ_int = (uint16_t)(ME_GetEnergy() * 100.0f);
     uint16_t Pow_int = (uint16_t)(ME_GetActivePower() * 10.0f);
 
     // Pack (Big Endian)
@@ -96,7 +102,7 @@ void Comm_SendMobileData(void)
     Comm_PackUint16_BigEndian(energ_int, buffer, 4);
     Comm_PackUint16_BigEndian(Pow_int, buffer, 6);
 
-    mUART_SendBuffer(buffer, 10);
+    App_CommManager_SendFrame(buffer, 0x05, 8);
 }
 /**
  * @brief   It gets the value of curr,volt, power, energy and Send them to the dashboard
@@ -199,23 +205,22 @@ void App_CommManager_SendFrame(uint8_t *data, uint8_t Command, uint16_t len)
 {
     uint8_t Frame_Setting[Max_Buffer_size];
     Frame_Setting[0] = FRAME_HEADER;
-    Frame_Setting[1] = len; /* Note: Protocol seems to put Payload Length here */
+    Frame_Setting[1] = (uint8_t)len;
     Frame_Setting[2] = Command;
 
-    if (data != Null && len != 0)
+    if (len > 0 && data != Null)
     {
-        int i = 0;
-        for (; i < len; i++)
-        {
+        uint16_t i = 0;
+        for (; i < len && i < Max_Buffer_size - 3; i++)
             Frame_Setting[i + 3] = data[i];
-        }
-        uint16_t Total_length = len + 3; /* Header + Len + Cmd + Payload */
-        hBT_SendBuffer(Frame_Setting, Total_length);
+        len = i;
     }
     else
     {
-        return;
+        len = 0;
     }
+
+    hBT_SendBuffer(Frame_Setting, 3 + len);
 }
 
 /**
@@ -266,20 +271,20 @@ void App_CommManager_ReceiveHandler()
         case Wait_data_With_command:
             LocalFrameBuffer[Rx_Index] = value;
             Rx_Index++;
-            /* Check if we received full frame (Length byte specifies payload length? Logic check needed) */
-            /* If FrameLen is payload len, then Total = 3 + FrameLen?
-               Original code check: if (Rx_Index >= FrameLen)
-               This implies FrameLen INCLUDES the header or is the total count?
-               Let's assume the original logic is correct for the custom protocol.
-            */
-            if (Rx_Index >= FrameLen)
+
+            /* Protocol: total bytes = 3 + FrameLen (LEN = payload only). Reject oversized LEN. */
+            if (FrameLen > Max_Buffer_size - 3)
             {
-                /* Frame Complete */
+                CurrentState = WaitTheHeader;
+                Rx_Index = 0;
+                Ishandling = 0;
+                return;
+            }
+            if (Rx_Index >= 3 + FrameLen)
+            {
                 SystemController.Event = EVENT_COMM_RECEIVED_CMD;
                 SystemController.CmdID = LocalFrameBuffer[2];
-                App_CommManager_ProcessCommand(&LocalFrameBuffer[1]); /* Pass starting from Length? or Command? */
-
-                /* Reset State */
+                App_CommManager_ProcessCommand(&LocalFrameBuffer[1]);
                 CurrentState = WaitTheHeader;
                 Rx_Index = 0;
                 Ishandling = 0;
@@ -312,14 +317,29 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
     case GET_RMS_DATA:
         Comm_SendMobileData();
         break;
-    case SendToDashboard:
-        Comm_SendDashboardData();
-        break;
+        // case SendToDashboard:
+        //     Comm_SendDashboardData();
+        //     break;
 
     case Get_Logged_DATA:
-        App_EnergyLogger_ReadLog(stringtoNumber(NonHeadered_frame), &Status.RamData);
-        App_CommManager_SendFrame((uint8_t *)"Done", SystemController.CmdID, 4);
+        // App_EnergyLogger_ReadLog(stringtoNumber(NonHeadered_frame), &Status.RamData);
+        // App_CommManager_SendFrame((uint8_t *)"Done", SystemController.CmdID, 4);
         break;
+    case GET_DEVICE_INFO:
+    {
+        uint8_t devPayload[7];
+        devPayload[0] = g_SystemData.DeviceID;
+        uint16_t vmax = g_SystemData.OvervoltageLimit;
+        uint16_t imax = g_SystemData.OvercurrentLimit;
+        uint16_t pmax = (uint16_t)(vmax * imax);
+        devPayload[1] = (uint8_t)(vmax >> 8);
+        devPayload[2] = (uint8_t)(vmax & 0xFF);
+        devPayload[3] = (uint8_t)(imax >> 8);
+        devPayload[4] = (uint8_t)(imax & 0xFF);
+        devPayload[5] = (uint8_t)(pmax >> 8);
+        devPayload[6] = (uint8_t)(pmax & 0xFF);
+        App_CommManager_SendFrame(devPayload, GET_DEVICE_INFO, 7);
+    }
 
     case Update_EEPROM:
         App_EnergyLogger_Update(&Status.RamData);

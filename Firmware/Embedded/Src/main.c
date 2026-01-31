@@ -68,6 +68,8 @@ int main(void)
     mGIE_Enable();
     
     /* 2. Initialize Application Modules */
+    /* system data manager: sets up data for the work of the program */
+    SystemData_Init();
     
     /* Measurement Engine: Configures ADC, Voltage and Current Sensors */
     ME_Init();
@@ -75,6 +77,7 @@ int main(void)
     /* Energy Logger: Configures buffers and EEPROM management */
     /* Note: Internal timer and sensor sampling in Logger disabled to avoid conflict with ME */
     App_EnergyLogger_Init();
+    
     
     /* Protection Manager: Configures safety checks and relay control */
     PM_Init();
@@ -84,6 +87,7 @@ int main(void)
     
     /* Communication Manager: Initializes Buffer and State machines */
     App_CommManager_Init();
+
     void Timer1_Test_Init();
     /* 3. Main Superloop */
     DDRC_Reg|=0xFF;
