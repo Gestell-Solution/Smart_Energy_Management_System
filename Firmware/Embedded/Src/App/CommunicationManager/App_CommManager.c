@@ -347,9 +347,9 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
     */
     switch (NonHeadered_frame[1])
     {
-    case SendToDashboard:
-        //     Comm_SendDashboardData();
-        //     break;
+    // case SendToDashboard:
+    //     //     Comm_SendDashboardData();
+    //     //     break;
     case GET_RMS_DATA:
         Comm_SendMobileData();
         break;
@@ -367,8 +367,15 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
         break;
 
     case CuttOFF:
-        App_CommManager_SendFrame((uint8_t *)CuttoFF_Message, SystemController.CmdID, Cutoff_message_length);
+        if (NonHeadered_frame[3])
+        {
+            hRelay_On(NonHeadered_frame[2]);
+        }else
+        {
+            hRelay_Off(NonHeadered_frame[2]);
 
+        }
+        
         break;
 
     case Calibrate_Sensors:
