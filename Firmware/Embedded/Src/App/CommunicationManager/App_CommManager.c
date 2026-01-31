@@ -88,7 +88,7 @@ void Comm_SendMobileData(void)
     uint16_t volt_int = (uint16_t)(ME_GetVoltageRMS() * 10.0f);
     uint16_t curr_int = (uint16_t)(ME_GetCurrentRMS() * 100.0f);
     uint16_t energ_int = (uint16_t)(ME_GetEnergy() * 10.0f);
-    uint16_t Pow_int = (uint16_t)(ME_GetPower() * 10.0f);
+    uint16_t Pow_int = (uint16_t)(ME_GetActivePower() * 10.0f);
 
     // Pack (Big Endian)
     Comm_PackUint16_BigEndian(volt_int, buffer, 0);
@@ -120,7 +120,7 @@ void Comm_SendDashboardData(void)
 
     mUART_SendBuffer((uint8_t *)&v, 4);
 
-    v = ME_GetPower();
+    v = ME_GetActivePower();
 
     mUART_SendBuffer((uint8_t *)&v, 4);
 }
