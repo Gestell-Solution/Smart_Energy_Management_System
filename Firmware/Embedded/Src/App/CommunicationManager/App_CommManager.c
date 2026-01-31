@@ -72,16 +72,16 @@ extern SystemData_t g_SystemData;
  *
  * @return  Does not return any value
  */
-void Comm_PackUint16_BigEndian(uint16_t value, uint8_t *buffer, uint8_t index)
-{
-    // High Byte First
-    buffer[index] = (uint8_t)((value >> 8) & 0xFF);
-    // Low Byte Second
-    if ((index + 1) != 10)
-    {
-        buffer[index + 1] = (uint8_t)(value & 0xFF);
-    }
-}
+// void Comm_PackUint16_BigEndian(uint16_t value, uint8_t *buffer, uint8_t index)
+// {
+//     // High Byte First
+//     buffer[index] = (uint8_t)((value >> 8) & 0xFF);
+//     // Low Byte Second
+//     if ((index + 1) != 10)
+//     {
+//         buffer[index + 1] = (uint8_t)(value & 0xFF);
+//     }
+// }
 /**
  * @brief   It gets the value of curr,volt, power, energy and Send them to the dashboard
  * @details it gets the Values from the measurement engine, saves them into variables and
