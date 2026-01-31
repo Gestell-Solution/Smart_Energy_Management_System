@@ -97,7 +97,6 @@ static void PM_Trip_Action
 void PM_Init()
 {
      mEXTI_Enable(EXT1_Macro);
-     mTIMER1_Init();         /* Initialize Timer1 for potential timing operations */
      Buzzer_Init();          /* Initialize Alarm Buzzer */
      hCurrent_Init();        /* Initialize Current Sensor */
      hVoltage_Init();        /* Initialize Voltage Sensor */

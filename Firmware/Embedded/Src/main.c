@@ -55,14 +55,18 @@
 #include "App/CommunicationManager/App_CommManager.h"
 #include "App/DM_Driver/DisplayManager_Interface.h"
 #include "App/ProtectionManager/ProtectionManager_Interface.h"
-
+#include "Mcal/Timer1/TIMER1_Interface.h"
 #include <util/delay.h>
 
 int main(void)
 {
-    /* 1. Global Interrupt Enable */
+    /* 1. Initialize Mcal Modules */
+    
+    /* Timer 1 Initialization */
+    mTIMER1_Init();
+    /* Global Interrupt Enable */
     mGIE_Enable();
-
+    
     /* 2. Initialize Application Modules */
     
     /* Measurement Engine: Configures ADC, Voltage and Current Sensors */
@@ -82,8 +86,10 @@ int main(void)
     App_CommManager_Init();
     void Timer1_Test_Init();
     /* 3. Main Superloop */
+    DDRC_Reg|=0xFF;
     while (1)
     {
+SetBit(PORTC_Reg,PIN7);
         /* --- Measure --- */
         /* Update electrical measurements (V, I, P, E) */
         ME_Update();
@@ -126,6 +132,7 @@ int main(void)
 
         /* Stability delay */
         _delay_ms(100);
+        ClearBit(PORTC_Reg,PIN7);
     }
     
     return 0;
