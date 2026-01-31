@@ -3,7 +3,7 @@
  * @brief      This file contains The Program for Push Button Module.    
  * @version    1.0
  * @author     Developer : Mohamed Abdelgaber (mohamedabdelgaber247@gmail.com)
- * @author     Reviewer : Eng -Mohamed Diaa   (                              )
+ * @author     Reviewer : Eng -Mohamed Diaa   (mohammeddiaato@gmail.com)
  * @date       2025-10-19
  * @copyright  Copyright (c) 2025 , Gestell Company 
  * 
@@ -63,7 +63,7 @@ void hBtn_ISRAction(void)
     _delay_ms(BTN_DebounceDelay);
     
     #endif /*BTN_DebounceEnable == Enable*/
-
+    
     uint8_t BTNState ;
     mDIO_ReadPin(BTN_PORT,BTN_PIN,&BTNState);
 
@@ -74,8 +74,15 @@ void hBtn_ISRAction(void)
         else if ( BTN_SystemMode == 0)
             BTN_SystemMode = 1 ; // Automatic -->Manual Mode
 
+        /* Wait for Release (Blocking):// FIX-009 
+           We remain here until the user releases the button to prevent action repetition.
+        */
+        while(BTNState == BTN_Pressed) 
+        {
+            mDIO_ReadPin(BTN_PORT, BTN_PIN, &BTNState);
+        }
     }
-   
+    /* If the condition is not met (returned to NotPressed), the function exits doing nothing */
 }
 
 uint8_t hBtn_GetStatus(void)
