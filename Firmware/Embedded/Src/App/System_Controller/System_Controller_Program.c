@@ -193,7 +193,7 @@ void App_SystemController_Update(void)
 
     /* Update Subsystems */
     DM_Update();
-    Status.RamData.energy_kwh = ME_GetEnergy();
+    Status.RamData.energy_kwh = ME_GetEnergy() / 3600000.0f; /* Joules -> kWh */
     Status.RamData.power      = ME_GetActivePower();
     Status.RamData.current    = ME_GetCurrentRMS();
     Status.RamData.voltage    = ME_GetVoltageRMS();
