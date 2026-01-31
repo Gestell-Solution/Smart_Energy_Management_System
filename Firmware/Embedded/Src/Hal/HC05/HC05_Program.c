@@ -15,10 +15,11 @@
 
 /*================================= Includes =================================*/
 #include "HC05_Config.h"
-#include "HC05_Interface.h"
 #include "HC05_Private.h"
-
+#include "../../Common/Config.h"
 /*============================== Static Objects ==============================*/
+#if HC05_Module==Enable
+#include "HC05_Interface.h"
 
 
 /**
@@ -80,3 +81,4 @@ uint16_t hBT_ReadBuffer(uint8_t *data, uint16_t len)
 /*============================================================================*/
 
 
+#endif

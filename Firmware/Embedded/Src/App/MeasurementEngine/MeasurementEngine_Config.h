@@ -20,7 +20,7 @@
  * @brief Sampling period between consecutive ME_Update() calls in seconds.
  * @details Determines how often the Measurement Engine reads new ADC samples.
  */
-#define ME_SAMPLE_INTERVAL   0.01f   
+#define ME_SAMPLE_INTERVAL   0.46f  
 
 /**
  * @def Resistive_Load_PF

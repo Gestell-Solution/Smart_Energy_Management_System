@@ -12,11 +12,12 @@
  * @copyright Copyright (c) 2025 , Gestell Company 
  */
 #include "LCD_Config.h"
-#include "LCD_Interface.h"
 #include "LCD_Private.h"
 #include <stdint.h>
 #include <util/delay.h>
-
+#include "../../Common/Config.h"
+#include "LCD_Interface.h"
+#if LCD_Module==Enable
 
 /**
  * @var LinesOfDisplay
@@ -162,3 +163,4 @@ void hLCD_WriteNumber(int32_t Number)
 
     }
 }
+#endif
