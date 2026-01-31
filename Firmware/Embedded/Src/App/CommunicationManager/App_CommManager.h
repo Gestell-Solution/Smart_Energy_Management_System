@@ -86,7 +86,8 @@ enum
         SetOverLoad_Current_Limit       = 0x0A,
         SetOverLoad_Voltage_Limit       = 0x0B,
         SHUTDOWN_Device                 = 0x0C,
-        ShowModeState                   = 0x0D
+        ShowModeState                   = 0x0D,
+        SendToDashboard                 = 0x15
         
 
 };
