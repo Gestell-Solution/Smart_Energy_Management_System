@@ -113,7 +113,7 @@ void Comm_SendMobileData(void)
     rmsPayload[6] = (uint8_t)(e_wh_x100 >> 24);
     rmsPayload[7] = (uint8_t)(e_wh_x100 >> 16);
     rmsPayload[8] = (uint8_t)(e_wh_x100 >> 8);
-    rmsPayload[9] = (uint8_t)(e_wh_x100 & 0xFF);
+    rmsPayload[9] = (uint8_t)(e_wh_x100 & 0xFF); // Add 1 Byte To Indicate the Relays Status
     App_CommManager_SendFrame(rmsPayload, GET_RMS_DATA, 10);
 }
 /**
