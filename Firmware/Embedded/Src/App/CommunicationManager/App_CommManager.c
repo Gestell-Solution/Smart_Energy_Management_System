@@ -169,6 +169,7 @@ void App_CommManager_ReceiveHandler()
         case WaitLen:
             FrameLen = value;
             LocalFrameBuffer[Rx_Index++] = value;
+            /* Reject oversized payload to prevent buffer overflow */
             if (FrameLen > Max_Buffer_size - 3)
             {
                 CurrentState = WaitTheHeader;
@@ -181,6 +182,7 @@ void App_CommManager_ReceiveHandler()
         case Wait_data_With_command:
             LocalFrameBuffer[Rx_Index] = value;
             Rx_Index++;
+            /* Full frame: Header(1) + Len(1) + Cmd(1) + Payload => 3 + FrameLen */
             if (Rx_Index >= 3 + (uint16_t)FrameLen)
             {
                 SystemController.Event = EVENT_COMM_RECEIVED_CMD;
