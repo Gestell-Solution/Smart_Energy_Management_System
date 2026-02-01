@@ -17,7 +17,7 @@
  *                                 Includes
  *============================================================================*/
 #include "MeasurementEngine_Interface.h"
-
+#include "../../Common/SystemDataManager/SystemDataManager.h"
 
 /*============================================================================
  *                                 Private Variables
@@ -74,6 +74,9 @@ void ME_Update(void)
 #endif
     /* Energy accumulation: Energy (J) = Power (W) * Time (s) */
     ME_Energy += ME_Active_Power * ME_SAMPLE_INTERVAL;
+g_SystemData.Voltage_RMS = ME_Vrms;
+g_SystemData.Current_RMS = ME_Irms;
+g_SystemData.Power= ME_Active_Power;
 }
 
 /**
