@@ -25,6 +25,7 @@
 #include "RELAY_Config.h"
 #include "RELAY_Private.h"
 #include "../../Mcal/DIO/DIO_Interface.h"
+#include "../../Common/SystemDataManager/SystemDataManager.h"
 
 /*============================================================================
  *                                 Function Definitions
@@ -77,15 +78,19 @@ void hRelay_On(uint8_t relayId)
     {
     case hRELAY_0:
         mDIO_WritePin(hRELAY_0_PORT, hRELAY_0_PIN, !hRELAY_0_INIT_STATE);
+        SystemData_SetRelayState(relayId, 1);
         break;
     case hRELAY_1:
         mDIO_WritePin(hRELAY_1_PORT, hRELAY_1_PIN, !hRELAY_1_INIT_STATE);   
+        SystemData_SetRelayState(relayId, 1);
         break; 
     case hRELAY_2:
         mDIO_WritePin(hRELAY_2_PORT, hRELAY_2_PIN, !hRELAY_2_INIT_STATE);
+        SystemData_SetRelayState(relayId, 1);
         break;  
     case hRELAY_3:
         mDIO_WritePin(hRELAY_3_PORT, hRELAY_3_PIN, !hRELAY_3_INIT_STATE);  
+        SystemData_SetRelayState(relayId, 1);
         break;
     default:
         break;
@@ -104,15 +109,19 @@ void hRelay_Off(uint8_t relayId)
     {
     case hRELAY_0:
         mDIO_WritePin(hRELAY_0_PORT, hRELAY_0_PIN, hRELAY_0_INIT_STATE);
+        SystemData_SetRelayState(relayId, 0);
         break;
     case hRELAY_1:
         mDIO_WritePin(hRELAY_1_PORT, hRELAY_1_PIN, hRELAY_1_INIT_STATE);   
+        SystemData_SetRelayState(relayId, 0);
         break; 
     case hRELAY_2:
         mDIO_WritePin(hRELAY_2_PORT, hRELAY_2_PIN, hRELAY_2_INIT_STATE);
+        SystemData_SetRelayState(relayId, 0);
         break;  
     case hRELAY_3:
         mDIO_WritePin(hRELAY_3_PORT, hRELAY_3_PIN, hRELAY_3_INIT_STATE);  
+        SystemData_SetRelayState(relayId, 0);
         break;
     default:
         break;
@@ -126,23 +135,36 @@ void hRelay_Off(uint8_t relayId)
  */
 void hRelay_Toggle(uint8_t relayId)
 {
+    uint8_t pinVal = 0;
+    uint8_t activeInitState = 0;
     switch (relayId)
     {
     case hRELAY_0:
         mDIO_TogglePin(hRELAY_0_PORT, hRELAY_0_PIN);
+        mDIO_ReadPin(hRELAY_0_PORT, hRELAY_0_PIN, &pinVal);
+        activeInitState = hRELAY_0_INIT_STATE;
         break;
     case hRELAY_1:
         mDIO_TogglePin(hRELAY_1_PORT, hRELAY_1_PIN);   
+        mDIO_ReadPin(hRELAY_1_PORT, hRELAY_1_PIN, &pinVal);
+        activeInitState = hRELAY_1_INIT_STATE;
         break; 
     case hRELAY_2:
         mDIO_TogglePin(hRELAY_2_PORT, hRELAY_2_PIN);
+        mDIO_ReadPin(hRELAY_2_PORT, hRELAY_2_PIN, &pinVal);
+        activeInitState = hRELAY_2_INIT_STATE;
         break;  
     case hRELAY_3:
         mDIO_TogglePin(hRELAY_3_PORT, hRELAY_3_PIN);  
+        mDIO_ReadPin(hRELAY_3_PORT, hRELAY_3_PIN, &pinVal);
+        activeInitState = hRELAY_3_INIT_STATE;
         break;
     default:
         break;
     }
+    /* Determine logical ON based on active state (inverse of INIT) */
+    uint8_t isOn = (pinVal == (uint8_t)(!activeInitState));
+    SystemData_SetRelayState(relayId, isOn);
 }
 
 /**
@@ -174,5 +196,3 @@ uint8_t hRelay_GetStatus(uint8_t relayId)
 }
 
 #endif /* Relay_Module == Enable */
-
-

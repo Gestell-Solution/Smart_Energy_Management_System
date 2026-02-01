@@ -96,6 +96,7 @@ void Comm_SendMobileData(void)
     float i = ME_GetCurrentRMS();
     float p = ME_GetActivePower();
     float e_j = ME_GetEnergy();
+    uint8_t relayMask = SystemData_GetRelayStatesMask();
     /* Mobile expects energy/100; commonly Wh. So send (Wh * 100) as uint32 big-endian. */
     uint32_t e_wh_x100 = (uint32_t)((e_j / (1000.0f * 3600.0f)) * 100.0f);
 
@@ -103,7 +104,7 @@ void Comm_SendMobileData(void)
     uint16_t i16 = (uint16_t)(i * 100.0f);
     uint16_t p16 = (uint16_t)(p * 10.0f);
 
-    uint8_t rmsPayload[10];
+    uint8_t rmsPayload[11];
     rmsPayload[0] = (uint8_t)(v16 >> 8);
     rmsPayload[1] = (uint8_t)(v16 & 0xFF);
     rmsPayload[2] = (uint8_t)(i16 >> 8);
@@ -113,8 +114,9 @@ void Comm_SendMobileData(void)
     rmsPayload[6] = (uint8_t)(e_wh_x100 >> 24);
     rmsPayload[7] = (uint8_t)(e_wh_x100 >> 16);
     rmsPayload[8] = (uint8_t)(e_wh_x100 >> 8);
-    rmsPayload[9] = (uint8_t)(e_wh_x100 & 0xFF); // Add 1 Byte To Indicate the Relays Status
-    App_CommManager_SendFrame(rmsPayload, GET_RMS_DATA, 10);
+    rmsPayload[9] = (uint8_t)(e_wh_x100 & 0xFF);
+    rmsPayload[10] = (uint8_t)(relayMask & SYSTEMDATA_RELAY_STATE_MASK);
+    App_CommManager_SendFrame(rmsPayload, GET_RMS_DATA, 11);
 }
 /**
  * @brief   TBD
