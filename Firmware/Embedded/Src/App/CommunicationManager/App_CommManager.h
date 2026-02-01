@@ -85,10 +85,9 @@ enum
         CuttOFF                         = 0x09,
         SetOverLoad_Current_Limit       = 0x0A,
         SetOverLoad_Voltage_Limit       = 0x0B,
-        SHUTDOWN_Device                 = 0x0C,
-        ShowModeState                   = 0x0D
-        
-
+        GET_DEVICE_INFO                 = 0x0C,
+        SHUTDOWN_Device                 = 0x0D,
+        ShowModeState                   = 0x0E
 };
 
 /**

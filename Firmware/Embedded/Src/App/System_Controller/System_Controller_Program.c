@@ -152,8 +152,11 @@ void App_SystemController_Init(void)
     App_CommManager_Init();
     App_EnergyLogger_Init();
 
-    /* Load initial data */
-    App_EnergyLogger_ReadLog(EnergyRAM.front, &Status.RamData);
+    /* Load initial data from EEPROM if any logs exist (avoid invalid front when buffer empty) */
+    if (EEPROM_count > 0)
+    {
+        App_EnergyLogger_ReadLog(0, &Status.RamData);
+    }
 
     Status.Data[0]    = NullChar;
     Status.SysState   = NORMAL_State;
@@ -177,28 +180,33 @@ void App_SystemController_Update(void)
     /* Recovery State Logic */
     if (Status.SysState == RECOVERY_State)
     {
-        RecoveryTimer++; 
+        RecoveryTimer++;
         if (RecoveryTimer >= 60)
         {
             MinutesCounter++;
             RecoveryTimer = 0;
         }
-        
-        if (MinutesCounter >= RecoveryTime) 
+        if (MinutesCounter >= RecoveryTime)
         {
-            Status.SysState = NORMAL_State; 
+            Status.SysState = NORMAL_State;
             MinutesCounter = 0;
         }
     }
 
-    /* Update Subsystems */
-    DM_Update();
-    Status.RamData.energy_kwh = ME_GetEnergy();
+    /* Run Protection Manager (updates ME and trip state) */
+    PM_Update();
+
+    /* Sync RAM status from Measurement Engine */
+    Status.RamData.energy_kwh = ME_GetEnergy() / 3600000.0f; /* Joules -> kWh */
     Status.RamData.power      = ME_GetActivePower();
     Status.RamData.current    = ME_GetCurrentRMS();
     Status.RamData.voltage    = ME_GetVoltageRMS();
+    Update_Global_SystemData();
 
-    /* Protection Logic */
+    /* Display */
+    DM_Update();
+
+    /* Protection state machine */
     if (PM_IsTripped() && Status.SysState == NORMAL_State)
     {
         /* Transition to Overload State */
@@ -209,32 +217,18 @@ void App_SystemController_Update(void)
     }
     else if (!PM_IsTripped() && Status.SysState == OVERLOAD_State)
     {
-        /* Transition back to Normal (or Recovery) */
         SystemController.Event = EVENT_OVERLOAD_CLEARED;
         App_SystemController_HandleEvent(SystemController);
-        App_EnergyLogger_Update(&Status.RamData);
     }
-    
-    /* Ensure Normal State Persistence if no trips */
-    /* Note: original code set Status.SysState = NORMAL_State unconditionally here?
-       That seems like a bug if we are in RECOVERY or OVERLOAD.
-       I will comment it out or fix logic if it overrides previous states inappropriately.
-       Original line 130: Status.SysState = NORMAL_State;
-       Code review: This line forces Normal state every cycle unless it returns early?
-       But checking line 120 HandleEvent calls might change it?
-       If PM is tripped, it sets Overload?
-       Wait, if I set Overload in line 148 (HandleEvent), then return, this line 130 might overwrite it?
-       Actually, `App_SystemController_HandleEvent` changes `Status.SysState`.
-       But `App_SystemController_Update` continues execution.
-       If `PM_IsTripped()` is true, we handle event.
-       Line 130 sets it back to Normal?
-       This looks like a logic bug in the original code. 
-       I will assume the intention is: If NOT tripped and NOT recovery and NOT overload, ensure Normal.
-       Or maybe it was a mistake. 
-       For now, I will guard it to not overwrite active states.
-    */
-    if (!PM_IsTripped() && Status.SysState != RECOVERY_State && Status.SysState != OVERLOAD_State) {
-         Status.SysState = NORMAL_State;
+
+    /* Log current sample and flush to EEPROM; handle Bluetooth */
+    App_EnergyLogger_Update(&Status.RamData);
+    App_EnergyLogger_Task();
+    App_CommManager_Task();
+
+    if (!PM_IsTripped() && Status.SysState != RECOVERY_State && Status.SysState != OVERLOAD_State)
+    {
+        Status.SysState = NORMAL_State;
     }
 
     /* Mode Toggling Logic (Button) */

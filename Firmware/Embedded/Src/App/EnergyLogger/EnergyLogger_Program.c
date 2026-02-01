@@ -120,8 +120,8 @@ void App_EnergyLogger_StoreToEEPROM(void)
 
     EnergyLog_t logToeeprom = EnergyRAM.buffer[EnergyRAM.front];
 
-    /* Calculate byte address in EEPROM */
-    uint16_t addr = EEPROM_head * sizeof(EnergyLog_t); 
+    /* Calculate byte address in EEPROM (use EEPROM_LOG_BASE to avoid overwriting SystemData) */
+    uint16_t addr = EEPROM_LOG_BASE + (uint16_t)(EEPROM_head * sizeof(EnergyLog_t));
     mEEPROM_WriteBlock(addr, (uint8_t*)&logToeeprom, sizeof(EnergyLog_t));
 
     /* Advance EEPROM Head */
@@ -152,7 +152,7 @@ void App_EnergyLogger_ReadLog(uint16_t logIndex, EnergyLog_t *readLog)
         return; 
     }
 
-    uint16_t addr = logIndex * sizeof(EnergyLog_t);
+    uint16_t addr = EEPROM_LOG_BASE + (uint16_t)(logIndex * sizeof(EnergyLog_t));
     mEEPROM_ReadBlock(addr, (uint8_t*)readLog, sizeof(EnergyLog_t));
 }
 

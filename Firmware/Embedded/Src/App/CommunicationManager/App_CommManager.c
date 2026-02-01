@@ -22,6 +22,9 @@
 #include "App_CommManager.h"
 #include "../../Mcal/Timer0/TIMER0_Interface.h"
 #include "../System_Controller/System_Controller_Interface.h"
+#include "../MeasurementEngine/MeasurementEngine_Interface.h"
+#include "../../Common/SystemDataManager/SystemDataManager.h"
+#include "../../Hal/RelayControl/RELAY_Interface.h"
 #include "../../Hal/HC05/HC05_Interface.h"
 #include "../../Mcal/DIO/DIO_Interface.h"
 #include "../../Mcal/UART/UART_Rx.h"
@@ -50,31 +53,6 @@ extern SystemEvent_t SystemController;
 
 /** @brief External System State Object. */
 extern SystemState_t Status;
-
-/*============================================================================
- *                                 Helper Functions
- *============================================================================*/
-
-/**
- * @brief      Converts a string payload into a 16-bit integer.
- * @details    Parses bytes from the frame buffer starting at offset 2 (Payload).
- *             Assumes ASCII digits or raw byte reconstruction depending on protocol.
- *             (Note: The implementation below suggests ASCII-like multiplication or simple decimal parsing).
- * @param[in]  Frame  Pointer to the frame buffer (where Frame[0] is Length?).
- * @return     uint16_t Parsed integer value.
- */
-uint16_t stringtoNumber(uint8_t* Frame)
-{
-        uint16_t sum = 0;
-        /* Logic assumes Frame[0] accounts for overhead (3 bytes: Header/Len/Cmd?) */
-        /* Loop seems to iterate over payload bytes */
-        for (int i = 0; i < Frame[0]-3; i++)
-        {
-            sum = sum * 10 + Frame[i+2];
-        }
-        
-        return sum;
-}
 
 /*============================================================================
  *                                 Function Definitions
@@ -191,26 +169,23 @@ void App_CommManager_ReceiveHandler()
         case WaitLen:
             FrameLen = value;
             LocalFrameBuffer[Rx_Index++] = value;
+            if (FrameLen > Max_Buffer_size - 3)
+            {
+                CurrentState = WaitTheHeader;
+                Rx_Index = 0;
+                break;
+            }
             CurrentState = Wait_data_With_command;
             break;
 
         case Wait_data_With_command:
             LocalFrameBuffer[Rx_Index] = value;
             Rx_Index++;
-            /* Check if we received full frame (Length byte specifies payload length? Logic check needed) */
-            /* If FrameLen is payload len, then Total = 3 + FrameLen?
-               Original code check: if (Rx_Index >= FrameLen)
-               This implies FrameLen INCLUDES the header or is the total count?
-               Let's assume the original logic is correct for the custom protocol.
-            */
-            if (Rx_Index >= FrameLen)
+            if (Rx_Index >= 3 + (uint16_t)FrameLen)
             {
-                /* Frame Complete */
                 SystemController.Event = EVENT_COMM_RECEIVED_CMD;
                 SystemController.CmdID = LocalFrameBuffer[2];
-                App_CommManager_ProcessCommand(&LocalFrameBuffer[1]); /* Pass starting from Length? or Command? */
-                
-                /* Reset State */
+                App_CommManager_ProcessCommand(&LocalFrameBuffer[1]);
                 CurrentState = WaitTheHeader;
                 Rx_Index = 0;
                 Ishandling = 0;
@@ -223,57 +198,94 @@ void App_CommManager_ReceiveHandler()
     Ishandling = 0;
 }
 
+#define GET_RMS_DATA_PAYLOAD_LEN  8
+#define GET_DEVICE_INFO_PAYLOAD_LEN 7
+
 /**
  * @brief      Executes actions based on the received command ID.
- * @details    Dispatches commands to System Controller, Energy Logger, or modifies settings.
- * @param[in]  frame  Pointer to the frame buffer (typically pointing to Length/Command).
+ * @details    Dispatches commands; binary protocol for mobile app compatibility.
+ * @param[in]  frame  frame[0]=Len, frame[1]=Cmd, frame[2..]=payload
  */
 void App_CommManager_ProcessCommand(uint8_t *frame)
 {
-    /* frame[1] corresponds to Command ID if frame points to Length? 
-       Wait, passed &LocalFrameBuffer[1].
-       LocalFrameBuffer: [0]=Header, [1]=Len, [2]=Cmd
-       So passed pointer 'frame' starts at [1] (Len).
-       frame[0] = Len
-       frame[1] = Cmd
-       Original code: switch(frame[1]) -> matches Cmd.
-    */
     switch (frame[1])
     {
     case GET_RMS_DATA:
-        App_CommManager_SendFrame((uint8_t*)App_SystemController_GetState().Data, GET_RMS_DATA, RMS_Message_length);
+        {
+            uint8_t payload[GET_RMS_DATA_PAYLOAD_LEN];
+            uint16_t v = (uint16_t)(ME_GetVoltageRMS() * 10.0f);
+            uint16_t i = (uint16_t)(ME_GetCurrentRMS() * 100.0f);
+            uint16_t p = (uint16_t)(ME_GetActivePower() * 10.0f);
+            float e_kwh = ME_GetEnergy() / 3600000.0f;
+            uint16_t e = (uint16_t)(e_kwh * 100.0f);
+            payload[0] = (uint8_t)(v >> 8); payload[1] = (uint8_t)(v & 0xFF);
+            payload[2] = (uint8_t)(i >> 8); payload[3] = (uint8_t)(i & 0xFF);
+            payload[4] = (uint8_t)(p >> 8); payload[5] = (uint8_t)(p & 0xFF);
+            payload[6] = (uint8_t)(e >> 8); payload[7] = (uint8_t)(e & 0xFF);
+            App_CommManager_SendFrame(payload, GET_RMS_DATA, GET_RMS_DATA_PAYLOAD_LEN);
+        }
         break;
-        
+
+    case GET_DEVICE_INFO:
+        {
+            uint8_t payload[GET_DEVICE_INFO_PAYLOAD_LEN];
+            payload[0] = g_SystemData.DeviceID;
+            payload[1] = (uint8_t)(g_SystemData.OvervoltageLimit >> 8);
+            payload[2] = (uint8_t)(g_SystemData.OvervoltageLimit & 0xFF);
+            payload[3] = (uint8_t)(g_SystemData.OvercurrentLimit >> 8);
+            payload[4] = (uint8_t)(g_SystemData.OvercurrentLimit & 0xFF);
+            payload[5] = (uint8_t)(g_SystemData.Power >> 8);
+            payload[6] = (uint8_t)(g_SystemData.Power & 0xFF);
+            App_CommManager_SendFrame(payload, GET_DEVICE_INFO, GET_DEVICE_INFO_PAYLOAD_LEN);
+        }
+        break;
+
     case Get_Logged_DATA:
-        App_EnergyLogger_ReadLog(stringtoNumber(frame), &Status.RamData);
-        App_CommManager_SendFrame((uint8_t*)"Done", SystemController.CmdID, 4);
+        {
+            uint16_t logIdx = (frame[2] << 8) | frame[3];
+            App_EnergyLogger_ReadLog(logIdx, &Status.RamData);
+            App_CommManager_SendFrame((uint8_t*)"Done", SystemController.CmdID, 4);
+        }
+        break;
+
+    case Store_In__EEPROM:
+        ME_ResetEnergy();
+        g_SystemData.EnergyCounter = 0;
+        SystemData_SaveToEEPROM();
+        App_CommManager_SendFrame((uint8_t*)UpdatedEEPROM_Message, Store_In__EEPROM, UpdatedEEPROM_Message_length);
         break;
 
     case Update_EEPROM:
         App_EnergyLogger_Update(&Status.RamData);
         App_CommManager_SendFrame((uint8_t*)UpdatedEEPROM_Message, SystemController.CmdID, UpdatedEEPROM_Message_length);
         break;
-        
+
     case CuttOFF:
-        App_CommManager_SendFrame((uint8_t*)CuttoFF_Message, SystemController.CmdID, Cutoff_message_length);
+        {
+            uint8_t relayIndex = frame[2];
+            uint8_t state      = frame[3];
+            if (state != 0)
+                hRelay_On(relayIndex);
+            else
+                hRelay_Off(relayIndex);
+            App_CommManager_SendFrame((uint8_t*)CuttoFF_Message, SystemController.CmdID, Cutoff_message_length);
+        }
         break;
-        
+
     case Calibrate_Sensors:
-        /* Handled by Calibration Manager (Placeholder) */
         break;
-        
+
     case SetOverLoad_Current_Limit:
-        g_SystemData.OvercurrentLimit = stringtoNumber(frame);
+        g_SystemData.OvercurrentLimit = (uint16_t)((frame[2] << 8) | frame[3]);
         break;
-        
+
     case SetOverLoad_Voltage_Limit:
-        g_SystemData.OvervoltageLimit = stringtoNumber(frame); 
+        g_SystemData.OvervoltageLimit = (uint16_t)((frame[2] << 8) | frame[3]);
         break;
-        
+
     case SHUTDOWN_Device:
         SystemController.Event = EVENT_Power_Down;
         App_SystemController_HandleEvent(SystemController);
-        /* MCUCR_Reg usage was bare in original, moved to Event Handle */
         break;
 
     default:
