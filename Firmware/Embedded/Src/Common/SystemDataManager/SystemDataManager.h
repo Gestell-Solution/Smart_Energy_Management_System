@@ -36,13 +36,33 @@ typedef struct
     uint16_t Power;
 } SystemData_t;
 
+// 1- assign adderss different values  
+
+// 2- reset 
+// 3- read by EERPOM function 
+
+
+int main()
+{
+    if(button == pressed)
+    {
+        readEEPROM(0x00);
+        lcd 
+        wait 3 
+        readEEPROM(0x01);
+        lcd 
+        wait 1 
+        
+    }
+    
+}
 
 /**
  * @brief Default values
  */
-#define DEFAULT_DEVICE_ID            0x01
-#define DEFAULT_VOLTAGE_CALIB        1000
-#define DEFAULT_CURRENT_CALIB        1000
+#define DEFAULT_DEVICE_ID            0x06
+#define DEFAULT_VOLTAGE_CALIB        9999
+#define DEFAULT_CURRENT_CALIB        5555
 #define DEFAULT_ENERGY_COUNTER       0x00000000
 #define DEFAULT_OVERVOLTAGE_LIMIT    250
 #define DEFAULT_OVERCURRENT_LIMIT    10
