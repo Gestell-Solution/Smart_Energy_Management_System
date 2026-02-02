@@ -41,6 +41,7 @@ class BluetoothService {
   bool _isScanning = false;
   bool _isConnected = false;
   app_models.BluetoothDevice? _connectedDevice;
+  DeviceInfo? _lastDeviceInfo;
 
   DateTime? _lastDataReceivedAt;
   int _receivedBytesCount = 0;
@@ -773,7 +774,7 @@ class BluetoothService {
   // Process received command/response
   void _processCommand(int commandId, List<int> data) {
     try {
-      if (commandId == AppConstants.cmdGetRmsData && data.length >= 10) {
+      if (commandId == AppConstants.cmdGetRmsData && data.length >= 11) {
         // Parse RMS data from frame
         final voltage = ((data[0] << 8) | data[1]) / 10.0;
         final current = ((data[2] << 8) | data[3]) / 100.0;
@@ -784,15 +785,26 @@ class BluetoothService {
             ((data[6] << 24) | (data[7] << 16) | (data[8] << 8) | data[9]) /
                 100.0;
 
+        final relayStatesMask = data[10] & 0x0F;
+
         final energyData = EnergyData(
           voltage: voltage,
           current: current,
           power: power,
           energy: energy,
+          relayStatesMask: relayStatesMask,
           status: _getStatus(voltage, current, power),
         );
 
         _dataController.add(energyData);
+      } else if (commandId == AppConstants.cmdGetDeviceInfo && data.length >= 7) {
+        final info = DeviceInfo.fromPayload(data);
+        _lastDeviceInfo = info;
+        // Push updated limits to global defaults for downstream checks
+        AppConstants.defaultOvervoltageLimit = info.maxVoltage;
+        AppConstants.defaultOvercurrentLimit = info.maxCurrent;
+        AppConstants.defaultOverpowerLimit = info.maxPower;
+        _deviceInfoController.add(info);
       }
 
       if (commandId == AppConstants.cmdGetDeviceInfo) {
@@ -806,13 +818,28 @@ class BluetoothService {
 
   // Determine status based on values
   String _getStatus(double voltage, double current, double power) {
-    if (current > AppConstants.defaultOvercurrentLimit) {
+    final currentLimit =
+        _lastDeviceInfo?.maxCurrent ?? AppConstants.defaultOvercurrentLimit;
+    final voltageLimit =
+        _lastDeviceInfo?.maxVoltage ?? AppConstants.defaultOvervoltageLimit;
+    final apparentLimit =
+        _lastDeviceInfo?.maxPower ??
+        (voltageLimit * currentLimit); // Apparent power ceiling
+
+    // Derive PF from snapshot to scale active power threshold
+    double pf = 1.0;
+    if (voltage > 0 && current > 0) {
+      pf = (power / (voltage * current)).clamp(0.0, 1.0);
+    }
+    final powerLimit = apparentLimit * pf;
+
+    if (current > currentLimit) {
       return 'OVERLOAD';
     }
-    if (voltage > AppConstants.defaultOvervoltageLimit) {
+    if (voltage > voltageLimit) {
       return 'OVERVOLT';
     }
-    if (power > AppConstants.defaultOverpowerLimit) {
+    if (power > powerLimit) {
       return 'HIGHPOWER';
     }
     return 'OK';
@@ -837,8 +864,9 @@ class BluetoothService {
     await sendCommand(AppConstants.cmdGetRmsData);
   }
 
-  Future<bool> requestDeviceInfo() async {
-    return await sendCommand(AppConstants.cmdGetDeviceInfo);
+  // Request device info (limits/device id)
+  Future<void> requestDeviceInfo() async {
+    await sendCommand(AppConstants.cmdGetDeviceInfo);
   }
 
   // Reset energy counter

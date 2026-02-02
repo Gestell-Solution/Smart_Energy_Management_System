@@ -30,49 +30,55 @@ class SettingsScreen extends StatelessWidget {
           const SizedBox(width: 8),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          // Bluetooth Connection Section
-          _buildSectionHeader(context, 'Bluetooth Connection'),
-          const SizedBox(height: 12),
-          _buildBluetoothCard(context),
-          const SizedBox(height: 24),
+      body: SafeArea(
+        top: false,
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+          children: [
+            // Bluetooth Connection Section
+            _buildSectionHeader(context, 'Bluetooth Connection'),
+            const SizedBox(height: 12),
+            _buildBluetoothCard(context),
+            const SizedBox(height: 24),
 
-          // Preferences Section
-          _buildSectionHeader(context, 'Preferences'),
-          const SizedBox(height: 12),
-          _buildThemeCard(context),
-          const SizedBox(height: 12),
-          _buildCostRateCard(context),
-          const SizedBox(height: 24),
+            // Preferences Section
+            _buildSectionHeader(context, 'Preferences'),
+            const SizedBox(height: 12),
+            _buildThemeCard(context),
+            const SizedBox(height: 12),
+            _buildCostRateCard(context),
+            const SizedBox(height: 24),
 
-          // Device Info Section
-          _buildSectionHeader(context, 'Device Information'),
-          const SizedBox(height: 12),
-          _buildDeviceInfoCard(context),
-          const SizedBox(height: 24),
-
-          // About Section
-          _buildSectionHeader(context, 'About'),
-          const SizedBox(height: 12),
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.info_outline, color: AppTheme.primaryColor),
-              title: const Text(
-                'About Smart Energy',
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle: const Text('Company info, team, and contact links'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const AboutScreen()),
-                );
-              },
+            // Device Info Section
+            _buildSectionHeader(context, 'Device Information'),
+            const SizedBox(height: 12),
+            Consumer<EnergyProvider>(
+              builder: (context, provider, _) =>
+                  _buildDeviceInfoCard(context, provider),
             ),
-          ),
-        ],
+            const SizedBox(height: 24),
+
+            // About Section
+            _buildSectionHeader(context, 'About'),
+            const SizedBox(height: 12),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.info_outline, color: AppTheme.primaryColor),
+                title: const Text(
+                  'About Smart Energy',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                subtitle: const Text('Company info, team, and contact links'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const AboutScreen()),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -235,56 +241,47 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDeviceInfoCard(BuildContext context) {
-    return Consumer<EnergyProvider>(
-      builder: (context, provider, _) {
-        final info = provider.deviceInfo;
+  Widget _buildDeviceInfoCard(
+      BuildContext context, EnergyProvider provider) {
+    final info = provider.deviceInfo;
+    final deviceId =
+        info != null ? info.deviceId.toString().padLeft(2, '0') : AppConstants.defaultDeviceId;
+    final maxVoltage = info?.maxVoltage ?? AppConstants.defaultOvervoltageLimit;
+    final maxCurrent = info?.maxCurrent ?? AppConstants.defaultOvercurrentLimit;
+    final pf = provider.powerFactor;
+    final apparentPower =
+        info?.maxPower ?? AppConstants.defaultOverpowerLimit;
+    // Active limit is what triggers the overload alert
+    final maxPower = provider.activePowerLimit;
 
-        final deviceIdText = !provider.isConnected
-            ? 'N/A'
-            : (info == null
-                ? 'Fetching...'
-                : info.deviceId.toRadixString(16).padLeft(2, '0').toUpperCase());
-        final maxVoltageText = !provider.isConnected
-            ? 'N/A'
-            : (info == null ? 'Fetching...' : '${info.maxVoltage} V');
-        final maxCurrentText = !provider.isConnected
-            ? 'N/A'
-            : (info == null ? 'Fetching...' : '${info.maxCurrent} A');
-        final maxPowerText = !provider.isConnected
-            ? 'N/A'
-            : (info == null ? 'Fetching...' : '${info.maxPower} W');
-
-        return Card(
-          child: Column(
-            children: [
-              _buildInfoTile(
-                'Device ID',
-                deviceIdText,
-                Icons.fingerprint,
-              ),
-              const Divider(height: 1),
-              _buildInfoTile(
-                'Max Voltage',
-                maxVoltageText,
-                Icons.electric_bolt,
-              ),
-              const Divider(height: 1),
-              _buildInfoTile(
-                'Max Current',
-                maxCurrentText,
-                Icons.electrical_services,
-              ),
-              const Divider(height: 1),
-              _buildInfoTile(
-                'Max Power',
-                maxPowerText,
-                Icons.power,
-              ),
-            ],
+    return Card(
+      child: Column(
+        children: [
+          _buildInfoTile(
+            'Device ID',
+            deviceId,
+            Icons.fingerprint,
           ),
-        );
-      },
+          const Divider(height: 1),
+          _buildInfoTile(
+            'Max Voltage',
+            '${maxVoltage.toStringAsFixed(0)} V',
+            Icons.electric_bolt,
+          ),
+          const Divider(height: 1),
+          _buildInfoTile(
+            'Max Current',
+            '${maxCurrent.toStringAsFixed(0)} A',
+            Icons.electrical_services,
+          ),
+          const Divider(height: 1),
+          _buildInfoTile(
+            'Max Power',
+            '${maxPower.toStringAsFixed(0)} W (PF ${pf.toStringAsFixed(2)})',
+            Icons.power,
+          ),
+        ],
+      ),
     );
   }
 

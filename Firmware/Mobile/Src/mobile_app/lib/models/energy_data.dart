@@ -3,6 +3,7 @@ class EnergyData {
   final double current;      // Amperes (A)
   final double power;        // Watts (W)
   final double energy;       // Kilowatt-hours (kWh)
+  final int relayStatesMask; // 4 LSBs used (bit0..bit3)
   final String status;       // System status
   final DateTime timestamp;
   
@@ -11,6 +12,7 @@ class EnergyData {
     required this.current,
     required this.power,
     required this.energy,
+    this.relayStatesMask = 0,
     required this.status,
     DateTime? timestamp,
   }) : timestamp = timestamp ?? DateTime.now();
@@ -60,6 +62,7 @@ class EnergyData {
       'current': current,
       'power': power,
       'energy': energy,
+      'relayStatesMask': relayStatesMask,
       'status': status,
       'timestamp': timestamp.toIso8601String(),
     };
@@ -72,6 +75,7 @@ class EnergyData {
       current: (json['current'] as num).toDouble(),
       power: (json['power'] as num).toDouble(),
       energy: (json['energy'] as num).toDouble(),
+      relayStatesMask: (json['relayStatesMask'] as int?) ?? 0,
       status: json['status'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),
     );
@@ -83,6 +87,7 @@ class EnergyData {
     double? current,
     double? power,
     double? energy,
+    int? relayStatesMask,
     String? status,
     DateTime? timestamp,
   }) {
@@ -91,6 +96,7 @@ class EnergyData {
       current: current ?? this.current,
       power: power ?? this.power,
       energy: energy ?? this.energy,
+      relayStatesMask: relayStatesMask ?? this.relayStatesMask,
       status: status ?? this.status,
       timestamp: timestamp ?? this.timestamp,
     );
@@ -102,6 +108,7 @@ class EnergyData {
            'I: ${current.toStringAsFixed(2)}A, '
            'P: ${power.toStringAsFixed(1)}W, '
            'E: ${energy.toStringAsFixed(2)}kWh, '
+           'Relays: 0x${relayStatesMask.toRadixString(16).padLeft(2, '0')}, '
            'Status: $status)';
   }
 }

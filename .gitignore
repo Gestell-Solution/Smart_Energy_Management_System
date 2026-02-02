@@ -79,5 +79,6 @@ obj/
 **/yarn-error.log*
 **/coverage/
 
-BackUp
+BackUp/
 **release
+Hardware/schematic/Smart_Energy_Management_System_Design/*

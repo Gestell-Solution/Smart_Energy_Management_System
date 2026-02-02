@@ -30,6 +30,7 @@ class EnergyProvider with ChangeNotifier {
   StreamSubscription? _devicesSubscription;
   StreamSubscription? _scanErrorSubscription;
   StreamSubscription? _connectionErrorSubscription;
+  StreamSubscription? _deviceInfoSubscription;
   Timer? _dataRequestTimer;
   
   // Scan error state
@@ -37,6 +38,7 @@ class EnergyProvider with ChangeNotifier {
 
   // Connection error state
   String _connectionError = '';
+  double _powerFactor = 1.0;
 
   // Getters
   EnergyData? get currentData => _currentData;
@@ -50,10 +52,17 @@ class EnergyProvider with ChangeNotifier {
   double get energyCostRate => _energyCostRate;
   String get scanError => _scanError;
   String get connectionError => _connectionError;
+  double get powerFactor => _powerFactor;
 
   // Computed values
   double get currentCost => _currentData?.calculateCost(_energyCostRate) ?? 0.0;
   int get unreadAlertsCount => _alerts.where((a) => !a.isRead).length;
+  double get activePowerLimit {
+    final pf = _powerFactor > 0 ? _powerFactor : 1.0;
+    final apparentLimit =
+        _deviceInfo?.maxPower ?? AppConstants.defaultOverpowerLimit;
+    return apparentLimit * pf;
+  }
 
   EnergyProvider() {
     _initialize();
@@ -85,6 +94,7 @@ class EnergyProvider with ChangeNotifier {
           _connectedDevice =
               _connectedDevice!.copyWith(isConnected: true);
           _isConnected = true;
+          await _bluetoothService.requestDeviceInfo();
         }
       } catch (e) {
         _connectionError = 'Auto-connect failed: $e';
@@ -112,6 +122,16 @@ class EnergyProvider with ChangeNotifier {
   void _handleIncomingData(EnergyData data) {
     _currentData = data;
 
+    // Track last power factor (clamped 0..1) based on incoming snapshot
+    if (data.voltage > 0 && data.current > 0) {
+      final pf = data.power / (data.voltage * data.current);
+      _powerFactor = pf.clamp(0.0, 1.0);
+    }
+
+    for (var i = 0; i < _relayStates.length; i++) {
+      _relayStates[i] = (data.relayStatesMask & (1 << i)) != 0;
+    }
+
     // Save to history every 5 seconds
     if (_history.isEmpty ||
         DateTime.now().difference(_history.last.timestamp).inSeconds >= 5) {
@@ -131,20 +151,31 @@ class EnergyProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void _handleDeviceInfo(DeviceInfo info) {
+    _deviceInfo = info;
+    notifyListeners();
+  }
+
   // Check for alert conditions
   void _checkForAlerts(EnergyData data) {
+    final voltageLimit =
+        _deviceInfo?.maxVoltage ?? AppConstants.defaultOvervoltageLimit;
+    final currentLimit =
+        _deviceInfo?.maxCurrent ?? AppConstants.defaultOvercurrentLimit;
+    final powerLimit = activePowerLimit;
+
     // Check overload
-    if (data.power > AppConstants.defaultOverpowerLimit) {
+    if (data.power > powerLimit) {
       _addAlert(Alert.overloadAlert(data.power));
     }
 
     // Check overcurrent
-    if (data.current > AppConstants.defaultOvercurrentLimit) {
+    if (data.current > currentLimit) {
       _addAlert(Alert.overcurrentAlert(data.current));
     }
 
     // Check overvoltage
-    if (data.voltage > AppConstants.defaultOvervoltageLimit) {
+    if (data.voltage > voltageLimit) {
       _addAlert(Alert.overvoltageAlert(data.voltage));
     }
   }
@@ -169,11 +200,17 @@ class EnergyProvider with ChangeNotifier {
     print('[Provider] Connection state changed: connected=$connected');
 
     if (connected) {
+      // Start requesting data periodically
+      _startDataRequests();
+      // Reset transient errors and cache
       _connectionError = '';
       _scanError = '';
       _connectedDevice ??= _bluetoothService.connectedDevice;
       _deviceInfo = null;
-      unawaited(_bluetoothService.requestDeviceInfo());
+      // Refresh device limits if not yet received
+      if (_deviceInfo == null) {
+        _bluetoothService.requestDeviceInfo();
+      }
     } else {
       // Stop data requests
       _stopDataRequests();
@@ -247,6 +284,8 @@ class EnergyProvider with ChangeNotifier {
       _scanError = '';
       notifyListeners();
       await _storageService.setPairedDevice(_connectedDevice!);
+      // Fetch static device limits right after connection
+      await _bluetoothService.requestDeviceInfo();
     }
 
     return success;
@@ -373,6 +412,7 @@ class EnergyProvider with ChangeNotifier {
     _devicesSubscription?.cancel();
     _scanErrorSubscription?.cancel();
     _connectionErrorSubscription?.cancel();
+    _deviceInfoSubscription?.cancel();
     _dataRequestTimer?.cancel();
     _bluetoothService.dispose();
     super.dispose();
