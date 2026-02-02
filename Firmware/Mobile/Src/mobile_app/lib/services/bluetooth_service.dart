@@ -801,9 +801,9 @@ class BluetoothService {
         final info = DeviceInfo.fromPayload(data);
         _lastDeviceInfo = info;
         // Push updated limits to global defaults for downstream checks
-        AppConstants.defaultOvervoltageLimit = info.maxVoltage;
-        AppConstants.defaultOvercurrentLimit = info.maxCurrent;
-        AppConstants.defaultOverpowerLimit = info.maxPower;
+        AppConstants.defaultOvervoltageLimit = info.maxVoltage.toDouble();
+        AppConstants.defaultOvercurrentLimit = info.maxCurrent.toDouble();
+        AppConstants.defaultOverpowerLimit = info.maxPower.toDouble();
         _deviceInfoController.add(info);
       }
 

@@ -30,7 +30,6 @@ class EnergyProvider with ChangeNotifier {
   StreamSubscription? _devicesSubscription;
   StreamSubscription? _scanErrorSubscription;
   StreamSubscription? _connectionErrorSubscription;
-  StreamSubscription? _deviceInfoSubscription;
   Timer? _dataRequestTimer;
   
   // Scan error state
@@ -66,11 +65,6 @@ class EnergyProvider with ChangeNotifier {
 
   EnergyProvider() {
     _initialize();
-  }
-
-  void _handleDeviceInfo(DeviceInfo info) {
-    _deviceInfo = info;
-    notifyListeners();
   }
 
   Future<void> _initialize() async {
@@ -412,7 +406,6 @@ class EnergyProvider with ChangeNotifier {
     _devicesSubscription?.cancel();
     _scanErrorSubscription?.cancel();
     _connectionErrorSubscription?.cancel();
-    _deviceInfoSubscription?.cancel();
     _dataRequestTimer?.cancel();
     _bluetoothService.dispose();
     super.dispose();
