@@ -90,10 +90,10 @@ int main(void)
 
     void Timer1_Test_Init();
     /* 3. Main Superloop */
-    DDRC_Reg|=0xFF;
-    while (1)
+SystemData_SetDefaults();
+
+while (1)
     {
-SetBit(PORTC_Reg,PIN7);
         /* --- Measure --- */
         /* Update electrical measurements (V, I, P, E) */
         ME_Update();
@@ -136,7 +136,6 @@ SetBit(PORTC_Reg,PIN7);
 
         /* Stability delay */
         _delay_ms(100);
-        ClearBit(PORTC_Reg,PIN7);
     }
     
     return 0;
