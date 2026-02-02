@@ -97,7 +97,6 @@ static void PM_Trip_Action
 void PM_Init()
 {
      mEXTI_Enable(EXT1_Macro);
-     mTIMER1_Init();         /* Initialize Timer1 for potential timing operations */
      Buzzer_Init();          /* Initialize Alarm Buzzer */
      hCurrent_Init();        /* Initialize Current Sensor */
      hVoltage_Init();        /* Initialize Voltage Sensor */
@@ -108,7 +107,7 @@ void PM_Init()
     for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
     {
         hRelay_Init(Relay_id);
-        hRelay_On(Relay_id);
+        hRelay_Off(Relay_id);
     }
 
      
@@ -167,7 +166,7 @@ void PM_Update()
      }
 
      /* 3. Overload Protection (Debounced) */
-     if (RMS_Current_Read > Irms_Threshold)
+     if (RMS_Current_Read > Irms_Threshold *PM_SHORT_CIRCUIT_MULTIPLIER)
      {
           if (overCurrentCounter < PM_TRIP_DELAY_TICKS)
           {

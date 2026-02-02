@@ -54,4 +54,19 @@
  */
 #define AVR_EEPROM_MAXAddress 1023
 
+/**
+ * @def EEPROM_Write_Success
+ * @brief Macro indicating successful EEPROM write operation.
+ */
+#define EEPROM_Write_Success 1
+/**
+ * @def EEPROM_Write_Fail
+ * @brief Macro indicating failed EEPROM write operation.
+ */
+#define EEPROM_Write_Fail 0
+/**
+ * @def EEPROM_Timeout_Max
+ * @brief Maximum timeout count for EEPROM write operation.
+ */
+#define EEPROM_Timeout_Max 100
 #endif

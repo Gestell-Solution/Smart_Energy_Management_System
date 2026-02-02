@@ -30,6 +30,8 @@
 #include "../../Common/Macros.h"
 #include <string.h>
 #include <stdint.h>
+#include "MeasurementEngine_Private.h"
+#include "MeasurementEngine_Config.h"
 
 /*=========================== Group: Measurement Engine ======================*/
 /**

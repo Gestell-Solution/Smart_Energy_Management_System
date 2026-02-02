@@ -20,13 +20,16 @@
 
 #include "EEPROM_Private.h"
 #include "../Atmega32RegistersAddress.h"
+#include <avr/io.h>
+#include <avr/interrupt.h>
 /**
  * @fn mEEPROM_WriteByte
  * @brief Writes a byte of data to the specified EEPROM address.
  * @param Address The EEPROM address to write to (0x0000 to 0x03FF).
  * @param Data The byte of data to write.
+ * @return uint8_t Status of the write operation (EEPROM_Write_Success or EEPROM_Write_Fail).
  */
-void mEEPROM_WriteByte(uint16_t Address, uint8_t Data);
+uint8_t mEEPROM_WriteByte(uint16_t Address, uint8_t Data);
 /**
  * @fn mEEPROM_ReadByte
  * @brief Reads a byte of data from the specified EEPROM address.
@@ -40,7 +43,7 @@ uint8_t mEEPROM_ReadByte(uint16_t Address);
  * @param data Pointer to the block of data to write.
  * @param length The number of bytes to write.
  */
-void mEEPROM_WriteBlock(uint16_t Address, uint8_t* data, uint16_t length);
+void mEEPROM_WriteBlock(uint16_t Address, uint8_t *data, uint16_t length);
 /**
  * @fn mEEPROM_ReadBlock
  * @brief Reads a block of data from the specified EEPROM address.
@@ -48,9 +51,7 @@ void mEEPROM_WriteBlock(uint16_t Address, uint8_t* data, uint16_t length);
  * @param data Pointer to the block of data to store the read data.
  * @param length The number of bytes to read.
  */
-void mEEPROM_ReadBlock(uint16_t Address, uint8_t* data, uint16_t length);
-
-
+void mEEPROM_ReadBlock(uint16_t Address, uint8_t *data, uint16_t length);
 
 /**
  * @}

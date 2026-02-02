@@ -1,4 +1,4 @@
-#include "../../Common/Config.h"
+#include "../../../../Src/Common/Config.h"
 
 #if ADC_TestModule == Enable
 

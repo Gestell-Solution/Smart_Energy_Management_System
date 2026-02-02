@@ -34,17 +34,16 @@
  * @def R_WITH_ADC
  * @brief The Resistor between Vcc and the adc input
  */
-#define R_WITH_Vcc     590000.0f          /**< The Resistor between Vcc and the adc input  */
+#define AC_Ratio     ((220/12.0f)*11)         /**< The Resistor between Vcc and the adc input  */
 /**
  * @def R_With_GND
  * @brief The Resistor between GND and the adc input
  */
-#define R_With_GND     10000.0f         /**< the Resisotr between GND And ADC Input  */
+#define V_Offset     2.5         /**< the Resisotr between GND And ADC Input  */
 /**
  * @def VCC_Voltage
  * @brief The Vcc Voltage Which needs to be measured
  */
-#define VCC_Voltage   300            /**< The Vcc Voltage Value in Volts (V) */
 
 /**
  * @def Voltage_Calibration_Samples
@@ -57,4 +56,6 @@
  * @brief Maximum resolution of the ADC (1024 for 10-bit ADC).
  */
 #define ADC_Max_Resolution 1024.0f
+
+
 #endif

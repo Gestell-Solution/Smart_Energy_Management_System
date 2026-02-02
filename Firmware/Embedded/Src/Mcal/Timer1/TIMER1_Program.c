@@ -19,8 +19,10 @@
  * @warning    Global interrupts must be enabled for callback functionality to work.
  */
 #include "TIMER1_Config.h"
-#include "TIMER1_Interface.h"
 #include "TIMER1_Private.h"
+#include "../../Common/Config.h"
+#if Timer1_Module==Enable
+#include "TIMER1_Interface.h"
 
 static void (*Timer1_Global_Callback)(void)=Null;
 void mTIMER1_Init(void)
@@ -101,15 +103,5 @@ void __vector_7()
         }
 
 }
-// void __vector_8(void) __attribute__((signal));
-// void __vector_8()
-// {
-//         if(Timer1_Global_Callback!=Null)
-//         {
-//                 Timer1_Global_Callback();
-//         }
-//         else {
-                
-//         }
 
-// }
+#endif

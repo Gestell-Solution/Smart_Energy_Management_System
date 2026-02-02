@@ -55,15 +55,21 @@
 #include "App/CommunicationManager/App_CommManager.h"
 #include "App/DM_Driver/DisplayManager_Interface.h"
 #include "App/ProtectionManager/ProtectionManager_Interface.h"
+#include "Mcal/Timer1/TIMER1_Interface.h"
 #include <util/delay.h>
-#include "../Tests/UnitTest/Mcal/Timer1/Timer1_test_Interface.h"
 
 int main(void)
 {
-    /* 1. Global Interrupt Enable */
+    /* 1. Initialize Mcal Modules */
+    
+    /* Timer 1 Initialization */
+    mTIMER1_Init();
+    /* Global Interrupt Enable */
     mGIE_Enable();
-
+    
     /* 2. Initialize Application Modules */
+    /* system data manager: sets up data for the work of the program */
+    SystemData_Init();
     
     /* Measurement Engine: Configures ADC, Voltage and Current Sensors */
     ME_Init();
@@ -71,6 +77,7 @@ int main(void)
     /* Energy Logger: Configures buffers and EEPROM management */
     /* Note: Internal timer and sensor sampling in Logger disabled to avoid conflict with ME */
     App_EnergyLogger_Init();
+    
     
     /* Protection Manager: Configures safety checks and relay control */
     PM_Init();
@@ -80,9 +87,12 @@ int main(void)
     
     /* Communication Manager: Initializes Buffer and State machines */
     App_CommManager_Init();
+
     void Timer1_Test_Init();
     /* 3. Main Superloop */
-    while (1)
+SystemData_SetDefaults();
+
+while (1)
     {
         /* --- Measure --- */
         /* Update electrical measurements (V, I, P, E) */
@@ -91,7 +101,7 @@ int main(void)
         /* Retrieve latest values */
         float V = ME_GetVoltageRMS();
         float I = ME_GetCurrentRMS();
-        float P = ME_GetPower();
+        float P = ME_GetActivePower();
         float E_Joules = ME_GetEnergy();
         
         /* Convert Joules to kWh for Logging and Display */

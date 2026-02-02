@@ -47,7 +47,7 @@
  * @def RGB_GREEN_GROUP
  * @brief Defines the DIO group (port) used for the green LED.
  */
-#define RGB_GREEN_GROUP        GroupC
+#define RGB_GREEN_GROUP        GroupA
 
 /*============================================================================*/
 /**

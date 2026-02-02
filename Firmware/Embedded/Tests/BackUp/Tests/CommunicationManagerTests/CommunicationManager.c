@@ -1,16 +1,16 @@
-#include "../../Common/Config.h"
+#include "../../../../Src/Common/Config.h"
 
 #if CommunicationManager_TestModule == Enable
 
 #include "CommunicationManager.h"
-#include "../../Mcal/UART/UART_Tx.h"
-#include "../../Hal/HC05/HC05_Interface.h"
-#include "../../Mcal/UART/UART_Rx.h"
-#include "../../Mcal/UART/UART_Init.h"
-#include "../../Mcal/GIE/GIE_Interface.h"
-#include "../../Mcal/DIO/DIO_Interface.h"
-#include "../../App/CommunicationManager/App_CommManager.h"
-#include "../../Mcal/Timer0/TIMER0_Interface.h"
+#include "../../../../Src/Mcal/UART/UART_Tx.h"
+#include "../../../../Src/Hal/HC05/HC05_Interface.h"
+#include "../../../../Src/Mcal/UART/UART_Rx.h"
+#include "../../../../Src/Mcal/UART/UART_Init.h"
+#include "../../../../Src/Mcal/GIE/GIE_Interface.h"
+#include "../../../../Src/Mcal/DIO/DIO_Interface.h"
+#include "../../../../Src/App/CommunicationManager/App_CommManager.h"
+#include "../../../../Src/Mcal/Timer0/TIMER0_Interface.h"
 #include <util/delay.h>
 
 void toggle()

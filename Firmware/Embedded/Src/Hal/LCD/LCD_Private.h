@@ -33,7 +33,7 @@
  * @def Row_3_Start 
  * @brief Start address of Row 3 in DDRAM.
  */
-#define Row_3_Start  0x94
+#define Row_3_Start  0x90
 
 
 
@@ -41,7 +41,7 @@
  * @def Row_4_Start 
  * @brief Start address of Row 4 in DDRAM.
  */
-#define Row_4_Start  0xD4
+#define Row_4_Start  0xD0
 
 
 
@@ -96,13 +96,7 @@
  * @def Function_Set_Command_2 
  * @brief Second function set command.
  */
-#define Function_Set_Command_2 0x02
-
-/** 
- * @def Function_Set_Command_3 
- * @brief Third function set command (2 lines, 5x8 dots).
- */
-#define Function_Set_Command_3 0x08
+#define Function_Set_Command_2 0x28
 
 /** 
  * @def Display_Control_1 

@@ -1,9 +1,9 @@
 #include <util/delay.h>
 
 /* Drivers */
-#include "../../Src/App/ProtectionManager/ProtectionManager_Interface.h"
-#include "../../Src/Hal/LCD/LCD_Interface.h"
-#include "../../Src/Hal/RelayControl/RELAY_Interface.h"
+#include "../../../../Src/App/ProtectionManager/ProtectionManager_Interface.h"
+#include "../../../../Src/Hal/LCD/LCD_Interface.h"
+#include "../../../../Src/Hal/RelayControl/RELAY_Interface.h"
 
 extern float PM_Test_Current;
 
@@ -85,5 +85,4 @@ void PM_Test1_Init(){
              }
         }
     }
-    return 0;
 }
