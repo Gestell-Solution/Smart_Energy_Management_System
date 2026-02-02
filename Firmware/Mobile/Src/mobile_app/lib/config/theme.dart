@@ -97,6 +97,12 @@ class AppTheme {
         color: textLight,
         fontWeight: FontWeight.w500,
       ),
+      labelLarge: GoogleFonts.inter(
+        textStyle: const TextStyle(inherit: false),
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: textDark,
+      ),
     ),
 
     // Icon Theme
@@ -116,10 +122,11 @@ class AppTheme {
         backgroundColor: primaryColor,
         foregroundColor: secondaryColor,
         textStyle: GoogleFonts.inter(
+          textStyle: const TextStyle(inherit: false),
           fontSize: 16,
           fontWeight: FontWeight.w700,
         ),
-      ),
+      ).copyWith(animationDuration: Duration.zero),
     ),
 
     // Bottom Nav Theme
@@ -201,11 +208,34 @@ class AppTheme {
         color: const Color(0xFF9E9E9E),
         fontWeight: FontWeight.w500,
       ),
+      labelLarge: GoogleFonts.inter(
+        textStyle: const TextStyle(inherit: false),
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+      ),
     ),
 
     iconTheme: const IconThemeData(
       color: Colors.white,
       size: 24,
+    ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        backgroundColor: primaryColor,
+        foregroundColor: secondaryColor,
+        textStyle: GoogleFonts.inter(
+          textStyle: const TextStyle(inherit: false),
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+        ),
+      ).copyWith(animationDuration: Duration.zero),
     ),
   );
 }

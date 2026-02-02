@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 import '../providers/energy_provider.dart';
+import '../models/energy_data.dart';
 import '../config/theme.dart';
+import 'alerts_screen.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -19,8 +21,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Energy History'),
+        title: const Text('Smart Energy History'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const AlertsScreen()),
+              );
+            },
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
       body: Consumer<EnergyProvider>(
         builder: (context, provider, _) {
@@ -64,7 +77,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  List<dynamic> _getFilteredHistory(EnergyProvider provider) {
+  List<EnergyData> _getFilteredHistory(EnergyProvider provider) {
     final now = DateTime.now();
     DateTime start;
 
@@ -135,7 +148,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  Widget _buildStatisticsCards(List<dynamic> history) {
+  Widget _buildStatisticsCards(List<EnergyData> history) {
     double avgPower = 0;
     double maxPower = 0;
     double totalEnergy = 0;
@@ -210,7 +223,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  Widget _buildPowerChart(List<dynamic> history) {
+  Widget _buildPowerChart(List<EnergyData> history) {
     if (history.isEmpty) {
       return _buildNoDataCard();
     }
@@ -287,7 +300,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  Widget _buildEnergyChart(List<dynamic> history) {
+  Widget _buildEnergyChart(List<EnergyData> history) {
     if (history.isEmpty) {
       return _buildNoDataCard();
     }
@@ -362,7 +375,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  List<Map<String, dynamic>> _groupDataForBarChart(List<dynamic> history) {
+  List<Map<String, dynamic>> _groupDataForBarChart(List<EnergyData> history) {
     if (history.isEmpty) return [];
 
     // For simplicity, show last 10 data points

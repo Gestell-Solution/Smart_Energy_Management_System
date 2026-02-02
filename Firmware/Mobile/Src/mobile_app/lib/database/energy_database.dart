@@ -83,13 +83,30 @@ class EnergyDatabase {
   Future<int> insertEnergyData(EnergyData data) async {
     final db = await database;
     return await db.insert('energy_history', {
-      'timestamp': DateTime.now().toIso8601String(),
+      'timestamp': data.timestamp.toIso8601String(),
       'voltage': data.voltage,
       'current': data.current,
       'power': data.power,
       'energy': data.energy,
       'status': data.status,
     });
+  }
+
+  Future<void> insertEnergyDataBatch(List<EnergyData> items) async {
+    if (items.isEmpty) return;
+    final db = await database;
+    final batch = db.batch();
+    for (final data in items) {
+      batch.insert('energy_history', {
+        'timestamp': data.timestamp.toIso8601String(),
+        'voltage': data.voltage,
+        'current': data.current,
+        'power': data.power,
+        'energy': data.energy,
+        'status': data.status,
+      });
+    }
+    await batch.commit(noResult: true);
   }
 
   Future<List<Map<String, dynamic>>> getEnergyHistory({
@@ -123,6 +140,46 @@ class EnergyDatabase {
     }
 
     return await db.rawQuery(query, whereArgs);
+  }
+
+  Future<List<EnergyData>> getEnergyHistoryData({
+    int? limit,
+    DateTime? startDate,
+    DateTime? endDate,
+  }) async {
+    final rows = await getEnergyHistory(
+      limit: limit,
+      startDate: startDate,
+      endDate: endDate,
+    );
+
+    final items = rows
+        .map(
+          (row) => EnergyData(
+            voltage: (row['voltage'] as num).toDouble(),
+            current: (row['current'] as num).toDouble(),
+            power: (row['power'] as num).toDouble(),
+            energy: (row['energy'] as num).toDouble(),
+            status: row['status'] as String,
+            timestamp: DateTime.parse(row['timestamp'] as String),
+          ),
+        )
+        .toList();
+
+    return items.reversed.toList();
+  }
+
+  Future<void> trimEnergyHistory({int maxRecords = 1000}) async {
+    final db = await database;
+    await db.rawDelete(
+      'DELETE FROM energy_history WHERE id NOT IN (SELECT id FROM energy_history ORDER BY timestamp DESC LIMIT ?)',
+      [maxRecords],
+    );
+  }
+
+  Future<void> clearEnergyHistory() async {
+    final db = await database;
+    await db.delete('energy_history');
   }
 
   Future<void> clearOldEnergyData(int daysToKeep) async {
@@ -265,13 +322,15 @@ class EnergyDatabase {
   // ==================== Database Maintenance ====================
 
   Future<void> close() async {
-    final db = await database;
-    await db.close();
+    if (_database == null) return;
+    await _database!.close();
+    _database = null;
   }
 
   Future<void> deleteDatabase() async {
     final databasePath = await getDatabasesPath();
     final path = join(databasePath, 'energy_manager.db');
+    await close();
     await databaseFactory.deleteDatabase(path);
   }
 }

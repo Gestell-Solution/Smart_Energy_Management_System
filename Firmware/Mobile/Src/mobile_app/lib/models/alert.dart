@@ -87,7 +87,7 @@ class Alert {
       ),
       message: json['message'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),
-      isRead: json['isRead'] as bool,
+      isRead: json['isRead'] as bool? ?? false,
     );
   }
   

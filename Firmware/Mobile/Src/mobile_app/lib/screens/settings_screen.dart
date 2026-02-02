@@ -6,6 +6,8 @@ import '../providers/energy_provider.dart';
 import '../providers/theme_provider.dart';
 import '../config/theme.dart';
 import '../config/constants.dart';
+import 'about_screen.dart';
+import 'alerts_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -16,35 +18,67 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Settings'),
         centerTitle: true,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          // Bluetooth Connection Section
-          _buildSectionHeader(context, 'Bluetooth Connection'),
-          const SizedBox(height: 12),
-          _buildBluetoothCard(context),
-          const SizedBox(height: 24),
-
-          // Preferences Section
-          _buildSectionHeader(context, 'Preferences'),
-          const SizedBox(height: 12),
-          _buildThemeCard(context),
-          const SizedBox(height: 12),
-          _buildCostRateCard(context),
-          const SizedBox(height: 24),
-
-          // Device Info Section
-          _buildSectionHeader(context, 'Device Information'),
-          const SizedBox(height: 12),
-          _buildDeviceInfoCard(context),
-          const SizedBox(height: 24),
-
-          // About Section
-          _buildSectionHeader(context, 'About'),
-          const SizedBox(height: 12),
-          _buildAboutCard(context),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const AlertsScreen()),
+              );
+            },
+          ),
+          const SizedBox(width: 8),
         ],
+      ),
+      body: SafeArea(
+        top: false,
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+          children: [
+            // Bluetooth Connection Section
+            _buildSectionHeader(context, 'Bluetooth Connection'),
+            const SizedBox(height: 12),
+            _buildBluetoothCard(context),
+            const SizedBox(height: 24),
+
+            // Preferences Section
+            _buildSectionHeader(context, 'Preferences'),
+            const SizedBox(height: 12),
+            _buildThemeCard(context),
+            const SizedBox(height: 12),
+            _buildCostRateCard(context),
+            const SizedBox(height: 24),
+
+            // Device Info Section
+            _buildSectionHeader(context, 'Device Information'),
+            const SizedBox(height: 12),
+            Consumer<EnergyProvider>(
+              builder: (context, provider, _) =>
+                  _buildDeviceInfoCard(context, provider),
+            ),
+            const SizedBox(height: 24),
+
+            // About Section
+            _buildSectionHeader(context, 'About'),
+            const SizedBox(height: 12),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.info_outline, color: AppTheme.primaryColor),
+                title: const Text(
+                  'About Smart Energy',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                subtitle: const Text('Company info, team, and contact links'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const AboutScreen()),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -164,9 +198,11 @@ class SettingsScreen extends StatelessWidget {
             ),
             subtitle: const Text('Switch between light and dark theme'),
             value: themeProvider.isDarkMode,
-            onChanged: (value) {
-              themeProvider.toggleTheme();
-            },
+            onChanged: (!themeProvider.isInitialized || themeProvider.isToggling)
+                ? null
+                : (value) async {
+                    await themeProvider.setThemeMode(value);
+                  },
           ),
         );
       },
@@ -205,31 +241,43 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDeviceInfoCard(BuildContext context) {
+  Widget _buildDeviceInfoCard(
+      BuildContext context, EnergyProvider provider) {
+    final info = provider.deviceInfo;
+    final deviceId =
+        info != null ? info.deviceId.toString().padLeft(2, '0') : AppConstants.defaultDeviceId;
+    final maxVoltage = info?.maxVoltage ?? AppConstants.defaultOvervoltageLimit;
+    final maxCurrent = info?.maxCurrent ?? AppConstants.defaultOvercurrentLimit;
+    final pf = provider.powerFactor;
+    final apparentPower =
+        info?.maxPower ?? AppConstants.defaultOverpowerLimit;
+    // Active limit is what triggers the overload alert
+    final maxPower = provider.activePowerLimit;
+
     return Card(
       child: Column(
         children: [
           _buildInfoTile(
             'Device ID',
-            AppConstants.defaultDeviceId,
+            deviceId,
             Icons.fingerprint,
           ),
           const Divider(height: 1),
           _buildInfoTile(
             'Max Voltage',
-            '${AppConstants.maxVoltage.toStringAsFixed(0)} V',
+            '${maxVoltage.toStringAsFixed(0)} V',
             Icons.electric_bolt,
           ),
           const Divider(height: 1),
           _buildInfoTile(
             'Max Current',
-            '${AppConstants.maxCurrent.toStringAsFixed(0)} A',
+            '${maxCurrent.toStringAsFixed(0)} A',
             Icons.electrical_services,
           ),
           const Divider(height: 1),
           _buildInfoTile(
             'Max Power',
-            '${AppConstants.maxPower.toStringAsFixed(0)} W',
+            '${maxPower.toStringAsFixed(0)} W (PF ${pf.toStringAsFixed(2)})',
             Icons.power,
           ),
         ],
@@ -250,226 +298,9 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAboutCard(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          // App Info Header
-          ListTile(
-            leading: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: AppTheme.primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(
-                Icons.info,
-                color: AppTheme.primaryColor,
-              ),
-            ),
-            title: const Text(
-              'Gestell Smart Energy',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-            subtitle: const Text('Real-time Energy Monitoring System'),
-          ),
-          const Divider(height: 1),
-
-          // Version
-          const ListTile(
-            leading: Icon(Icons.update, color: AppTheme.primaryColor),
-            title: Text(
-              'Version',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-            subtitle: Text(
-                '${AppConstants.appVersion} (Build ${AppConstants.buildNumber})\n${AppConstants.buildDate}'),
-          ),
-          const Divider(height: 1),
-
-          // Company
-          const ListTile(
-            leading: Icon(Icons.business, color: AppTheme.primaryColor),
-            title: Text(
-              'Developed by',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-            subtitle: Text(AppConstants.companyName),
-          ),
-          const Divider(height: 1),
-
-          // Development Team - Expandable
-          const ExpansionTile(
-            leading: Icon(Icons.group, color: AppTheme.primaryColor),
-            title: Text(
-              'Development Team',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-            children: [
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Managers Section
-                    Row(
-                      children: [
-                        Icon(Icons.manage_accounts,
-                            size: 20, color: AppTheme.primaryColor),
-                        SizedBox(width: 8),
-                        Text(
-                          'Managers',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.primaryColor,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Padding(
-                      padding: EdgeInsets.only(left: 28),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('• Hesham Ahmed',
-                              style: TextStyle(
-                                  fontSize: 13, fontWeight: FontWeight.bold)),
-                          Text('  (Project Manager)',
-                              style:
-                                  TextStyle(fontSize: 11, color: Colors.grey)),
-                          SizedBox(height: 8),
-                        ],
-                      ),
-                    ),
-
-                    SizedBox(height: 12),
-
-                    // Embedded Team Section
-                    Row(
-                      children: [
-                        Icon(Icons.memory,
-                            size: 20, color: AppTheme.primaryColor),
-                        SizedBox(width: 8),
-                        Text(
-                          'Embedded',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.primaryColor,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Padding(
-                      padding: EdgeInsets.only(left: 28),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('• Mohamed Abdelgaber',
-                              style: TextStyle(fontSize: 13)),
-                          SizedBox(height: 6),
-                          Text('• Ahmed Twap', style: TextStyle(fontSize: 13)),
-                          SizedBox(height: 6),
-                          Text('• Ahmed Ashraf',
-                              style: TextStyle(fontSize: 13)),
-                          SizedBox(height: 6),
-                          Text('• Basma Khaled',
-                              style: TextStyle(fontSize: 13)),
-                          SizedBox(height: 6),
-                          Text('• Mohammed Diaa',
-                              style: TextStyle(fontSize: 13)),
-                          SizedBox(height: 8),
-                        ],
-                      ),
-                    ),
-
-                    SizedBox(height: 12),
-
-                    // Mobile Team Section
-                    Row(
-                      children: [
-                        Icon(Icons.phone_android,
-                            size: 20, color: AppTheme.primaryColor),
-                        SizedBox(width: 8),
-                        Text(
-                          'Mobile',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.primaryColor,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Padding(
-                      padding: EdgeInsets.only(left: 28),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('• Aya Mohamed', style: TextStyle(fontSize: 13)),
-                          SizedBox(height: 6),
-                          Text('• Salma Tarek', style: TextStyle(fontSize: 13)),
-                          SizedBox(height: 8),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-
-          const Divider(height: 1),
-
-          // Project Description
-          const ExpansionTile(
-            leading:
-                Icon(Icons.description, color: AppTheme.primaryColor),
-            title: Text(
-              'About Project',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-            children: [
-              Padding(
-                padding: EdgeInsets.all(16),
-                child: Text(
-                  'The Gestell Smart Energy Management System is an advanced IoT solution '
-                  'for real-time monitoring and control of electrical energy consumption. '
-                  '\n\n🎯 Project Goals:\n'
-                  '• Reduce energy waste through intelligent monitoring\n'
-                  '• Protect electrical appliances from damage\n'
-                  '• Enable data-driven energy decisions\n'
-                  '• Provide cost analysis and savings tracking'
-                  '\n\n✨ Key Features:\n'
-                  '• Real-time voltage, current, and power monitoring\n'
-                  '• Energy consumption tracking and history\n'
-                  '• Intelligent relay control and scheduling\n'
-                  '• Alert system for electrical anomalies\n'
-                  '• Bluetooth connectivity (HC-05 module)\n'
-                  '• Cost calculation and analysis\n'
-                  '• Historical data logging and export'
-                  '\n\n🔧 Technical Stack:\n'
-                  '• Embedded: AVR ATmega32, ACS712, ZMPT101B\n'
-                  '• Mobile: Flutter Framework (Dart)\n'
-                  '• Communication: Bluetooth Classic (SPP)\n'
-                  '• Database: SQLite local storage',
-                  style: TextStyle(fontSize: 13, height: 1.5),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   void _showDeviceScanDialog(BuildContext context) {
     final provider = context.read<EnergyProvider>();
+    final scaffoldContext = context;
 
     showDialog(
       context: context,
@@ -521,12 +352,13 @@ class SettingsScreen extends StatelessWidget {
                               final success =
                                   await provider.connectToDevice(device);
 
-                              if (context.mounted) {
+                              if (scaffoldContext.mounted) {
                                 final errorMessage =
                                     provider.connectionError.isNotEmpty
                                         ? provider.connectionError
                                         : 'Failed to connect';
-                                ScaffoldMessenger.of(context).showSnackBar(
+                                ScaffoldMessenger.of(scaffoldContext)
+                                    .showSnackBar(
                                   SnackBar(
                                     content: Text(
                                       success
@@ -642,11 +474,11 @@ class SettingsScreen extends StatelessWidget {
                       Navigator.pop(context);
                       final success = await provider.connectToDevice(device);
 
-                      if (context.mounted) {
+                      if (scaffoldContext.mounted) {
                         final errorMessage = provider.connectionError.isNotEmpty
                             ? provider.connectionError
                             : 'Failed to connect';
-                        ScaffoldMessenger.of(context).showSnackBar(
+                        ScaffoldMessenger.of(scaffoldContext).showSnackBar(
                           SnackBar(
                             content: Text(
                               success

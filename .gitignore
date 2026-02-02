@@ -80,4 +80,7 @@ obj/
 **/coverage/
 
 
+
+BackUp/
+Firmware/Embedded/Src/release
 Hardware/schematic/Smart_Energy_Management_System_Design/*

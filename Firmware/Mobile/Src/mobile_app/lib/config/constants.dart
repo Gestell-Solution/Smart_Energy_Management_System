@@ -11,15 +11,15 @@ class AppConstants {
   static const String defaultDeviceId = '01';
   static const String bluetoothDeviceName = 'HC-05';
 
-  // Energy Limits (from hardware specs)
-  static const double maxVoltage = 260.0; // VAC
-  static const double maxCurrent = 30.0; // Amperes
-  static const double maxPower = 2000.0; // Watts
+  // Energy Limits (from hardware specs) - max design values
+  static const double maxVoltage = 260.0; // VAC (spec ceiling)
+  static const double maxCurrent = 30.0; // Amperes (spec ceiling)
+  static const double maxPower = 2000.0; // Watts (spec ceiling)
 
-  // Default Thresholds
-  static const double defaultOvervoltageLimit = 250.0;
-  static const double defaultOvercurrentLimit = 10.0;
-  static const double defaultOverpowerLimit = 2000.0;
+  // Default Thresholds (mutable so we can refresh from device info frame)
+  static double defaultOvervoltageLimit = 250.0;
+  static double defaultOvercurrentLimit = 10.0;
+  static double defaultOverpowerLimit = 2000.0;
 
   // Cost Configuration (EGP per kWh)
   static const double defaultEnergyCostRate = 0.90; // Adjustable in settings
@@ -33,6 +33,7 @@ class AppConstants {
   static const String keyEnergyCostRate = 'energy_cost_rate';
   static const String keyPairedDevice = 'paired_device';
   static const String keyEnergyHistory = 'energy_history';
+  static const String keyEnergyHistoryMigrated = 'energy_history_migrated';
   static const String keyAlertHistory = 'alert_history';
 
   // ========== Embedded Protocol Constants ==========
@@ -53,4 +54,5 @@ class AppConstants {
   static const int cmdProtectionSafe = 0x0A;
   static const int cmdControlRelay =
       0x09; // Same as CuttOFF - relay control command
+  static const int cmdGetDeviceInfo = 0x0C; // Device meta (limits + ID)
 }
