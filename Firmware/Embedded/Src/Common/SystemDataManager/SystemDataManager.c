@@ -52,7 +52,7 @@ bool SystemData_Validate(void)
     return (g_SystemData.MagicNumber == SYSTEMDATA_MAGIC);
 }
 
-void SystemData_SetRelayState(uint8_t relayId, bool isOn)
+void SystemData_SetRelayState(uint8_t relayId, uint8_t isOn)
 {
     if (relayId >= hRELAY_NUM)
     {
