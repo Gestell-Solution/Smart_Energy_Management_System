@@ -15,6 +15,8 @@
 
 #define F_CPU 8000000UL  /**< Define the CPU frequency as 8 MHz */
 
+/** System scheduler tick in milliseconds */
+#define SYSTEM_TICK_MS 100
 
 
 

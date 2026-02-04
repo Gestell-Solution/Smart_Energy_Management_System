@@ -128,7 +128,7 @@ void PM_Init()
 /**
  * @brief      Periodically checks system parameters against safety thresholds.
  * @details    This function should be called in the main loop.
- *             1. Updates measurement readings.
+ *             1. Uses latest measurement readings (ME_Update must be called earlier in the tick).
  *             2. Compares readings with `Vrms_Threshold`, `Irms_Threshold`, and `P_Threshold`.
  *             3. If limits exceeded:
  *                - Sets state to `Danger`.
@@ -142,7 +142,6 @@ void PM_Init()
 void PM_Update()
 {
      static uint8_t overCurrentCounter = 0;
-     ME_Update();
 
      /* Fix-007 Use Test Variable instead of Sensor for Logic Testing */
      float RMS_voltage_Read = ME_GetVoltageRMS();

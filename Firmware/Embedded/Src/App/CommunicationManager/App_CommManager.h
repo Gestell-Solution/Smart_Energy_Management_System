@@ -30,7 +30,7 @@ typedef enum
         Wait_data_With_command,
 } Recive_states;
 
-#define Scheduling_Time 5
+#define Scheduling_Time 20
 #define FRAME_HEADER 0xAA
 #define Done_Action 1
 #define Max_Buffer_size 64

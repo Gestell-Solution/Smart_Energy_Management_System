@@ -198,7 +198,6 @@ uint16_t stringtoNumber(uint8_t *Frame)
 void App_CommManager_Init()
 {
     hBT_Init();
-    mTIMER0_Init();
     /* hEsp01_init(); // Wi-Fi initialization (Disabled) */
 
     /* Schedule the periodic task */

@@ -48,94 +48,23 @@
  */
 
 #include "Common/Config.h"
-#include "Common/Macros.h"
 #include "Mcal/GIE/GIE_Interface.h"
-#include "App/MeasurementEngine/MeasurementEngine_Interface.h"
-#include "App/EnergyLogger/EnergyLogger_Interface.h"
-#include "App/CommunicationManager/App_CommManager.h"
-#include "App/DM_Driver/DisplayManager_Interface.h"
-#include "App/ProtectionManager/ProtectionManager_Interface.h"
-#include "Mcal/Timer1/TIMER1_Interface.h"
-#include <util/delay.h>
+#include "Mcal/Timer0/TIMER0_Interface.h"
+#include "App/System_Controller/System_Controller_Interface.h"
 
 int main(void)
 {
     /* 1. Initialize Mcal Modules */
-    
-    /* Timer 1 Initialization */
-    mTIMER1_Init();
-    /* Global Interrupt Enable */
+    mTIMER0_Init();
     mGIE_Enable();
-    
+
     /* 2. Initialize Application Modules */
-    /* system data manager: sets up data for the work of the program */
-    SystemData_Init();
-    
-    /* Measurement Engine: Configures ADC, Voltage and Current Sensors */
-    ME_Init();
-    
-    /* Energy Logger: Configures buffers and EEPROM management */
-    /* Note: Internal timer and sensor sampling in Logger disabled to avoid conflict with ME */
-    App_EnergyLogger_Init();
-    
-    
-    /* Protection Manager: Configures safety checks and relay control */
-    PM_Init();
-    
-    /* Display Manager: Initializes LCD and display state */
-    DM_Init();
-    
-    /* Communication Manager: Initializes Buffer and State machines */
-    App_CommManager_Init();
+    App_SystemController_Init();
 
-    void Timer1_Test_Init();
-    /* 3. Main Superloop */
-SystemData_SetDefaults();
-
-while (1)
+    /* 3. Main Superloop: cooperative scheduler */
+    while (1)
     {
-        /* --- Measure --- */
-        /* Update electrical measurements (V, I, P, E) */
-        ME_Update();
-        
-        /* Retrieve latest values */
-        float V = ME_GetVoltageRMS();
-        float I = ME_GetCurrentRMS();
-        float P = ME_GetActivePower();
-        float E_Joules = ME_GetEnergy();
-        
-        /* Convert Joules to kWh for Logging and Display */
-        float E_kWh = E_Joules / 3600000.0f;
-
-        /* --- Protection --- */
-        /* Check for over-current/voltage/etc. */
-        PM_Update();
-        
-        /* --- Display --- */
-        /* Update Display with latest values */
-        DM_ShowMeasurements(V, I, P, E_kWh); 
-        DM_Update();
-        
-        /* --- Logging --- */
-        /* Feed buffer to the logger */
-        EnergyLog_t currentLog;
-        currentLog.timestamp = timestampCounter; /* Use counter from logger interface extern if available, or 0 */
-        currentLog.voltage = V;
-        currentLog.current = I;
-        currentLog.power = P;
-        currentLog.energy_kwh = E_kWh;
-        
-        App_EnergyLogger_Update(&currentLog);
-        
-        /* Run Logger Task (Flushes to EEPROM periodically) */
-        App_EnergyLogger_Task();
-        
-        /* --- Communication --- */
-        /* Handle incoming commands (Bluetooth) and outgoing responses */
-        App_CommManager_Task();
-
-        /* Stability delay */
-        _delay_ms(100);
+        mTIMER0_Dispatch();
     }
     
     return 0;

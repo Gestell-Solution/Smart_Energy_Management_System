@@ -19,6 +19,7 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <string.h> /* For strcat */
+#include "../../Mcal/Timer1/TIMER1_Interface.h"
 
 /*============================================================================
  *                                 Global Variables
@@ -40,11 +41,8 @@ SystemEvent_t SystemController;
 /** @brief Global status object holding current system state, mode, and transient data. */
 SystemState_t Status;
 
-/** @brief Timer counter for recovery state logic. */
-static uint8_t RecoveryTimer = 0;
-
-/** @brief Minute counter for recovery state logic. */
-static uint8_t MinutesCounter = 0;
+/** @brief Recovery elapsed time in milliseconds. */
+static uint32_t RecoveryElapsedMs = 0;
 
 /*============================================================================
  *                                 Private Helper Functions
@@ -142,7 +140,16 @@ void Update_Rms_Data(void)
  */
 void App_SystemController_Init(void)
 {
+    static uint8_t isScheduled = 0;
+    static uint8_t isTimer1Init = 0;
     Status.SysState = INIT_State;
+    RecoveryElapsedMs = 0;
+
+    if (!isTimer1Init)
+    {
+        mTIMER1_Init();
+        isTimer1Init = 1;
+    }
 
     /* Initialize Sub-modules */
     DM_Init();
@@ -159,8 +166,12 @@ void App_SystemController_Init(void)
     Status.SysState   = NORMAL_State;
     Status.SystemMode = Automatic;
 
-    /* Start Scheduling */
-    mTIMER0_StartDelay(Scheduling_Time_sysController, App_SystemController_Update);
+    /* Start Scheduling (only once) */
+    if (!isScheduled)
+    {
+        mTIMER0_StartDelay(Scheduling_Time_sysController, App_SystemController_Update);
+        isScheduled = 1;
+    }
 }
 
 /**
@@ -177,26 +188,29 @@ void App_SystemController_Update(void)
     /* Recovery State Logic */
     if (Status.SysState == RECOVERY_State)
     {
-        RecoveryTimer++; 
-        if (RecoveryTimer >= 60)
+        RecoveryElapsedMs += SYSTEM_TICK_MS;
+        if (RecoveryElapsedMs >= RECOVERY_TIME_MS)
         {
-            MinutesCounter++;
-            RecoveryTimer = 0;
-        }
-        
-        if (MinutesCounter >= RecoveryTime) 
-        {
-            Status.SysState = NORMAL_State; 
-            MinutesCounter = 0;
+            Status.SysState = NORMAL_State;
+            RecoveryElapsedMs = 0;
         }
     }
 
-    /* Update Subsystems */
-    DM_Update();
-    Status.RamData.energy_kwh = ME_GetEnergy();
-    Status.RamData.power      = ME_GetActivePower();
-    Status.RamData.current    = ME_GetCurrentRMS();
-    Status.RamData.voltage    = ME_GetVoltageRMS();
+    /* Update Measurements */
+    ME_Update();
+    float V = ME_GetVoltageRMS();
+    float I = ME_GetCurrentRMS();
+    float P = ME_GetActivePower();
+    float E_Joules = ME_GetEnergy();
+    float E_kWh = E_Joules / 3600000.0f;
+
+    Status.RamData.voltage    = V;
+    Status.RamData.current    = I;
+    Status.RamData.power      = P;
+    Status.RamData.energy_kwh = E_kWh;
+
+    /* Protection Update */
+    PM_Update();
 
     /* Protection Logic */
     if (PM_IsTripped() && Status.SysState == NORMAL_State)
@@ -214,28 +228,35 @@ void App_SystemController_Update(void)
         App_SystemController_HandleEvent(SystemController);
         App_EnergyLogger_Update(&Status.RamData);
     }
-    
-    /* Ensure Normal State Persistence if no trips */
-    /* Note: original code set Status.SysState = NORMAL_State unconditionally here?
-       That seems like a bug if we are in RECOVERY or OVERLOAD.
-       I will comment it out or fix logic if it overrides previous states inappropriately.
-       Original line 130: Status.SysState = NORMAL_State;
-       Code review: This line forces Normal state every cycle unless it returns early?
-       But checking line 120 HandleEvent calls might change it?
-       If PM is tripped, it sets Overload?
-       Wait, if I set Overload in line 148 (HandleEvent), then return, this line 130 might overwrite it?
-       Actually, `App_SystemController_HandleEvent` changes `Status.SysState`.
-       But `App_SystemController_Update` continues execution.
-       If `PM_IsTripped()` is true, we handle event.
-       Line 130 sets it back to Normal?
-       This looks like a logic bug in the original code. 
-       I will assume the intention is: If NOT tripped and NOT recovery and NOT overload, ensure Normal.
-       Or maybe it was a mistake. 
-       For now, I will guard it to not overwrite active states.
-    */
-    if (!PM_IsTripped() && Status.SysState != RECOVERY_State && Status.SysState != OVERLOAD_State) {
-         Status.SysState = NORMAL_State;
+
+    /* Update Display */
+    static uint32_t displayElapsedMs = 0;
+    displayElapsedMs += SYSTEM_TICK_MS;
+    if (displayElapsedMs >= DISPLAY_UPDATE_MS)
+    {
+        DM_ShowMeasurements(V, I, P, E_kWh);
+        displayElapsedMs = 0;
     }
+
+    /* Update Timestamp (seconds) */
+    static uint32_t msAccumulator = 0;
+    msAccumulator += SYSTEM_TICK_MS;
+    while (msAccumulator >= 1000u)
+    {
+        timestampCounter++;
+        msAccumulator -= 1000u;
+    }
+
+    /* Logging */
+    EnergyLog_t currentLog;
+    currentLog.timestamp  = timestampCounter;
+    currentLog.voltage    = V;
+    currentLog.current    = I;
+    currentLog.power      = P;
+    currentLog.energy_kwh = E_kWh;
+
+    App_EnergyLogger_Update(&currentLog);
+    App_EnergyLogger_Task();
 
     /* Mode Toggling Logic (Button) */
     if (hBtn_GetStatus() != Status.SystemMode)
@@ -265,8 +286,7 @@ void App_SystemController_HandleEvent(SystemEvent_t Action)
 
     case EVENT_OVERLOAD_CLEARED:
         Status.SysState = RECOVERY_State;
-        RecoveryTimer = 0;
-        MinutesCounter = 0;
+        RecoveryElapsedMs = 0;
         break;
 
     case EVENT_MODE_TOGGLE:
@@ -293,7 +313,8 @@ void App_SystemController_HandleEvent(SystemEvent_t Action)
     case EVENT_SENSOR_FAULT:
         /* Re-initialize system on sensor fault */
         App_SystemController_Init();
-        mTIMER0_Delay_ms(RecoveryTime);
+        Status.SysState = RECOVERY_State;
+        RecoveryElapsedMs = 0;
         break;
 
     case EVENT_Power_Down:
@@ -306,7 +327,8 @@ void App_SystemController_HandleEvent(SystemEvent_t Action)
     case EVENT_Reset_event:
         App_CommManager_SendFrame((uint8_t*)PLEASE_RESET_Message, SHUTDOWN_Device, PLEASE_RESET_Message_length);
         App_SystemController_Init();
-        mTIMER0_Delay_ms(RecoveryTime);
+        Status.SysState = RECOVERY_State;
+        RecoveryElapsedMs = 0;
         break;
 
     default:
