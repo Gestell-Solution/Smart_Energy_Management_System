@@ -166,7 +166,9 @@ void PM_Update()
      }
 
      /* 3. Overload Protection (Debounced) */
-     if (RMS_Current_Read > Irms_Threshold *PM_SHORT_CIRCUIT_MULTIPLIER)
+     /* FIX: Removed multiplier - Overload should trigger at Irms_Threshold, not 3x threshold
+      * The multiplier is ONLY for Short Circuit detection (handled above) */
+     if (RMS_Current_Read > Irms_Threshold)
      {
           if (overCurrentCounter < PM_TRIP_DELAY_TICKS)
           {
@@ -179,6 +181,8 @@ void PM_Update()
                
                /* Snapshot fault values */
                g_SystemData.Current_RMS = RMS_Current_Read;
+               g_SystemData.Voltage_RMS = RMS_voltage_Read;
+               g_SystemData.Power = Power_Read;
           }
      }
      else
@@ -189,18 +193,9 @@ void PM_Update()
                overCurrentCounter--;
           }
           
-          /* Handle Fixed State Display */
-          if (Fix_Check == Not_Fixed)
-          {
-               /* user to Reset if tripped */
-               if (Protection_State == Danger) 
-               {
-                    hLCD_SendCommand(0x01);
-                    hLCD_WriteString("Status: TRIPPED");
-                    hLCD_SetCursor(2, 0);
-                    hLCD_WriteString("Press Reset");
-               }
-          }
+          /* FIX: Removed direct LCD writes to prevent race condition with DisplayManager
+           * Display updates are now handled by DM_ShowProtectionState() called from PM_Trip_Action()
+           * This prevents display corruption from multiple modules writing to LCD simultaneously */
      }
 }
 

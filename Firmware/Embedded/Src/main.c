@@ -92,6 +92,10 @@ int main(void)
     /* 3. Main Superloop */
 SystemData_SetDefaults();
 
+/* EEPROM Periodic Save - Counter */
+static uint32_t eeprom_timer_ms = 0;
+#define EEPROM_SAVE_INTERVAL_MS 60000  // Save every 60 seconds (60000ms)
+
 while (1)
     {
         /* --- Measure --- */
@@ -133,6 +137,16 @@ while (1)
         /* --- Communication --- */
         /* Handle incoming commands (Bluetooth) and outgoing responses */
         App_CommManager_Task();
+
+        /* --- EEPROM Periodic Save --- */
+        /* FIX: Added periodic EEPROM save to prevent data loss on power failure
+         * Saves critical system data every 60 seconds to balance persistence vs EEPROM wear */
+        eeprom_timer_ms += 100;  // Loop delay is 100ms
+        if (eeprom_timer_ms >= EEPROM_SAVE_INTERVAL_MS)
+        {
+            eeprom_timer_ms = 0;
+            SystemData_SaveToEEPROM();
+        }
 
         /* Stability delay */
         _delay_ms(100);
