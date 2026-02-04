@@ -79,10 +79,10 @@ void DM_Update(void)
         DM_ClearLine(DM_LCD_LINE4);
 
         hLCD_SetCursor(DM_LCD_LINE2, 0u);
-        hLCD_WriteString(DM_MSG_OVERLOAD_L1);
+        hLCD_WriteString("!!! TRIPPED !!!");
 
         hLCD_SetCursor(DM_LCD_LINE3, 0u);
-        hLCD_WriteString(DM_MSG_OVERLOAD_L2);
+        hLCD_WriteString("Press Reset Btn");
         return;
     }
 

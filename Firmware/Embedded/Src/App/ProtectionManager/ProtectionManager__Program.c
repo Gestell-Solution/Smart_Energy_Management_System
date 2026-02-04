@@ -166,9 +166,7 @@ void PM_Update()
      }
 
      /* 3. Overload Protection (Debounced) */
-     /* FIX: Removed multiplier - Overload should trigger at Irms_Threshold, not 3x threshold
-      * The multiplier is ONLY for Short Circuit detection (handled above) */
-     if (RMS_Current_Read > Irms_Threshold)
+     if (RMS_Current_Read > Irms_Threshold *PM_SHORT_CIRCUIT_MULTIPLIER)
      {
           if (overCurrentCounter < PM_TRIP_DELAY_TICKS)
           {
@@ -181,8 +179,6 @@ void PM_Update()
                
                /* Snapshot fault values */
                g_SystemData.Current_RMS = RMS_Current_Read;
-               g_SystemData.Voltage_RMS = RMS_voltage_Read;
-               g_SystemData.Power = Power_Read;
           }
      }
      else
@@ -193,9 +189,8 @@ void PM_Update()
                overCurrentCounter--;
           }
           
-          /* FIX: Removed direct LCD writes to prevent race condition with DisplayManager
-           * Display updates are now handled by DM_ShowProtectionState() called from PM_Trip_Action()
-           * This prevents display corruption from multiple modules writing to LCD simultaneously */
+          /* Display is handled by DisplayManager via DM_ShowProtectionState() */
+          /* No direct LCD control needed here - prevents conflict with DM_Update() */
      }
 }
 
@@ -235,7 +230,7 @@ void PM_Reset()
           Buzzer_Off();
           hRGB_SetState(RGB_GREEN);
           DM_ShowProtectionState(Safe);
-          Fix_Check = Fixed; /* Flag that reset was attempted/successful */
+          Fix_Check = 0; /* Reset to initial state - allows button to work on repeated trips */
      }
      
 }

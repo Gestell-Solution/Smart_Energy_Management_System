@@ -260,8 +260,7 @@ void App_SystemController_HandleEvent(SystemEvent_t Action)
         Status.SysState = OVERLOAD_State;
         DM_ShowProtectionState(PM_IsTripped());
         App_CommManager_SendFrame((uint8_t*)DangerMessage, Action.CmdID, DangerMessage_length);
-        /* FIX: Removed PM_Reset() - Protection reset must ONLY occur via External Interrupt (Reset Button)
-         * Auto-resetting here bypasses the manual reset requirement and causes Protection malfunction */
+        PM_Reset(); /* Attempt to reset or acknowledge protection */
         break;
 
     case EVENT_OVERLOAD_CLEARED:
