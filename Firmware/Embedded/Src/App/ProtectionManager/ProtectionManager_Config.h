@@ -68,4 +68,11 @@
  */
 #define PM_CURRENT_HYSTERESIS    1.0f    
 
+/**
+ * @def PM_RESET_STABLE_TICKS
+ * @brief Number of stable-safe ticks required before allowing a reset.
+ * @details With SYSTEM_TICK_MS=100, 5 ticks = 500ms stability.
+ */
+#define PM_RESET_STABLE_TICKS    5
+
 #endif /* _PM_CONFIG_H_ */

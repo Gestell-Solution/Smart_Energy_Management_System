@@ -55,6 +55,7 @@ static uint8_t Protection_State = Safe;
  * - `Not_Fixed`: Fault persists or reset not yet requested.
  */
 static uint8_t Fix_Check = 0;
+static volatile uint8_t PM_ResetRequested = 0;
 /*============================================================================
  *                                Helper Function 
  *============================================================================*/
@@ -142,6 +143,7 @@ void PM_Init()
 void PM_Update()
 {
      static uint8_t overCurrentCounter = 0;
+     static uint8_t safeStableCounter = 0;
 
      /* Fix-007 Use Test Variable instead of Sensor for Logic Testing */
      float RMS_voltage_Read = ME_GetVoltageRMS();
@@ -153,6 +155,7 @@ void PM_Update()
      if (RMS_voltage_Read > Vrms_Threshold || Power_Read > P_Threshold)
      {
           PM_Trip_Action();
+          safeStableCounter = 0;
           return;
      }
 
@@ -161,6 +164,7 @@ void PM_Update()
      {
           PM_Trip_Action();
           overCurrentCounter = PM_TRIP_DELAY_TICKS; /* Max out counter */
+          safeStableCounter = 0;
           return;
      }
 
@@ -179,6 +183,7 @@ void PM_Update()
                /* Snapshot fault values */
                g_SystemData.Current_RMS = RMS_Current_Read;
           }
+          safeStableCounter = 0;
      }
      else
      {
@@ -187,17 +192,28 @@ void PM_Update()
           {
                overCurrentCounter--;
           }
-          
-          /* Handle Fixed State Display */
-          if (Fix_Check == Not_Fixed)
+
+          /* Track stable-safe time before allowing reset */
+          if (safeStableCounter < PM_RESET_STABLE_TICKS)
           {
-               /* user to Reset if tripped */
-               if (Protection_State == Danger) 
+               safeStableCounter++;
+          }
+
+          /* Apply reset only if requested and system is stable-safe */
+          if (PM_ResetRequested && (safeStableCounter >= PM_RESET_STABLE_TICKS))
+          {
+               PM_ResetRequested = 0;
+               if (Protection_State == Danger)
                {
-                    hLCD_SendCommand(0x01);
-                    hLCD_WriteString("Status: TRIPPED");
-                    hLCD_SetCursor(2, 0);
-                    hLCD_WriteString("Press Reset");
+                    Protection_State = Safe;
+                    for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
+                    {
+                         hRelay_On(Relay_id);
+                    }
+                    Buzzer_Off();
+                    hRGB_SetState(RGB_GREEN);
+                    DM_ShowProtectionState(Safe);
+                    Fix_Check = Fixed; /* Flag that reset was attempted/successful */
                }
           }
      }
@@ -226,22 +242,8 @@ uint8_t PM_IsTripped()
  */
 void PM_Reset()
 {
-     /* Logic here implies we can only reset if we are effectively 'Safe' or forcing it.
-        The original logic checks 'Protection_State == Safe' which might be set by Update?
-        Or perhaps this is meant to Force Reset. */
-     if (Protection_State == Danger)
-     {
-          Protection_State = Safe;
-          for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
-          {
-               hRelay_On(Relay_id);
-          }
-          Buzzer_Off();
-          hRGB_SetState(RGB_GREEN);
-          DM_ShowProtectionState(Safe);
-          Fix_Check = Fixed; /* Flag that reset was attempted/successful */
-     }
-     
+     /* EXTI callback: only mark request. Actual reset is handled in PM_Update. */
+     PM_ResetRequested = 1;
 }
 
 #endif /* ProtectionManager == Enable */
