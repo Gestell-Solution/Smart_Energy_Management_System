@@ -18,7 +18,8 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
-#include <string.h> /* For strcat */
+#include <string.h>
+#include <stdio.h>
 
 /*============================================================================
  *                                 Global Variables
@@ -107,24 +108,33 @@ void FloatNumber_to_string(float Num, char res[])
  */
 void Update_Rms_Data(void)
 {
+    /* Build Status.Data safely with snprintf to avoid buffer overflow */
     Status.Data[0] = NullChar;
     char res[6];
+    int written = 0;
+    int remaining = (int)sizeof(Status.Data);
 
-    strcat(Status.Data, "I= ");
     FloatNumber_to_string(Status.RamData.current, res);
-    strcat(Status.Data, res);
+    written = snprintf((char *)Status.Data, remaining, "I=%s ", res);
+    if (written < 0) written = 0;
+    if (written >= remaining) return;
+    remaining -= written;
 
-    strcat(Status.Data, "V= ");
     FloatNumber_to_string(Status.RamData.voltage, res);
-    strcat(Status.Data, res);
+    int w = snprintf((char *)(Status.Data + strlen(Status.Data)), remaining, "V=%s ", res);
+    if (w < 0) w = 0;
+    if (w >= remaining) return;
+    remaining -= w;
 
-    strcat(Status.Data, "P= ");
     FloatNumber_to_string(Status.RamData.power, res);
-    strcat(Status.Data, res);
+    w = snprintf((char *)(Status.Data + strlen(Status.Data)), remaining, "P=%s ", res);
+    if (w < 0) w = 0;
+    if (w >= remaining) return;
+    remaining -= w;
 
-    strcat(Status.Data, "E= ");
     FloatNumber_to_string(Status.RamData.energy_kwh, res);
-    strcat(Status.Data, res);
+    w = snprintf((char *)(Status.Data + strlen(Status.Data)), remaining, "E=%s", res);
+    (void)w;
 }
 
 /*============================================================================
@@ -152,15 +162,16 @@ void App_SystemController_Init(void)
     App_CommManager_Init();
     App_EnergyLogger_Init();
 
-    /* Load initial data */
-    App_EnergyLogger_ReadLog(EnergyRAM.front, &Status.RamData);
+    /* Load initial data if logs exist */
+    extern uint16_t EEPROM_count;
+    if (EEPROM_count > 0u)
+    {
+        App_EnergyLogger_ReadLog(0, &Status.RamData);
+    }
 
     Status.Data[0]    = NullChar;
     Status.SysState   = NORMAL_State;
     Status.SystemMode = Automatic;
-
-    /* Start Scheduling */
-    mTIMER0_StartDelay(Scheduling_Time_sysController, App_SystemController_Update);
 }
 
 /**
@@ -191,12 +202,27 @@ void App_SystemController_Update(void)
         }
     }
 
-    /* Update Subsystems */
-    DM_Update();
-    Status.RamData.energy_kwh = ME_GetEnergy();
-    Status.RamData.power      = ME_GetActivePower();
-    Status.RamData.current    = ME_GetCurrentRMS();
-    Status.RamData.voltage    = ME_GetVoltageRMS();
+    /* -------- Measure -> Protect -> UI -> Log (orchestrated here) -------- */
+    ME_Update();
+    PM_Update();
+
+    Status.RamData.voltage = ME_GetVoltageRMS();
+    Status.RamData.current = ME_GetCurrentRMS();
+    Status.RamData.power   = ME_GetActivePower();
+    /* ME energy is Joules; convert to kWh for UI/logging */
+    Status.RamData.energy_kwh = (ME_GetEnergy() / 3600000.0f);
+
+    /* UI: show protection state and measurements from one place */
+    DM_ShowProtectionState(PM_IsTripped());
+    DM_ShowMeasurements(Status.RamData.voltage,
+                        Status.RamData.current,
+                        Status.RamData.power,
+                        Status.RamData.energy_kwh);
+
+    /* Log: feed RAM buffer + periodic EEPROM flush */
+    Status.RamData.timestamp = timestampCounter++;
+    App_EnergyLogger_Update(&Status.RamData);
+    App_EnergyLogger_Task();
 
     /* Protection Logic */
     if (PM_IsTripped() && Status.SysState == NORMAL_State)
@@ -258,9 +284,7 @@ void App_SystemController_HandleEvent(SystemEvent_t Action)
     {
     case EVENT_OVERLOAD_DETECTED:
         Status.SysState = OVERLOAD_State;
-        DM_ShowProtectionState(PM_IsTripped());
         App_CommManager_SendFrame((uint8_t*)DangerMessage, Action.CmdID, DangerMessage_length);
-        PM_Reset(); /* Attempt to reset or acknowledge protection */
         break;
 
     case EVENT_OVERLOAD_CLEARED:

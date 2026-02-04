@@ -62,6 +62,16 @@ typedef struct
  * @brief Global RAM copy of system data
  */
 extern SystemData_t g_SystemData;
+
+/**
+ * @brief Mark SystemData RAM shadow as modified (needs saving).
+ */
+void SystemData_MarkDirty(void);
+
+/**
+ * @brief Save to EEPROM if dirty (intended for periodic scheduler).
+ */
+void SystemData_PeriodicSaveIfDirty(void);
 /**
  * @brief Load data from EEPROM or set defaults.
  */

@@ -33,13 +33,19 @@
 EnergyLogBuffer_t EnergyRAM;
 
 /** @brief Write index for EEPROM (Next available slot). */
-uint16_t EEPROM_head = 0; 
+uint16_t EEPROM_head = 0;
 
 /** @brief Total count of logs securely stored in EEPROM. */
-uint16_t EEPROM_count = 0; 
+uint16_t EEPROM_count = 0;
 
 /** @brief Global Timestamp counter (externally updated or internal). */
 uint32_t timestampCounter = 0;
+
+/* Addresses to persist logger metadata just before EEPROM_LOG_BASE */
+enum {
+    EEPROM_LOG_META_HEAD_ADDR = (uint16_t)(EEPROM_LOG_BASE - 4),
+    EEPROM_LOG_META_COUNT_ADDR = (uint16_t)(EEPROM_LOG_BASE - 2)
+};
 
 /*============================================================================
  *                                 Function Definitions
@@ -53,12 +59,36 @@ uint32_t timestampCounter = 0;
  */
 void App_EnergyLogger_Init(void)
 {
-    EnergyRAM.front = -1;
-    EnergyRAM.rear  = -1;
+    /* Initialize RAM circular buffer indexes to conventional 0-based values */
+    EnergyRAM.front = 0;
+    EnergyRAM.rear  = 0;
     EnergyRAM.count = 0;
 
-    EEPROM_head   = 0;
-    EEPROM_count  = 0;
+    /* Recover EEPROM head/count from dedicated metadata area if valid */
+    uint8_t tmp[2];
+    /* Read head (uint16_t) */
+    mEEPROM_ReadBlock(EEPROM_LOG_META_HEAD_ADDR, tmp, 2);
+    uint16_t head = (uint16_t)((tmp[0] << 8) | tmp[1]);
+    if (head < EEPROM_MAX_LOGS)
+    {
+        EEPROM_head = head;
+    }
+    else
+    {
+        EEPROM_head = 0;
+    }
+
+    /* Read count (uint16_t) */
+    mEEPROM_ReadBlock(EEPROM_LOG_META_COUNT_ADDR, tmp, 2);
+    uint16_t cnt = (uint16_t)((tmp[0] << 8) | tmp[1]);
+    if (cnt <= EEPROM_MAX_LOGS)
+    {
+        EEPROM_count = cnt;
+    }
+    else
+    {
+        EEPROM_count = 0;
+    }
 }
 
 /**
@@ -71,36 +101,27 @@ void App_EnergyLogger_Init(void)
  */
 void App_EnergyLogger_Update(const EnergyLog_t *newLog)
 {
-    /* Check if buffer is full (Next rear == Front) */
-    if ((EnergyRAM.rear + 1) % ENERGY_LOGGER_RAM_BUFFER_SIZE != EnergyRAM.front)
+    if (EnergyRAM.count == 0)
     {
-        /* Buffer Not Full */
-        if (EnergyRAM.count == 0)
-        {
-            /* First Element */
-            EnergyRAM.front = EnergyRAM.rear = 0;
-            EnergyRAM.buffer[EnergyRAM.rear] = *newLog;
-        }
-        else
-        {
-            /* Normal Append */
-            EnergyRAM.rear = (EnergyRAM.rear + 1) % ENERGY_LOGGER_RAM_BUFFER_SIZE;
-            EnergyRAM.buffer[EnergyRAM.rear] = *newLog;
-        }
-
-        EnergyRAM.count++;
-    }
-    else
-    {
-        /* Buffer Full - Overwrite Strategy */
-        /* Advance Front to discard oldest */
-        EnergyRAM.front = (EnergyRAM.front + 1) % ENERGY_LOGGER_RAM_BUFFER_SIZE;
-
-        /* Advance Rear to write new */
-        EnergyRAM.rear = (EnergyRAM.rear + 1) % ENERGY_LOGGER_RAM_BUFFER_SIZE;
-
+        /* First element */
+        EnergyRAM.front = EnergyRAM.rear = 0;
         EnergyRAM.buffer[EnergyRAM.rear] = *newLog;
+        EnergyRAM.count = 1;
+        return;
     }
+
+    if (EnergyRAM.count < ENERGY_LOGGER_RAM_BUFFER_SIZE)
+    {
+        EnergyRAM.rear = (EnergyRAM.rear + 1) % ENERGY_LOGGER_RAM_BUFFER_SIZE;
+        EnergyRAM.buffer[EnergyRAM.rear] = *newLog;
+        EnergyRAM.count++;
+        return;
+    }
+
+    /* Buffer full: overwrite oldest */
+    EnergyRAM.front = (EnergyRAM.front + 1) % ENERGY_LOGGER_RAM_BUFFER_SIZE;
+    EnergyRAM.rear = (EnergyRAM.rear + 1) % ENERGY_LOGGER_RAM_BUFFER_SIZE;
+    EnergyRAM.buffer[EnergyRAM.rear] = *newLog;
 }
 
 /**
@@ -132,10 +153,19 @@ void App_EnergyLogger_StoreToEEPROM(void)
     EnergyRAM.front = (EnergyRAM.front + 1) % ENERGY_LOGGER_RAM_BUFFER_SIZE;
     EnergyRAM.count--;
 
+    /* Persist metadata (head,count) so we can recover after reboot */
+    uint8_t meta[2];
+    meta[0] = (uint8_t)(EEPROM_head >> 8);
+    meta[1] = (uint8_t)(EEPROM_head & 0xFF);
+    mEEPROM_WriteBlock(EEPROM_LOG_META_HEAD_ADDR, meta, 2);
+    meta[0] = (uint8_t)(EEPROM_count >> 8);
+    meta[1] = (uint8_t)(EEPROM_count & 0xFF);
+    mEEPROM_WriteBlock(EEPROM_LOG_META_COUNT_ADDR, meta, 2);
+
     if (EnergyRAM.count == 0)
     {
-        EnergyRAM.front = -1;
-        EnergyRAM.rear  = -1;
+        EnergyRAM.front = 0;
+        EnergyRAM.rear  = 0;
     }
 }
 
@@ -174,10 +204,8 @@ void App_EnergyLogger_Task(void)
     if(sampleCounter >= N_SAMPLES_TO_EEPROM)
     {
         sampleCounter = 0;
-        
-        /* Flush entire RAM buffer to EEPROM */
-        /* Note: This block might take time; consider flushing one by one in future */
-        while(EnergyRAM.count > 0)
+        /* Flush one entry per call to avoid long blocking operations */
+        if (EnergyRAM.count > 0)
         {
             App_EnergyLogger_StoreToEEPROM();
         }

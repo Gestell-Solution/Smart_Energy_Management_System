@@ -55,6 +55,9 @@ static uint8_t Protection_State = Safe;
  * - `Not_Fixed`: Fault persists or reset not yet requested.
  */
 static uint8_t Fix_Check = 0;
+
+/* Reset button request flag (set in EXTI ISR callback, handled in PM_Update) */
+static volatile uint8_t s_ResetRequested = 0u;
 /*============================================================================
  *                                Helper Function 
  *============================================================================*/
@@ -142,7 +145,27 @@ void PM_Init()
 void PM_Update()
 {
      static uint8_t overCurrentCounter = 0;
-     ME_Update();
+     /* Handle reset request outside ISR */
+     if (s_ResetRequested)
+     {
+          s_ResetRequested = 0u;
+          /* Save any pending configuration/state before attempting reset */
+          SystemData_SaveToEEPROM();
+          /* Only clear trip if condition is safe */
+          if (ME_GetVoltageRMS() <= Vrms_Threshold && ME_GetActivePower() <= P_Threshold &&
+              ME_GetCurrentRMS() <= Irms_Threshold)
+          {
+               Protection_State = Safe;
+               for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
+               {
+                    hRelay_On(Relay_id);
+               }
+               Buzzer_Off();
+               hRGB_SetState(RGB_GREEN);
+               DM_ShowProtectionState(Safe);
+               Fix_Check = Fixed;
+          }
+     }
 
      /* Fix-007 Use Test Variable instead of Sensor for Logic Testing */
      float RMS_voltage_Read = ME_GetVoltageRMS();
@@ -166,7 +189,7 @@ void PM_Update()
      }
 
      /* 3. Overload Protection (Debounced) */
-     if (RMS_Current_Read > Irms_Threshold *PM_SHORT_CIRCUIT_MULTIPLIER)
+     if (RMS_Current_Read > Irms_Threshold)
      {
           if (overCurrentCounter < PM_TRIP_DELAY_TICKS)
           {
@@ -187,19 +210,6 @@ void PM_Update()
           if (overCurrentCounter > 0)
           {
                overCurrentCounter--;
-          }
-          
-          /* Handle Fixed State Display */
-          if (Fix_Check == Not_Fixed)
-          {
-               /* user to Reset if tripped */
-               if (Protection_State == Danger) 
-               {
-                    hLCD_SendCommand(0x01);
-                    hLCD_WriteString("Status: TRIPPED");
-                    hLCD_SetCursor(2, 0);
-                    hLCD_WriteString("Press Reset");
-               }
           }
      }
 }
@@ -227,22 +237,8 @@ uint8_t PM_IsTripped()
  */
 void PM_Reset()
 {
-     /* Logic here implies we can only reset if we are effectively 'Safe' or forcing it.
-        The original logic checks 'Protection_State == Safe' which might be set by Update?
-        Or perhaps this is meant to Force Reset. */
-     if (Protection_State == Danger)
-     {
-          Protection_State = Safe;
-          for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
-          {
-               hRelay_On(Relay_id);
-          }
-          Buzzer_Off();
-          hRGB_SetState(RGB_GREEN);
-          DM_ShowProtectionState(Safe);
-          Fix_Check = Fixed; /* Flag that reset was attempted/successful */
-     }
-     
+     /* EXTI callback runs in ISR context: only set a request flag */
+     s_ResetRequested = 1u;
 }
 
 #endif /* ProtectionManager == Enable */
