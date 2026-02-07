@@ -253,7 +253,7 @@ void App_SystemController_Update(void)
 
     /* Update Timestamp (seconds) */
     static uint32_t msAccumulator = 0;
-    msAccumulator += SYSTEM_TICK_MS;
+    msAccumulator += ME_GetLastDeltaMs();
     while (msAccumulator >= 1000u)
     {
         timestampCounter++;

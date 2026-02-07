@@ -76,6 +76,15 @@ void mTIMER0_TickHandler(void);
  * @return     void
  */
 void mTIMER0_Dispatch(void);
+
+/**
+ * @fn         mTIMER0_GetMillis
+ * @brief      Returns elapsed system time in milliseconds based on Timer0 ticks.
+ * @details    Value is incremented in Timer0 compare ISR every tick (1ms with current config).
+ *             Read is performed atomically to avoid torn 32-bit access on AVR.
+ * @return     uint32_t Elapsed milliseconds since startup (wrap-around safe).
+ */
+uint32_t mTIMER0_GetMillis(void);
 /**
  * @fn         __vector_10(void)
  * @brief      ISR Function 

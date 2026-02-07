@@ -13,6 +13,7 @@
 
 uint8_t isdelaying=0;
 Timer0_ScheduledTasks Timer0_TasksList[T0_ScheduledTasksNum];
+static volatile uint32_t Timer0_SystemMillis = 0u;
 
 void mTIMER0_Init(void)//CTC MODE
 {
@@ -99,8 +100,22 @@ void mTIMER0_Dispatch(void)
         }
 }
 
+uint32_t mTIMER0_GetMillis(void)
+{
+        uint32_t millis;
+        uint8_t sreg = SREG_Reg;
+
+        /* Atomic 32-bit read on AVR */
+        ClearBit(SREG_Reg, 7);
+        millis = Timer0_SystemMillis;
+        SREG_Reg = sreg;
+
+        return millis;
+}
+
 
 void __vector_10(void) {
+        Timer0_SystemMillis++;
          if(isdelaying) return;
         mTIMER0_TickHandler();
 }

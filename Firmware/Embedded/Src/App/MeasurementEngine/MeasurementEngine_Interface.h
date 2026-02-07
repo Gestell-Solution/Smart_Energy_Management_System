@@ -104,6 +104,22 @@ float ME_GetEnergy(void);
 
 /*============================================================================*/
 /**
+ * @fn         uint32_t ME_GetLastDeltaMs(void)
+ * @brief      Returns last elapsed integration interval in milliseconds.
+ * @return     uint32_t Last integration delta time in ms.
+ */
+uint32_t ME_GetLastDeltaMs(void);
+
+/*============================================================================*/
+/**
+ * @fn         uint32_t ME_GetMaxDeltaMs(void)
+ * @brief      Returns maximum observed integration interval in milliseconds.
+ * @return     uint32_t Max observed integration delta time in ms.
+ */
+uint32_t ME_GetMaxDeltaMs(void);
+
+/*============================================================================*/
+/**
  * @fn         void ME_ResetEnergy(void)
  * @brief      Resets the accumulated energy counter.
  * @details    Clears the stored energy value, effectively restarting the measurement cycle.

@@ -150,9 +150,12 @@ void PM_Update()
      float Power_Read = ME_GetActivePower();
      float RMS_Current_Read =ME_GetCurrentRMS();// We Can Replace ME_GetCurrentRMS(); by Varaible PM_Test for injecting 
      //different values of current.
+     float currentLimit = (g_SystemData.OvercurrentLimit > 0u) ? (float)g_SystemData.OvercurrentLimit : (float)Irms_Threshold;
+     float voltageLimit = (g_SystemData.OvervoltageLimit > 0u) ? (float)g_SystemData.OvervoltageLimit : (float)Vrms_Threshold;
+     float powerLimit = (currentLimit > 0.0f && voltageLimit > 0.0f) ? (currentLimit * voltageLimit) : (float)P_Threshold;
      
      /* 1.Trip for Voltage or Power */
-     if (RMS_voltage_Read > Vrms_Threshold || Power_Read > P_Threshold)
+     if (RMS_voltage_Read > voltageLimit || Power_Read > powerLimit)
      {
           PM_Trip_Action();
           safeStableCounter = 0;
@@ -160,7 +163,7 @@ void PM_Update()
      }
 
      /* 2. Short Circuit Protection (Immediate Trip) */
-     if (RMS_Current_Read >= (Irms_Threshold * PM_SHORT_CIRCUIT_MULTIPLIER))
+     if (RMS_Current_Read >= (currentLimit * PM_SHORT_CIRCUIT_MULTIPLIER))
      {
           PM_Trip_Action();
           overCurrentCounter = PM_TRIP_DELAY_TICKS; /* Max out counter */
@@ -169,7 +172,7 @@ void PM_Update()
      }
 
      /* 3. Overload Protection (Debounced) */
-     if (RMS_Current_Read > Irms_Threshold)
+     if (RMS_Current_Read > currentLimit)
      {
           if (overCurrentCounter < PM_TRIP_DELAY_TICKS)
           {

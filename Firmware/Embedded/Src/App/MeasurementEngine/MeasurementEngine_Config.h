@@ -25,6 +25,13 @@
 #define ME_SAMPLE_INTERVAL   (SYSTEM_TICK_MS / 1000.0f)
 
 /**
+ * @def ME_MAX_DT_MS
+ * @brief Maximum accepted delta time (ms) for one integration step.
+ * @details Prevents unrealistic energy jumps if scheduler is stalled.
+ */
+#define ME_MAX_DT_MS         2000u
+
+/**
  * @def Resistive_Load_PF
  * @brief Power Factor for Resistive Loads.
  */
