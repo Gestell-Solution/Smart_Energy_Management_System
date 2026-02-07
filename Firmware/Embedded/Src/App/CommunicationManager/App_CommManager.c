@@ -31,24 +31,25 @@
 #include "../../Common/SystemDataManager/SystemDataManager.h"
 #include "../../Hal/RelayControl/RELAY_Interface.h"
 #include "../../Hal/RelayControl/RELAY_Config.h"
+#include "../../Mcal/GIE/GIE_Interface.h"
 /*============================================================================
  *                                 Global Variables
  *============================================================================*/
 
-/** @brief Circular buffer for received raw bytes. */
-uint8_t Datareceived[Max_Buffer_size];
+/** @brief Circular buffer for received raw bytes (module-private). */
+static uint8_t Datareceived[Max_Buffer_size];
 
-/** @brief External Read index for the circular buffer. */
-extern uint8_t Comm_Front;
+/** @brief Read index for the circular buffer (module-private). */
+static uint8_t Comm_Front = 0;
 
-/** @brief External Write index for the circular buffer. */
-extern uint8_t Comm_Rear;
+/** @brief Write index for the circular buffer (module-private). */
+static uint8_t Comm_Rear = 0;
 
-/** @brief Current count of bytes in the buffer. */
-uint8_t CurrentSizeofBuffer = 0;
+/** @brief Current count of bytes in the buffer (module-private). */
+static uint8_t CurrentSizeofBuffer = 0;
 
-/** @brief Flag indicating if the receive handler is currently processing a frame. */
-uint8_t Ishandling = 0;
+/** @brief Flag indicating if the receive handler is currently processing a frame (module-private). */
+static uint8_t Ishandling = 0;
 
 /** @brief External System Controller Event Object. */
 extern SystemEvent_t SystemController;
@@ -175,14 +176,25 @@ void Comm_SendDashboardData(void)
  */
 uint16_t stringtoNumber(uint8_t *Frame)
 {
+    /* Frame format (as passed by ProcessCommand): Frame[0]=Len, Frame[1]=Cmd, Frame[2...] = payload bytes
+     * Parse ASCII decimal from payload starting at Frame[2]. Return 0 on invalid/empty.
+     */
     uint16_t sum = 0;
-    /* Logic assumes Frame[0] accounts for overhead (3 bytes: Header/Len/Cmd?) */
-    /* Loop seems to iterate over payload bytes */
-    for (int i = 0; i < Frame[0] - 3; i++)
+    uint8_t len = Frame[0];
+    if (len <= 1u) return 0u;
+    uint8_t payloadLen = (uint8_t)(len - 1u);
+    for (uint8_t i = 0; i < payloadLen; ++i)
     {
-        sum = sum * 10 + Frame[i + 2];
+        uint8_t b = Frame[2 + i];
+        if (b >= '0' && b <= '9')
+        {
+            sum = (uint16_t)(sum * 10u + (uint16_t)(b - '0'));
+        }
+        else
+        {
+            break;
+        }
     }
-
     return sum;
 }
 
@@ -199,9 +211,6 @@ void App_CommManager_Init()
 {
     hBT_Init();
     /* hEsp01_init(); // Wi-Fi initialization (Disabled) */
-
-    /* Schedule the periodic task */
-    mTIMER0_StartDelay(Scheduling_Time, App_CommManager_Task);
 }
 
 /**
@@ -217,9 +226,12 @@ void App_CommManager_Task(void)
     /* Fill software buffer from hardware UART */
     while ((hBT_ReadByte(&Value) == Done_Action) && (CurrentSizeofBuffer < Max_Buffer_size))
     {
-        Datareceived[RearOfQueue] = Value;
-        Update_RearOfQueue;
+        /* Protect index updates from concurrent access (e.g., ISR) */
+        mGIE_Disable();
+        Datareceived[Comm_Rear] = Value;
+        Comm_Rear = (uint8_t)((Comm_Rear + 1u) % Max_Buffer_size);
         CurrentSizeofBuffer++;
+        mGIE_Enable();
     }
 
     if (CurrentSizeofBuffer > 0)
@@ -267,7 +279,7 @@ void App_CommManager_SendFrame(uint8_t *data, uint8_t Command, uint16_t len)
  */
 void App_CommManager_ReceiveHandler()
 {
-    if (Ishandling || CurrentSizeofBuffer >= Max_Buffer_size)
+    if (Ishandling || CurrentSizeofBuffer == 0u)
     {
         return;
     }
@@ -279,11 +291,14 @@ void App_CommManager_ReceiveHandler()
     static uint8_t CurrentState = WaitTheHeader;
     static uint8_t FrameLen = 0;
 
-    while (CurrentSizeofBuffer > 0)
+    while (CurrentSizeofBuffer > 0u)
     {
+        /* Dequeue byte with protection */
+        mGIE_Disable();
         uint8_t value = Datareceived[Comm_Front];
-        Update_FrontOfQueue;
+        Comm_Front = (uint8_t)((Comm_Front + 1u) % Max_Buffer_size);
         CurrentSizeofBuffer--;
+        mGIE_Enable();
 
         switch (CurrentState)
         {
@@ -298,24 +313,27 @@ void App_CommManager_ReceiveHandler()
 
         case WaitLen:
             FrameLen = value;
-            LocalFrameBuffer[Rx_Index++] = value;
-            CurrentState = Wait_data_With_command;
-            break;
-
-        case Wait_data_With_command:
-            LocalFrameBuffer[Rx_Index] = value;
-            Rx_Index++;
-
-            /* Protocol: total bytes = 3 + FrameLen (LEN = payload only). Reject oversized LEN. */
-            if (FrameLen > Max_Buffer_size - 3)
+            /* Validate FrameLen does not exceed space */
+            if (FrameLen > (Max_Buffer_size - 3u))
             {
                 CurrentState = WaitTheHeader;
                 Rx_Index = 0;
                 Ishandling = 0;
                 return;
             }
-            if (Rx_Index >= 3 + FrameLen)
+            LocalFrameBuffer[Rx_Index++] = value;
+            CurrentState = Wait_data_With_command;
+            break;
+
+        case Wait_data_With_command:
+            if (Rx_Index < Max_Buffer_size)
             {
+                LocalFrameBuffer[Rx_Index++] = value;
+            }
+
+            if (Rx_Index >= (uint8_t)(3u + FrameLen))
+            {
+                /* Complete frame received; pass pointer to Len (index 1) */
                 SystemController.Event = EVENT_COMM_RECEIVED_CMD;
                 SystemController.CmdID = LocalFrameBuffer[2];
                 App_CommManager_ProcessCommand(&LocalFrameBuffer[1]);
@@ -338,15 +356,13 @@ void App_CommManager_ReceiveHandler()
  */
 void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
 {
-    /* frame[1] corresponds to Command ID if frame points to Length?
-       Wait, passed &LocalFrameBuffer[1].
-       LocalFrameBuffer: [0]=Header, [1]=Len, [2]=Cmd
-       So passed pointer 'frame' starts at [1] (Len).
-       frame[0] = Len
-       frame[1] = Cmd
-       Original code: switch(frame[1]) -> matches Cmd.
-    */
-    switch (NonHeadered_frame[1])
+     /* NonHeadered_frame: [0]=Len, [1]=Cmd, [2..]=payload
+      * Validate length before accessing payload bytes.
+      */
+     uint8_t len = NonHeadered_frame[0];
+     if (len < 1u) return; /* must contain at least command */
+     uint8_t cmd = NonHeadered_frame[1];
+     switch (cmd)
     {
     // case SendToDashboard:
     //     //     Comm_SendDashboardData();
@@ -368,15 +384,22 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
         break;
 
     case CuttOFF:
-        if (NonHeadered_frame[3])
+        /* Expect payload: [relayIndex, onOff] => total len >= 3 (cmd + 2) */
+        if (len >= 3u)
         {
-            hRelay_On(NonHeadered_frame[2]);
-        }else
-        {
-            hRelay_Off(NonHeadered_frame[2]);
+            uint8_t relayId = NonHeadered_frame[2];
+            uint8_t onOff = NonHeadered_frame[3] ? 1u : 0u;
+            if (onOff)
+                hRelay_On(relayId);
+            else
+                hRelay_Off(relayId);
 
+            /* Track relay state changes in persisted SystemData (mark dirty inside) */
+            SystemData_SetRelayState(relayId, onOff);
+            /* Persist immediately for critical relay changes to avoid data loss on power failure */
+            SystemData_SaveToEEPROM();
         }
-        
+
         break;
 
     case Calibrate_Sensors:
@@ -384,11 +407,23 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
         break;
 
     case SetOverLoad_Current_Limit:
-        g_SystemData.OvercurrentLimit = stringtoNumber(NonHeadered_frame);
+        if (len >= 2u)
+        {
+            g_SystemData.OvercurrentLimit = stringtoNumber(NonHeadered_frame);
+            SystemData_MarkDirty();
+            /* Persist immediately to ensure setting survives reboot */
+            SystemData_SaveToEEPROM();
+        }
         break;
 
     case SetOverLoad_Voltage_Limit:
-        g_SystemData.OvervoltageLimit = stringtoNumber(NonHeadered_frame);
+        if (len >= 2u)
+        {
+            g_SystemData.OvervoltageLimit = stringtoNumber(NonHeadered_frame);
+            SystemData_MarkDirty();
+            /* Persist immediately to ensure setting survives reboot */
+            SystemData_SaveToEEPROM();
+        }
         break;
 
     case SHUTDOWN_Device:
@@ -408,5 +443,6 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
  */
 uint8_t Accesslength()
 {
-    return Datareceived[(FrontOfQueue + 1) % Max_Buffer_size];
+    if (CurrentSizeofBuffer == 0u) return 0u;
+    return Datareceived[(Comm_Front + 1u) % Max_Buffer_size];
 }

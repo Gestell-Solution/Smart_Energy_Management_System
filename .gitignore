@@ -10,7 +10,6 @@ Thumbs.db
 *.swo
 *~
 .vscode-ctags
-*.json
 
 # --- Embedded (Build Artifacts) ---
 # Compilation outputs

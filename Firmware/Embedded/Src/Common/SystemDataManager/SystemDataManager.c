@@ -12,6 +12,22 @@
 #include "../../Mcal/EEPROM/EEPROM_Interface.h"
 SystemData_t g_SystemData;
 
+static volatile uint8_t s_SystemDataDirty = 0u;
+
+void SystemData_MarkDirty(void)
+{
+    s_SystemDataDirty = 1u;
+}
+
+void SystemData_PeriodicSaveIfDirty(void)
+{
+    if (s_SystemDataDirty)
+    {
+        SystemData_SaveToEEPROM();
+        s_SystemDataDirty = 0u;
+    }
+}
+
 void SystemData_Init(void)
 {
     SystemData_LoadFromEEPROM();
@@ -75,6 +91,7 @@ void SystemData_SetRelayState(uint8_t relayId, uint8_t isOn)
     if (newStates != g_SystemData.RelayStates)
     {
         g_SystemData.RelayStates = (uint8_t)(newStates & SYSTEMDATA_RELAY_STATE_MASK);
+        SystemData_MarkDirty();
     }
 }
 
