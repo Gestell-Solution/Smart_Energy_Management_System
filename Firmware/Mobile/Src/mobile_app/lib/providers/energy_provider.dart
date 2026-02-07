@@ -311,6 +311,16 @@ class EnergyProvider with ChangeNotifier {
     }
 
     _connectionError = '';
+    _history.clear();
+    await _storageService.clearEnergyHistory();
+    /* Reflect reset immediately in UI, then sync from next device frame. */
+    if (_currentData != null) {
+      _currentData = _currentData!.copyWith(
+        energy: 0.0,
+        timestamp: DateTime.now(),
+      );
+    }
+    await _bluetoothService.requestDataUpdate();
     notifyListeners();
   }
 

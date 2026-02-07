@@ -30,6 +30,7 @@ class BluetoothService {
   // Stream controllers
   final _connectionStateController = StreamController<bool>.broadcast();
   final _dataController = StreamController<EnergyData>.broadcast();
+  final _loggedDataController = StreamController<EnergyData>.broadcast();
   final _deviceInfoController = StreamController<DeviceInfo>.broadcast();
   final _devicesController =
       StreamController<List<app_models.BluetoothDevice>>.broadcast();
@@ -45,6 +46,7 @@ class BluetoothService {
 
   DateTime? _lastDataReceivedAt;
   int _receivedBytesCount = 0;
+  Completer<bool>? _resetAckCompleter;
 
   // Frame buffer for protocol
   final List<int> _frameBuffer = [];
@@ -60,6 +62,7 @@ class BluetoothService {
         controller.onCancel = () => sub.cancel();
       });
   Stream<EnergyData> get dataStream => _dataController.stream;
+  Stream<EnergyData> get loggedDataStream => _loggedDataController.stream;
   Stream<DeviceInfo> get deviceInfoStream => _deviceInfoController.stream;
   Stream<List<app_models.BluetoothDevice>> get devicesStream =>
       _devicesController.stream;
@@ -797,6 +800,41 @@ class BluetoothService {
         );
 
         _dataController.add(energyData);
+      } else if (commandId == AppConstants.cmdWriteEeprom) {
+        final isSuccess = data.isNotEmpty ? (data[0] == 1) : true;
+        final pendingResetAck = _resetAckCompleter;
+        if (pendingResetAck != null && !pendingResetAck.isCompleted) {
+          pendingResetAck.complete(isSuccess);
+        }
+      } else if (commandId == AppConstants.cmdGetLoggedData &&
+          data.isNotEmpty) {
+        final status = data[0];
+        if (status == 0x01 && data.length >= 17) {
+          final timestampSeconds =
+              (data[3] << 24) | (data[4] << 16) | (data[5] << 8) | data[6];
+          final voltage = ((data[7] << 8) | data[8]) / 10.0;
+          final current = ((data[9] << 8) | data[10]) / 100.0;
+          final power = ((data[11] << 8) | data[12]) / 10.0;
+          final energy =
+              ((data[13] << 24) | (data[14] << 16) | (data[15] << 8) | data[16]) /
+                  100.0;
+
+          final logData = EnergyData(
+            voltage: voltage,
+            current: current,
+            power: power,
+            energy: energy,
+            relayStatesMask: 0,
+            status: 'LOG',
+            timestamp:
+                DateTime.fromMillisecondsSinceEpoch(timestampSeconds * 1000),
+          );
+          _loggedDataController.add(logData);
+        } else if (status == 0x00) {
+          _connectionErrorController.add('No logged energy records available');
+        } else if (status == 0x02) {
+          _connectionErrorController.add('Invalid logged-data index requested');
+        }
       } else if (commandId == AppConstants.cmdGetDeviceInfo && data.length >= 7) {
         final info = DeviceInfo.fromPayload(data);
         _lastDeviceInfo = info;
@@ -871,8 +909,41 @@ class BluetoothService {
 
   // Reset energy counter
   Future<bool> resetEnergyCounter() async {
-    return await sendCommand(
+    if (_resetAckCompleter != null && !_resetAckCompleter!.isCompleted) {
+      return false;
+    }
+
+    final ackCompleter = Completer<bool>();
+    _resetAckCompleter = ackCompleter;
+
+    final sent = await sendCommand(
         AppConstants.cmdWriteEeprom, [0x00, 0x00, 0x00, 0x00]);
+    if (!sent) {
+      _resetAckCompleter = null;
+      return false;
+    }
+
+    try {
+      return await ackCompleter.future.timeout(
+        const Duration(seconds: 3),
+        onTimeout: () {
+          _connectionErrorController
+              .add('Reset command timeout: no ACK from device');
+          return false;
+        },
+      );
+    } finally {
+      if (identical(_resetAckCompleter, ackCompleter)) {
+        _resetAckCompleter = null;
+      }
+    }
+  }
+
+  // Request one logged energy record by index (physical EEPROM slot).
+  Future<bool> requestLoggedData([int index = 0]) async {
+    final safeIndex = index < 0 ? 0 : index;
+    final payload = safeIndex.toString().codeUnits;
+    return await sendCommand(AppConstants.cmdGetLoggedData, payload);
   }
 
   // Control Relay
@@ -888,6 +959,7 @@ class BluetoothService {
     _connection?.close();
     _connectionStateController.close();
     _dataController.close();
+    _loggedDataController.close();
     _deviceInfoController.close();
     _devicesController.close();
     _scanErrorController.close();

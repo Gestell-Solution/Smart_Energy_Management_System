@@ -104,6 +104,15 @@ float ME_GetEnergy(void);
 
 /*============================================================================*/
 /**
+ * @fn         float ME_GetEnergyKWh(void)
+ * @brief      Returns the accumulated energy consumption in kWh.
+ * @details    Convenience API for modules that work with billing/display units.
+ * @return     float  Energy consumption in kilowatt-hours (kWh).
+ */
+float ME_GetEnergyKWh(void);
+
+/*============================================================================*/
+/**
  * @fn         void ME_ResetEnergy(void)
  * @brief      Resets the accumulated energy counter.
  * @details    Clears the stored energy value, effectively restarting the measurement cycle.

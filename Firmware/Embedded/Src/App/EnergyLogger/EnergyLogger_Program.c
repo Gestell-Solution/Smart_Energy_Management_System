@@ -145,9 +145,16 @@ void App_EnergyLogger_StoreToEEPROM(void)
     uint16_t addr = EEPROM_LOG_BASE + (uint16_t)(EEPROM_head * sizeof(EnergyLog_t));
     mEEPROM_WriteBlock(addr, (uint8_t*)&logToeeprom, sizeof(EnergyLog_t));
 
-    /* Advance EEPROM Head */
+    /* Advance EEPROM head and keep log count bounded to valid metadata range. */
     EEPROM_head = (EEPROM_head + 1) % EEPROM_MAX_LOGS;
-    EEPROM_count++;
+    if (EEPROM_count < EEPROM_MAX_LOGS)
+    {
+        EEPROM_count++;
+    }
+    else
+    {
+        EEPROM_count = EEPROM_MAX_LOGS;
+    }
 
     /* Remove from RAM */
     EnergyRAM.front = (EnergyRAM.front + 1) % ENERGY_LOGGER_RAM_BUFFER_SIZE;
@@ -195,33 +202,23 @@ void App_EnergyLogger_ReadLog(uint16_t logIndex, EnergyLog_t *readLog)
  */
 void App_EnergyLogger_Task(void)
 {
-    /* Using a static counter to mimic the batch write behavior */
-    static uint8_t sampleCounter = 0;
-    static uint8_t flushPending = 0;
-    
-    sampleCounter++;
-    
-    /* Flush condition: Every N samples */
-    if(sampleCounter >= N_SAMPLES_TO_EEPROM)
+    /*
+     * Write at a controlled rate:
+     * one EEPROM write every N task calls when data exists.
+     * This avoids continuous backlog flush that can add timing pressure.
+     */
+    static uint8_t sampleCounter = 0u;
+
+    if (EnergyRAM.count == 0u)
     {
-        sampleCounter = 0;
-        flushPending = 1;
+        sampleCounter = 0u;
+        return;
     }
 
-    /* Flush one record per tick to avoid long blocking */
-    if (flushPending)
+    sampleCounter++;
+    if (sampleCounter >= N_SAMPLES_TO_EEPROM)
     {
-        if (EnergyRAM.count > 0)
-        {
-            App_EnergyLogger_StoreToEEPROM();
-            if (EnergyRAM.count == 0)
-            {
-                flushPending = 0;
-            }
-        }
-        else
-        {
-            flushPending = 0;
-        }
+        sampleCounter = 0u;
+        App_EnergyLogger_StoreToEEPROM();
     }
 }

@@ -27,7 +27,7 @@ typedef struct
     uint8_t  DeviceID;
     uint16_t VoltageCalib;
     uint16_t CurrentCalib;
-    uint32_t EnergyCounter;
+    uint32_t EnergyCounter;  /**< Cumulative energy total in kWh x100 (canonical persisted unit). */
     uint16_t OvervoltageLimit;
     uint16_t OvercurrentLimit;
     uint8_t  RelayStates;   /**< Bitmask: bit0..bit3 represent relays 0..3 (1=ON,0=OFF) */

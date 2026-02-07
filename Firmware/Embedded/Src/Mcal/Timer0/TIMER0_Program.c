@@ -10,13 +10,16 @@
  * @copyright  Copyright (c) 2025 , Gestell Company 
  */
 #include "TIMER0_Interface.h"
+#include <avr/interrupt.h>
 
 uint8_t isdelaying=0;
 Timer0_ScheduledTasks Timer0_TasksList[T0_ScheduledTasksNum];
+static volatile uint32_t g_timer0_uptime_ms = 0u;
 
 void mTIMER0_Init(void)//CTC MODE
 {
         uint8_t TCCR0_Temp=0;
+        g_timer0_uptime_ms = 0u;
         ClearBit(TCCR0_Temp,T0_WGM00_Bit);
         SetBit(TCCR0_Temp,T0_WGM01_Bit);
 
@@ -99,8 +102,20 @@ void mTIMER0_Dispatch(void)
         }
 }
 
+uint32_t mTIMER0_GetUptimeMs(void)
+{
+        uint32_t snapshot;
+        uint8_t sreg = SREG;
+        cli();
+        snapshot = g_timer0_uptime_ms;
+        SREG = sreg;
+        return snapshot;
+}
+
 
 void __vector_10(void) {
-         if(isdelaying) return;
+        /* Timer0 compare ISR is configured for 1 ms period in current project config. */
+        g_timer0_uptime_ms += 1u;
+        if (isdelaying) return;
         mTIMER0_TickHandler();
 }

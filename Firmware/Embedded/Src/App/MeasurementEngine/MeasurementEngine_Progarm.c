@@ -18,6 +18,7 @@
  *============================================================================*/
 #include "MeasurementEngine_Interface.h"
 #include "../../Common/SystemDataManager/SystemDataManager.h"
+#include "../../Mcal/Timer0/TIMER0_Interface.h"
 
 /*============================================================================
  *                                 Private Variables
@@ -36,6 +37,10 @@ static float ME_Apparent_Power = 0.0f;
 static float ME_Energy = 0.0f;
 /** @brief Latest calculated Active Power (Watts). */
 static float ME_Active_Power = 0.0f;
+/** @brief Last Timer0 uptime snapshot used to calculate elapsed integration time. */
+static uint32_t ME_LastUpdateMs = 0u;
+/** @brief Indicates whether ME_LastUpdateMs has been initialized. */
+static uint8_t ME_HasLastUpdateMs = 0u;
 /*============================================================================
  *                                 Function Definitions
  *============================================================================*/
@@ -50,6 +55,8 @@ void ME_Init(void)
 {
     hVoltage_Init();
     hCurrent_Init();
+    ME_LastUpdateMs = mTIMER0_GetUptimeMs();
+    ME_HasLastUpdateMs = 0u;
 }
 
 /**
@@ -57,12 +64,31 @@ void ME_Init(void)
  * @details    Triggers a read operation from the sensors to get the latest RMS values.
  *             Calculates:
  *             - Power = Vrms * Irms (assuming Unity Power Factor for simplicity, or sensor provides real power).
- *             - Energy = Energy + (Power * Sample_Interval).
- *             This function should be called periodically at a fixed interval (`ME_SAMPLE_INTERVAL`).
+ *             - Energy = Energy + (Power * elapsed_time_seconds).
+ *             This function should be called periodically; integration uses actual elapsed
+ *             time from Timer0 uptime to reduce drift when loop timing varies.
  * @return     void
  */
 void ME_Update(void)
 {
+    float dt_sec = ME_SAMPLE_INTERVAL;
+    uint32_t now_ms = mTIMER0_GetUptimeMs();
+    uint32_t delta_ms = 0u;
+
+    if (ME_HasLastUpdateMs)
+    {
+        delta_ms = now_ms - ME_LastUpdateMs; /* wrap-safe unsigned subtraction */
+        if ((delta_ms > 0u) && (delta_ms <= 2000u))
+        {
+            dt_sec = (float)delta_ms / 1000.0f;
+        }
+    }
+    else
+    {
+        ME_HasLastUpdateMs = 1u;
+    }
+    ME_LastUpdateMs = now_ms;
+
     ME_Vrms = hVoltage_ReadRMS();
     ME_Irms = hCurrent_ReadRMS();
 
@@ -72,8 +98,8 @@ void ME_Update(void)
 #elif Load_Type == AVG_Residential_Load
     ME_Active_Power = ME_Apparent_Power * AVG_Residential_Load_PF ;
 #endif
-    /* Energy accumulation: Energy (J) = Power (W) * Time (s) */
-    ME_Energy += ME_Active_Power * ME_SAMPLE_INTERVAL;
+    /* Energy accumulation: Energy (J) = Power (W) * elapsed time (s) */
+    ME_Energy += ((ME_Active_Power > 0.0f) ? ME_Active_Power : 0.0f) * dt_sec;
 g_SystemData.Voltage_RMS = ME_Vrms;
 g_SystemData.Current_RMS = ME_Irms;
 g_SystemData.Power= ME_Active_Power;
@@ -113,6 +139,11 @@ float ME_GetActivePower(void)
 float ME_GetEnergy(void)     
 { 
     return ME_Energy; 
+}
+
+float ME_GetEnergyKWh(void)
+{
+    return ME_Energy / 3600000.0f;
 }
 
 /**

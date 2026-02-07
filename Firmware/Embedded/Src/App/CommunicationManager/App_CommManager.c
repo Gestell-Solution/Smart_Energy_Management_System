@@ -96,10 +96,9 @@ void Comm_SendMobileData(void)
     float v = ME_GetVoltageRMS();
     float i = ME_GetCurrentRMS();
     float p = ME_GetActivePower();
-    float e_j = ME_GetEnergy();
     uint8_t relayMask = SystemData_GetRelayStatesMask();
-    /* Mobile expects energy/100; commonly Wh. So send (Wh * 100) as uint32 big-endian. */
-    uint32_t e_wh_x100 = (uint32_t)((e_j / (1000.0f * 3600.0f)) * 100.0f);
+    /* Keep wire contract: energy sent as kWh * 100 in uint32 big-endian. */
+    uint32_t e_kwh_x100 = g_SystemData.EnergyCounter;
 
     uint16_t v16 = (uint16_t)(v * 10.0f);
     uint16_t i16 = (uint16_t)(i * 100.0f);
@@ -112,10 +111,10 @@ void Comm_SendMobileData(void)
     rmsPayload[3] = (uint8_t)(i16 & 0xFF);
     rmsPayload[4] = (uint8_t)(p16 >> 8);
     rmsPayload[5] = (uint8_t)(p16 & 0xFF);
-    rmsPayload[6] = (uint8_t)(e_wh_x100 >> 24);
-    rmsPayload[7] = (uint8_t)(e_wh_x100 >> 16);
-    rmsPayload[8] = (uint8_t)(e_wh_x100 >> 8);
-    rmsPayload[9] = (uint8_t)(e_wh_x100 & 0xFF);
+    rmsPayload[6] = (uint8_t)(e_kwh_x100 >> 24);
+    rmsPayload[7] = (uint8_t)(e_kwh_x100 >> 16);
+    rmsPayload[8] = (uint8_t)(e_kwh_x100 >> 8);
+    rmsPayload[9] = (uint8_t)(e_kwh_x100 & 0xFF);
     rmsPayload[10] = (uint8_t)(relayMask & SYSTEMDATA_RELAY_STATE_MASK);
     App_CommManager_SendFrame(rmsPayload, GET_RMS_DATA, 11);
 }
@@ -179,10 +178,11 @@ uint16_t stringtoNumber(uint8_t *Frame)
     /* Frame format (as passed by ProcessCommand): Frame[0]=Len, Frame[1]=Cmd, Frame[2...] = payload bytes
      * Parse ASCII decimal from payload starting at Frame[2]. Return 0 on invalid/empty.
      */
+    if (Frame == Null) return 0u;
     uint16_t sum = 0;
     uint8_t len = Frame[0];
-    if (len <= 1u) return 0u;
-    uint8_t payloadLen = (uint8_t)(len - 1u);
+    if (len == 0u) return 0u;
+    uint8_t payloadLen = len;
     for (uint8_t i = 0; i < payloadLen; ++i)
     {
         uint8_t b = Frame[2 + i];
@@ -209,8 +209,14 @@ uint16_t stringtoNumber(uint8_t *Frame)
  */
 void App_CommManager_Init()
 {
+    static uint8_t isTaskScheduled = 0u;
     hBT_Init();
     /* hEsp01_init(); // Wi-Fi initialization (Disabled) */
+    if (!isTaskScheduled)
+    {
+        mTIMER0_StartDelay(Scheduling_Time, App_CommManager_Task);
+        isTaskScheduled = 1u;
+    }
 }
 
 /**
@@ -360,7 +366,7 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
       * Validate length before accessing payload bytes.
       */
      uint8_t len = NonHeadered_frame[0];
-     if (len < 1u) return; /* must contain at least command */
+     if (len > (Max_Buffer_size - 3u)) return;
      uint8_t cmd = NonHeadered_frame[1];
      switch (cmd)
     {
@@ -372,20 +378,86 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
         break;
 
     case Get_Logged_DATA:
-        // App_EnergyLogger_ReadLog(stringtoNumber(NonHeadered_frame), &Status.RamData);
-        // App_CommManager_SendFrame((uint8_t *)"Done", SystemController.CmdID, 4);
+    {
+        /* Optional payload: ASCII index of EEPROM log entry (physical slot). */
+        uint16_t requestedIndex = 0u;
+        uint8_t response[17];
+        uint8_t responseLen = 0u;
+
+        if (len > 0u)
+        {
+            requestedIndex = stringtoNumber(NonHeadered_frame);
+        }
+
+        if (EEPROM_count == 0u)
+        {
+            response[0] = 0x00u; /* no logs available */
+            responseLen = 1u;
+        }
+        else if (requestedIndex >= EEPROM_count)
+        {
+            response[0] = 0x02u; /* invalid index */
+            response[1] = (uint8_t)(EEPROM_count >> 8);
+            response[2] = (uint8_t)(EEPROM_count & 0xFF);
+            responseLen = 3u;
+        }
+        else
+        {
+            EnergyLog_t log;
+            App_EnergyLogger_ReadLog(requestedIndex, &log);
+
+            uint16_t v16 = (uint16_t)(log.voltage * 10.0f);
+            uint16_t i16 = (uint16_t)(log.current * 100.0f);
+            uint16_t p16 = (uint16_t)(log.power * 10.0f);
+            uint32_t e_kwh_x100 = (uint32_t)(log.energy_kwh * 100.0f + 0.5f);
+
+            response[0] = 0x01u; /* success */
+            response[1] = (uint8_t)(requestedIndex >> 8);
+            response[2] = (uint8_t)(requestedIndex & 0xFF);
+            response[3] = (uint8_t)(log.timestamp >> 24);
+            response[4] = (uint8_t)(log.timestamp >> 16);
+            response[5] = (uint8_t)(log.timestamp >> 8);
+            response[6] = (uint8_t)(log.timestamp & 0xFF);
+            response[7] = (uint8_t)(v16 >> 8);
+            response[8] = (uint8_t)(v16 & 0xFF);
+            response[9] = (uint8_t)(i16 >> 8);
+            response[10] = (uint8_t)(i16 & 0xFF);
+            response[11] = (uint8_t)(p16 >> 8);
+            response[12] = (uint8_t)(p16 & 0xFF);
+            response[13] = (uint8_t)(e_kwh_x100 >> 24);
+            response[14] = (uint8_t)(e_kwh_x100 >> 16);
+            response[15] = (uint8_t)(e_kwh_x100 >> 8);
+            response[16] = (uint8_t)(e_kwh_x100 & 0xFF);
+            responseLen = 17u;
+        }
+
+        App_CommManager_SendFrame(response, Get_Logged_DATA, responseLen);
         break;
+    }
     case GET_DEVICE_INFO:
         Comm_SendDeviceInfo();
         break;
+    case Store_In__EEPROM:
+        /* Mobile uses WRITE_EEPROM (0x04) to reset cumulative energy counter. */
+        ME_ResetEnergy();
+        g_SystemData.EnergyCounter = 0u;
+        Status.RamData.energy_kwh = 0.0f;
+        SystemData_MarkDirty();
+        SystemData_SaveToEEPROM();
+        {
+            /* Explicit ACK so mobile can confirm reset execution, not just TX success. */
+            uint8_t ackPayload[1] = {1u};
+            App_CommManager_SendFrame(ackPayload, Store_In__EEPROM, 1u);
+        }
+        break;
+
     case Update_EEPROM:
-        // App_EnergyLogger_Update(&Status.RamData);
-        // App_CommManager_SendFrame((uint8_t *)UpdatedEEPROM_Message, SystemController.CmdID, UpdatedEEPROM_Message_length);
+        // reserved
         break;
 
     case CuttOFF:
-        /* Expect payload: [relayIndex, onOff] => total len >= 3 (cmd + 2) */
-        if (len >= 3u)
+        /* Expect payload: [relayIndex, onOff] => LEN must be at least 2 payload bytes. */
+        if (len >= 2u)
         {
             uint8_t relayId = NonHeadered_frame[2];
             uint8_t onOff = NonHeadered_frame[3] ? 1u : 0u;
@@ -407,7 +479,7 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
         break;
 
     case SetOverLoad_Current_Limit:
-        if (len >= 2u)
+        if (len >= 1u)
         {
             g_SystemData.OvercurrentLimit = stringtoNumber(NonHeadered_frame);
             SystemData_MarkDirty();
@@ -417,7 +489,7 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
         break;
 
     case SetOverLoad_Voltage_Limit:
-        if (len >= 2u)
+        if (len >= 1u)
         {
             g_SystemData.OvervoltageLimit = stringtoNumber(NonHeadered_frame);
             SystemData_MarkDirty();

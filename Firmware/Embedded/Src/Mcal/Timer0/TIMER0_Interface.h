@@ -77,6 +77,14 @@ void mTIMER0_TickHandler(void);
  */
 void mTIMER0_Dispatch(void);
 /**
+ * @fn         mTIMER0_GetUptimeMs
+ * @brief      Returns monotonic uptime in milliseconds.
+ * @details    This value is incremented from Timer0 ISR on every system tick
+ *             and can be used by modules that need elapsed-time integration.
+ * @return     uint32_t Milliseconds since Timer0 initialization (wrap-safe).
+ */
+uint32_t mTIMER0_GetUptimeMs(void);
+/**
  * @fn         __vector_10(void)
  * @brief      ISR Function 
  * @details    This Function Calls the Tick handler to do the ISR Action for 

@@ -66,8 +66,6 @@ void DM_Init(void)
 void DM_Update(void)
 {
     char numStr[16];
-    char pStr[12];
-    char eStr[12];
     char lineBuf[DM_LCD_COLS + 1];
 
     /* If tripped: show trip layout */
@@ -104,10 +102,13 @@ void DM_Update(void)
     DM_ClearLine(DM_LCD_LINE2);
     hLCD_SetCursor(DM_LCD_LINE2, 0u);
 
-    dtostrf(DM_Power, 4, 0, pStr);  
-    dtostrf(DM_Energy, 3, 1, eStr); 
-
-    snprintf(lineBuf, sizeof(lineBuf), "P=%sW E=%skWh", pStr, eStr);
+    /* Prefer explicit kWh unit; fallback keeps 2 decimals if string exceeds LCD width. */
+    if (snprintf(lineBuf, sizeof(lineBuf), "P=%.0fW E=%.2fkWh",
+                 (double)DM_Power, (double)DM_Energy) > DM_LCD_COLS)
+    {
+        (void)snprintf(lineBuf, sizeof(lineBuf), "P=%.0fW E=%.2f",
+                       (double)DM_Power, (double)DM_Energy);
+    }
     lineBuf[DM_LCD_COLS] = '\0';
     hLCD_WriteString(lineBuf);
 

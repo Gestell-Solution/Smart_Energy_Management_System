@@ -18,6 +18,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
+#include <stdio.h>
 #include <string.h> /* For strcat */
 #include "../../Mcal/Timer1/TIMER1_Interface.h"
 
@@ -43,6 +44,12 @@ SystemState_t Status;
 
 /** @brief Recovery elapsed time in milliseconds. */
 static uint32_t RecoveryElapsedMs = 0;
+/** @brief Save energy when unsaved delta reaches 0.1 kWh (kWh x100 => 10). */
+#define ENERGY_PERSIST_DELTA_X100 10u
+/** @brief Periodic fallback save period for cumulative energy. */
+#define ENERGY_PERSIST_PERIOD_MS 300000u
+/** @brief Logger sampling window aligned with EnergyLogger write pacing. */
+#define ENERGY_LOG_SAMPLE_WINDOW_MS (SYSTEM_TICK_MS * N_SAMPLES_TO_EEPROM)
 
 /*============================================================================
  *                                 Private Helper Functions
@@ -61,16 +68,71 @@ void Update_Global_SystemData(void)
     g_SystemData.Current_RMS = (uint16_t)Status.RamData.current;
     g_SystemData.Power       = (uint16_t)Status.RamData.power;
 
-    static uint32_t StartupEnergyOffset = 0;
-    static uint8_t  IsFirstRun = 1;
+    /* Canonical energy store unit: kWh x100 */
+    float session_kwh = ME_GetEnergyKWh();
+    uint32_t session_x100 = (uint32_t)(session_kwh * 100.0f + 0.5f);
 
-    if (IsFirstRun == 1)
+    static uint8_t  isInitialized = 0u;
+    static uint32_t last_session_x100 = 0u;
+    static uint32_t last_persisted_x100 = 0u;
+    static uint32_t save_elapsed_ms = 0u;
+
+    if (!isInitialized)
     {
-        StartupEnergyOffset = g_SystemData.EnergyCounter;
-        IsFirstRun = 0;
+        last_session_x100 = session_x100;
+        last_persisted_x100 = g_SystemData.EnergyCounter;
+        save_elapsed_ms = 0u;
+        isInitialized = 1u;
+        return;
     }
 
-    g_SystemData.EnergyCounter = StartupEnergyOffset + (uint32_t)Status.RamData.energy_kwh;
+    if (session_x100 >= last_session_x100)
+    {
+        uint32_t delta_x100 = session_x100 - last_session_x100;
+        if (delta_x100 > 0u)
+        {
+            if ((0xFFFFFFFFUL - g_SystemData.EnergyCounter) < delta_x100)
+            {
+                g_SystemData.EnergyCounter = 0xFFFFFFFFUL;
+            }
+            else
+            {
+                g_SystemData.EnergyCounter += delta_x100;
+            }
+        }
+    }
+    else
+    {
+        /* Session counter was reset/reinitialized; re-baseline local session view. */
+    }
+    last_session_x100 = session_x100;
+
+    /* If total counter decreased (e.g., reset command), realign persist baseline. */
+    if (g_SystemData.EnergyCounter < last_persisted_x100)
+    {
+        last_persisted_x100 = g_SystemData.EnergyCounter;
+        save_elapsed_ms = 0u;
+        return;
+    }
+
+    if (save_elapsed_ms < (0xFFFFFFFFUL - SYSTEM_TICK_MS))
+    {
+        save_elapsed_ms += SYSTEM_TICK_MS;
+    }
+    else
+    {
+        save_elapsed_ms = ENERGY_PERSIST_PERIOD_MS;
+    }
+
+    uint32_t unsaved_delta_x100 = g_SystemData.EnergyCounter - last_persisted_x100;
+    if ((unsaved_delta_x100 >= ENERGY_PERSIST_DELTA_X100) ||
+        ((save_elapsed_ms >= ENERGY_PERSIST_PERIOD_MS) && (unsaved_delta_x100 > 0u)))
+    {
+        SystemData_MarkDirty();
+        SystemData_SaveToEEPROM();
+        last_persisted_x100 = g_SystemData.EnergyCounter;
+        save_elapsed_ms = 0u;
+    }
 }
 
 /**
@@ -105,33 +167,13 @@ void FloatNumber_to_string(float Num, char res[])
  */
 void Update_Rms_Data(void)
 {
-    /* Build Status.Data safely with snprintf to avoid buffer overflow */
-    Status.Data[0] = NullChar;
-    char res[6];
-    int written = 0;
-    int remaining = (int)sizeof(Status.Data);
-
-    FloatNumber_to_string(Status.RamData.current, res);
-    written = snprintf((char *)Status.Data, remaining, "I=%s ", res);
-    if (written < 0) written = 0;
-    if (written >= remaining) return;
-    remaining -= written;
-
-    FloatNumber_to_string(Status.RamData.voltage, res);
-    int w = snprintf((char *)(Status.Data + strlen(Status.Data)), remaining, "V=%s ", res);
-    if (w < 0) w = 0;
-    if (w >= remaining) return;
-    remaining -= w;
-
-    FloatNumber_to_string(Status.RamData.power, res);
-    w = snprintf((char *)(Status.Data + strlen(Status.Data)), remaining, "P=%s ", res);
-    if (w < 0) w = 0;
-    if (w >= remaining) return;
-    remaining -= w;
-
-    FloatNumber_to_string(Status.RamData.energy_kwh, res);
-    w = snprintf((char *)(Status.Data + strlen(Status.Data)), remaining, "E=%s", res);
-    (void)w;
+    /* Energy and other fields are formatted directly to support large values safely. */
+    (void)snprintf((char *)Status.Data, sizeof(Status.Data),
+                   "I=%.2f V=%.2f P=%.2f E=%.2f",
+                   (double)Status.RamData.current,
+                   (double)Status.RamData.voltage,
+                   (double)Status.RamData.power,
+                   (double)Status.RamData.energy_kwh);
 }
 
 /*============================================================================
@@ -214,12 +256,12 @@ void App_SystemController_Update(void)
     float V = ME_GetVoltageRMS();
     float I = ME_GetCurrentRMS();
     float P = ME_GetActivePower();
-    float E_Joules = ME_GetEnergy();
-    float E_kWh = E_Joules / 3600000.0f;
 
     Status.RamData.voltage    = V;
     Status.RamData.current    = I;
     Status.RamData.power      = P;
+    Update_Global_SystemData();
+    float E_kWh = (float)g_SystemData.EnergyCounter / 100.0f;
     Status.RamData.energy_kwh = E_kWh;
 
     /* Protection Update */
@@ -260,15 +302,29 @@ void App_SystemController_Update(void)
         msAccumulator -= 1000u;
     }
 
-    /* Logging */
-    EnergyLog_t currentLog;
-    currentLog.timestamp  = timestampCounter;
-    currentLog.voltage    = V;
-    currentLog.current    = I;
-    currentLog.power      = P;
-    currentLog.energy_kwh = E_kWh;
+    /* Logging: sample at controlled window to avoid RAM buffer overrun. */
+    static uint32_t logElapsedMs = 0u;
+    if (logElapsedMs < (0xFFFFFFFFUL - SYSTEM_TICK_MS))
+    {
+        logElapsedMs += SYSTEM_TICK_MS;
+    }
+    else
+    {
+        logElapsedMs = ENERGY_LOG_SAMPLE_WINDOW_MS;
+    }
 
-    App_EnergyLogger_Update(&currentLog);
+    if (logElapsedMs >= ENERGY_LOG_SAMPLE_WINDOW_MS)
+    {
+        EnergyLog_t currentLog;
+        currentLog.timestamp  = timestampCounter;
+        currentLog.voltage    = V;
+        currentLog.current    = I;
+        currentLog.power      = P;
+        currentLog.energy_kwh = E_kWh;
+
+        App_EnergyLogger_Update(&currentLog);
+        logElapsedMs = 0u;
+    }
     App_EnergyLogger_Task();
 
     /* Mode Toggling Logic (Button) */
