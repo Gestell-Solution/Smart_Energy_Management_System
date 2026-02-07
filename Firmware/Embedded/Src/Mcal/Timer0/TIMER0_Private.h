@@ -226,6 +226,12 @@ typedef struct
      * @brief Indicates whether the task is currently active (1) or inactive (0).
      */
     uint8_t Active;
+
+    /**
+     * @brief Pending run count for the task callback.
+     * @note  Incremented by ISR tick handler, decremented by main dispatcher.
+     */
+    uint8_t Ready;
 } Timer0_ScheduledTasks;
 
 

@@ -44,7 +44,7 @@ float PM_Test_Current = 0.0f;
  * - `Safe` (0): Normal operation.
  * - `Danger` (1): A fault condition is active.
  */
-static uint8_t Protection_State = Safe;
+ uint8_t Protection_State = Safe;
 
 /**
  * @brief Fix check status flag.
@@ -55,9 +55,7 @@ static uint8_t Protection_State = Safe;
  * - `Not_Fixed`: Fault persists or reset not yet requested.
  */
 static uint8_t Fix_Check = 0;
-
-/* Reset button request flag (set in EXTI ISR callback, handled in PM_Update) */
-static volatile uint8_t s_ResetRequested = 0u;
+static volatile uint8_t PM_ResetRequested = 0;
 /*============================================================================
  *                                Helper Function 
  *============================================================================*/
@@ -131,7 +129,7 @@ void PM_Init()
 /**
  * @brief      Periodically checks system parameters against safety thresholds.
  * @details    This function should be called in the main loop.
- *             1. Updates measurement readings.
+ *             1. Uses latest measurement readings (ME_Update must be called earlier in the tick).
  *             2. Compares readings with `Vrms_Threshold`, `Irms_Threshold`, and `P_Threshold`.
  *             3. If limits exceeded:
  *                - Sets state to `Danger`.
@@ -145,27 +143,7 @@ void PM_Init()
 void PM_Update()
 {
      static uint8_t overCurrentCounter = 0;
-     /* Handle reset request outside ISR */
-     if (s_ResetRequested)
-     {
-          s_ResetRequested = 0u;
-          /* Save any pending configuration/state before attempting reset */
-          SystemData_SaveToEEPROM();
-          /* Only clear trip if condition is safe */
-          if (ME_GetVoltageRMS() <= Vrms_Threshold && ME_GetActivePower() <= P_Threshold &&
-              ME_GetCurrentRMS() <= Irms_Threshold)
-          {
-               Protection_State = Safe;
-               for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
-               {
-                    hRelay_On(Relay_id);
-               }
-               Buzzer_Off();
-               hRGB_SetState(RGB_GREEN);
-               DM_ShowProtectionState(Safe);
-               Fix_Check = Fixed;
-          }
-     }
+     static uint8_t safeStableCounter = 0;
 
      /* Fix-007 Use Test Variable instead of Sensor for Logic Testing */
      float RMS_voltage_Read = ME_GetVoltageRMS();
@@ -177,6 +155,7 @@ void PM_Update()
      if (RMS_voltage_Read > Vrms_Threshold || Power_Read > P_Threshold)
      {
           PM_Trip_Action();
+          safeStableCounter = 0;
           return;
      }
 
@@ -185,6 +164,7 @@ void PM_Update()
      {
           PM_Trip_Action();
           overCurrentCounter = PM_TRIP_DELAY_TICKS; /* Max out counter */
+          safeStableCounter = 0;
           return;
      }
 
@@ -203,6 +183,7 @@ void PM_Update()
                /* Snapshot fault values */
                g_SystemData.Current_RMS = RMS_Current_Read;
           }
+          safeStableCounter = 0;
      }
      else
      {
@@ -210,6 +191,30 @@ void PM_Update()
           if (overCurrentCounter > 0)
           {
                overCurrentCounter--;
+          }
+
+          /* Track stable-safe time before allowing reset */
+          if (safeStableCounter < PM_RESET_STABLE_TICKS)
+          {
+               safeStableCounter++;
+          }
+
+          /* Apply reset only if requested and system is stable-safe */
+          if (PM_ResetRequested && (safeStableCounter >= PM_RESET_STABLE_TICKS))
+          {
+               PM_ResetRequested = 0;
+               if (Protection_State == Danger)
+               {
+                    Protection_State = Safe;
+                    for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
+                    {
+                         hRelay_On(Relay_id);
+                    }
+                    Buzzer_Off();
+                    hRGB_SetState(RGB_GREEN);
+                    DM_ShowProtectionState(Safe);
+                    Fix_Check = Fixed; /* Flag that reset was attempted/successful */
+               }
           }
      }
 }
@@ -237,8 +242,8 @@ uint8_t PM_IsTripped()
  */
 void PM_Reset()
 {
-     /* EXTI callback runs in ISR context: only set a request flag */
-     s_ResetRequested = 1u;
+     /* EXTI callback: only mark request. Actual reset is handled in PM_Update. */
+     PM_ResetRequested = 1;
 }
 
 #endif /* ProtectionManager == Enable */

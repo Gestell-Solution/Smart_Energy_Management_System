@@ -15,12 +15,14 @@
 #ifndef MEASUREMENT_ENGINE_CONFIG_H
 #define MEASUREMENT_ENGINE_CONFIG_H
 
+#include "../../Common/ProjectCfg.h"
+
 /**
  * @def ME_SAMPLE_INTERVAL
  * @brief Sampling period between consecutive ME_Update() calls in seconds.
  * @details Determines how often the Measurement Engine reads new ADC samples.
  */
-#define ME_SAMPLE_INTERVAL   0.46f  
+#define ME_SAMPLE_INTERVAL   (SYSTEM_TICK_MS / 1000.0f)
 
 /**
  * @def Resistive_Load_PF

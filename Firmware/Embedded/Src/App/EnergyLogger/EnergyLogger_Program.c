@@ -197,6 +197,7 @@ void App_EnergyLogger_Task(void)
 {
     /* Using a static counter to mimic the batch write behavior */
     static uint8_t sampleCounter = 0;
+    static uint8_t flushPending = 0;
     
     sampleCounter++;
     
@@ -204,10 +205,23 @@ void App_EnergyLogger_Task(void)
     if(sampleCounter >= N_SAMPLES_TO_EEPROM)
     {
         sampleCounter = 0;
-        /* Flush one entry per call to avoid long blocking operations */
+        flushPending = 1;
+    }
+
+    /* Flush one record per tick to avoid long blocking */
+    if (flushPending)
+    {
         if (EnergyRAM.count > 0)
         {
             App_EnergyLogger_StoreToEEPROM();
+            if (EnergyRAM.count == 0)
+            {
+                flushPending = 0;
+            }
+        }
+        else
+        {
+            flushPending = 0;
         }
     }
 }

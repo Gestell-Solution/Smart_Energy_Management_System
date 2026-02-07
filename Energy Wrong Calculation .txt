@@ -1,0 +1,32 @@
+Summary : System Calculates incorrect Energy 
+
+Expected Behavior: 
+
+   in Full Load line Power Equals nearly 5610w , with simple calculation
+   Energy = P * Time 
+  0.1kwh = (5610 * Time)/3600000  -> Time = 64 sec 
+
+so system consumes 0.1 KWH every 64 sec
+
+
+actual behavior : system reads energy in an untraceable way or Hardly traceable 
+
+0.1kwh at 1.5 min (90 sec)
+0.2kwh at 4   min (240 sec)
+0.3kwh at 7   min (420 sec)
+0.4kwh at 10  min (600 sec) although it should be 0.9~1 kwh
+
+ ## Suggested solution : indicating the While loop Frequency to use it as a reciprocal of time (1/time)
+
+note : since the project runs with interrupt system frequency varies
+
+### suggested steps to find the Freq ###
+
+case 1 : Free running Frequency calculation (use dio driver and oscilloscope or logic analyzer) to find frequency of system while sending no commands just the system running in full load (send only 4 commands to turn relays on)
+
+case 2 : Heavy commands send random and as many as possible number of commands while trying to calculate Frequency 
+
+finally : find the average of system freq at cases 1 & 2 and use it to find as the reciprocal of time
+
+
+Energy = P * time = p*(1/Frequency)

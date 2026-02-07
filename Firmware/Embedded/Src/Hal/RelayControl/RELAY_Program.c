@@ -26,6 +26,16 @@
 #include "RELAY_Private.h"
 #include "../../Mcal/DIO/DIO_Interface.h"
 #include "../../Common/SystemDataManager/SystemDataManager.h"
+#include "../../App/ProtectionManager/ProtectionManager_Private.h"
+
+/*==========================================================================
+ *                                  Externed Global Var
+ * ==========================================================================
+ */
+
+extern uint8_t Protection_State;
+
+
 
 /*============================================================================
  *                                 Function Definitions
@@ -74,6 +84,10 @@ void hRelay_Init(uint8_t relayId)
  */
 void hRelay_On(uint8_t relayId)
 {
+  if (Protection_State == Safe)
+  {
+   
+  
     switch (relayId)
     {
     case hRELAY_0:
@@ -95,6 +109,11 @@ void hRelay_On(uint8_t relayId)
     default:
         break;
     }    
+}
+else
+{
+    /* Do not turn ON relay if in Danger state */
+}
 }
 
 /**

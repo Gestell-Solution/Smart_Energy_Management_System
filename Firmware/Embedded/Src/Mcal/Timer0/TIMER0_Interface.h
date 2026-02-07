@@ -47,11 +47,13 @@ void mTIMER0_Delay_ms(uint32_t delay_ms);
  * @fn         mTIMER0_StartDelay
  * @brief      Starts a non-blocking delay using Timer0 with a callback.
  * @details    Configures Timer0 to generate a delay in milliseconds. When the delay
- *             is complete, the provided callback function is executed from the ISR context.
+ *             is complete, the provided callback function is executed from the main context
+ *             via mTIMER0_Dispatch().
  * @param      delay_ms Duration of the delay in milliseconds.
  * @param      callback Pointer to the function to be called when the delay ends.
  * @return     void
- * @warning    The callback function must be short and fast, as it runs inside the ISR.
+ * @warning    The callback function should be short and fast; it runs cooperatively
+ *             in the main loop when mTIMER0_Dispatch() is called.
  * @note       Timer0 must be initialized using mTIMER0_Init() before calling this.
  */
 void mTIMER0_StartDelay(uint32_t delay_ms, void (*callback)(void));
@@ -65,6 +67,15 @@ void mTIMER0_StartDelay(uint32_t delay_ms, void (*callback)(void));
  * @note       This function is part of the non-blocking delay mechanism.
  */
 void mTIMER0_TickHandler(void);
+
+/**
+ * @fn         mTIMER0_Dispatch
+ * @brief      Executes ready task callbacks in main context.
+ * @details    Iterates scheduled tasks and runs callbacks whose delay has elapsed.
+ *             This function must be called periodically from the main loop.
+ * @return     void
+ */
+void mTIMER0_Dispatch(void);
 /**
  * @fn         __vector_10(void)
  * @brief      ISR Function 

@@ -53,7 +53,8 @@ for (int i = 0; i < T0_ScheduledTasksNum; i++)
                 Timer0_TasksList[i].Remaining_Ticks=delay_ms;
                 Timer0_TasksList[i].Delaying=delay_ms;
                 // Timer0_TasksList[i].TaskID=i;
-                Timer0_TasksList[i].Active=1;  
+                Timer0_TasksList[i].Active=1;
+                Timer0_TasksList[i].Ready=0;
                 break;      
         }
         
@@ -71,10 +72,10 @@ void mTIMER0_TickHandler(void)
                 }
                 if (Timer0_TasksList[i].Active&&Timer0_TasksList[i].Remaining_Ticks==0)
                 {
-                                if (Timer0_TasksList[i].Callback!=Null)
-                                {
-                                        Timer0_TasksList[i].Callback();
-                                }
+                        if (Timer0_TasksList[i].Ready < 0xFF)
+                        {
+                                Timer0_TasksList[i].Ready++;
+                        }
                         Timer0_TasksList[i].Remaining_Ticks=Timer0_TasksList[i].Delaying;
                 }
                 
@@ -82,6 +83,21 @@ void mTIMER0_TickHandler(void)
         }
                 
 }                                     
+
+void mTIMER0_Dispatch(void)
+{
+        for (int i = 0; i < T0_ScheduledTasksNum; i++)
+        {
+                if (Timer0_TasksList[i].Active && Timer0_TasksList[i].Ready)
+                {
+                        Timer0_TasksList[i].Ready--;
+                        if (Timer0_TasksList[i].Callback != Null)
+                        {
+                                Timer0_TasksList[i].Callback();
+                        }
+                }
+        }
+}
 
 
 void __vector_10(void) {

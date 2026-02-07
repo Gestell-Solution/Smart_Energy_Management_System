@@ -48,50 +48,23 @@
  */
 
 #include "Common/Config.h"
-#include "Common/Macros.h"
 #include "Mcal/GIE/GIE_Interface.h"
-#include "App/MeasurementEngine/MeasurementEngine_Interface.h"
-#include "App/EnergyLogger/EnergyLogger_Interface.h"
+#include "Mcal/Timer0/TIMER0_Interface.h"
 #include "App/System_Controller/System_Controller_Interface.h"
-#include "App/CommunicationManager/App_CommManager.h"
-#include "App/DM_Driver/DisplayManager_Interface.h"
-#include "App/ProtectionManager/ProtectionManager_Interface.h"
-#include "Mcal/Timer1/TIMER1_Interface.h"
-#include "Common/SystemDataManager/SystemDataManager.h"
-#include <util/delay.h>
 
 int main(void)
 {
     /* 1. Initialize Mcal Modules */
-    
-    /* Timer 1 Initialization */
-    mTIMER1_Init();
-    /* Global Interrupt Enable */
+    mTIMER0_Init();
     mGIE_Enable();
-    
-    /* 2. Initialize Application via System Controller (central orchestrator) */
+
+    /* 2. Initialize Application Modules */
     App_SystemController_Init();
 
-    /* 3. Main Superloop (delegates to System Controller) */
-
-while (1)
+    /* 3. Main Superloop: cooperative scheduler */
+    while (1)
     {
-        /* Centralized update (Measurement -> Protection -> UI -> Log) */
-        App_SystemController_Update();
-
-        /* Communication processing remains in main loop */
-        App_CommManager_Task();
-        /* Periodic SystemData save to reduce EEPROM wear (every 60 seconds) */
-        static uint16_t s_saveCounter = 0;
-        s_saveCounter++;
-        if (s_saveCounter >= 600u) /* 600 * 100ms = 60s */
-        {
-            SystemData_PeriodicSaveIfDirty();
-            s_saveCounter = 0u;
-        }
-
-        /* Stability delay */
-        _delay_ms(100);
+        mTIMER0_Dispatch();
     }
     
     return 0;

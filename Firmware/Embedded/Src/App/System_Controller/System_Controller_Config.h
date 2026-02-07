@@ -12,17 +12,18 @@
 #ifndef SYSTEM_CONTROLLER_CONFIG_H
 #define SYSTEM_CONTROLLER_CONFIG_H
 #include <stdint.h>
+#include "../../Common/ProjectCfg.h"
 
 /**
  * @def     SchedulingTime
  * @brief
  */
-#define Scheduling_Time_sysController 100
+#define Scheduling_Time_sysController SYSTEM_TICK_MS
 /**
- * @def     SchedulingTime
- * @brief
+ * @def     RECOVERY_TIME_MS
+ * @brief   Recovery time in milliseconds.
  */
-#define RecoveryTime 1//miutes -> in real time =3
+#define RECOVERY_TIME_MS 60000u
 /**
  * @def     Second
  * @brief   500ms
@@ -35,6 +36,12 @@
 #define TimeThreshold 5 * Second
 
 #define RMS_Message_length 35
+
+/**
+ * @def     DISPLAY_UPDATE_MS
+ * @brief   Display refresh period in milliseconds.
+ */
+#define DISPLAY_UPDATE_MS 500u
 
 /**
  * @defgroup Modes
