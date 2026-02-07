@@ -10,16 +10,7 @@
 #ifndef _PM_PRIVATE_H_
 #define _PM_PRIVATE_H_
 
-/**
- * @def Danger
- * @brief Protection State when the system is in Danger
- */
-#define Danger 1
-/**
- * @def Safe
- * @brief Protection State when the system is Safe
- */
-#define Safe 0
+
 /**
  * @def EXT1_Macro
  * @brief EXTI Line used for the Reset Button

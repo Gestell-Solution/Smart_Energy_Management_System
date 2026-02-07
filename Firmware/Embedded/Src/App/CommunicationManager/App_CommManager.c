@@ -58,6 +58,8 @@ extern SystemState_t Status;
 
 /** @brief Global persistent system data (EEPROM-mirrored). */
 extern SystemData_t g_SystemData;
+
+extern uint8_t Protection_State; 
 /*============================================================================
  *                                 Helper Functions
  *============================================================================*/
@@ -349,6 +351,7 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
     switch (NonHeadered_frame[1])
     {
     // case SendToDashboard:
+        /* @todo */
     //     //     Comm_SendDashboardData();
     //     //     break;
     case GET_RMS_DATA:
@@ -356,6 +359,7 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
         break;
 
     case Get_Logged_DATA:
+        /* @bug*/
         // App_EnergyLogger_ReadLog(stringtoNumber(NonHeadered_frame), &Status.RamData);
         // App_CommManager_SendFrame((uint8_t *)"Done", SystemController.CmdID, 4);
         break;
@@ -368,14 +372,22 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
         break;
 
     case CuttOFF:
-        if (NonHeadered_frame[3])
+        if(Protection_State==Safe)
         {
-            hRelay_On(NonHeadered_frame[2]);
-        }else
-        {
-            hRelay_Off(NonHeadered_frame[2]);
+            if (NonHeadered_frame[3])
+            {
+                hRelay_On(NonHeadered_frame[2]);
+            }else
+            {
+                hRelay_Off(NonHeadered_frame[2]);
 
+            }
         }
+        else
+        {
+            /*Nothing*/
+        }
+
         
         break;
 

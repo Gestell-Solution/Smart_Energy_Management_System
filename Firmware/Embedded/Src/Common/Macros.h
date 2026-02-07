@@ -124,6 +124,16 @@
 
 /*****************************************************************************************************************************************************/
 
+/**
+ * @def Danger
+ * @brief Protection State when the system is in Danger
+ */
+#define Danger 1
+/**
+ * @def Safe
+ * @brief Protection State when the system is Safe
+ */
+#define Safe 0
 
 /**
  * @}
