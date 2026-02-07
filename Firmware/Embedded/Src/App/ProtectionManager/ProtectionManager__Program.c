@@ -269,7 +269,7 @@ void PM_Update()
                     Protection_State = Safe;
                     for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
                     {
-                         hRelay_On(Relay_id);
+                         hRelay_Off(Relay_id);
                     }
                     Buzzer_Off();
                     hRGB_SetState(RGB_GREEN);
