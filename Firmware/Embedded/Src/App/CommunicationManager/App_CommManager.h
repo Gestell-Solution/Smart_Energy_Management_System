@@ -41,8 +41,8 @@ typedef enum
  * @brief    This is for defining circular array to handle the data of the recieved Action
  * @{
  */
-/* Queue indices are internal to the communication manager implementation.
- * They are defined static in App_CommManager.c. Do not access directly. */
+uint8_t Comm_Front;
+uint8_t Comm_Rear;
 /**
  * @def   RearOfQueue
  * @brief Queue
