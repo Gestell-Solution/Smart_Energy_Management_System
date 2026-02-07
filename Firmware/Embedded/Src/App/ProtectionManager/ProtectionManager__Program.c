@@ -30,9 +30,8 @@
  */
 extern SystemData_t g_SystemData;
 
-/* Fix-007 Test Injection Current Variable for Main.c compatibility */
-float PM_Test_Current = 0.0f; 
-
+/* Test injection source when PM_USE_TEST_CURRENT is enabled. */
+float PM_Test_Current = 0.0f;
 
 /*============================================================================
  *                                 Private Variables
@@ -59,6 +58,42 @@ static volatile uint8_t PM_ResetRequested = 0;
 /*============================================================================
  *                                Helper Function 
  *============================================================================*/
+
+static float PM_ReadCurrent(void)
+{
+#if PM_USE_TEST_CURRENT
+     return PM_Test_Current;
+#else
+     return ME_GetCurrentRMS();
+#endif
+}
+
+static float PM_SanitizeCurrentLimit(uint16_t configuredLimit)
+{
+     if ((configuredLimit >= PM_MIN_OVERCURRENT_LIMIT) &&
+         (configuredLimit <= PM_MAX_OVERCURRENT_LIMIT))
+     {
+          return (float)configuredLimit;
+     }
+     return (float)Irms_Threshold;
+}
+
+static float PM_SanitizeVoltageLimit(uint16_t configuredLimit)
+{
+     if ((configuredLimit >= PM_MIN_OVERVOLTAGE_LIMIT) &&
+         (configuredLimit <= PM_MAX_OVERVOLTAGE_LIMIT))
+     {
+          return (float)configuredLimit;
+     }
+     return (float)Vrms_Threshold;
+}
+
+static void PM_SnapshotFault(float voltage, float current, float power)
+{
+     g_SystemData.Voltage_RMS = (uint16_t)voltage;
+     g_SystemData.Current_RMS = (uint16_t)current;
+     g_SystemData.Power = (uint16_t)power;
+}
 
 /* Fix-007 Helper to avoid repeat */
 static void PM_Trip_Action(void)
@@ -103,18 +138,22 @@ void PM_Init()
      hRGB_Init();            /* Initialize Status LED */
      DM_Init();              /* Initialize Display */
 
-    /* Fix-007 Turn ON Relays at startup (Start Safe) */
+    /* Startup relay policy is configurable from PM_STARTUP_CONNECT_LOADS. */
     for (uint8_t Relay_id = hRELAY_0; Relay_id <= hRELAY_3; Relay_id++)
     {
         hRelay_Init(Relay_id);
+#if PM_STARTUP_CONNECT_LOADS
+        hRelay_On(Relay_id);
+#else
         hRelay_Off(Relay_id);
+#endif
     }
 
      
      /* Configure External Interrupt for RESET button */
      mEXTI_Init(EXT1_Macro, EXT_RISING_EDGE);
-     mDIO_SetDirectionForPin(GroupD, PIN3, Input);
-     mDIO_WritePin(GroupD, PIN3, High); /* Enable Pull-up */
+     mDIO_SetDirectionForPin(Reset_BTN_Group, Reset_BTN_Pin, Input);
+     mDIO_WritePin(Reset_BTN_Group, Reset_BTN_Pin, High); /* Enable Pull-up */
      mEXTI_setCallback(EXT1_Macro, PM_Reset);
 
     /* Fix-007 Force Enable Global Interrupts */
@@ -123,6 +162,11 @@ void PM_Init()
      
      mADC_StartGroup();      /* Start ADC conversions */
      hRGB_SetState(RGB_GREEN); /* Default to Safe State */
+     DM_ShowProtectionState(Safe);
+     Buzzer_Off();
+     Protection_State = Safe;
+     PM_ResetRequested = 0u;
+     Fix_Check = Fixed;
 }
 
 /**
@@ -141,23 +185,34 @@ void PM_Init()
  */
 void PM_Update()
 {
-     static uint8_t overCurrentCounter = 0;
-     static uint8_t safeStableCounter = 0;
+     static uint8_t overCurrentCounter = 0u;
+     static uint8_t safeStableCounter = 0u;
 
-     /* Fix-007 Use Test Variable instead of Sensor for Logic Testing */
      float RMS_voltage_Read = ME_GetVoltageRMS();
      float Power_Read = ME_GetActivePower();
-     float RMS_Current_Read =ME_GetCurrentRMS();// We Can Replace ME_GetCurrentRMS(); by Varaible PM_Test for injecting 
-     //different values of current.
-     float currentLimit = (g_SystemData.OvercurrentLimit > 0u) ? (float)g_SystemData.OvercurrentLimit : (float)Irms_Threshold;
-     float voltageLimit = (g_SystemData.OvervoltageLimit > 0u) ? (float)g_SystemData.OvervoltageLimit : (float)Vrms_Threshold;
-     float powerLimit = (currentLimit > 0.0f && voltageLimit > 0.0f) ? (currentLimit * voltageLimit) : (float)P_Threshold;
+     float RMS_Current_Read = PM_ReadCurrent();
+     float currentLimit = PM_SanitizeCurrentLimit(g_SystemData.OvercurrentLimit);
+     float voltageLimit = PM_SanitizeVoltageLimit(g_SystemData.OvervoltageLimit);
+     float powerLimit = currentLimit * voltageLimit;
+     float currentClearLimit = currentLimit - PM_CURRENT_HYSTERESIS;
+
+     if (currentClearLimit < 0.0f)
+     {
+          currentClearLimit = 0.0f;
+     }
+
+     if (powerLimit <= 0.0f)
+     {
+          powerLimit = (float)P_Threshold;
+     }
      
      /* 1.Trip for Voltage or Power */
      if (RMS_voltage_Read > voltageLimit || Power_Read > powerLimit)
      {
           PM_Trip_Action();
-          safeStableCounter = 0;
+          PM_SnapshotFault(RMS_voltage_Read, RMS_Current_Read, Power_Read);
+          PM_ResetRequested = 0u;
+          safeStableCounter = 0u;
           return;
      }
 
@@ -165,8 +220,10 @@ void PM_Update()
      if (RMS_Current_Read >= (currentLimit * PM_SHORT_CIRCUIT_MULTIPLIER))
      {
           PM_Trip_Action();
+          PM_SnapshotFault(RMS_voltage_Read, RMS_Current_Read, Power_Read);
           overCurrentCounter = PM_TRIP_DELAY_TICKS; /* Max out counter */
-          safeStableCounter = 0;
+          PM_ResetRequested = 0u;
+          safeStableCounter = 0u;
           return;
      }
 
@@ -181,30 +238,32 @@ void PM_Update()
           if (overCurrentCounter >= PM_TRIP_DELAY_TICKS)
           {
                PM_Trip_Action();
-               
-               /* Snapshot fault values */
-               g_SystemData.Current_RMS = RMS_Current_Read;
+               PM_SnapshotFault(RMS_voltage_Read, RMS_Current_Read, Power_Read);
           }
-          safeStableCounter = 0;
+          PM_ResetRequested = 0u;
+          safeStableCounter = 0u;
+          return;
      }
-     else
+
+     if (RMS_Current_Read <= currentClearLimit)
      {
-          /* HYSTERESIS */
           if (overCurrentCounter > 0)
           {
                overCurrentCounter--;
           }
 
           /* Track stable-safe time before allowing reset */
-          if (safeStableCounter < PM_RESET_STABLE_TICKS)
+          if (safeStableCounter < PM_RESET_DELAY_TICKS)
           {
                safeStableCounter++;
+               PM_ResetRequested = 0u; /* Ignore early reset presses until stable window is done. */
+               return;
           }
 
           /* Apply reset only if requested and system is stable-safe */
-          if (PM_ResetRequested && (safeStableCounter >= PM_RESET_STABLE_TICKS))
+          if (PM_ResetRequested && (safeStableCounter >= PM_RESET_DELAY_TICKS))
           {
-               PM_ResetRequested = 0;
+               PM_ResetRequested = 0u;
                if (Protection_State == Danger)
                {
                     Protection_State = Safe;
@@ -216,9 +275,16 @@ void PM_Update()
                     hRGB_SetState(RGB_GREEN);
                     DM_ShowProtectionState(Safe);
                     Fix_Check = Fixed; /* Flag that reset was attempted/successful */
+                    overCurrentCounter = 0u;
+                    safeStableCounter = 0u;
                }
           }
+          return;
      }
+
+     /* Current is inside the hysteresis band: keep waiting and block reset. */
+     PM_ResetRequested = 0u;
+     safeStableCounter = 0u;
 }
 
 /**
@@ -245,7 +311,10 @@ uint8_t PM_IsTripped()
 void PM_Reset()
 {
      /* EXTI callback: only mark request. Actual reset is handled in PM_Update. */
-     PM_ResetRequested = 1;
+     if (Protection_State == Danger)
+     {
+          PM_ResetRequested = 1u;
+     }
 }
 
 #endif /* ProtectionManager == Enable */

@@ -98,9 +98,9 @@ void ME_Update(void)
 
     /* Energy accumulation: Energy (J) = Power (W) * Time (s) */
     ME_Energy += ME_Active_Power * ((float)deltaMs / 1000.0f);
-g_SystemData.Voltage_RMS = ME_Vrms;
-g_SystemData.Current_RMS = ME_Irms;
-g_SystemData.Power= ME_Active_Power;
+    g_SystemData.Voltage_RMS = ME_Vrms;
+    g_SystemData.Current_RMS = ME_Irms;
+    g_SystemData.Power = ME_Active_Power;
 }
 
 /**

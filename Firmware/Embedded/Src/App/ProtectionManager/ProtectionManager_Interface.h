@@ -68,6 +68,12 @@ uint8_t PM_IsTripped(void); // Check if system is currently in protection mode
  */
 void PM_Reset(void); // Restore normal operation
 
+/**
+ * @brief Test current input used when `PM_USE_TEST_CURRENT` is enabled.
+ * @details Allows logic testing without live sensor input.
+ */
+extern float PM_Test_Current;
+
 /** @} */
 
 

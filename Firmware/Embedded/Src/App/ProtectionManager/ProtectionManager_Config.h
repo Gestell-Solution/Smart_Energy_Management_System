@@ -11,6 +11,8 @@
 
 #ifndef _PM_CONFIG_H_
 #define _PM_CONFIG_H_
+
+#include "../../Common/ProjectCfg.h"
 /**
  * @def Vrms_Threshold
  * @brief Voltage RMS Threshold which if exceeded System Takes a Protection Action
@@ -41,11 +43,29 @@
 /* ================================================= */
 
 /**
+ * @def PM_TICKS_FROM_MS
+ * @brief Convert milliseconds to scheduler ticks (rounded up).
+ */
+#define PM_TICKS_FROM_MS(ms) (((ms) + (SYSTEM_TICK_MS - 1U)) / (SYSTEM_TICK_MS))
+
+/**
+ * @def PM_TRIP_DELAY_MS
+ * @brief Overload confirmation time before tripping.
+ */
+#define PM_TRIP_DELAY_MS         100U
+
+/**
+ * @def PM_RESET_DELAY_MS
+ * @brief Stable-safe time required before reset is accepted.
+ */
+#define PM_RESET_DELAY_MS        200U
+
+/**
  * @def PM_TRIP_DELAY_TICKS
  * @brief Number of update ticks required to confirm an Overload fault (Debounce).
- * @details Assuming update rate of 10ms: 10 ticks * 10ms = 100ms tolerance.
+ * @details Derived from `PM_TRIP_DELAY_MS` and `SYSTEM_TICK_MS`.
  */
-#define PM_TRIP_DELAY_TICKS      10
+#define PM_TRIP_DELAY_TICKS      PM_TICKS_FROM_MS(PM_TRIP_DELAY_MS)
 
 /**
  * @def PM_SHORT_CIRCUIT_MULTIPLIER
@@ -55,11 +75,42 @@
 #define PM_SHORT_CIRCUIT_MULTIPLIER  3
 
 /**
+ * @def PM_MIN_OVERVOLTAGE_LIMIT
+ * @brief Minimum accepted overvoltage setting from EEPROM/communication.
+ */
+#define PM_MIN_OVERVOLTAGE_LIMIT  100U
+
+/**
+ * @def PM_MAX_OVERVOLTAGE_LIMIT
+ * @brief Maximum accepted overvoltage setting from EEPROM/communication.
+ */
+#define PM_MAX_OVERVOLTAGE_LIMIT  400U
+
+/**
+ * @def PM_MIN_OVERCURRENT_LIMIT
+ * @brief Minimum accepted overcurrent setting from EEPROM/communication.
+ */
+#define PM_MIN_OVERCURRENT_LIMIT  1U
+
+/**
+ * @def PM_MAX_OVERCURRENT_LIMIT
+ * @brief Maximum accepted overcurrent setting from EEPROM/communication.
+ */
+#define PM_MAX_OVERCURRENT_LIMIT  100U
+
+/**
+ * @def PM_USE_TEST_CURRENT
+ * @brief Select current source for PM_Update.
+ * @details 0: use sensor (`ME_GetCurrentRMS`), 1: use `PM_Test_Current`.
+ */
+#define PM_USE_TEST_CURRENT       0
+
+/**
  * @def PM_RESET_DELAY_TICKS
  * @brief Number of ticks required for system stability before reset is allowed.
- * @details 20 ticks * 10ms = 200ms. Ensures the fault condition has truly passed or stabilized.
+ * @details Derived from `PM_RESET_DELAY_MS` and `SYSTEM_TICK_MS`.
  */
-#define PM_RESET_DELAY_TICKS     20      
+#define PM_RESET_DELAY_TICKS     PM_TICKS_FROM_MS(PM_RESET_DELAY_MS)
 
 /**
  * @def PM_CURRENT_HYSTERESIS
@@ -69,10 +120,16 @@
 #define PM_CURRENT_HYSTERESIS    1.0f    
 
 /**
- * @def PM_RESET_STABLE_TICKS
- * @brief Number of stable-safe ticks required before allowing a reset.
- * @details With SYSTEM_TICK_MS=100, 5 ticks = 500ms stability.
+ * @def PM_STARTUP_CONNECT_LOADS
+ * @brief Startup relay policy.
+ * @details 1: connect loads at startup, 0: keep loads disconnected.
  */
-#define PM_RESET_STABLE_TICKS    5
+#define PM_STARTUP_CONNECT_LOADS  0
+
+/**
+ * @def PM_RESET_STABLE_TICKS
+ * @brief Backward-compatible alias for reset stability ticks.
+ */
+#define PM_RESET_STABLE_TICKS    PM_RESET_DELAY_TICKS
 
 #endif /* _PM_CONFIG_H_ */

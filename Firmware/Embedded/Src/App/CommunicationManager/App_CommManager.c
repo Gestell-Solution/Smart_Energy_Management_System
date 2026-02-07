@@ -31,6 +31,7 @@
 #include "../../Common/SystemDataManager/SystemDataManager.h"
 #include "../../Hal/RelayControl/RELAY_Interface.h"
 #include "../../Hal/RelayControl/RELAY_Config.h"
+#include "../ProtectionManager/ProtectionManager_Config.h"
 /*============================================================================
  *                                 Global Variables
  *============================================================================*/
@@ -60,6 +61,59 @@ extern SystemState_t Status;
 extern SystemData_t g_SystemData;
 
 extern uint8_t Protection_State; 
+
+static uint16_t Comm_ClampU16(uint16_t value, uint16_t minValue, uint16_t maxValue)
+{
+    if (value < minValue)
+    {
+        return minValue;
+    }
+    if (value > maxValue)
+    {
+        return maxValue;
+    }
+    return value;
+}
+
+static void Comm_UpdateOvercurrentLimit(uint16_t requestedLimit)
+{
+    /* Keep current setting if payload is zero/invalid. */
+    if (requestedLimit == 0u)
+    {
+        return;
+    }
+
+    uint16_t sanitizedLimit = Comm_ClampU16(
+        requestedLimit,
+        (uint16_t)PM_MIN_OVERCURRENT_LIMIT,
+        (uint16_t)PM_MAX_OVERCURRENT_LIMIT);
+
+    if (g_SystemData.OvercurrentLimit != sanitizedLimit)
+    {
+        g_SystemData.OvercurrentLimit = sanitizedLimit;
+        SystemData_SaveToEEPROM();
+    }
+}
+
+static void Comm_UpdateOvervoltageLimit(uint16_t requestedLimit)
+{
+    /* Keep current setting if payload is zero/invalid. */
+    if (requestedLimit == 0u)
+    {
+        return;
+    }
+
+    uint16_t sanitizedLimit = Comm_ClampU16(
+        requestedLimit,
+        (uint16_t)PM_MIN_OVERVOLTAGE_LIMIT,
+        (uint16_t)PM_MAX_OVERVOLTAGE_LIMIT);
+
+    if (g_SystemData.OvervoltageLimit != sanitizedLimit)
+    {
+        g_SystemData.OvervoltageLimit = sanitizedLimit;
+        SystemData_SaveToEEPROM();
+    }
+}
 /*============================================================================
  *                                 Helper Functions
  *============================================================================*/
@@ -129,9 +183,33 @@ void Comm_SendMobileData(void)
 void Comm_SendDeviceInfo(void)
 {
     uint8_t devPayload[7];
+    uint8_t hasCorrection = 0u;
+
+    uint16_t vmax = Comm_ClampU16(
+        g_SystemData.OvervoltageLimit,
+        (uint16_t)PM_MIN_OVERVOLTAGE_LIMIT,
+        (uint16_t)PM_MAX_OVERVOLTAGE_LIMIT);
+    uint16_t imax = Comm_ClampU16(
+        g_SystemData.OvercurrentLimit,
+        (uint16_t)PM_MIN_OVERCURRENT_LIMIT,
+        (uint16_t)PM_MAX_OVERCURRENT_LIMIT);
+
+    if (g_SystemData.OvervoltageLimit != vmax)
+    {
+        g_SystemData.OvervoltageLimit = vmax;
+        hasCorrection = 1u;
+    }
+    if (g_SystemData.OvercurrentLimit != imax)
+    {
+        g_SystemData.OvercurrentLimit = imax;
+        hasCorrection = 1u;
+    }
+    if (hasCorrection)
+    {
+        SystemData_SaveToEEPROM();
+    }
+
     devPayload[0] = g_SystemData.DeviceID;
-    uint16_t vmax = g_SystemData.OvervoltageLimit;
-    uint16_t imax = g_SystemData.OvercurrentLimit;
     uint16_t pmax = (uint16_t)(vmax * imax);
     devPayload[1] = (uint8_t)(vmax >> 8);
     devPayload[2] = (uint8_t)(vmax & 0xFF);
@@ -396,11 +474,11 @@ void App_CommManager_ProcessCommand(uint8_t *NonHeadered_frame)
         break;
 
     case SetOverLoad_Current_Limit:
-        g_SystemData.OvercurrentLimit = stringtoNumber(NonHeadered_frame);
+        Comm_UpdateOvercurrentLimit(stringtoNumber(NonHeadered_frame));
         break;
 
     case SetOverLoad_Voltage_Limit:
-        g_SystemData.OvervoltageLimit = stringtoNumber(NonHeadered_frame);
+        Comm_UpdateOvervoltageLimit(stringtoNumber(NonHeadered_frame));
         break;
 
     case SHUTDOWN_Device:
