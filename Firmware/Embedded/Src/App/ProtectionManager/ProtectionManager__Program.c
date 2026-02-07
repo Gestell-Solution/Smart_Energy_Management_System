@@ -44,7 +44,7 @@ float PM_Test_Current = 0.0f;
  * - `Safe` (0): Normal operation.
  * - `Danger` (1): A fault condition is active.
  */
- uint8_t Protection_State = Safe;
+static uint8_t Protection_State = Safe;
 
 /**
  * @brief Fix check status flag.
