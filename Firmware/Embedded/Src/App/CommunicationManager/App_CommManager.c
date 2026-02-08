@@ -75,6 +75,20 @@ static uint16_t Comm_ClampU16(uint16_t value, uint16_t minValue, uint16_t maxVal
     return value;
 }
 
+static uint16_t Comm_ResolvePowerLimitForInfo(uint16_t voltageLimit, uint16_t currentLimit)
+{
+#if (PM_POWER_LIMIT_MODE == PM_POWER_LIMIT_MODE_PRODUCT)
+    uint32_t derivedPowerLimit = (uint32_t)voltageLimit * (uint32_t)currentLimit;
+    if (derivedPowerLimit > 0xFFFFu)
+    {
+        return 0xFFFFu;
+    }
+    return (uint16_t)derivedPowerLimit;
+#else
+    return (uint16_t)P_Threshold;
+#endif
+}
+
 static void Comm_UpdateOvercurrentLimit(uint16_t requestedLimit)
 {
     /* Keep current setting if payload is zero/invalid. */
@@ -210,7 +224,7 @@ void Comm_SendDeviceInfo(void)
     }
 
     devPayload[0] = g_SystemData.DeviceID;
-    uint16_t pmax = (uint16_t)(vmax * imax);
+    uint16_t pmax = Comm_ResolvePowerLimitForInfo(vmax, imax);
     devPayload[1] = (uint8_t)(vmax >> 8);
     devPayload[2] = (uint8_t)(vmax & 0xFF);
     devPayload[3] = (uint8_t)(imax >> 8);

@@ -95,6 +95,18 @@ static void PM_SnapshotFault(float voltage, float current, float power)
      g_SystemData.Power = (uint16_t)power;
 }
 
+static float PM_ResolvePowerLimit(float currentLimit, float voltageLimit)
+{
+#if (PM_POWER_LIMIT_MODE == PM_POWER_LIMIT_MODE_PRODUCT)
+     float derivedPowerLimit = currentLimit * voltageLimit;
+     if (derivedPowerLimit > 0.0f)
+     {
+          return derivedPowerLimit;
+     }
+#endif
+     return (float)P_Threshold;
+}
+
 /* Fix-007 Helper to avoid repeat */
 static void PM_Trip_Action(void)
 {
@@ -187,13 +199,17 @@ void PM_Update()
 {
      static uint8_t overCurrentCounter = 0u;
      static uint8_t safeStableCounter = 0u;
+#if PM_ENABLE_POWER_TRIP
+     static uint8_t overPowerCounter = 0u;
+#endif
 
      float RMS_voltage_Read = ME_GetVoltageRMS();
      float Power_Read = ME_GetActivePower();
      float RMS_Current_Read = PM_ReadCurrent();
      float currentLimit = PM_SanitizeCurrentLimit(g_SystemData.OvercurrentLimit);
      float voltageLimit = PM_SanitizeVoltageLimit(g_SystemData.OvervoltageLimit);
-     float powerLimit = currentLimit * voltageLimit;
+     float powerLimit = PM_ResolvePowerLimit(currentLimit, voltageLimit);
+     float powerClearLimit = powerLimit - PM_POWER_HYSTERESIS_W;
      float currentClearLimit = currentLimit - PM_CURRENT_HYSTERESIS;
 
      if (currentClearLimit < 0.0f)
@@ -201,18 +217,21 @@ void PM_Update()
           currentClearLimit = 0.0f;
      }
 
-     if (powerLimit <= 0.0f)
+     if (powerClearLimit < 0.0f)
      {
-          powerLimit = (float)P_Threshold;
+          powerClearLimit = 0.0f;
      }
      
-     /* 1.Trip for Voltage or Power */
-     if (RMS_voltage_Read > voltageLimit || Power_Read > powerLimit)
+     /* 1.Trip for Voltage (Immediate) */
+     if (RMS_voltage_Read > voltageLimit)
      {
           PM_Trip_Action();
           PM_SnapshotFault(RMS_voltage_Read, RMS_Current_Read, Power_Read);
           PM_ResetRequested = 0u;
           safeStableCounter = 0u;
+#if PM_ENABLE_POWER_TRIP
+          overPowerCounter = 0u;
+#endif
           return;
      }
 
@@ -224,6 +243,9 @@ void PM_Update()
           overCurrentCounter = PM_TRIP_DELAY_TICKS; /* Max out counter */
           PM_ResetRequested = 0u;
           safeStableCounter = 0u;
+#if PM_ENABLE_POWER_TRIP
+          overPowerCounter = 0u;
+#endif
           return;
      }
 
@@ -242,8 +264,39 @@ void PM_Update()
           }
           PM_ResetRequested = 0u;
           safeStableCounter = 0u;
+#if PM_ENABLE_POWER_TRIP
+          overPowerCounter = 0u;
+#endif
           return;
      }
+
+#if PM_ENABLE_POWER_TRIP
+     /* 4. Overpower Protection (Debounced) */
+     if (Power_Read > powerLimit)
+     {
+          if (overPowerCounter < PM_POWER_TRIP_DELAY_TICKS)
+          {
+               overPowerCounter++;
+          }
+
+          if (overPowerCounter >= PM_POWER_TRIP_DELAY_TICKS)
+          {
+               PM_Trip_Action();
+               PM_SnapshotFault(RMS_voltage_Read, RMS_Current_Read, Power_Read);
+          }
+          PM_ResetRequested = 0u;
+          safeStableCounter = 0u;
+          return;
+     }
+
+     if (Power_Read <= powerClearLimit)
+     {
+          if (overPowerCounter > 0u)
+          {
+               overPowerCounter--;
+          }
+     }
+#endif
 
      if (RMS_Current_Read <= currentClearLimit)
      {
@@ -277,6 +330,9 @@ void PM_Update()
                     Fix_Check = Fixed; /* Flag that reset was attempted/successful */
                     overCurrentCounter = 0u;
                     safeStableCounter = 0u;
+#if PM_ENABLE_POWER_TRIP
+                    overPowerCounter = 0u;
+#endif
                }
           }
           return;

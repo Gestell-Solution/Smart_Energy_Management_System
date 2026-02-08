@@ -28,6 +28,27 @@
  * @brief Power Threshold which if exceeded System Takes a Protection Action
  */
 #define P_Threshold 7500
+
+/**
+ * @def PM_POWER_LIMIT_MODE_FIXED
+ * @brief Use fixed configured power threshold (`P_Threshold`).
+ */
+#define PM_POWER_LIMIT_MODE_FIXED   0U
+
+/**
+ * @def PM_POWER_LIMIT_MODE_PRODUCT
+ * @brief Derive power threshold from current*voltage configured limits.
+ */
+#define PM_POWER_LIMIT_MODE_PRODUCT 1U
+
+/**
+ * @def PM_POWER_LIMIT_MODE
+ * @brief Active power limit mode selector.
+ * @details
+ * - `PM_POWER_LIMIT_MODE_FIXED`   -> uses `P_Threshold`.
+ * - `PM_POWER_LIMIT_MODE_PRODUCT` -> uses `OvercurrentLimit * OvervoltageLimit`.
+ */
+#define PM_POWER_LIMIT_MODE PM_POWER_LIMIT_MODE_FIXED
 /**
  *@def Reset_BTN_Group
  *@brief Reset Button Group/Port
@@ -66,6 +87,33 @@
  * @details Derived from `PM_TRIP_DELAY_MS` and `SYSTEM_TICK_MS`.
  */
 #define PM_TRIP_DELAY_TICKS      PM_TICKS_FROM_MS(PM_TRIP_DELAY_MS)
+
+/**
+ * @def PM_ENABLE_POWER_TRIP
+ * @brief Enable/disable active-power trip condition.
+ * @details
+ * - `1` -> power trip enabled.
+ * - `0` -> ignore power trip (debug mode).
+ */
+#define PM_ENABLE_POWER_TRIP     1U
+
+/**
+ * @def PM_POWER_TRIP_DELAY_MS
+ * @brief Overpower confirmation time before tripping.
+ */
+#define PM_POWER_TRIP_DELAY_MS   300U
+
+/**
+ * @def PM_POWER_TRIP_DELAY_TICKS
+ * @brief Number of ticks required to confirm overpower fault.
+ */
+#define PM_POWER_TRIP_DELAY_TICKS PM_TICKS_FROM_MS(PM_POWER_TRIP_DELAY_MS)
+
+/**
+ * @def PM_POWER_HYSTERESIS_W
+ * @brief Power drop value required to decay overpower counter.
+ */
+#define PM_POWER_HYSTERESIS_W    150.0f
 
 /**
  * @def PM_SHORT_CIRCUIT_MULTIPLIER
